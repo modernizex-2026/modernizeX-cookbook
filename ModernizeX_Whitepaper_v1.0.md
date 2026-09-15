@@ -1,6 +1,6 @@
 # ModernizeX: A Grounded, Air-Gapped Static-Analysis-and-LLM Pipeline for End-to-End COBOL-to-Java Modernization
 
-**Authors:** ModernizeX — Legacy Modernization Group, EDX Organization
+**Authors:** ModernizeX — Legacy Modernization Group, ModernizeX Organization
 **Version:** 1.0 · **Date:** 2026-07-25
 **Status:** Working Paper
 

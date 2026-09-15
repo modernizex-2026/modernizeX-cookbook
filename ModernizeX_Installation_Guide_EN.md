@@ -69,7 +69,7 @@ The installer opens a welcome screen summarizing what will be installed. Click *
 
 ### Step 2 — License
 
-Read the **Software License Agreement** (the **ModernizeX Commercial License**, © 2026 EDX Organization). Click **Continue**.
+Read the **Software License Agreement** (the **ModernizeX Commercial License**, © 2026 ModernizeX Organization). Click **Continue**.
 
 <img src="installation_assets/02-license.png" width="620" />
 
@@ -242,7 +242,7 @@ rm -rf ~/Library/Application\ Support/ModernizeX
 | Version | `dev-621e257` |
 | Embedded JRE | OpenJDK **21.0.7** (arm64 + x86_64) |
 | Backend / frontend ports | `3438` / `3439` |
-| License | ModernizeX Commercial License — © 2026 EDX Organization (see [LICENSE](LICENSE)) |
+| License | ModernizeX Commercial License — © 2026 ModernizeX Organization (see [LICENSE](LICENSE)) |
 | Minimum macOS | 13.0 |
 
 ---

@@ -69,7 +69,7 @@ ModernizeX は、レガシー COBOL システムを解析・リバースエン�
 
 ### ステップ 2 — 使用許諾
 
-**ソフトウェア利用許諾契約**（**ModernizeX 商用ライセンス**、© 2026 EDX Organization）を確認します。**続行** をクリックします。
+**ソフトウェア利用許諾契約**（**ModernizeX 商用ライセンス**、© 2026 ModernizeX Organization）を確認します。**続行** をクリックします。
 
 <img src="installation_assets/02-license.png" width="620" />
 
@@ -242,7 +242,7 @@ rm -rf ~/Library/Application\ Support/ModernizeX
 | バージョン | `dev-621e257` |
 | 組み込み JRE | OpenJDK **21.0.7**（arm64 + x86_64） |
 | バックエンド／フロントエンド ポート | `3438` / `3439` |
-| ライセンス | ModernizeX 商用ライセンス — © 2026 EDX Organization（[LICENSE](LICENSE) 参照） |
+| ライセンス | ModernizeX 商用ライセンス — © 2026 ModernizeX Organization（[LICENSE](LICENSE) 参照） |
 | 最小 macOS | 13.0 |
 
 ---

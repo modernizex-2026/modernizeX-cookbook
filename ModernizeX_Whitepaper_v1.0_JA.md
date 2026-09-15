@@ -1,6 +1,6 @@
 # ModernizeX: エンドツーエンドの COBOL→Java モダナイゼーションのための、グラウンディングされたエアギャップ対応の静的解析＋LLM パイプライン
 
-**著者:** ModernizeX — レガシーモダナイゼーショングループ、EDX Organization
+**著者:** ModernizeX — レガシーモダナイゼーショングループ、ModernizeX Organization
 **バージョン:** 1.0 · **日付:** 2026-07-25
 **ステータス:** ワーキングペーパー
 
