@@ -1,5 +1,7 @@
 # ModernizeX
 
+**English** | [日本語](README_JA.md)
+
 **AIR-GAPPED COBOL MODERNIZATION**
 
 > ## Modernize your COBOL systems — without a line of code leaving your network.
