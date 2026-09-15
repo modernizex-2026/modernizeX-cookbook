@@ -1,7 +1,7 @@
 # ModernizeX — エンドユーザーガイド
 
 **製品:** ModernizeX — COBOL → Java モダナイゼーションプラットフォーム
-**ドキュメントバージョン:** 2.1 · **日付:** 2026-09-15
+**ドキュメントバージョン:** 2.1 · **作成日付:** 2026-09-15
 
 > 本ガイドは、稼働中の ModernizeX アプリケーション（ビルド `2.0-refactored`）の実際の UI を反映しています。すべてのスクリーンショットは稼働中のアプリから直接取得したものです。
 
@@ -30,7 +30,7 @@
 19. [Validation — Integration Test](#19-validation--integration-test)
 20. [Settings](#20-settings)
 21. [Help](#21-help)
-22. [納品とプロジェクトのクローズアウト](#22-delivery--project-closeout)
+22. [納品・プロジェクトクローズアウト](#22-delivery--project-closeout)
 - [付録 A — 用語集](#appendix-a--glossary)
 - [付録 B — キーボードショートカット](#appendix-b--keyboard-shortcuts)
 - [付録 C — デプロイと AI プロバイダー](#appendix-c--deployment--ai-provider)
@@ -41,11 +41,11 @@
 
 ### 1.1. ModernizeX とは
 
-ModernizeX は、COBOL/CICS/JCL システム（DB2/SQL、DL/I、MQ、VSAM/QSAM を含む）を Java（Spring Boot）へモダナイズするための Web プラットフォームです。単純な LLM によるコード翻訳とは異なり、ModernizeX は **まずコードベース全体を静的に解析** し（AST、コールグラフ、データフロー、依存関係グラフ）、その後で初めて AI を用いてドキュメントを生成し、コードをリファクタリングします。これは決定論的に復元された事実に基づいています。その結果、次のことが実現されます。
+ModernizeX は、COBOL/CICS/JCL システム（DB2/SQL、DL/I、MQ、VSAM/QSAM を含む）を Java（Spring Boot）へモダナイズするための Web プラットフォームです。単純な LLM によるコード翻訳とは異なり、ModernizeX は **まずコードベース全体を静的に解析** し（AST、コールグラフ、データフロー、依存関係グラフ）、その後で、決定論的に復元された事実に基づいて、初めて AI を用いてドキュメントを生成し、コードをリファクタリングします。その結果、次のことが実現されます。
 
 - 変数名やプログラム名のハルシネーション（幻覚）が発生せず、元の業務ロジックが保持されます。
-- すべての Java コンポーネントは、元の COBOL プログラムまで **トレース（追跡）** 可能です。
-- 新システムの動作は、Unit Test / Integration Test を通じて検証されます。
+- すべての Java コンポーネントは、元の COBOL プログラムまで **トレース** 可能です。
+- 新システムの動作は、単体テスト／結合テストを通じて検証されます。
 - **オンプレミス** デプロイをサポートしており、顧客のソースコードが顧客のインフラ外に出ることはありません（付録 C を参照）。
 
 ### 1.2. ModernizeX を利用するユーザー
@@ -55,7 +55,7 @@ ModernizeX は、COBOL/CICS/JCL システム（DB2/SQL、DL/I、MQ、VSAM/QSAM �
 | **Project Manager** | プロジェクトの作成、Dashboard の監視、レポートのエクスポート |
 | **Migration Architect** | スタックおよび AI プロバイダーの設定、AS-IS/TO-BE ドキュメントのレビューと承認 |
 | **Developer / Migration Engineer** | パイプラインステップの実行、生成された Java のレビュー、変換に関する問題の解決 |
-| **QA Engineer** | Unit Test / Integration Test の生成と実行、差分の分析 |
+| **QA Engineer** | 単体テスト・結合テストの生成と実行、差分の分析 |
 | **Stakeholder / Customer** | Dashboard の閲覧、成果物のダウンロード |
 
 ### 1.3. エンドツーエンドのワークフロー
@@ -96,14 +96,14 @@ Delivery
 
 ### 1.5. トップバーとステータスカラー
 
-トップバーには、現在位置を示す **breadcrumb（パンくずリスト）**、**Search projects** ボックス（ショートカット `Ctrl+K`）、**言語スイッチャー**（EN ⇄ JA — UI 全体を英語と日本語で切り替えます）、**テーマトグル**（ダーク/ライト）、およびユーザーメニューが含まれます。
+トップバーには、現在位置を示す **パンくずリスト**、**Search projects** ボックス（ショートカット `Ctrl+K`）、**言語スイッチャー**（EN ⇄ JA — UI 全体を英語と日本語で切り替えます）、**テーマトグル**（ダーク/ライト）、およびユーザーメニューが含まれます。
 
 ステータスピル（状態表示バッジ）は、アプリ全体を通じて一貫した色を使用します。
 
 | 色 | 意味 |
 |---|---|
 | 🟢 緑 | 完了 / 合格（`COMPLETED`、`MIGRATED`、`SUCCESS`） |
-| 🔵 青 | アセスメント完了・マイグレーション進行中（`ASSESSED`） |
+| 🔵 青 | 評価完了・移行進行中（`ASSESSED`） |
 | 🟡 アンバー | 実行中 / 要レビュー（`RUNNING`、`WARN`） |
 | 🔴 赤 | エラー / ブロック（`FAILED`） |
 | ⚪ グレー | 未開始 / 対象外（`NOT STARTED`、`SKIPPED`、`PENDING`） |
@@ -116,7 +116,7 @@ Delivery
 
 ![Dashboard — マルチプロジェクト概要](ModernizeX_EndUser_Guide_assets/01-dashboard.png)
 
-Dashboard は *マルチプロジェクトのマイグレーション概要* 画面で、次の内容を表示します。
+Dashboard は *複数プロジェクトの移行状況* 画面で、次の内容を表示します。
 
 - **サマリータイル:** **Active Projects** および **Total LoC Migrated**。
 - **All projects** — 2 つの表示モード **Grid** / **Table** を備えたプロジェクト一覧（右上のトグルで切り替え）。
@@ -175,7 +175,7 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 
 ### 4.2. サマリーメトリクスバー
 
-パイプラインカードのすぐ下には、メトリクスの帯があります。**Source Files**、**Total LOC**、**Java LOC**、**Converted**、**Unresolved Refs**、**External Refs**。
+パイプラインカードのすぐ下には、メトリクスの帯があります。**Source Files**、**Total LOC**、**Java LOC**、**Converted**、**Unresolved Refs**、**External Refs** が含まれます。
 
 ### 4.3. 詳細タブ
 
@@ -183,7 +183,7 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 
 **OVERVIEW タブ** — コードベースの資産内訳: Total、Programs、Copybooks、BMS Maps、JCL Jobs、BAT Scripts。
 
-**COBOL タブ** — ステップ数（Lines-of-Code）の統計:
+**COBOL タブ** — コード行数の統計:
 
 ![Project Overview — COBOL タブ](ModernizeX_EndUser_Guide_assets/04-overview-tab-cobol.png)
 
@@ -202,7 +202,7 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 
 ![Project Overview — RISKS タブ](ModernizeX_EndUser_Guide_assets/06-overview-tab-risks.png)
 
-- **Unresolved Refs** — 解決できなかった参照（対応が必要）。
+- **Unresolved Refs** — 解決できなかった参照（注意が必要）。
 - **External Refs** — 外部コンポーネントへの参照。
 
 **METADATA タブ** — スナップショットの技術的な詳細:
@@ -226,7 +226,7 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 - **DL/I:** DL/I（IMS）を使用するプログラムの一覧。
 - **MQ:** MQ キューを使用するプログラムの一覧。
 
-ターゲットスキーマの生成やデータマイグレーションを行う前に、この画面でデータアクセスの範囲を把握します。ファイルのみで構成されるシステム（VSAM/QSAM のみ）の場合、これらの数値が 0 になるのは正常です。
+ターゲットスキーマの生成やデータ移行を行う前に、この画面でデータアクセスの範囲を明確にします。ファイルのみで構成されるシステム（VSAM/QSAM のみ）の場合、これらの数値が 0 になるのは正常です。
 
 ---
 
@@ -242,7 +242,7 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 - ファイル名、DSN、またはプログラム名で一覧を絞り込むための **検索ボックス**。
 - **ファイル詳細テーブル**（列: **Name**、**DSN**、**Organization**（INDEXED/SEQUENTIAL など）、**Access Mode**（DYNAMIC/SEQUENTIAL/RANDOM など）、**Record Key**、**Programs**（ファイルを使用するプログラム）、**Readers**、**Writers**）。
 
-この画面を使って、VSAM データマイグレーションの範囲を把握します（第 17 章を参照）。
+この画面を使って、VSAM データ移行の範囲を把握します（セクション 17 を参照）。
 
 ---
 
@@ -258,7 +258,7 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 
 1. **Program Type** でフィルタリングします: **All**、**batch**、または **screen**（件数付き）。
 2. **Program** ドロップダウンでプログラムを選択します（例: `MENU00`）。
-3. 分析の方向を選択します。
+3. 解析の方向を選択します。
    - **Calls made by** — 選択したプログラムから *呼び出される* プログラム。
    - **Calls made to** — 選択したプログラムを *呼び出す* プログラム。
 4. **Tree** と **Graph** の表示モードを切り替えます。Tree モードでは、各エッジに呼び出しタイプ（`CALL`）のラベルが付き、再帰的な呼び出し連鎖には **CYCLE** バッジが表示されます。
@@ -273,7 +273,7 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 - **Legend:** Program、Shared、Also-root、External、Unresolved。
 - **ノードをクリック** すると、右側のパネルにその詳細が表示されます（*Click a node to see details*）。
 
-この画面を使って依存関係を理解し、マイグレーションの順序に優先順位を付けます。
+この画面を使って依存関係を理解し、移行の順序に優先順位を付けます。
 
 ---
 
@@ -283,14 +283,14 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 
 ![Input Source — ファイルツリーとソースビューア](ModernizeX_EndUser_Guide_assets/08-input-source.png)
 
-**Input Source** 画面（*Original COBOL source files*）では、取り込まれたすべての元の COBOL ソースに加えて、Assessment ステップで生成された分析成果物（`analysis_output/` — パース済みプログラムの JSON、制御フローグラフなど）を参照できます。
+**Input Source** 画面（*Original COBOL source files*）では、取り込まれたすべての元の COBOL ソースに加えて、Assessment ステップで生成された解析成果物（`analysis_output/` — パース済みプログラムの JSON、制御フローグラフなど）を参照できます。
 
 **使い方:**
 
 1. 左側のファイルツリーで、フォルダを展開して（▶/▼ アイコンをクリック）ソース構造を参照します。
 2. ファイル（`.cob`、`.cbl`、`.cpy`、`.jcl` など）をクリックすると、右側のソースビューアに内容（行番号付き）が表示されます。
 3. 文字化けが表示される場合は、ビューア上部の **Encoding** ドロップダウン（デフォルト **Auto**）を変更します。
-4. マイグレーション全体を通じて、この画面を元ソースの参照に利用します。
+4. 移行の全体を通じて、この画面を元ソースの参照に利用します。
 
 > ソースは、Project Overview の *Import Source* カードにある **Upload ZIP** ボタンから取り込みます。
 
@@ -302,12 +302,12 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 
 ![Reverse Engineering Specs — AS-IS](ModernizeX_EndUser_Guide_assets/13-reverse-as-is.png)
 
-**Reverse Engineering Specs** 画面（*AS-IS documentation generated from source + graph*）では、ソースおよびグラフ分析に基づいて、現行の COBOL システムを説明するドキュメントを生成します。
+**Reverse Engineering Specs** 画面（*AS-IS documentation generated from source + graph*）では、ソースおよびグラフ解析に基づいて、現行の COBOL システムを説明するドキュメントを生成します。
 
 **手順:**
 
 1. **Generate** をクリックして AS-IS ドキュメントを生成します（または Project Overview の *Reverse Engineering* カードで **Re-run** をクリックします）。
-2. 生成が完了すると、左側の列にフォルダ別（例: `design_asis/Batch`、`Image`、`UI`）に整理されたドキュメントツリーが表示されます。ドキュメントを選択すると、右側のペインでその内容を読むことができます。ドキュメントは、プロジェクト作成時に選択した **Document language**（English または Japanese）で作成されます。
+2. 生成が完了すると、左側の列にフォルダ別（例: `design_asis/Batch`、`Image`、`UI`）に整理されたドキュメントツリーが表示されます。ドキュメントを選択すると、右側のパネルでその内容を読むことができます。ドキュメントは、プロジェクト作成時に選択した **Document language**（English または Japanese）で作成されます。
 3. **Export .md** でドキュメントをエクスポートします。
 
 > Reverse Engineering が `NOT STARTED` の間は、**Generate** をクリックするまでドキュメントの列は空のままです。
@@ -320,7 +320,7 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 
 ![Conversion Results — メトリクスと結果テーブル](ModernizeX_EndUser_Guide_assets/15-conversion-results.png)
 
-**Conversion Results** 画面では、COBOL → Java 変換の結果を要約します。
+**Conversion Results** 画面では、COBOL → Java 変換結果のサマリーが表示されます。
 
 - **Conversion Metrics:** **Total Assets**、**Converted**、**Accuracy**、**Total Java LOC**。
 - **File Details:** ステータスフィルタのドロップダウン（**All** / **SUCCESS** / **FAILED** / **UNSUPPORTED** / **SKIPPED** / **PENDING**）と、ファイルごとの結果テーブル（列: **File Name**、**LOC**、**Status**、**Error Message**）。COBOL 以外の資産（ドキュメント、ツール、スクリプト）は `SKIPPED` としてマークされます。
@@ -328,7 +328,7 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 **使い方:**
 
 1. Project Overview の *Source Code* カードで **Re-run** をクリックして、変換を（再）実行します。
-2. `FAILED` または `UNSUPPORTED` ステータスのファイルをフィルタリングして確認し、**Error Message** 列を読んで問題を解決します。
+2. `FAILED` または `UNSUPPORTED` ステータスのファイルをフィルタリングしてレビューし、**Error Message** 列を読んで問題を解決します。
 3. 次に進む前に、**Accuracy** メトリクスが目標を満たしていることを確認します。
 
 ---
@@ -411,7 +411,7 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 **手順:**
 
 1. **Generate** をクリックして TO-BE ドキュメントを生成します。
-2. 左側のツリー（AS-IS ドキュメントと同様の構成。例: `design_tobe/Batch`、`Image`、`UI`）で TO-BE ドキュメントを選択して、ターゲットアーキテクチャ、詳細なサービス設計、およびマイグレーションに関する意思決定を確認します。
+2. 左側のツリー（AS-IS ドキュメントと同様の構成。例: `design_tobe/Batch`、`Image`、`UI`）で TO-BE ドキュメントを選択して、ターゲットアーキテクチャ、詳細なサービス設計、および移行の意思決定を確認します。
 3. **Export .md** でドキュメントをエクスポートします。
 
 > TO-BE に取り組む前に、AS-IS ドキュメントを完成させ、レビューしておくことを推奨します。
@@ -441,15 +441,15 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 
 ![Migration Files](ModernizeX_EndUser_Guide_assets/19-migration-files.png)
 
-**Migration Files** 画面（*Output files generated by VSAM data migration*）では、VSAM マイグレーションによって生成されたデータファイルを管理します。
+**Migration Files** 画面（*Output files generated by VSAM data migration*）では、VSAM 移行によって生成されたデータファイルを管理します。
 
 **手順:**
 
-1. **Start VSAM Migration**（右上）をクリックして、VSAM データのマイグレーションを開始します。
+1. **Start VSAM Migration**（右上）をクリックして、VSAM データの移行を開始します。
 2. 左側の列の `csv/` ツリーで生成された CSV ファイルを参照します。
 3. ファイルを選択すると、右側のペインにそのデータがプレビュー表示されます。
 
-> マイグレーションを実行する前は、`csv/` フォルダは空です。
+> 移行を実行する前は、`csv/` フォルダは空です。
 
 ---
 
@@ -459,11 +459,11 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 
 ![Gen Unit Test — C0 カバレッジレポート](ModernizeX_EndUser_Guide_assets/22-gen-unit-test.png)
 
-**Gen Unit Test** 画面（*Generate unit test scripts for the original Java output*）では、Java コードのユニットテストを生成・管理します。
+**Gen Unit Test** 画面（*Generate unit test scripts for the original Java output*）では、Java コードの単体テストを生成・管理します。
 
 **使い方:**
 
-1. **Gen Unit Test**（右上）をクリックして、ユニットテストを生成・実行します。
+1. **Gen Unit Test**（右上）をクリックして、単体テストを生成・実行します。
 2. **Source Before Refactor** / **Source After Refactor** タブで、対象とするソースの範囲を選択します。
 3. **Unit Test Report** を確認します。プログラムごとのステートメントカバレッジ（**C0 Coverage**）と全体の合計に加えて、カバーされていないコード（フレームワークの I/O 分岐、DAO のエラーパス、対話型端末グループなど）に関する注記が表示されます。
 4. **Download** をクリックして、テストレポート/スクリプトをダウンロードします。
@@ -486,7 +486,7 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 2. 左側の `test_cases/` ツリー（プログラムごとに 1 フォルダ。例: `MENU00`、`INITDB`）でテストケースを参照し、ファイルを選択して詳細を確認します。
 3. **Download** をクリックしてテストケースをダウンロードします。
 
-> 先に Design Docs（AS-IS/TO-BE）を生成しておく必要があります。設計ドキュメントが準備できていない場合、画面に生成を促すメッセージが表示されます。
+> 先に設計書（AS-IS/TO-BE）を生成しておく必要があります。設計書が準備できていない場合、画面に生成を促すメッセージが表示されます。
 
 ---
 
@@ -522,9 +522,9 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 
 ## 22. Delivery & Project Closeout
 
-パイプラインの進行に伴ってプロジェクトのステータスが進み（例: アセスメント完了後は `ASSESSED`）、すべてのステップが完了すると **MIGRATED** に到達します（Dashboard および Project Overview 画面の上部に表示されます）。
+パイプラインの進行に伴ってプロジェクトのステータスが進み（例: 評価完了後は `ASSESSED`）、すべてのステップが完了すると **MIGRATED** に到達します（Dashboard および Project Overview 画面の上部に表示されます）。
 
-**エクスポート可能な成果物:**
+**エクスポート・納品可能項目:**
 
 | 項目 | 場所 | エクスポート方法 |
 |---|---|---|
@@ -532,7 +532,7 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 | TO-BE ドキュメント | TO-BE → TO-BE Design | **Export .md** |
 | Java ソース（プロジェクト） | TO-BE → Java Output | **Download Zip** |
 | データベーススキーマ（DDL） | Data Migration → Gen Schema | **Download** |
-| ユニットテストレポート / スクリプト | Validation → Gen Unit Test | **Download** |
+| 単体テストレポート / スクリプト | Validation → Gen Unit Test | **Download** |
 | 統合テストケース | Validation → Integration Test | **Download** |
 | プロジェクトレポート | Project Overview | **Export** |
 
@@ -543,7 +543,7 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 - [ ] AS-IS および TO-BE ドキュメントが生成され、レビュー済みである。
 - [ ] 変換が要求される **Accuracy** を満たし、`FAILED`/`UNSUPPORTED` のファイルが解決されている。
 - [ ] データベーススキーマとデータファイルが生成され、検証済みである。
-- [ ] Unit Test および Integration Test が生成され、目標に対して合格している（C0 カバレッジをレビュー済み）。
+- [ ] 単体テストおよび結合テストが生成され、目標に対して合格している（C0 カバレッジをレビュー済み）。
 - [ ] すべての成果物ドキュメントとソースがエクスポートされている。
 
 ---
@@ -552,18 +552,18 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 
 | 用語 | 意味 |
 |---|---|
-| **AS-IS** | レガシーシステムの現状を記述したドキュメント（リバースエンジニアリングによるもの） |
+| **AS-IS** | レガシーシステムの現状のドキュメント（リバースエンジニアリングによるもの） |
 | **TO-BE** | モダナイズされたシステムのあるべき姿の設計（フォワード設計） |
-| **SAD / SDD** | Software Architecture Document（ソフトウェアアーキテクチャドキュメント） / Software Design Document（ソフトウェア設計書） |
+| **SAD / SDD** | ソフトウェアアーキテクチャドキュメント / ソフトウェア設計書 |
 | **Copybook** | 共有される COBOL のデータ構造（`.cpy`） |
-| **JCL** | Job Control Language — メインフレームのジョブ制御スクリプト |
+| **JCL** | ジョブ制御言語 — メインフレームのジョブ制御スクリプト |
 | **CICS / BMS** | IBM のオンライントランザクションシステム / 3270 画面定義 |
 | **VSAM / QSAM** | メインフレームの索引形式 / 順次形式のファイルフォーマット |
 | **DL/I** | IMS 階層型データベースへのアクセスインターフェース |
 | **MQ** | メッセージキュー |
 | **COMP-3** | COBOL のパック 10 進数の数値型 |
-| **DDL** | Data Definition Language — データベース構造を作成するステートメント |
-| **C0 Coverage** | ステートメントカバレッジ — ユニットテストによって実行された実行可能ステートメントの割合（%） |
+| **DDL** | データ定義言語 — データベース構造を作成するステートメント |
+| **C0 Coverage** | ステートメントカバレッジ — 単体テストによって実行された実行可能ステートメントの割合（%） |
 | **Snapshot** | ある時点でのソースをバージョン管理して取得したもの |
 
 ---
@@ -578,7 +578,7 @@ Dashboard は *マルチプロジェクトのマイグレーション概要* 画
 
 ## Appendix C — Deployment & AI Provider
 
-- **オンプレミスデプロイ:** ModernizeX は社内インフラ内にインストールされます（パッケージ化されたインストーラーを使用 — *ModernizeX_Installation_Guide* を参照）。ソースコードを顧客のシステム内に留める必要がある環境に適しています。
+- **オンプレミスデプロイ:** ModernizeX は社内インフラ内にインストールされます（パッケージ化されたインストーラーは *ModernizeX_Installation_Guide* を参照）。ソースコードを顧客のシステム内に留める必要がある環境に適しています。
 - **AI 設定（Settings → AI Provider）:**
   - **Provider** — モデルのプロバイダーを選択します（**Claude**、**Gemini**、または **Codex**）。
   - **Auth Mode** — **API Key**（BYOK: 顧客自身のキーを使用）または **Subscription**。

@@ -8,7 +8,7 @@
 
 > This document explains how to install the **ModernizeX** application on macOS from the `ModernizeX-dev-621e257.pkg` package. Every screenshot in this document was captured directly from the actual installation process.
 
-> 🎬 **Video walkthrough (32 seconds):** [`ModernizeX_Installation_Guide.mp4`](ModernizeX_Installation_Guide.mp4) — a slideshow summarizing all installation steps.
+> 🎬 **Video walkthrough (~64 seconds, English narration + background music):** [`ModernizeX_Installation_Guide.mp4`](ModernizeX_Installation_Guide.mp4) — a narrated slideshow covering all installation steps, with English subtitles.
 
 ---
 

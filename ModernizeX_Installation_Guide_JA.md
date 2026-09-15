@@ -2,19 +2,19 @@
 
 # ModernizeX — インストールガイド（macOS）
 
-**COBOL → Java モダナイゼーション基盤** · ビルド `dev-621e257`
+**COBOL → Java モダナイゼーション プラットフォーム** · ビルド `dev-621e257`
 
 <br clear="left" />
 
 > 本書は、`ModernizeX-dev-621e257.pkg` パッケージから macOS に **ModernizeX** アプリケーションをインストールする手順を説明します。本書のスクリーンショットはすべて、実際のインストール作業から直接撮影したものです。
 
-> 🎬 **操作動画（32秒）:** [`ModernizeX_Installation_Guide.mp4`](ModernizeX_Installation_Guide.mp4) — インストール全手順を要約したスライドショーです。
+> 🎬 **操作動画（約64秒）:** [`ModernizeX_Installation_Guide.mp4`](ModernizeX_Installation_Guide.mp4) — インストール全手順を要約したスライドショーです（英語ナレーション+BGM付き、英語字幕）。
 
 ---
 
 ## 1. 概要
 
-ModernizeX は、レガシー COBOL システムを解析・リバースエンジニアリングし、Java へ変換するソースコード・モダナイゼーション基盤です。インストーラーは以下を設定します。
+ModernizeX は、レガシー COBOL システムを解析・リバースエンジニアリングし、Java へ変換するソースコード モダナイゼーション プラットフォームです。インストーラーは以下を設定します。
 
 | コンポーネント | 説明 |
 |---|---|
@@ -39,7 +39,7 @@ ModernizeX は、レガシー COBOL システムを解析・リバースエン�
 
 ## 3. インストール前 — Gatekeeper での許可
 
-`dev-621e257` パッケージは **未署名（unsigned）の社内ビルド**です。初回起動時、macOS の Gatekeeper が *「開発元を検証できないため開けません」* / *「Apple はマルウェアが含まれていないことを確認できません」* のようなメッセージでブロックします。
+`dev-621e257` パッケージは **未署名（unsigned）の社内ビルド**です。初回起動時、macOS の Gatekeeper により *「開発元を検証できないため開けません」* / *「悪意のあるソフトウェアが検出されなかったことを Apple で検証できません」* などのメッセージが表示され、ブロックされます。
 
 以下の**いずれか一方の方法**で許可してください。
 
@@ -48,7 +48,7 @@ ModernizeX は、レガシー COBOL システムを解析・リバースエン�
 2. **開く** を選択 → 警告ダイアログでもう一度 **開く** をクリックします。
 
 **方法 B — システム設定から:**
-1. `.pkg` ファイルをダブルクリックします（初回はブロックされます）。
+1. `.pkg` ファイルをダブルクリックします（macOS で初回はブロックされます）。
 2. **システム設定 →「プライバシーとセキュリティ」** を開きます。
 3. **セキュリティ** セクションまでスクロールし、「ModernizeX-dev-621e257.pkg」に関する項目を見つけて **このまま開く** をクリックします。
 4. Touch ID またはパスワードで認証し、次のダイアログで **開く** をクリックします。
@@ -59,29 +59,29 @@ ModernizeX は、レガシー COBOL システムを解析・リバースエン�
 
 ## 4. インストール手順
 
-### ステップ 1 — Introduction（はじめに）
+### ステップ 1 — はじめに
 
-インストーラーが起動し、インストール内容の概要を示すようこそ画面が表示されます。**Continue** をクリックします。
+インストーラーが起動し、インストール内容の概要を示すようこそ画面が表示されます。**続行** をクリックします。
 
 <img src="installation_assets/01-introduction.png" width="620" />
 
 ---
 
-### ステップ 2 — License（使用許諾）
+### ステップ 2 — 使用許諾
 
-**Software License Agreement**（**ModernizeX 商用ライセンス**、© 2026 EDX Organization）を確認します。**Continue** をクリックします。
+**ソフトウェア利用許諾契約**（**ModernizeX 商用ライセンス**、© 2026 EDX Organization）を確認します。**続行** をクリックします。
 
 <img src="installation_assets/02-license.png" width="620" />
 
-確認ダイアログが表示されます — **Agree** をクリックして同意し、続行します。
+確認ダイアログが表示されます。**同意する** をクリックして続行します。
 
 <img src="installation_assets/03-license-agree.png" width="620" />
 
 ---
 
-### ステップ 3 — Installation Type（インストールの種類）
+### ステップ 3 — インストールの種類
 
-インストールサイズ（約 **428 MB**）とインストール先ボリューム（*Macintosh HD*）が表示されます。これは標準インストールです — **Install** をクリックします。
+インストールサイズ（約 **428 MB**）とインストール先ボリューム（*Macintosh HD*）が表示されます。これは標準インストールです。**インストール** をクリックします。
 
 <img src="installation_assets/04-installation-type.png" width="620" />
 
@@ -94,32 +94,32 @@ ModernizeX は、レガシー COBOL システムを解析・リバースエン�
 macOS は `/Applications` へのファイル書き込みと LaunchAgent の登録のために管理者権限を要求します。求められたら:
 
 - **Touch ID** で認証する、**または**
-- **管理者のユーザー名とパスワード**を入力し → **Install Software** をクリックします。
+- **管理者のユーザー名とパスワード**を入力し → **ソフトウェアをインストール** をクリックします。
 
 > 🔒 *最近認証済みの場合や Touch ID を使う場合、この手順はすぐに完了することがあります。そのため本書には認証手順のスクリーンショットはありません。*
 
 ---
 
-### ステップ 5 — Installing（インストール中）
+### ステップ 5 — インストール中
 
-プログレスバーが *Preparing → Configuring → Writing files → Running package scripts → Registering components* の各段階を進みます。所要時間は約 **30〜60 秒**です。
+プログレスバーが *準備中 → 設定中 → ファイルの書き込み中 → パッケージスクリプトの実行中 → コンポーネントの登録中* の各段階を進みます。所要時間は約 **30〜60 秒**です。
 
 <img src="installation_assets/05-installing.png" width="620" />
 
-*Running package scripts* の段階で、インストーラーは自動的に次を行います。
+*パッケージスクリプトの実行中* の段階で、インストーラーは自動的に次を行います。
 - 設定ファイル `installer.properties` を書き込みます。
 - **2 つの LaunchAgent**（バックエンド + トレイ）をインストール・登録します。
 - **トレイ・コントローラー**（メニューバーアイコン）を起動します。
 
 ---
 
-### ステップ 6 — Summary（完了）
+### ステップ 6 — 概要（完了）
 
-緑色のチェックマークとともに **「The installation was successful.」** と表示されます。**Close** をクリックしてインストーラーを閉じます。
+緑色のチェックマークとともに **「インストールが完了しました。」** と表示されます。**閉じる** をクリックしてインストーラーを閉じます。
 
 <img src="installation_assets/06-success.png" width="620" />
 
-> `.pkg` ファイルをゴミ箱に移動するか尋ねられたら、任意で選択してください（**Keep** で残しても問題ありません）。
+> `.pkg` ファイルをゴミ箱に移動するか尋ねられたら、任意で選択してください（**残す** を選択しても問題ありません）。
 
 ---
 
@@ -139,18 +139,18 @@ macOS は `/Applications` へのファイル書き込みと LaunchAgent の登�
 
 | メニュー項目 | 機能 |
 |---|---|
-| **Start Services** | バックエンドサービスを開始（実行中は淡色表示） |
-| **Stop Services** | サービスを停止 |
-| **Restart Services** | サービスを再起動 |
-| **Open in Browser (:3439)** | ブラウザで Web UI を開く |
-| **Start Automatically at Login** | ログイン時の自動起動をオン／オフ |
-| **Quit** | トレイ・コントローラーを終了 |
+| **サービスを開始** | バックエンドサービスを開始（実行中は淡色表示） |
+| **サービスを停止** | サービスを停止 |
+| **サービスを再起動** | サービスを再起動 |
+| **ブラウザで開く (:3439)** | ブラウザで Web UI を開く |
+| **ログイン時に自動起動** | ログイン時の自動起動をオン／オフ |
+| **終了** | トレイ・コントローラーを終了 |
 
-> 既定ではサービスは起動時に**自動実行されません**（`auto.start.on.boot=false`）。バックエンドがまだ動いていない場合は、先に **Start Services** をクリックしてください。
+> 既定ではサービスは起動時に**自動実行されません**（`auto.start.on.boot=false`）。バックエンドがまだ動いていない場合は、先に **サービスを開始** をクリックしてください。
 
 ### 5.3. Web UI を開く
 
-**Open in Browser (:3439)** をクリックすると、ModernizeX の **Dashboard** が `http://localhost:3439` で開きます。
+**ブラウザで開く (:3439)** をクリックすると、ModernizeX の **ダッシュボード** が `http://localhost:3439` で開きます。
 
 <img src="installation_assets/09-webui-dashboard.png" width="820" />
 
@@ -200,7 +200,7 @@ curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3439/
 |---|---|
 | **.pkg ファイルが開けない**（「開発元が未確認」） | **第 3 章**（Gatekeeper）に従ってください。右クリック →「開く」、または システム設定 →「プライバシーとセキュリティ」→ *このまま開く*。 |
 | **メニューバーにアイコンが表示されない** | トレイを再起動します: `launchctl kickstart -k gui/$(id -u)/com.edx.modernizex-tray` — もしくは `/Applications/ModernizeX.app` を開きます。 |
-| **Web UI が開かない／白い画面** | バックエンドが動作していることを確認します。トレイメニューで **Start Services** をクリックし、`backend.log` を確認します。 |
+| **Web UI が開かない／白い画面** | バックエンドが動作していることを確認します。トレイメニューで **サービスを開始** をクリックし、`backend.log` を確認します。 |
 | **サービスが起動しない** | ポート `3438`/`3439` が他のアプリに使われている可能性があります。`lsof -nP -iTCP:3439 -sTCP:LISTEN` で確認し、ログ `~/Library/Application Support/ModernizeX/logs/backend-err.log` を参照します。 |
 | **インストールログの確認** | `cat "~/Library/Application Support/ModernizeX/logs/installer.log"` |
 
@@ -238,7 +238,7 @@ rm -rf ~/Library/Application\ Support/ModernizeX
 | 属性 | 値 |
 |---|---|
 | パッケージ名 | `ModernizeX-dev-621e257.pkg` |
-| Bundle Identifier | `com.edx.modernizex` |
+| バンドル ID | `com.edx.modernizex` |
 | バージョン | `dev-621e257` |
 | 組み込み JRE | OpenJDK **21.0.7**（arm64 + x86_64） |
 | バックエンド／フロントエンド ポート | `3438` / `3439` |
