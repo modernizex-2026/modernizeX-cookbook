@@ -69,7 +69,6 @@ SAKURA-SMS was migrated end-to-end in 38 h through validation — 66 web + 2 bat
 | **End-User Guide** — full walkthrough of the application UI | [EN](ModernizeX_EndUser_Guide_EN.md) | [JA](ModernizeX_EndUser_Guide_JA.md) |
 | **Installation Guide** (macOS) | [EN](ModernizeX_Installation_Guide_EN.md) | [JA](ModernizeX_Installation_Guide_JA.md) |
 | **Installation video** (~64 s, EN narration) | [ModernizeX_Installation_Guide.mp4](ModernizeX_Installation_Guide.mp4) | |
-| **Pitch decks** | [Pitch/](Pitch/) | |
 
 All End-User Guide screenshots are captured directly from the live application (build `2.0-refactored`, guide v2.1).
 

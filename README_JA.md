@@ -69,7 +69,6 @@ SAKURA-SMS は検証まで含めてエンドツーエンドで 38 時間で移�
 | **エンドユーザーガイド** — アプリケーション UI の完全ガイド | [EN](ModernizeX_EndUser_Guide_EN.md) | [JA](ModernizeX_EndUser_Guide_JA.md) |
 | **インストールガイド**（macOS） | [EN](ModernizeX_Installation_Guide_EN.md) | [JA](ModernizeX_Installation_Guide_JA.md) |
 | **インストール動画**（約 64 秒、英語ナレーション） | [ModernizeX_Installation_Guide.mp4](ModernizeX_Installation_Guide.mp4) | |
-| **ピッチ資料** | [Pitch/](Pitch/) | |
 
 エンドユーザーガイドのスクリーンショットはすべて、稼働中のアプリケーション（ビルド `2.0-refactored`、ガイド v2.1）から直接取得したものです。
 
