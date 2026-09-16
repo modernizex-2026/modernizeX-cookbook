@@ -40,17 +40,7 @@ ModernizeX がレガシー COBOL システムをクリーンな Java アーキ�
 
 すべての実行は同じ 7 つのチェックポイントを通過します — エンドツーエンドで、いつでも再開可能です。
 
-```
-入力                          MODERNIZEX ENGINE                出力
-────                          ─────────────────                ────
-COBOL       (オンライン+バッチ)  1. 評価                          バックエンド(オンライン)  Java 17/21 · Spring Boot
-コピーブック (共通レコード)       2. リバースエンジニアリング        バックエンド(バッチ)      Java 17/21 · Spring Batch
-JCL & BMS   (ジョブ+画面)       3. コード生成                     UI                       React · Vue 3
-                              4. AI リファクタリング
-                              5. UI/UX モダナイゼーション
-                              6. データ移行
-                              7. 検証(単体テスト/結合テスト)
-```
+![ModernizeX 移行パイプライン — COBOL・コピーブック・JCL & BMS を 7 ステージのエンジンで処理し、Java 17/21 Spring Boot / Spring Batch バックエンドと React / Vue 3 UI を出力](media/ModernizeX_Diagram.png)
 
 ## 実際のコードベースで測定
 

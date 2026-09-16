@@ -40,17 +40,7 @@ Three pillars separate the engine from a generic code-translation tool:
 
 Every run moves through the same seven checkpoints — end to end, resumable at any point.
 
-```
-INPUT                      MODERNIZEX ENGINE               OUTPUT
-─────                      ─────────────────               ──────
-COBOL     (online+batch)   1. Assessment                   Backend (online)  Java 17/21 · Spring Boot
-Copybooks (record layouts) 2. Reverse Engineering          Backend (batch)   Java 17/21 · Spring Batch
-JCL & BMS (jobs+screens)   3. Code Generation              UI                React · Vue 3
-                           4. AI Refactoring
-                           5. UI/UX Modernization
-                           6. Data Migration
-                           7. Validation (UT + IT)
-```
+![ModernizeX migration pipeline — COBOL, Copybooks, JCL & BMS through the seven-stage engine to Java 17/21 Spring Boot / Spring Batch backends and React / Vue 3 UI](media/ModernizeX_Diagram.png)
 
 ## Measured on real codebases
 
