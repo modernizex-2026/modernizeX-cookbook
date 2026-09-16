@@ -22,9 +22,9 @@
 
 ModernizeX がレガシー COBOL システムをクリーンな Java アーキテクチャへと刷新する様子を 90 秒でご覧いただけます — CICS 画面から稼働する Java システムへ。
 
-[![ModernizeX 製品ティーザー — クリックして再生](media/teaser-poster.jpg)](media/ModernizeX_Product_Teaser.mp4)
+[![ModernizeX 製品ティーザー（日本語版）— クリックして再生](media/teaser-poster-ja.jpg)](media/ModernizeX_Product_Teaser_JA.mp4)
 
-*画像をクリックするとティーザー動画が開きます（[media/ModernizeX_Product_Teaser.mp4](media/ModernizeX_Product_Teaser.mp4)）。*
+*画像をクリックするとティーザー動画（日本語版）が開きます（[media/ModernizeX_Product_Teaser_JA.mp4](media/ModernizeX_Product_Teaser_JA.mp4)）。英語版は[こちら](media/ModernizeX_Product_Teaser.mp4)。*
 
 ---
 
