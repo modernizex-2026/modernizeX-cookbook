@@ -1,95 +1,95 @@
 # ModernizeX
 
-**English** | [日本語](README_JA.md)
+[English](README_EN.md) | **日本語**
 
-**AIR-GAPPED COBOL MODERNIZATION**
+**エアギャップ対応 COBOL モダナイゼーション**
 
-> ## Modernize your COBOL systems — without a line of code leaving your network.
+> ## COBOLシステムを、コードを一切ネットワーク外に出さずにモダナイズ。
 >
-> One hybrid engine — deterministic AST parsing plus LLM — takes legacy COBOL to modern Java: assessed, migrated and validated end-to-end, running locally in your own environment.
+> 決定論的 AST パーシングと LLM を組み合わせたハイブリッドエンジンが、レガシー COBOL を最新の Java へ — 評価から移行、検証までをエンドツーエンドで、お客様自身の環境内でローカルに実行します。
 
-Built for regulated industries: **Banking · Government · Insurance**
+規制業界向け: **銀行 · 官公庁 · 保険**
 
 | **38 h** | **95%** | **100%** |
 |:---:|:---:|:---:|
-| measured end-to-end migration — SAKURA-SMS, 30,635 LOC | initial compilation rate | on-premise source code retention |
+| 実測エンドツーエンド移行時間 — SAKURA-SMS, 30,635 LOC | 初回コンパイル成功率 | オンプレミスでのソースコード保持率 |
 
-🌐 [modernizex.com](https://modernizex.com/) · **Baseline v1.0** · © 2026 ModernizeX Organization · [Commercial License](LICENSE)
-
----
-
-## 🎬 Watch ModernizeX in Action
-
-See how ModernizeX transforms legacy COBOL systems into clean Java architecture in a 90-second walkthrough — from CICS screens to a running Java system.
-
-[![ModernizeX product teaser — click to watch](media/teaser-poster.jpg)](https://www.youtube.com/watch?v=93FG-AqhURQ)
-
-*Click the image to watch the teaser on [YouTube](https://www.youtube.com/watch?v=93FG-AqhURQ).*
+🌐 [modernizex.com](https://modernizex.com/) · **Baseline v1.0** · © 2026 ModernizeX Organization · [商用ライセンス](LICENSE)
 
 ---
 
-## Why ModernizeX
+## 🎬 ModernizeX の実演動画
 
-Three pillars separate the engine from a generic code-translation tool:
+ModernizeX がレガシー COBOL システムをクリーンな Java アーキテクチャへと刷新する様子を 90 秒でご覧いただけます — CICS 画面から稼働する Java システムへ。
 
-1. **One orchestrated pipeline** — seven stages, each a checkpoint you can resume, re-run or roll back. No CLI required.
-2. **Dependencies mapped before generation** — a deterministic AST pre-parser maps every dependency before the LLM ever touches the code, eliminating hallucination.
-3. **Your code never leaves your network** — on-prem / air-gapped deployment with bring-your-own-key LLM support for regulated industries.
+[![ModernizeX 製品ティーザー（日本語版）— クリックして再生](media/teaser-poster-ja.jpg)](media/ModernizeX_Product_Teaser_JA.mp4)
 
-## One pipeline. Seven stages. No manual hand-off.
+*画像をクリックするとティーザー動画（日本語版）が開きます（[media/ModernizeX_Product_Teaser_JA.mp4](media/ModernizeX_Product_Teaser_JA.mp4)）。英語版は[こちら](https://www.youtube.com/watch?v=93FG-AqhURQ)。*
 
-Every run moves through the same seven checkpoints — end to end, resumable at any point.
+---
 
-![ModernizeX migration pipeline — COBOL, Copybooks, JCL & BMS through the seven-stage engine to Java 17/21 Spring Boot / Spring Batch backends and React / Vue 3 UI](media/ModernizeX_Diagram.png)
+## ModernizeX が選ばれる理由
 
-## Measured on real codebases
+3 つの柱が、汎用的なコード変換ツールとの違いを生み出します:
 
-Per-stage effort, measured on a complete end-to-end pipeline run — not simulated.
+1. **オーケストレーションされた単一パイプライン** — 7 つのステージそれぞれがチェックポイント。CLI 不要で再開・再実行・ロールバックが可能です。
+2. **生成前に依存関係をマッピング** — 決定論的な AST プリパーサーが、LLM がコードに触れる前にすべての依存関係をマッピングし、ハルシネーションを排除します。
+3. **コードはネットワーク外に出ません** — 規制業界向けに、オンプレミス/エアギャップ環境での BYOK（Bring Your Own Key）対応 LLM をサポートします。
 
-| Stage | SAKURA-SMS · 68 programs · 30,635 LOC |
+## 1 つのパイプライン。7 つのステージ。手動引き継ぎなし。
+
+すべての実行は同じ 7 つのチェックポイントを通過します — エンドツーエンドで、いつでも再開可能です。
+
+![ModernizeX 移行パイプライン — COBOL・コピーブック・JCL & BMS を 7 ステージのエンジンで処理し、Java 17/21 Spring Boot / Spring Batch バックエンドと React / Vue 3 UI を出力](media/ModernizeX_Diagram.png)
+
+## 実際のコードベースで測定
+
+完全なエンドツーエンドのパイプライン実行で測定した、ステージごとの工数（シミュレーションではありません）。
+
+| ステージ | SAKURA-SMS · 68プログラム · 30,635 LOC |
 |---|---|
-| Assessment | 0.2 h |
-| Reverse Engineering | 2 h |
-| Code Generation | 0.3 h |
-| Code Refactoring | 10 h |
-| UI/UX Modernization | 0.5 h |
-| Data Migration | 1 h |
-| Validation (UT / IT) | 12 / 12 h |
-| **Total (pipeline)** | **38 h** |
-| Fully manual (estimated) | > 12 man-months |
+| 評価 | 0.2時間 |
+| リバースエンジニアリング | 2時間 |
+| コード生成 | 0.3時間 |
+| コードリファクタリング | 10時間 |
+| UI/UX モダナイゼーション | 0.5時間 |
+| データ移行 | 1時間 |
+| 検証（単体テスト/結合テスト） | 12 / 12時間 |
+| **合計（パイプライン）** | **38時間** |
+| 完全手動（推定） | 12人月以上 |
 
-SAKURA-SMS was migrated end-to-end in 38 h through validation — 66 web + 2 batch Maven modules compiling clean out of the box, per-screen Vue 3 UI, unit tests passing on 68/68 modules.
+SAKURA-SMS は検証まで含めてエンドツーエンドで 38 時間で移行完了 — 66 の Web モジュールと 2 のバッチ Maven モジュールがそのままクリーンにコンパイルされ、画面ごとの Vue 3 UI、68/68 モジュールで単体テストが通過しました。
 
-## Documentation
+## ドキュメント
 
-| Document | English | 日本語 |
+| ドキュメント | English | 日本語 |
 |---|---|---|
-| **Whitepaper** — architecture, seven-stage pipeline, SAKURA-SMS case study | [EN](ModernizeX_Whitepaper_v1.0.md) | [JA](ModernizeX_Whitepaper_v1.0_JA.md) |
-| **Effort Evaluation** — measured migration effort on a real run | [EN](ModernizeX_Effort_Evaluation_v1.0.md) | [JA](ModernizeX_Effort_Evaluation_v1.0_JA.md) |
-| **End-User Guide** — full walkthrough of the application UI | [EN](ModernizeX_EndUser_Guide_EN.md) | [JA](ModernizeX_EndUser_Guide_JA.md) |
-| **Installation Guide** (macOS) | [EN](ModernizeX_Installation_Guide_EN.md) | [JA](ModernizeX_Installation_Guide_JA.md) |
-| **Installation video** (~64 s, EN narration) | [ModernizeX_Installation_Guide.mp4](ModernizeX_Installation_Guide.mp4) | |
+| **ホワイトペーパー** — アーキテクチャ、7 ステージパイプライン、SAKURA-SMS ケーススタディ | [EN](ModernizeX_Whitepaper_v1.0.md) | [JA](ModernizeX_Whitepaper_v1.0_JA.md) |
+| **工数評価** — 実際のパイプライン実行で測定した移行工数 | [EN](ModernizeX_Effort_Evaluation_v1.0.md) | [JA](ModernizeX_Effort_Evaluation_v1.0_JA.md) |
+| **エンドユーザーガイド** — アプリケーション UI の完全ガイド | [EN](ModernizeX_EndUser_Guide_EN.md) | [JA](ModernizeX_EndUser_Guide_JA.md) |
+| **インストールガイド**（macOS） | [EN](ModernizeX_Installation_Guide_EN.md) | [JA](ModernizeX_Installation_Guide_JA.md) |
+| **インストール動画**（約 64 秒、英語ナレーション） | [ModernizeX_Installation_Guide.mp4](ModernizeX_Installation_Guide.mp4) | |
 
-All End-User Guide screenshots are captured directly from the live application (build `2.0-refactored`, guide v2.1).
+エンドユーザーガイドのスクリーンショットはすべて、稼働中のアプリケーション（ビルド `2.0-refactored`、ガイド v2.1）から直接取得したものです。
 
-## How ModernizeX Offline Licensing Works
+## ModernizeX オフラインライセンスの仕組み
 
-1. **Scope the engagement** — start with a free assessment. We size the work with you and issue a license covering your codebase.
-2. **Place the license file** — download the signed `license.json` and save it under `~/.modernizex/`.
-3. **Migrate offline** — run the migration tool. It verifies the Ed25519 signature offline and tracks quota locally; the portal never sees your usage.
+1. **エンゲージメントの範囲を決める** — 無料評価から始めます。作業規模を一緒に見積もり、コードベースに応じたライセンスを発行します。
+2. **ライセンスファイルを配置** — 署名済みの `license.json` をダウンロードし、ホームフォルダー配下の固定パス `~/.modernizex/` に保存します。
+3. **オフライン移行** — 移行ツールを実行。ツールが Ed25519 署名をオフラインで検証し、クォータをローカルで追跡します。ポータルが利用状況を参照することはありません。
 
-## Start free. Scale to a full migration.
+## 無料で始めて、フル移行までスケール。
 
-| Assessment | Migration | Enterprise Partnership |
+| 評価 | 移行 | エンタープライズパートナーシップ |
 |---|---|---|
-| **Free** | **Custom** · per project | **Contact us** |
-| Codebase complexity analysis · dependency mapping report · migration roadmap & timeline · cost estimate · 30-minute review call | Full-service modernization: Java migration & modernization, architecture design documents, UT/IT with traceability matrix, phased deployment plan, 100% functional parity guarantee | Ongoing partnership: optimized cost, priority scheduling, continuous modernization pipeline, on-site workshops, executive reporting |
+| **無料** | **カスタム** · プロジェクト単位 | **お問い合わせ** |
+| コードベースの複雑度分析 · 依存関係マッピングレポート · 移行ロードマップとタイムライン · コスト見積もりの内訳 · 30 分のレビュー通話 | フルサービスの COBOL モダナイゼーション: Java コードの移行とモダナイゼーション、アーキテクチャ設計ドキュメント、単体・結合テスト（トレーサビリティマトリクス付き）、段階的デプロイ計画、100% 機能等価性の保証 | 継続的なパートナーシップ: 最適化されたコスト、優先スケジューリング、継続的なモダナイゼーションパイプライン、オンサイトワークショップ、エグゼクティブ向けレポート |
 
-Every engagement starts with a free assessment — [view pricing plans](https://modernizex.com/).
+すべてのエンゲージメントは無料評価から始まります — [料金プランを見る](https://modernizex.com/)。
 
-## Contact
+## お問い合わせ
 
-**ModernizeX** — professional software migration toolsets, automating legacy COBOL-to-Java modernization.
+**ModernizeX** — プロフェッショナル向けソフトウェア移行ツール群。レガシー COBOL から Java へのモダナイゼーションを自動化します。
 
 📧 [info@modernizex.com](mailto:info@modernizex.com) · 🌐 [modernizex.com](https://modernizex.com/)
 
