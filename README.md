@@ -22,9 +22,9 @@ Built for regulated industries: **Banking · Government · Insurance**
 
 See how ModernizeX transforms legacy COBOL systems into clean Java architecture in a 90-second walkthrough — from CICS screens to a running Java system.
 
-[![ModernizeX product teaser — click to watch](media/teaser-poster.jpg)](media/ModernizeX_Product_Teaser.mp4)
+[![ModernizeX product teaser — click to watch](media/teaser-poster.jpg)](https://www.youtube.com/watch?v=93FG-AqhURQ)
 
-*Click the image to watch the teaser ([media/ModernizeX_Product_Teaser.mp4](media/ModernizeX_Product_Teaser.mp4)).*
+*Click the image to watch the teaser on YouTube ([youtu.be/93FG-AqhURQ](https://www.youtube.com/watch?v=93FG-AqhURQ)).*
 
 ---
 
