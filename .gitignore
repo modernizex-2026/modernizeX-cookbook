@@ -4,3 +4,8 @@ temp/
 *.bak
 ~$*
 Documents reviewed JA/
+
+# Video files are distributed outside the repository (too large for Git).
+# Exception: the short installation walkthrough is small enough to keep.
+*.mp4
+!ModernizeX_Installation_Guide.mp4
