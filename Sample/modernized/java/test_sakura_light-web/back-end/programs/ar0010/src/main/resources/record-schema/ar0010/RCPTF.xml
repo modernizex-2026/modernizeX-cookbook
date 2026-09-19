@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : RCPTF
+  FD record name : RE-REC
+  Copybook src   : FRCPT
+-->
+<dataLayout name="RCPTF" scope="file" charset="MS932" recordSize="97">
+  <group name="RE-REC" offset="0" size="97">
+    <group name="RE-REC" offset="0" size="97">
+      <field name="RE-NO" offset="0" size="10" javaType="long"/>
+      <field name="RE-DATE" offset="10" size="8" javaType="int"/>
+      <field name="RE-CUST" offset="18" size="6" javaType="int"/>
+      <field name="RE-METHOD" offset="24" size="1" javaType="int"/>
+      <field name="RE-AMOUNT" offset="25" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="RE-BANK-CODE" offset="31" size="4" javaType="int"/>
+      <field name="RE-CLOSE-YM" offset="35" size="6" javaType="int"/>
+      <field name="RE-STATUS" offset="41" size="1" javaType="int"/>
+      <field name="RE-REMARK" offset="42" size="30" javaType="String"/>
+      <field name="RE-ADD-DATE" offset="72" size="8" javaType="int"/>
+      <field name="RE-ADD-USER" offset="80" size="6" javaType="int"/>
+      <field name="RE-DEL-FLAG" offset="86" size="1" javaType="int"/>
+      <field name="FILLER-87" offset="87" size="10" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

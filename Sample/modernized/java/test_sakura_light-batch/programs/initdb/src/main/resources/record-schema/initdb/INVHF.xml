@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : INVHF
+  FD record name : IH-REC
+  Copybook src   : FINVH
+-->
+<dataLayout name="INVHF" scope="file" charset="MS932" recordSize="163">
+  <group name="IH-REC" offset="0" size="163">
+    <group name="IH-REC" offset="0" size="163">
+      <field name="IH-NO" offset="0" size="10" javaType="long"/>
+      <field name="IH-DATE" offset="10" size="8" javaType="int"/>
+      <field name="IH-CUST" offset="18" size="6" javaType="int"/>
+      <field name="IH-STAFF" offset="24" size="4" javaType="int"/>
+      <field name="IH-SHIP-NO" offset="28" size="10" javaType="long"/>
+      <field name="IH-CLOSE-YM" offset="38" size="6" javaType="int"/>
+      <field name="IH-TAX-TYPE" offset="44" size="1" javaType="int"/>
+      <field name="IH-AMOUNT" offset="45" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="IH-TAX-AMOUNT" offset="51" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="IH-TOTAL" offset="57" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="IH-COST-TOTAL" offset="63" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="IH-STATUS" offset="69" size="1" javaType="int"/>
+      <field name="IH-KIND" offset="70" size="1" javaType="int"/>
+      <field name="IH-LINES" offset="71" size="3" javaType="int"/>
+      <field name="IH-REMARK" offset="74" size="40" javaType="String"/>
+      <field name="IH-ADD-DATE" offset="114" size="8" javaType="int"/>
+      <field name="IH-ADD-USER" offset="122" size="6" javaType="int"/>
+      <field name="IH-UPD-DATE" offset="128" size="8" javaType="int"/>
+      <field name="IH-UPD-USER" offset="136" size="6" javaType="int"/>
+      <field name="IH-DEL-FLAG" offset="142" size="1" javaType="int"/>
+      <field name="FILLER-143" offset="143" size="20" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

@@ -1,0 +1,192 @@
+{
+  "programId": "IV0030",
+  "screens": {
+    "DS-WH": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-WHSE-IN"],
+      "rows": [
+        { "line": 5, "fields": [
+          { "col": 2, "type": "literal", "text": "Warehouse    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-WHSE-IN", "picture": "9(3)" },
+          { "col": 30, "type": "from", "name": "FILLER", "boundField": "WK-WH-NAME", "picture": "X(30)", "color": "WHITE" }
+        ] }
+      ]
+    },
+    "DS-COUNT": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-COUNTED"],
+      "rows": [
+        { "line": 5, "fields": [
+          { "col": 2, "type": "literal", "text": "Warehouse    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-WHSE-IN", "picture": "9(3)", "color": "WHITE" },
+          { "col": 30, "type": "from", "name": "FILLER", "boundField": "WK-WH-NAME", "picture": "X(30)", "color": "WHITE" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 2, "type": "literal", "text": "Item No      :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-SHOW-NO", "picture": "ZZZ9", "color": "WHITE" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 2, "type": "literal", "text": "Product      :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "SK-PROD", "picture": "9(8)", "color": "WHITE" },
+          { "col": 30, "type": "from", "name": "FILLER", "boundField": "WK-PR-NAME", "picture": "X(40)", "color": "WHITE" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 2, "type": "literal", "text": "Book OnHand  :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-BOOK", "picture": "---,---,--9", "color": "WHITE" }
+        ] },
+        { "line": 13, "fields": [
+          { "col": 2, "type": "literal", "text": "Counted Qty  :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-COUNTED", "picture": "S9(9)" }
+        ] }
+      ]
+    },
+    "DS-SUMMARY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["SC-CONF"],
+      "rows": [
+        { "line": 15, "fields": [
+          { "col": 2, "type": "literal", "text": "Items counted:", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-TCNT", "picture": "ZZZ9", "color": "WHITE" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 2, "type": "literal", "text": "With diff    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-DCNT", "picture": "ZZZ9", "color": "WHITE" }
+        ] },
+        { "line": 18, "fields": [
+          { "col": 2, "type": "literal", "text": "Post count (Y/N):", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "SC-CONF", "boundField": "WK-CONFIRM", "picture": "X(1)" }
+        ] }
+      ]
+    },
+    "DS-REVIEW": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+        { "line": 3, "fields": [
+          { "col": 2, "type": "literal", "text": "Warehouse :", "color": "YELLOW" },
+          { "col": 14, "type": "from", "name": "FILLER", "boundField": "WK-WHSE-IN", "picture": "9(3)", "color": "WHITE" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-WH-NAME", "picture": "X(30)", "color": "WHITE" }
+        ] },
+        { "line": 5, "fields": [
+          { "col": 2, "type": "literal", "text": "Prod    Name            Book      Count     Diff", "color": "CYAN" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(1)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(2)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(3)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(4)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(5)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 12, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(6)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 13, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(7)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(8)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 15, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(9)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(10)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 17, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(11)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 18, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(12)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 20, "fields": [
+          { "col": 2, "type": "literal", "text": "Page :", "color": "YELLOW" },
+          { "col": 9, "type": "from", "name": "FILLER", "boundField": "WK-RPAGE", "picture": "ZZZ9", "color": "WHITE" },
+          { "col": 20, "type": "literal", "text": "of items :", "color": "YELLOW" },
+          { "col": 31, "type": "from", "name": "FILLER", "boundField": "WK-TCNT", "picture": "ZZZ9", "color": "WHITE" }
+        ] }
+      ]
+    },
+    "DS-HEADER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-FOOTER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-MSG": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    }
+  },
+  "inputFields": {
+    "WK-WHSE-IN": {
+      "screen": "DS-WH",
+      "line": 5,
+      "col": 20,
+      "width": 3,
+      "picture": "9(3)",
+      "usingField": "WK-WHSE-IN",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-COUNTED": {
+      "screen": "DS-COUNT",
+      "line": 13,
+      "col": 20,
+      "width": 9,
+      "picture": "S9(9)",
+      "usingField": "WK-COUNTED",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "SC-CONF": {
+      "screen": "DS-SUMMARY",
+      "line": 18,
+      "col": 20,
+      "width": 1,
+      "picture": "X(1)",
+      "usingField": "WK-CONFIRM",
+      "inputType": "alphanumeric",
+      "advanceEsts": null
+    }
+  },
+  "windows": {
+  },
+  "pfKeys": {
+    "ENTER": { "code": "00", "label": "Enter" },
+    "PF1":   { "code": "01", "label": "F1" },
+    "PF2":   { "code": "02", "label": "F2" },
+    "PF3":   { "code": "03", "label": "F3" },
+    "PF4":   { "code": "04", "label": "F4" },
+    "PF5":   { "code": "05", "label": "F5" },
+    "PF6":   { "code": "06", "label": "F6" },
+    "PF7":   { "code": "07", "label": "F7" },
+    "PF8":   { "code": "08", "label": "F8" },
+    "PF9":   { "code": "09", "label": "F9" },
+    "PF10":  { "code": "PA", "label": "F10" },
+    "PF11":  { "code": "PB", "label": "F11" },
+    "PF12":  { "code": "PC", "label": "F12" }
+  }
+}

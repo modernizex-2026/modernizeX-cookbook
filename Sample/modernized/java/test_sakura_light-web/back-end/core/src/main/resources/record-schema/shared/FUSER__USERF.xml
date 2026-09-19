@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : USERF
+  FD record name : US-REC
+  Copybook src   : FUSER
+-->
+<dataLayout name="USERF" scope="file" charset="MS932" recordSize="99">
+  <group name="US-REC" offset="0" size="99">
+    <group name="US-REC" offset="0" size="99">
+      <field name="US-CODE" offset="0" size="6" javaType="int"/>
+      <field name="US-LOGIN" offset="6" size="12" javaType="String"/>
+      <field name="US-PASSWORD" offset="18" size="16" javaType="String"/>
+      <field name="US-NAME" offset="34" size="30" javaType="String"/>
+      <field name="US-ROLE" offset="64" size="1" javaType="int"/>
+      <field name="US-AUTH-MASTER" offset="65" size="1" javaType="int"/>
+      <field name="US-AUTH-ORDER" offset="66" size="1" javaType="int"/>
+      <field name="US-AUTH-SALES" offset="67" size="1" javaType="int"/>
+      <field name="US-AUTH-PURCH" offset="68" size="1" javaType="int"/>
+      <field name="US-AUTH-CLOSE" offset="69" size="1" javaType="int"/>
+      <field name="US-LAST-LOGIN" offset="70" size="8" javaType="int"/>
+      <field name="US-DEL-FLAG" offset="78" size="1" javaType="int"/>
+      <field name="FILLER-79" offset="79" size="20" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

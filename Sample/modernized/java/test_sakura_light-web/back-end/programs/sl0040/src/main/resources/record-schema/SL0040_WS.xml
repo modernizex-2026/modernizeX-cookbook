@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : SL0040_WS
+-->
+<dataLayout name="SL0040_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="1041">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="FILLER-4" offset="4" size="10" javaType="long"/>
+    <field name="FILLER-14" offset="14" size="10" javaType="long"/>
+    <field name="FILLER-24" offset="24" size="6" javaType="int"/>
+    <field name="FILLER-30" offset="30" size="34" javaType="String"/>
+    <field name="FILLER-64" offset="64" size="1" javaType="int"/>
+    <field name="FILLER-65" offset="65" size="4" javaType="int"/>
+    <field name="FILLER-69" offset="69" size="3" javaType="int"/>
+    <field name="FILLER-72" offset="72" size="8" javaType="int"/>
+    <field name="FILLER-80" offset="80" size="16" javaType="String"/>
+    <field name="FILLER-96" offset="96" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-103" offset="103" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-110" offset="110" size="10" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="FILLER-120" offset="120" size="12" javaType="long" signed="true"/>
+    <field name="FILLER-132" offset="132" size="3" javaType="int"/>
+    <field name="FILLER-135" offset="135" size="8" javaType="int"/>
+    <field name="FILLER-143" offset="143" size="16" javaType="String"/>
+    <field name="FILLER-159" offset="159" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-166" offset="166" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-173" offset="173" size="10" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="FILLER-183" offset="183" size="12" javaType="long" signed="true"/>
+    <field name="FILLER-195" offset="195" size="3" javaType="int"/>
+    <field name="FILLER-198" offset="198" size="8" javaType="int"/>
+    <field name="FILLER-206" offset="206" size="16" javaType="String"/>
+    <field name="FILLER-222" offset="222" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-229" offset="229" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-236" offset="236" size="10" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="FILLER-246" offset="246" size="12" javaType="long" signed="true"/>
+    <field name="FILLER-258" offset="258" size="3" javaType="int"/>
+    <field name="FILLER-261" offset="261" size="8" javaType="int"/>
+    <field name="FILLER-269" offset="269" size="16" javaType="String"/>
+    <field name="FILLER-285" offset="285" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-292" offset="292" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-299" offset="299" size="10" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="FILLER-309" offset="309" size="12" javaType="long" signed="true"/>
+    <field name="FILLER-321" offset="321" size="3" javaType="int"/>
+    <field name="FILLER-324" offset="324" size="8" javaType="int"/>
+    <field name="FILLER-332" offset="332" size="16" javaType="String"/>
+    <field name="FILLER-348" offset="348" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-355" offset="355" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-362" offset="362" size="10" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="FILLER-372" offset="372" size="12" javaType="long" signed="true"/>
+    <field name="FILLER-384" offset="384" size="3" javaType="int"/>
+    <field name="FILLER-387" offset="387" size="8" javaType="int"/>
+    <field name="FILLER-395" offset="395" size="16" javaType="String"/>
+    <field name="FILLER-411" offset="411" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-418" offset="418" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-425" offset="425" size="10" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="FILLER-435" offset="435" size="12" javaType="long" signed="true"/>
+    <field name="FILLER-447" offset="447" size="3" javaType="int"/>
+    <field name="FILLER-450" offset="450" size="8" javaType="int"/>
+    <field name="FILLER-458" offset="458" size="16" javaType="String"/>
+    <field name="FILLER-474" offset="474" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-481" offset="481" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-488" offset="488" size="10" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="FILLER-498" offset="498" size="12" javaType="long" signed="true"/>
+    <field name="FILLER-510" offset="510" size="3" javaType="int"/>
+    <field name="FILLER-513" offset="513" size="8" javaType="int"/>
+    <field name="FILLER-521" offset="521" size="16" javaType="String"/>
+    <field name="FILLER-537" offset="537" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-544" offset="544" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-551" offset="551" size="10" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="FILLER-561" offset="561" size="12" javaType="long" signed="true"/>
+    <field name="FILLER-573" offset="573" size="3" javaType="int"/>
+    <field name="FILLER-576" offset="576" size="8" javaType="int"/>
+    <field name="FILLER-584" offset="584" size="16" javaType="String"/>
+    <field name="FILLER-600" offset="600" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-607" offset="607" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-614" offset="614" size="10" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="FILLER-624" offset="624" size="12" javaType="long" signed="true"/>
+    <field name="FILLER-636" offset="636" size="3" javaType="int"/>
+    <field name="FILLER-639" offset="639" size="8" javaType="int"/>
+    <field name="FILLER-647" offset="647" size="16" javaType="String"/>
+    <field name="FILLER-663" offset="663" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-670" offset="670" size="7" javaType="int" signed="true"/>
+    <field name="FILLER-677" offset="677" size="10" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="FILLER-687" offset="687" size="12" javaType="long" signed="true"/>
+    <field name="FILLER-699" offset="699" size="3" javaType="int"/>
+    <field name="FILLER-702" offset="702" size="15" javaType="long" signed="true"/>
+    <field name="FILLER-717" offset="717" size="15" javaType="long" signed="true"/>
+    <field name="FILLER-732" offset="732" size="10" javaType="long"/>
+    <field name="FILLER-742" offset="742" size="3" javaType="int"/>
+    <field name="FILLER-745" offset="745" size="3" javaType="int"/>
+    <field name="FILLER-748" offset="748" size="3" javaType="int"/>
+    <field name="FILLER-751" offset="751" size="9" javaType="int" signed="true"/>
+    <field name="SC-CONF" offset="760" size="1" javaType="String"/>
+    <field name="FSTS" offset="761" size="2" javaType="String" value="00"/>
+    <field name="WK-PROGID" offset="763" size="6" javaType="String" value="SPACE"/>
+    <field name="WK-TITLE" offset="769" size="36" javaType="String" value="SPACE"/>
+    <field name="WK-RULE" offset="805" size="78" javaType="String" value="ALL&quot;-&quot;"/>
+    <field name="WK-FKEY-LINE" offset="883" size="78" javaType="String" value="SPACE"/>
+    <field name="WK-MSG-LINE" offset="961" size="78" javaType="String" value="SPACE"/>
+    <field name="ESTS" offset="1039" size="2" javaType="String"/>
+  </group>
+  <group name="WK-CTL" offset="0" size="65">
+    <field name="WK-ORIG-INV" offset="0" size="10" javaType="long" value="0"/>
+    <field name="WK-SEL-CUST" offset="10" size="6" javaType="int" value="0"/>
+    <field name="WK-INV-NO" offset="16" size="10" javaType="long" value="0"/>
+    <field name="WK-STAFF-IN" offset="26" size="4" javaType="int" value="0"/>
+    <field name="WK-TAXTYPE-IN" offset="30" size="1" javaType="int" value="0"/>
+    <field name="WK-PGSIZE" offset="31" size="3" javaType="int" value="10"/>
+    <field name="WK-PAGE-TOP" offset="34" size="3" javaType="int" value="1"/>
+    <field name="WK-PAGE-NO" offset="37" size="3" javaType="int" value="0"/>
+    <field name="WK-PAGE-CNT" offset="40" size="3" javaType="int" value="0"/>
+    <field name="WK-PICK-END" offset="43" size="1" javaType="int" value="0"/>
+    <field name="WK-CR-LINES" offset="44" size="3" javaType="int" value="0"/>
+    <field name="WK-PICK-LINE" offset="47" size="3" javaType="int" value="0"/>
+    <field name="WK-PICK-QTY" offset="50" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-CLOSE-YM" offset="59" size="6" javaType="int" value="0"/>
+  </group>
+  <group name="WK-CALC" offset="0" size="14">
+    <field name="WK-YM" offset="0" size="6" javaType="int" value="0"/>
+    <field name="WK-DAY" offset="6" size="2" javaType="int" value="0"/>
+    <field name="WK-YYYY" offset="8" size="4" javaType="int" value="0"/>
+    <field name="WK-MM" offset="12" size="2" javaType="int" value="0"/>
+  </group>
+  <group name="WK-HDR-DISP" offset="0" size="82">
+    <field name="WK-CUST-NAME" offset="0" size="40" javaType="String" value="SPACE"/>
+    <field name="WK-D-NAME" offset="40" size="40" javaType="String" value="SPACE"/>
+    <field name="WK-D-TAXCAT" offset="80" size="1" javaType="int" value="1"/>
+    <field name="WK-D-STKMNG" offset="81" size="1" javaType="int" value="0"/>
+  </group>
+  <group name="WK-TOTALS" offset="0" size="52">
+    <field name="WK-NET-TOTAL" offset="0" size="13" javaType="long" signed="true" value="0"/>
+    <field name="WK-TAX-TOTAL" offset="13" size="13" javaType="long" signed="true" value="0"/>
+    <field name="WK-GRS-TOTAL" offset="26" size="13" javaType="long" signed="true" value="0"/>
+    <field name="WK-COST-TOTAL" offset="39" size="13" javaType="long" signed="true" value="0"/>
+  </group>
+  <group name="WK-POST" offset="0" size="33">
+    <field name="WK-NEWBAL" offset="0" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-STK-FOUND" offset="9" size="1" javaType="int" value="0"/>
+    <field name="WK-LINE-QTY" offset="10" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-LINE-COST" offset="19" size="11" javaType="BigDecimal" signed="true" scale="2" value="0"/>
+    <field name="WK-OUT-LINE" offset="30" size="3" javaType="int" value="0"/>
+  </group>
+  <group name="WK-SRC-TABLE" offset="0" size="14403">
+    <field name="WK-SCNT" offset="0" size="3" javaType="int" value="0"/>
+    <group name="WK-SROW" offset="3" size="14400" occurs="200" elementSize="72">
+      <field name="SR-LINE" offset="3" size="3" javaType="int"/>
+      <field name="SR-PROD" offset="6" size="8" javaType="int"/>
+      <field name="SR-WHSE" offset="14" size="3" javaType="int"/>
+      <field name="SR-NAME" offset="17" size="16" javaType="String"/>
+      <field name="SR-OQTY" offset="33" size="9" javaType="int" signed="true"/>
+      <field name="SR-CR-QTY" offset="42" size="9" javaType="int" signed="true"/>
+      <field name="SR-PRICE" offset="51" size="11" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="SR-COST" offset="62" size="11" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="SR-TAXCAT" offset="73" size="1" javaType="int"/>
+      <field name="SR-STKMNG" offset="74" size="1" javaType="int"/>
+    </group>
+  </group>
+  <group name="WK-WIN" offset="0" size="630">
+    <group name="WW-ROW" offset="0" size="630" occurs="10" elementSize="63">
+      <field name="WW-LINE" offset="0" size="3" javaType="int" editFormat="ZERO_SUPPRESS" integerDigits="3" hasTrailingNine="true"/>
+      <field name="WW-PROD" offset="3" size="8" javaType="int"/>
+      <field name="WW-NAME" offset="11" size="16" javaType="String"/>
+      <field name="WW-OQTY" offset="27" size="7" javaType="int" signed="true" editFormat="SIGN_SUPPRESS" integerDigits="6" insertCommas="true" hasTrailingNine="true" commaAfter="3"/>
+      <field name="WW-CQTY" offset="34" size="7" javaType="int" signed="true" editFormat="SIGN_SUPPRESS" integerDigits="6" insertCommas="true" hasTrailingNine="true" commaAfter="3"/>
+      <field name="WW-PRICE" offset="41" size="10" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" integerDigits="8" insertCommas="true" hasTrailingNine="true" commaAfter="3"/>
+      <field name="WW-AMT" offset="51" size="12" javaType="long" signed="true" editFormat="SIGN_SUPPRESS" integerDigits="10" insertCommas="true" hasTrailingNine="true" commaAfter="4,7"/>
+    </group>
+  </group>
+  <group name="WK-SWITCHES">
+    <field name="END-FLG" size="1" javaType="int" value="0"/>
+    <field name="ERR-FLG" size="1" javaType="int" value="0"/>
+    <field name="FOUND-FLG" size="1" javaType="int" value="0"/>
+    <field name="EOF-FLG" size="1" javaType="int" value="0"/>
+    <field name="MODE-FLG" size="1" javaType="int" value="0"/>
+  </group>
+  <group name="WK-FKEYS">
+    <field name="FK-ENTER" size="2" javaType="int" value="0"/>
+    <field name="FK-HELP" size="2" javaType="int" value="1"/>
+    <field name="FK-END" size="2" javaType="int" value="3"/>
+    <field name="FK-CLEAR" size="2" javaType="int" value="4"/>
+    <field name="FK-PREV" size="2" javaType="int" value="5"/>
+    <field name="FK-NEXT" size="2" javaType="int" value="6"/>
+    <field name="FK-DELETE" size="2" javaType="int" value="9"/>
+    <field name="FK-BACK" size="2" javaType="int" value="12"/>
+  </group>
+  <group name="WK-DATE-TIME">
+    <field name="WK-SYSDATE" size="8" javaType="int" value="0"/>
+    <field name="WK-SYSTIME" size="8" javaType="int" value="0"/>
+    <field name="WK-SYSYMD" size="8" javaType="int" value="0"/>
+    <field name="WK-SYS-YM" size="6" javaType="int" value="0"/>
+  </group>
+  <group name="WK-WORK">
+    <field name="WK-CNT" size="7" javaType="int" value="0"/>
+    <field name="WK-CNT2" size="7" javaType="int" value="0"/>
+    <field name="WK-IDX" size="3" javaType="int" value="0"/>
+    <field name="WK-IDX2" size="3" javaType="int" value="0"/>
+    <field name="WK-LINE" size="2" javaType="int" value="0"/>
+    <field name="WK-PAGE" size="4" javaType="int" value="0"/>
+    <field name="WK-AMT" size="15" javaType="BigDecimal" signed="true" scale="2" value="0"/>
+    <field name="WK-AMT2" size="15" javaType="BigDecimal" signed="true" scale="2" value="0"/>
+    <field name="WK-QTY" size="11" javaType="long" signed="true" value="0"/>
+    <field name="WK-RATE" size="5" javaType="BigDecimal" signed="true" scale="3" value="0"/>
+  </group>
+  <group name="WK-OPER">
+    <field name="WK-USER-CODE" size="6" javaType="int" value="0"/>
+    <field name="WK-USER-NAME" size="30" javaType="String" value="SPACE"/>
+    <field name="WK-USER-ROLE" size="1" javaType="int" value="0"/>
+    <field name="WK-USER-AUTH" size="5" javaType="String" value="SPACE"/>
+  </group>
+  <group name="WK-EDIT">
+    <field name="WK-ED-AMT" size="15" javaType="long" signed="true"/>
+    <field name="WK-ED-AMT2" size="18" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="WK-ED-QTY" size="12" javaType="long" signed="true"/>
+    <field name="WK-ED-PRICE" size="14" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="WK-ED-RATE" size="6" javaType="BigDecimal" scale="3"/>
+    <field name="WK-ED-DATE" size="10" javaType="int"/>
+    <field name="WK-ED-NO" size="10" javaType="long"/>
+  </group>
+  <group name="WK-MSG">
+    <field name="WK-MSG-CODE" size="6" javaType="String" value="SPACE"/>
+    <field name="WK-MSG-TEXT" size="60" javaType="String" value="SPACE"/>
+    <field name="WK-CONFIRM" size="1" javaType="String" value="SPACE"/>
+  </group>
+  <group name="KNUM">
+    <field name="KNUM-KEY" size="8" javaType="String"/>
+    <field name="KNUM-NUMBER" size="10" javaType="long"/>
+    <field name="KNUM-STATUS" size="2" javaType="String"/>
+  </group>
+  <group name="KDATE">
+    <field name="KD-FUNC" size="4" javaType="String"/>
+    <field name="KD-DATE1" size="8" javaType="int"/>
+    <field name="KD-DATE2" size="8" javaType="int"/>
+    <field name="KD-DAYS" size="7" javaType="int" signed="true"/>
+    <field name="KD-WEEKDAY" size="1" javaType="int"/>
+    <field name="KD-STATUS" size="2" javaType="String"/>
+  </group>
+  <group name="KMSG">
+    <field name="KM-CODE" size="6" javaType="String"/>
+    <field name="KM-TEXT" size="60" javaType="String"/>
+    <field name="KM-STATUS" size="2" javaType="String"/>
+  </group>
+  <group name="KTAX">
+    <field name="KT-CATEGORY" size="1" javaType="int"/>
+    <field name="KT-TAX-TYPE" size="1" javaType="int"/>
+    <field name="KT-ROUND" size="1" javaType="int"/>
+    <field name="KT-DATE" size="8" javaType="int"/>
+    <field name="KT-AMOUNT" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+    <field name="KT-TAX" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+    <field name="KT-NET" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+    <field name="KT-GROSS" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+    <field name="KT-RATE" size="3" javaType="BigDecimal" signed="true" scale="3" usage="COMP-3"/>
+    <field name="KT-STATUS" size="2" javaType="String"/>
+  </group>
+  <group name="KLOGIN">
+    <field name="KL-LOGIN" size="12" javaType="String"/>
+    <field name="KL-PASSWORD" size="16" javaType="String"/>
+    <field name="KL-USER-CODE" size="6" javaType="int"/>
+    <field name="KL-USER-NAME" size="30" javaType="String"/>
+    <field name="KL-ROLE" size="1" javaType="int"/>
+    <field name="KL-AUTH" size="5" javaType="String"/>
+    <field name="KL-STATUS" size="2" javaType="String"/>
+  </group>
+  <group name="KABEND">
+    <field name="KA-PROGID" size="6" javaType="String"/>
+    <field name="KA-FILE" size="8" javaType="String"/>
+    <field name="KA-FSTS" size="2" javaType="String"/>
+    <field name="KA-MSGCODE" size="6" javaType="String"/>
+    <field name="KA-DETAIL" size="40" javaType="String"/>
+  </group>
+</dataLayout>

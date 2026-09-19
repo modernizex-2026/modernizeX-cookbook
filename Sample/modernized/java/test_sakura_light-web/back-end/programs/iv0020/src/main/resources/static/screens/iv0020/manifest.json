@@ -1,0 +1,155 @@
+{
+  "programId": "IV0020",
+  "screens": {
+    "DS-KEY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-KEY-PROD", "WK-KEY-WHSE"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "Product Code :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-KEY-PROD", "picture": "9(8)" },
+          { "col": 30, "type": "from", "name": "FILLER", "boundField": "WK-PR-NAME", "picture": "X(40)", "color": "WHITE" }
+        ] },
+        { "line": 5, "fields": [
+          { "col": 2, "type": "literal", "text": "Warehouse    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-KEY-WHSE", "picture": "9(3)" },
+          { "col": 30, "type": "from", "name": "FILLER", "boundField": "WK-WH-NAME", "picture": "X(30)", "color": "WHITE" }
+        ] }
+      ]
+    },
+    "DS-ADJ": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-ADJ-QTY", "WK-REASON"],
+      "rows": [
+        { "line": 8, "fields": [
+          { "col": 2, "type": "literal", "text": "Current OnHand:", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "SK-ONHAND", "picture": "---,---,--9", "color": "WHITE" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 2, "type": "literal", "text": "Allocated    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "SK-ALLOCATED", "picture": "---,---,--9", "color": "WHITE" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 2, "type": "literal", "text": "Avg Cost     :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "SK-AVG-COST", "picture": "---,---,--9.99", "color": "WHITE" }
+        ] },
+        { "line": 12, "fields": [
+          { "col": 2, "type": "literal", "text": "Adjustment   :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-ADJ-QTY", "picture": "S9(9)" },
+          { "col": 34, "type": "literal", "text": "(+ add / - remove)", "color": "CYAN" }
+        ] },
+        { "line": 13, "fields": [
+          { "col": 2, "type": "literal", "text": "Reason       :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-REASON", "picture": "X(30)" }
+        ] }
+      ]
+    },
+    "DS-CONFIRM": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["SC-CONF"],
+      "rows": [
+        { "line": 15, "fields": [
+          { "col": 2, "type": "literal", "text": "New OnHand   :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-NEW-ONHAND", "picture": "---,---,--9", "color": "WHITE" }
+        ] },
+        { "line": 17, "fields": [
+          { "col": 2, "type": "literal", "text": "Confirm (Y/N):", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "SC-CONF", "boundField": "WK-CONFIRM", "picture": "X(1)" }
+        ] }
+      ]
+    },
+    "DS-HEADER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-FOOTER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-MSG": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    }
+  },
+  "inputFields": {
+    "WK-KEY-PROD": {
+      "screen": "DS-KEY",
+      "line": 4,
+      "col": 20,
+      "width": 8,
+      "picture": "9(8)",
+      "usingField": "WK-KEY-PROD",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-KEY-WHSE": {
+      "screen": "DS-KEY",
+      "line": 5,
+      "col": 20,
+      "width": 3,
+      "picture": "9(3)",
+      "usingField": "WK-KEY-WHSE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-ADJ-QTY": {
+      "screen": "DS-ADJ",
+      "line": 12,
+      "col": 20,
+      "width": 9,
+      "picture": "S9(9)",
+      "usingField": "WK-ADJ-QTY",
+      "inputType": "numeric",
+      "advanceEsts": "03"
+    },
+    "WK-REASON": {
+      "screen": "DS-ADJ",
+      "line": 13,
+      "col": 20,
+      "width": 30,
+      "picture": "X(30)",
+      "usingField": "WK-REASON",
+      "inputType": "alphanumeric",
+      "advanceEsts": "03"
+    },
+    "SC-CONF": {
+      "screen": "DS-CONFIRM",
+      "line": 17,
+      "col": 20,
+      "width": 1,
+      "picture": "X(1)",
+      "usingField": "WK-CONFIRM",
+      "inputType": "alphanumeric",
+      "advanceEsts": null
+    }
+  },
+  "windows": {
+  },
+  "pfKeys": {
+    "ENTER": { "code": "00", "label": "Enter" },
+    "PF1":   { "code": "01", "label": "F1" },
+    "PF2":   { "code": "02", "label": "F2" },
+    "PF3":   { "code": "03", "label": "F3" },
+    "PF4":   { "code": "04", "label": "F4" },
+    "PF5":   { "code": "05", "label": "F5" },
+    "PF6":   { "code": "06", "label": "F6" },
+    "PF7":   { "code": "07", "label": "F7" },
+    "PF8":   { "code": "08", "label": "F8" },
+    "PF9":   { "code": "09", "label": "F9" },
+    "PF10":  { "code": "PA", "label": "F10" },
+    "PF11":  { "code": "PB", "label": "F11" },
+    "PF12":  { "code": "PC", "label": "F12" }
+  }
+}

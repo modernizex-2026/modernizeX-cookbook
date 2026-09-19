@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : RCVHF
+  FD record name : RH-REC
+  Copybook src   : FRCVH
+-->
+<dataLayout name="RCVHF" scope="file" charset="MS932" recordSize="116">
+  <group name="RH-REC" offset="0" size="116">
+    <group name="RH-REC" offset="0" size="116">
+      <field name="RH-NO" offset="0" size="10" javaType="long"/>
+      <field name="RH-DATE" offset="10" size="8" javaType="int"/>
+      <field name="RH-PO" offset="18" size="10" javaType="long"/>
+      <field name="RH-SUPP" offset="28" size="6" javaType="int"/>
+      <field name="RH-WHSE" offset="34" size="3" javaType="int"/>
+      <field name="RH-STATUS" offset="37" size="1" javaType="int"/>
+      <field name="RH-LINES" offset="38" size="3" javaType="int"/>
+      <field name="RH-REMARK" offset="41" size="40" javaType="String"/>
+      <field name="RH-ADD-DATE" offset="81" size="8" javaType="int"/>
+      <field name="RH-ADD-USER" offset="89" size="6" javaType="int"/>
+      <field name="RH-DEL-FLAG" offset="95" size="1" javaType="int"/>
+      <field name="FILLER-96" offset="96" size="20" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

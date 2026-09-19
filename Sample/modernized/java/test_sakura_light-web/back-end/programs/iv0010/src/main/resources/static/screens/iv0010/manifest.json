@@ -1,0 +1,159 @@
+{
+  "programId": "IV0010",
+  "screens": {
+    "DS-KEY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-ORDER", "WK-KEY-PROD", "WK-KEY-WHSE"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "Sort Order   :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-ORDER", "picture": "9(1)" },
+          { "col": 24, "type": "literal", "text": "1:Prod/Whse 2:Whse/Prod", "color": "CYAN" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 2, "type": "literal", "text": "Product Code :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-KEY-PROD", "picture": "9(8)" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 2, "type": "literal", "text": "Warehouse    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-KEY-WHSE", "picture": "9(3)" }
+        ] }
+      ]
+    },
+    "DS-DETAIL": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+        { "line": 3, "fields": [
+          { "col": 2, "type": "literal", "text": "Record #     :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-SEEN", "picture": "ZZZZ9", "color": "WHITE" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 2, "type": "literal", "text": "Product      :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "SK-PROD", "picture": "9(8)", "color": "WHITE" },
+          { "col": 30, "type": "from", "name": "FILLER", "boundField": "WK-PR-NAME", "picture": "X(40)", "color": "WHITE" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 2, "type": "literal", "text": "Warehouse    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "SK-WHSE", "picture": "9(3)", "color": "WHITE" },
+          { "col": 30, "type": "from", "name": "FILLER", "boundField": "WK-WH-NAME", "picture": "X(30)", "color": "WHITE" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 2, "type": "literal", "text": "Reorder/Safe :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-REORDER", "picture": "---,---,--9", "color": "WHITE" },
+          { "col": 34, "type": "from", "name": "FILLER", "boundField": "WK-SAFETY", "picture": "---,---,--9", "color": "WHITE" }
+        ] },
+        { "line": 12, "fields": [
+          { "col": 2, "type": "literal", "text": "On Hand      :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "SK-ONHAND", "picture": "---,---,--9", "color": "WHITE" }
+        ] },
+        { "line": 13, "fields": [
+          { "col": 2, "type": "literal", "text": "Allocated    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "SK-ALLOCATED", "picture": "---,---,--9", "color": "WHITE" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 2, "type": "literal", "text": "Available    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-AVAIL", "picture": "---,---,--9", "color": "WHITE" },
+          { "col": 34, "type": "from", "name": "FILLER", "boundField": "WK-STAT", "picture": "X(12)", "color": "WHITE" }
+        ] },
+        { "line": 15, "fields": [
+          { "col": 2, "type": "literal", "text": "On Order     :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "SK-ON-ORDER", "picture": "---,---,--9", "color": "WHITE" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 2, "type": "literal", "text": "Avg Cost     :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "SK-AVG-COST", "picture": "---,---,--9.99", "color": "WHITE" }
+        ] },
+        { "line": 17, "fields": [
+          { "col": 2, "type": "literal", "text": "Location     :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "SK-LOCATION", "picture": "X(10)", "color": "WHITE" }
+        ] },
+        { "line": 18, "fields": [
+          { "col": 2, "type": "literal", "text": "Last In      :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "SK-LAST-IN-DATE", "picture": "9999/99/99", "color": "WHITE" }
+        ] },
+        { "line": 19, "fields": [
+          { "col": 2, "type": "literal", "text": "Last Out     :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "SK-LAST-OUT-DATE", "picture": "9999/99/99", "color": "WHITE" }
+        ] },
+        { "line": 20, "fields": [
+          { "col": 2, "type": "literal", "text": "YTD In / Out :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "SK-YTD-IN", "picture": "---,---,---,--9", "color": "WHITE" },
+          { "col": 40, "type": "from", "name": "FILLER", "boundField": "SK-YTD-OUT", "picture": "---,---,---,--9", "color": "WHITE" }
+        ] }
+      ]
+    },
+    "DS-HEADER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-FOOTER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-MSG": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    }
+  },
+  "inputFields": {
+    "WK-ORDER": {
+      "screen": "DS-KEY",
+      "line": 4,
+      "col": 20,
+      "width": 1,
+      "picture": "9(1)",
+      "usingField": "WK-ORDER",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-KEY-PROD": {
+      "screen": "DS-KEY",
+      "line": 6,
+      "col": 20,
+      "width": 8,
+      "picture": "9(8)",
+      "usingField": "WK-KEY-PROD",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-KEY-WHSE": {
+      "screen": "DS-KEY",
+      "line": 7,
+      "col": 20,
+      "width": 3,
+      "picture": "9(3)",
+      "usingField": "WK-KEY-WHSE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    }
+  },
+  "windows": {
+  },
+  "pfKeys": {
+    "ENTER": { "code": "00", "label": "Enter" },
+    "PF1":   { "code": "01", "label": "F1" },
+    "PF2":   { "code": "02", "label": "F2" },
+    "PF3":   { "code": "03", "label": "F3" },
+    "PF4":   { "code": "04", "label": "F4" },
+    "PF5":   { "code": "05", "label": "F5" },
+    "PF6":   { "code": "06", "label": "F6" },
+    "PF7":   { "code": "07", "label": "F7" },
+    "PF8":   { "code": "08", "label": "F8" },
+    "PF9":   { "code": "09", "label": "F9" },
+    "PF10":  { "code": "PA", "label": "F10" },
+    "PF11":  { "code": "PB", "label": "F11" },
+    "PF12":  { "code": "PC", "label": "F12" }
+  }
+}

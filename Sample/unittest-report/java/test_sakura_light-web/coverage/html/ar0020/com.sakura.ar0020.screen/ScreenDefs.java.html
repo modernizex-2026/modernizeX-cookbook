@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ScreenDefs.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ar0020</a> &gt; <a href="index.source.html" class="el_package">com.sakura.ar0020.screen</a> &gt; <span class="el_source">ScreenDefs.java</span></div><h1>ScreenDefs.java</h1><pre class="source lang-java linenums">package com.sakura.ar0020.screen;
+
+import com.sakura.runtime.ScreenManifestParser;
+import com.sakura.runtime.ScreenModels.*;
+
+/**
+ * Screen definitions for program AR0020.
+ *
+ * &lt;p&gt;Auto-generated — do not edit. Backing data: {@code /screens/ar0020/manifest.json}.
+ *
+ * &lt;p&gt;This class is intentionally THIN: all screen metadata (rows, fields, input field
+ * positions, window dimensions) lives in manifest.json. Class init loads + parses the
+ * manifest once via {@link ScreenManifestParser#load}. Service code references the
+ * static API ({@code getScreen} / {@code getInput} / {@code getWindow}) exactly as before
+ * — only the backing implementation changed.
+ *
+ */
+public final class ScreenDefs {
+
+    private static final String MANIFEST_PATH = &quot;/static/screens/ar0020/manifest.json&quot;;
+
+<span class="fc" id="L22">    private static final ScreenManifestParser.ParsedManifest DATA =</span>
+<span class="fc" id="L23">            ScreenManifestParser.load(MANIFEST_PATH);</span>
+
+    private ScreenDefs() { /* static accessor only */ }
+
+    public static ScreenDef getScreen(String name) {
+<span class="fc" id="L28">        return DATA.screens.get(name.toUpperCase());</span>
+    }
+
+    public static InputFieldDef getInput(String name) {
+<span class="fc" id="L32">        return DATA.inputs.get(name.toUpperCase());</span>
+    }
+
+    public static boolean isScreenName(String name) {
+<span class="nc" id="L36">        return DATA.screens.containsKey(name.toUpperCase());</span>
+    }
+
+    public static WindowDef getWindow(String name) {
+<span class="nc" id="L40">        return DATA.windows.get(name.toUpperCase());</span>
+    }
+
+    public static boolean isInputField(String name) {
+<span class="nc" id="L44">        return DATA.inputs.containsKey(name.toUpperCase());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : SMOVF
+  FD record name : SM-REC
+  Copybook src   : FSMOV
+-->
+<dataLayout name="SMOVF" scope="file" charset="MS932" recordSize="75">
+  <group name="SM-REC" offset="0" size="75">
+    <group name="SM-REC" offset="0" size="75">
+      <field name="SM-SEQ" offset="0" size="10" javaType="long"/>
+      <field name="SM-DATE" offset="10" size="8" javaType="int"/>
+      <field name="SM-PROD" offset="18" size="8" javaType="int"/>
+      <field name="SM-WHSE" offset="26" size="3" javaType="int"/>
+      <field name="SM-KIND" offset="29" size="2" javaType="int"/>
+      <field name="SM-QTY" offset="31" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="SM-UNIT-COST" offset="36" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      <field name="SM-BAL-AFTER" offset="42" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="SM-REF-TYPE" offset="47" size="2" javaType="int"/>
+      <field name="SM-REF-NO" offset="49" size="10" javaType="long"/>
+      <field name="SM-USER" offset="59" size="6" javaType="int"/>
+      <field name="FILLER-65" offset="65" size="10" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

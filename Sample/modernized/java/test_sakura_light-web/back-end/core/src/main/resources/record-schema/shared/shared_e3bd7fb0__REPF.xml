@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : REPF
+  FD record name : REP-REC
+-->
+<dataLayout name="REPF" scope="file" charset="MS932" recordSize="132">
+  <group name="REP-REC" offset="0" size="132">
+    <field name="REP-REC" offset="0" size="132" javaType="String"/>
+  </group>
+</dataLayout>

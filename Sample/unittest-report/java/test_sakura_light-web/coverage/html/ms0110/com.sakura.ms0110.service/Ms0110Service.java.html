@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Ms0110Service.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms0110</a> &gt; <a href="index.source.html" class="el_package">com.sakura.ms0110.service</a> &gt; <span class="el_source">Ms0110Service.java</span></div><h1>Ms0110Service.java</h1><pre class="source lang-java linenums">package com.sakura.ms0110.service;
+
+import com.sakura.abortx.service.AbortxService;
+import com.sakura.dateut.service.DateutService;
+import com.sakura.ms0110.domain.Ms0110FieldAccess;
+import com.sakura.ms0110.domain.WorkingStorage;
+import com.sakura.ms0110.runtime.Ms0110Datasets;
+import com.sakura.runtime.BatchServiceBase;
+import com.sakura.runtime.JobAbortException;
+import com.sakura.runtime.ParagraphJumpSignal;
+import com.sakura.runtime.ProgramExitSignal;
+import com.sakura.runtime.ScreenRendererAware;
+import com.sakura.runtime.ScreenRendererInstance;
+import com.sakura.runtime.StopRunSignal;
+import com.sakura.runtime.io.AbstractDatasets;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import com.sakura.runtime.Utility;
+import com.sakura.runtime.DatasetEnums.*;
+import com.sakura.runtime.ScreenModels.*;
+import com.sakura.ms0110.screen.ScreenDefs;
+import com.sakura.runtime.linkage.DateutLinkParm;
+import com.sakura.runtime.linkage.AbortxLinkParm;
+
+/**
+ * Business logic service generated from COBOL program MS0110.
+ */
+@Service
+@Scope(&quot;prototype&quot;)
+public class Ms0110Service extends BatchServiceBase {
+    /**
+     * Shared file instances for all FD files in this program.
+     */
+    private final Ms0110Datasets fileSet;
+
+    /**
+     * Injected service for COBOL CALL DATEUT.
+     */
+    private DateutService dateutService;
+
+    /**
+     * Injected service for COBOL CALL ABORTX.
+     */
+    private AbortxService abortxService;
+
+    private final Ms0110FieldAccess ws;
+
+    public Ms0110Service(Ms0110Datasets fileSet, DateutService dateutService,
+<span class="fc" id="L49">            AbortxService abortxService, ScreenRendererInstance renderer) {</span>
+<span class="fc" id="L50">        this.fileSet = fileSet;</span>
+<span class="fc" id="L51">        this.ws = new Ms0110FieldAccess(new WorkingStorage(), fileSet);</span>
+<span class="fc" id="L52">        this.dateutService = dateutService;</span>
+<span class="fc" id="L53">        this.abortxService = abortxService;</span>
+<span class="fc" id="L54">        this.renderer = renderer;</span>
+<span class="fc" id="L55">    }</span>
+
+    @Override
+    public void setRenderer(ScreenRendererInstance renderer) {
+<span class="nc" id="L59">        super.setRenderer(renderer);</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (dateutService instanceof ScreenRendererAware rra) {</span>
+<span class="nc" id="L61">            rra.setRenderer(renderer);</span>
+        }
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (abortxService instanceof ScreenRendererAware rra) {</span>
+<span class="nc" id="L64">            rra.setRenderer(renderer);</span>
+        }
+<span class="nc" id="L66">    }</span>
+
+    /**
+     * Program entry point — runs the first COBOL paragraph via runChain.
+     * Base class run() wraps this in StopRun/Abort/Exception handling.
+     */
+    @Override
+    protected void mainProcess() {
+        // Import anchors for types referenced by emitted paragraph bodies:
+        // StopRunSignal, JobAbortException, ParagraphJumpSignal, ProgramExitSignal
+<span class="nc" id="L76">        runChain(this::executeMainLoop);</span>
+<span class="nc" id="L77">    }</span>
+
+    /**
+     * Returns COBOL COMPLETION-CODE after run() completes.
+     * Used by Tasklet to propagate exit code into StepExecutionContext.
+     */
+    @Override
+    public int getCompletionCode() {
+<span class="fc" id="L85">        return ws.getCompletionCode();</span>
+    }
+
+    /**
+     * Set COBOL COMPLETION-CODE. Called by base class run() on Abort (255) / Exception (12) paths.
+     */
+    @Override
+    protected void setCompletionCode(int code) {
+<span class="nc" id="L93">        ws.setCompletionCode(code);</span>
+<span class="nc" id="L94">    }</span>
+
+    /**
+     * Returns this program's FileSet (or null if no files declared).
+     * Base class run() uses this for commit/rollback/closeAll lifecycle.
+     */
+    @Override
+    protected AbstractDatasets getFileSet() {
+<span class="fc" id="L102">        return fileSet;</span>
+    }
+
+    /**
+     * COBOL paragraph: MAIN-000
+     */
+    private void executeMainLoop() {
+<span class="fc" id="L109">        runChain(this::initializeAndOpenRegnf);</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        while ((ws.getEndFlg() != 1)) {</span>
+<span class="fc" id="L111">            runChain(this::processMainScreenKey);</span>
+        }
+<span class="fc" id="L113">        runChain(this::closeRegnfFile);</span>
+<span class="fc" id="L114">        throw new ProgramExitSignal();</span>
+    }
+
+    /**
+     * COBOL paragraph: INIT-010
+     */
+    private void initializeAndOpenRegnf() {
+<span class="fc" id="L121">        ws.setWkProgid(&quot;MS0110&quot;);</span>
+<span class="fc" id="L122">        ws.setWkTitle(&quot;Region Master Maintenance&quot;);</span>
+<span class="fc" id="L123">        ws.setWkFkeyLine(&quot;ENTER=Read  PF9=Delete  PF3=End&quot;);</span>
+<span class="fc" id="L124">        ws.setKdFunc(&quot;TODY&quot;);</span>
+<span class="fc" id="L125">        dateut(ws.getKdate());</span>
+<span class="fc" id="L126">        ws.setWkSysymd(ws.getKdDate1());</span>
+<span class="fc" id="L127">        ws.setWkSysdate(ws.getKdDate1());</span>
+<span class="fc" id="L128">        fileSet.getRegnf().open(FileOpenMode.IO);</span>
+<span class="fc" id="L129">        ws.trySetString(&quot;FSTS&quot;, fileSet.getRegnf().getFileStatus());</span>
+<span class="pc bpc" id="L130" title="1 of 4 branches missed.">        if (Utility.fieldEquals(ws.getFsts(), &quot;35&quot;) || Utility.fieldEquals(ws.getFsts(), &quot;30&quot;)) {</span>
+<span class="fc" id="L131">            fileSet.getRegnf().open(FileOpenMode.OUTPUT);</span>
+<span class="fc" id="L132">            ws.trySetString(&quot;FSTS&quot;, fileSet.getRegnf().getFileStatus());</span>
+<span class="fc" id="L133">            fileSet.getRegnf().close();</span>
+<span class="fc" id="L134">            ws.trySetString(&quot;FSTS&quot;, fileSet.getRegnf().getFileStatus());</span>
+<span class="fc" id="L135">            fileSet.getRegnf().open(FileOpenMode.IO);</span>
+<span class="fc" id="L136">            ws.trySetString(&quot;FSTS&quot;, fileSet.getRegnf().getFileStatus());</span>
+        }
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        if (!Utility.fieldEquals(ws.getFsts(), &quot;00&quot;)) {</span>
+<span class="fc" id="L139">            ws.setKaFile(&quot;REGNF&quot;);</span>
+<span class="nc" id="L140">            runChain(this::abendOnFileOpenError);</span>
+        }
+<span class="fc" id="L142">    }</span>
+
+    /**
+     * COBOL paragraph: MAIN-RTN-010
+     */
+    private void processMainScreenKey() {
+<span class="fc" id="L148">        runChain(this::clearRegionRecord);</span>
+<span class="fc" id="L149">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-HEADER&quot;), ws);</span>
+<span class="fc" id="L150">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-FOOTER&quot;), ws);</span>
+<span class="fc" id="L151">        ws.setWkMsgLine(&quot; &quot;);</span>
+<span class="fc" id="L152">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L153">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-KEY&quot;), ws);</span>
+<span class="fc" id="L154">        String scValRgCode0 = Utility.acceptScreen(&quot;SC-KEY&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;SC-KEY&quot;)));</span>
+<span class="fc" id="L155">        ws.setRgCode(Utility.parseIntOr(scValRgCode0.trim(), 0));</span>
+<span class="fc" id="L156">        broadcastEstsStatus();</span>
+<span class="fc bfc" id="L157" title="All 3 branches covered.">        switch (String.valueOf(ws.getEsts())) {</span>
+        case &quot;03&quot; -&gt; {
+<span class="fc" id="L159">        ws.setString(&quot;END-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L160">        }</span>
+        case &quot;00&quot; -&gt; {
+<span class="fc" id="L162">        runChain(this::lookupRegionByKey);</span>
+<span class="fc" id="L163">        }</span>
+        default -&gt; {
+<span class="fc" id="L165">        ws.setWkMsgLine(&quot;Invalid function key&quot;);</span>
+<span class="fc" id="L166">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+        }
+<span class="fc" id="L169">    }</span>
+
+    /**
+     * COBOL paragraph: CLEAR-010
+     */
+    private void clearRegionRecord() {
+<span class="fc" id="L175">        fileSet.getRegnf().setRecord();</span>
+<span class="fc" id="L176">        ws.setWkConfirm(&quot; &quot;);</span>
+<span class="fc" id="L177">        ws.setWkSaveCode(0);</span>
+<span class="fc" id="L178">    }</span>
+
+    /**
+     * COBOL paragraph: PKEY-010
+     */
+    private void lookupRegionByKey() {
+<span class="fc bfc" id="L184" title="All 2 branches covered.">        if (ws.getRgCode() == 0) {</span>
+<span class="fc" id="L185">            ws.setWkMsgLine(&quot;Region code must not be zero&quot;);</span>
+<span class="fc" id="L186">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L187">            return;</span>
+        }
+<span class="fc" id="L189">        ws.setWkSaveCode(ws.getRgCode());</span>
+<span class="fc" id="L190">        String rkVal_1 = &quot;&quot;;</span>
+<span class="pc bpc" id="L191" title="2 of 4 branches missed.">        if (rkVal_1 == null || rkVal_1.trim().isEmpty()) {</span>
+<span class="pc" id="L192">          try { rkVal_1 = ws.getString(&quot;RG-CODE&quot;); } catch (Exception _e) {}</span>
+        }
+<span class="pc bpc" id="L194" title="2 of 4 branches missed.">        if (rkVal_1 == null || rkVal_1.trim().isEmpty()) {</span>
+<span class="nc" id="L195">          try { rkVal_1 = fileSet.getRegnf().extractKeyFromCurrentRecord(); } catch (Exception _e3) {}</span>
+        }
+<span class="pc bpc" id="L197" title="1 of 2 branches missed.">        fileSet.getRegnf().readByKey(rkVal_1 != null ? rkVal_1.trim() : &quot;&quot;);</span>
+<span class="fc" id="L198">        ws.trySetString(&quot;FSTS&quot;, fileSet.getRegnf().getFileStatus());</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">        if (fileSet.getRegnf().isInvalidKey()) {</span>
+<span class="fc" id="L200">            runChain(this::prepareNewRegionAdd);</span>
+        }
+<span class="fc bfc" id="L202" title="All 2 branches covered.">        if (!fileSet.getRegnf().isInvalidKey()) {</span>
+<span class="fc" id="L203">            runChain(this::determineChangeMode);</span>
+        }
+<span class="fc" id="L205">        runChain(this::processRegionEditScreen);</span>
+<span class="fc" id="L206">    }</span>
+
+    /**
+     * COBOL paragraph: SADD-010
+     */
+    private void prepareNewRegionAdd() {
+<span class="fc" id="L212">        ws.setString(&quot;MODE-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L213">        fileSet.getRegnf().setRecord();</span>
+<span class="fc" id="L214">        ws.setRgCode(ws.getWkSaveCode());</span>
+<span class="fc" id="L215">        ws.setWkMsgLine(&quot;New region - enter details&quot;);</span>
+<span class="fc" id="L216">    }</span>
+
+    /**
+     * COBOL paragraph: SCHG-010
+     */
+    private void determineChangeMode() {
+<span class="fc bfc" id="L222" title="All 2 branches covered.">        if (ws.getRgDelFlag() == 1) {</span>
+<span class="fc" id="L223">            ws.setString(&quot;MODE-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L224">            ws.setWkMsgLine(&quot;Deleted region - re-registering&quot;);</span>
+        } else {
+<span class="fc" id="L226">            ws.setString(&quot;MODE-FLG&quot;, &quot;2&quot;);</span>
+<span class="fc" id="L227">            ws.setWkMsgLine(&quot;Existing region - change or PF9 delete&quot;);</span>
+        }
+<span class="fc" id="L229">    }</span>
+
+    /**
+     * COBOL paragraph: EDIT-010
+     */
+    private void processRegionEditScreen() {
+<span class="fc" id="L235">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L236">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-BODY&quot;), ws);</span>
+<span class="fc" id="L237">        String scValRgName2 = Utility.acceptScreen(&quot;RG-NAME&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;RG-NAME&quot;)));</span>
+<span class="fc" id="L238">        ws.setRgName(scValRgName2);</span>
+<span class="fc" id="L239">        broadcastEstsStatus();</span>
+<span class="pc bpc" id="L240" title="1 of 5 branches missed.">        switch (String.valueOf(ws.getEsts())) {</span>
+        case &quot;03&quot; -&gt; {
+        /* CONTINUE */
+<span class="nc" id="L243">        }</span>
+        case &quot;04&quot; -&gt; {
+<span class="fc" id="L245">        ws.setWkMsgLine(&quot;Cancelled&quot;);</span>
+<span class="fc" id="L246">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L247">        }</span>
+        case &quot;09&quot; -&gt; {
+<span class="fc bfc" id="L249" title="All 2 branches covered.">        if ((ws.getModeFlg() == 2)) {</span>
+<span class="fc" id="L250">            runChain(this::confirmAndDeleteRegion);</span>
+        } else {
+<span class="fc" id="L252">            ws.setWkMsgLine(&quot;Nothing to delete&quot;);</span>
+<span class="fc" id="L253">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+<span class="fc" id="L255">        }</span>
+        case &quot;00&quot; -&gt; {
+<span class="fc" id="L257">        runChain(this::validateRegionName);</span>
+<span class="fc bfc" id="L258" title="All 2 branches covered.">        if ((ws.getErrFlg() != 1)) {</span>
+<span class="fc" id="L259">            runChain(this::saveRegionRecord);</span>
+        }
+        }
+        default -&gt; {
+<span class="fc" id="L263">        ws.setWkMsgLine(&quot;Invalid function key&quot;);</span>
+<span class="fc" id="L264">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+        }
+<span class="fc" id="L267">    }</span>
+
+    /**
+     * COBOL paragraph: VAL-010
+     */
+    private void validateRegionName() {
+<span class="fc" id="L273">        ws.setErrFlg(0);</span>
+<span class="fc bfc" id="L274" title="All 2 branches covered.">        if (Utility.fieldEquals(ws.getRgName(), &quot; &quot;)) {</span>
+<span class="fc" id="L275">            ws.setWkMsgLine(&quot;Region name is required&quot;);</span>
+<span class="fc" id="L276">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+        }
+        // fall-through to next paragraph
+<span class="fc bfc" id="L279" title="All 2 branches covered.">        if ((ws.getErrFlg() == 1)) {</span>
+<span class="fc" id="L280">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+<span class="fc" id="L282">    }</span>
+
+    /**
+     * COBOL paragraph: SAVE-010
+     */
+    private void saveRegionRecord() {
+<span class="fc" id="L288">        ws.setRgDelFlag(0);</span>
+<span class="fc bfc" id="L289" title="All 2 branches covered.">        if ((ws.getModeFlg() == 1)) {</span>
+<span class="fc" id="L290">            fileSet.getRegnf().write();</span>
+<span class="fc" id="L291">            ws.trySetString(&quot;FSTS&quot;, fileSet.getRegnf().getFileStatus());</span>
+<span class="fc bfc" id="L292" title="All 2 branches covered.">            if (fileSet.getRegnf().isInvalidKey()) {</span>
+<span class="fc" id="L293">                ws.setWkMsgLine(&quot;Write failed - duplicate&quot;);</span>
+<span class="fc" id="L294">                renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+            }
+<span class="fc bfc" id="L296" title="All 2 branches covered.">            if (!fileSet.getRegnf().isInvalidKey()) {</span>
+<span class="fc" id="L297">                ws.setWkMsgLine(&quot;Region added&quot;);</span>
+<span class="fc" id="L298">                renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+            }
+        } else {
+<span class="fc" id="L301">            fileSet.getRegnf().rewrite();</span>
+<span class="fc" id="L302">            ws.trySetString(&quot;FSTS&quot;, fileSet.getRegnf().getFileStatus());</span>
+<span class="fc bfc" id="L303" title="All 2 branches covered.">            if (fileSet.getRegnf().isInvalidKey()) {</span>
+<span class="fc" id="L304">                ws.setWkMsgLine(&quot;Update failed&quot;);</span>
+<span class="fc" id="L305">                renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+            }
+<span class="fc bfc" id="L307" title="All 2 branches covered.">            if (!fileSet.getRegnf().isInvalidKey()) {</span>
+<span class="fc" id="L308">                ws.setWkMsgLine(&quot;Region updated&quot;);</span>
+<span class="fc" id="L309">                renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+            }
+        }
+<span class="fc" id="L312">    }</span>
+
+    /**
+     * COBOL paragraph: DEL-010
+     */
+    private void confirmAndDeleteRegion() {
+<span class="fc" id="L318">        ws.setWkConfirm(&quot; &quot;);</span>
+<span class="fc" id="L319">        ws.setWkMsgLine(&quot;Press Y then ENTER to delete&quot;);</span>
+<span class="fc" id="L320">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L321">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-CONFIRM&quot;), ws);</span>
+<span class="fc" id="L322">        String scValWkConfirm3 = Utility.acceptScreen(&quot;SC-CONF&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;SC-CONF&quot;)));</span>
+<span class="fc" id="L323">        ws.setWkConfirm(scValWkConfirm3);</span>
+<span class="fc" id="L324">        broadcastEstsStatus();</span>
+<span class="fc bfc" id="L325" title="All 4 branches covered.">        if ((ws.getWkConfirm().equals(&quot;Y&quot;) || ws.getWkConfirm().equals(&quot;y&quot;))) {</span>
+<span class="fc" id="L326">            ws.setRgDelFlag(1);</span>
+<span class="fc" id="L327">            fileSet.getRegnf().rewrite();</span>
+<span class="fc" id="L328">            ws.trySetString(&quot;FSTS&quot;, fileSet.getRegnf().getFileStatus());</span>
+<span class="pc bpc" id="L329" title="1 of 2 branches missed.">            if (fileSet.getRegnf().isInvalidKey()) {</span>
+<span class="nc" id="L330">                ws.setWkMsgLine(&quot;Delete failed&quot;);</span>
+            }
+<span class="pc bpc" id="L332" title="1 of 2 branches missed.">            if (!fileSet.getRegnf().isInvalidKey()) {</span>
+<span class="fc" id="L333">                ws.setWkMsgLine(&quot;Region deleted&quot;);</span>
+            }
+        } else {
+<span class="fc" id="L336">            ws.setWkMsgLine(&quot;Delete cancelled&quot;);</span>
+        }
+<span class="fc" id="L338">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L339">    }</span>
+
+    /**
+     * COBOL paragraph: TERM-010
+     */
+    private void closeRegnfFile() {
+<span class="fc" id="L345">        fileSet.getRegnf().close();</span>
+<span class="fc" id="L346">        ws.trySetString(&quot;FSTS&quot;, fileSet.getRegnf().getFileStatus());</span>
+<span class="fc" id="L347">    }</span>
+
+    /**
+     * COBOL paragraph: ABEND-010
+     */
+    private void abendOnFileOpenError() {
+<span class="fc" id="L353">        ws.setKaProgid(&quot;MS0110&quot;);</span>
+<span class="fc" id="L354">        ws.setKaFsts(ws.getFsts());</span>
+<span class="fc" id="L355">        ws.setKaMsgcode(&quot;EOPEN &quot;);</span>
+<span class="fc" id="L356">        ws.setKaDetail(&quot;File open error&quot;);</span>
+<span class="fc" id="L357">        abortx(ws.getKabend());</span>
+<span class="fc" id="L358">        ws.setCompletionCode(255);</span>
+<span class="fc" id="L359">        throw new ProgramExitSignal();</span>
+    }
+
+    /**
+     * COBOL CALL DATEUT — delegates to injected DateutService.
+     */
+    private void dateut(Object... args) {
+<span class="fc" id="L366">        DateutLinkParm params = new DateutLinkParm();</span>
+<span class="fc" id="L367">        params.getKdate().setKdFunc(ws.getKdFunc());</span>
+<span class="fc" id="L368">        params.getKdate().setKdDate1(ws.getKdDate1());</span>
+<span class="fc" id="L369">        params.getKdate().setKdDate2(ws.getKdDate2());</span>
+<span class="fc" id="L370">        params.getKdate().setKdDays(ws.getKdDays());</span>
+<span class="fc" id="L371">        params.getKdate().setKdWeekday(ws.getKdWeekday());</span>
+<span class="fc" id="L372">        params.getKdate().setKdStatus(ws.getKdStatus());</span>
+<span class="fc" id="L373">        dateutService.execute(params);</span>
+<span class="fc" id="L374">        ws.setKdFunc(params.getKdate().getKdFunc());</span>
+<span class="fc" id="L375">        ws.setKdDate1(params.getKdate().getKdDate1());</span>
+<span class="fc" id="L376">        ws.setKdDate2(params.getKdate().getKdDate2());</span>
+<span class="fc" id="L377">        ws.setKdDays(params.getKdate().getKdDays());</span>
+<span class="fc" id="L378">        ws.setKdWeekday(params.getKdate().getKdWeekday());</span>
+<span class="fc" id="L379">        ws.setKdStatus(params.getKdate().getKdStatus());</span>
+<span class="fc" id="L380">    }</span>
+
+    /**
+     * COBOL CALL ABORTX — delegates to injected AbortxService.
+     */
+    private void abortx(Object... args) {
+<span class="fc" id="L386">        AbortxLinkParm params = new AbortxLinkParm();</span>
+<span class="fc" id="L387">        params.getKabend().setKaProgid(ws.getKaProgid());</span>
+<span class="fc" id="L388">        params.getKabend().setKaFile(ws.getKaFile());</span>
+<span class="fc" id="L389">        params.getKabend().setKaFsts(ws.getKaFsts());</span>
+<span class="fc" id="L390">        params.getKabend().setKaMsgcode(ws.getKaMsgcode());</span>
+<span class="fc" id="L391">        params.getKabend().setKaDetail(ws.getKaDetail());</span>
+<span class="fc" id="L392">        abortxService.execute(params);</span>
+<span class="fc" id="L393">        ws.setKaProgid(params.getKabend().getKaProgid());</span>
+<span class="fc" id="L394">        ws.setKaFile(params.getKabend().getKaFile());</span>
+<span class="fc" id="L395">        ws.setKaFsts(params.getKabend().getKaFsts());</span>
+<span class="fc" id="L396">        ws.setKaMsgcode(params.getKabend().getKaMsgcode());</span>
+<span class="fc" id="L397">        ws.setKaDetail(params.getKabend().getKaDetail());</span>
+<span class="fc" id="L398">    }</span>
+    /** Reads CRT STATUS and broadcasts to all ESTS fields — COBOL implicit after each ACCEPT. */
+    private void broadcastEstsStatus() {
+<span class="fc" id="L401">        Utility.broadcastEndStatus(ws, renderer.readEndStatus(), &quot;ESTS&quot;);</span>
+<span class="fc" id="L402">    }</span>
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

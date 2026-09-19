@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CreditService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">credit</a> &gt; <a href="index.source.html" class="el_package">com.sakura.credit.service</a> &gt; <span class="el_source">CreditService.java</span></div><h1>CreditService.java</h1><pre class="source lang-java linenums">package com.sakura.credit.service;
+
+import com.sakura.credit.domain.CreditFieldAccess;
+import com.sakura.credit.domain.WorkingStorage;
+import com.sakura.credit.runtime.CreditDatasets;
+import com.sakura.runtime.BatchServiceBase;
+import com.sakura.runtime.JobAbortException;
+import com.sakura.runtime.ParagraphJumpSignal;
+import com.sakura.runtime.ProgramExitSignal;
+import com.sakura.runtime.StopRunSignal;
+import com.sakura.runtime.io.AbstractDatasets;
+import com.sakura.runtime.linkage.CreditLinkParm;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import com.sakura.runtime.Utility;
+import com.sakura.runtime.DatasetEnums.*;
+import com.sakura.runtime.linkage.CreditLinkParm;
+import java.math.BigDecimal;
+
+/**
+ * Business logic service generated from COBOL program CREDIT.
+ */
+@Service
+@Scope(&quot;prototype&quot;)
+public class CreditService extends BatchServiceBase {
+    /**
+     * Shared file instances for all FD files in this program.
+     */
+    private final CreditDatasets fileSet;
+
+<span class="fc" id="L31">    private final CreditLinkParm link = new CreditLinkParm();</span>
+
+    private final CreditFieldAccess ws;
+
+<span class="fc" id="L35">    public CreditService(CreditDatasets fileSet) {</span>
+<span class="fc" id="L36">        this.fileSet = fileSet;</span>
+<span class="fc" id="L37">        this.ws = new CreditFieldAccess(new WorkingStorage(), fileSet);</span>
+<span class="fc" id="L38">    }</span>
+
+    /**
+     * Program entry point — runs the first COBOL paragraph via runChain.
+     * Base class run() wraps this in StopRun/Abort/Exception handling.
+     */
+    @Override
+    protected void mainProcess() {
+        // Import anchors for types referenced by emitted paragraph bodies:
+        // StopRunSignal, JobAbortException, ParagraphJumpSignal, ProgramExitSignal
+<span class="nc" id="L48">        runChain(this::runCreditCheckProgram);</span>
+<span class="nc" id="L49">    }</span>
+
+    /**
+     * Returns COBOL COMPLETION-CODE after run() completes.
+     * Used by Tasklet to propagate exit code into StepExecutionContext.
+     */
+    @Override
+    public int getCompletionCode() {
+<span class="nc" id="L57">        return ws.getCompletionCode();</span>
+    }
+
+    /**
+     * Set COBOL COMPLETION-CODE. Called by base class run() on Abort (255) / Exception (12) paths.
+     */
+    @Override
+    protected void setCompletionCode(int code) {
+<span class="nc" id="L65">        ws.setCompletionCode(code);</span>
+<span class="nc" id="L66">    }</span>
+
+    /**
+     * Returns this program's FileSet (or null if no files declared).
+     * Base class run() uses this for commit/rollback/closeAll lifecycle.
+     */
+    @Override
+    protected AbstractDatasets getFileSet() {
+<span class="fc" id="L74">        return fileSet;</span>
+    }
+
+    /**
+     * COBOL paragraph: MAIN-000
+     */
+    private void runCreditCheckProgram() {
+<span class="fc" id="L81">        link.getKcred().setKcStatus(&quot;00&quot;);</span>
+<span class="fc" id="L82">        link.getKcred().setKcExceed(0);</span>
+<span class="fc" id="L83">        link.getKcred().setKcLimit(BigDecimal.ZERO);</span>
+<span class="fc" id="L84">        link.getKcred().setKcBalance(BigDecimal.ZERO);</span>
+<span class="fc" id="L85">        link.getKcred().setKcNewbal(BigDecimal.ZERO);</span>
+<span class="fc" id="L86">        runChain(this::openCustomerFileWithCreate);</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (!Utility.fieldEquals(ws.getFsts(), &quot;00&quot;)) {</span>
+<span class="fc" id="L88">            link.getKcred().setKcStatus(&quot;99&quot;);</span>
+<span class="fc" id="L89">            runChain(this::closeCustomerFile);</span>
+<span class="fc" id="L90">            throw new ProgramExitSignal();</span>
+        }
+<span class="fc" id="L92">        runChain(this::checkCreditLimit);</span>
+<span class="fc" id="L93">        runChain(this::closeCustomerFile);</span>
+<span class="fc" id="L94">        throw new ProgramExitSignal();</span>
+    }
+
+    /**
+     * COBOL paragraph: OPEN-010
+     */
+    private void openCustomerFileWithCreate() {
+<span class="fc" id="L101">        fileSet.getCustf().open(FileOpenMode.INPUT);</span>
+<span class="fc" id="L102">        ws.trySetString(&quot;FSTS&quot;, fileSet.getCustf().getFileStatus());</span>
+<span class="pc bpc" id="L103" title="1 of 4 branches missed.">        if (Utility.fieldEquals(ws.getFsts(), &quot;35&quot;) || Utility.fieldEquals(ws.getFsts(), &quot;30&quot;)) {</span>
+<span class="fc" id="L104">            fileSet.getCustf().open(FileOpenMode.OUTPUT);</span>
+<span class="fc" id="L105">            ws.trySetString(&quot;FSTS&quot;, fileSet.getCustf().getFileStatus());</span>
+<span class="fc" id="L106">            fileSet.getCustf().close();</span>
+<span class="fc" id="L107">            ws.trySetString(&quot;FSTS&quot;, fileSet.getCustf().getFileStatus());</span>
+<span class="fc" id="L108">            fileSet.getCustf().open(FileOpenMode.INPUT);</span>
+<span class="fc" id="L109">            ws.trySetString(&quot;FSTS&quot;, fileSet.getCustf().getFileStatus());</span>
+        }
+<span class="fc" id="L111">    }</span>
+
+    /**
+     * COBOL paragraph: CLOSE-010
+     */
+    private void closeCustomerFile() {
+<span class="fc" id="L117">        fileSet.getCustf().close();</span>
+<span class="fc" id="L118">        ws.trySetString(&quot;FSTS&quot;, fileSet.getCustf().getFileStatus());</span>
+<span class="fc" id="L119">    }</span>
+
+    /**
+     * COBOL paragraph: CHK-010
+     */
+    private void checkCreditLimit() {
+<span class="fc" id="L125">        ws.setCuCode(link.getKcred().getKcCust());</span>
+<span class="fc" id="L126">        String rkVal_0 = &quot;&quot;;</span>
+<span class="pc bpc" id="L127" title="2 of 4 branches missed.">        if (rkVal_0 == null || rkVal_0.trim().isEmpty()) {</span>
+<span class="pc" id="L128">          try { rkVal_0 = ws.getString(&quot;CU-CODE&quot;); } catch (Exception _e) {}</span>
+        }
+<span class="pc bpc" id="L130" title="2 of 4 branches missed.">        if (rkVal_0 == null || rkVal_0.trim().isEmpty()) {</span>
+<span class="nc" id="L131">          try { rkVal_0 = fileSet.getCustf().extractKeyFromCurrentRecord(); } catch (Exception _e3) {}</span>
+        }
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">        fileSet.getCustf().readByKey(rkVal_0 != null ? rkVal_0.trim() : &quot;&quot;);</span>
+<span class="fc" id="L134">        ws.trySetString(&quot;FSTS&quot;, fileSet.getCustf().getFileStatus());</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">        if (fileSet.getCustf().isInvalidKey()) {</span>
+<span class="fc" id="L136">            link.getKcred().setKcStatus(&quot;99&quot;);</span>
+<span class="fc" id="L137">            return;</span>
+        }
+<span class="fc" id="L139">        link.getKcred().setKcLimit(ws.getCuCreditLimit());</span>
+<span class="fc" id="L140">        link.getKcred().setKcBalance(ws.getCuBalance());</span>
+<span class="fc" id="L141">        link.getKcred().setKcNewbal((ws.getCuBalance().add(link.getKcred().getKcAmount())).setScale(0, java.math.RoundingMode.DOWN));</span>
+<span class="fc bfc" id="L142" title="All 4 branches covered.">        if ((link.getKcred().getKcLimit().signum() &gt; 0) &amp;&amp; (link.getKcred().getKcNewbal().compareTo(link.getKcred().getKcLimit()) &gt; 0)) {</span>
+<span class="fc" id="L143">            link.getKcred().setKcExceed(1);</span>
+        } else {
+<span class="fc" id="L145">            link.getKcred().setKcExceed(0);</span>
+        }
+<span class="fc" id="L147">    }</span>
+
+    /**
+     * Execute this program as a COBOL CALL callee.
+     * Copies params into Linkage section, runs business logic, copies back.
+     */
+    public void execute(CreditLinkParm params) {
+<span class="fc" id="L154">        link.getKcred().setKcCust(params.getKcred().getKcCust());</span>
+<span class="fc" id="L155">        link.getKcred().setKcAmount(params.getKcred().getKcAmount());</span>
+<span class="fc" id="L156">        link.getKcred().setKcLimit(params.getKcred().getKcLimit());</span>
+<span class="fc" id="L157">        link.getKcred().setKcBalance(params.getKcred().getKcBalance());</span>
+<span class="fc" id="L158">        link.getKcred().setKcNewbal(params.getKcred().getKcNewbal());</span>
+<span class="fc" id="L159">        link.getKcred().setKcExceed(params.getKcred().getKcExceed());</span>
+<span class="fc" id="L160">        link.getKcred().setKcStatus(params.getKcred().getKcStatus());</span>
+<span class="fc" id="L161">        executeSubprogram(this::runCreditCheckProgram);</span>
+<span class="fc" id="L162">        params.getKcred().setKcCust(link.getKcred().getKcCust());</span>
+<span class="fc" id="L163">        params.getKcred().setKcAmount(link.getKcred().getKcAmount());</span>
+<span class="fc" id="L164">        params.getKcred().setKcLimit(link.getKcred().getKcLimit());</span>
+<span class="fc" id="L165">        params.getKcred().setKcBalance(link.getKcred().getKcBalance());</span>
+<span class="fc" id="L166">        params.getKcred().setKcNewbal(link.getKcred().getKcNewbal());</span>
+<span class="fc" id="L167">        params.getKcred().setKcExceed(link.getKcred().getKcExceed());</span>
+<span class="fc" id="L168">        params.getKcred().setKcStatus(link.getKcred().getKcStatus());</span>
+<span class="fc" id="L169">    }</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

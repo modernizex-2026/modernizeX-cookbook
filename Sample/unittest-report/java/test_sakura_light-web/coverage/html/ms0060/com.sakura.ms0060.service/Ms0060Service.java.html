@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Ms0060Service.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms0060</a> &gt; <a href="index.source.html" class="el_package">com.sakura.ms0060.service</a> &gt; <span class="el_source">Ms0060Service.java</span></div><h1>Ms0060Service.java</h1><pre class="source lang-java linenums">package com.sakura.ms0060.service;
+
+import com.sakura.abortx.service.AbortxService;
+import com.sakura.dateut.service.DateutService;
+import com.sakura.ms0060.domain.Ms0060FieldAccess;
+import com.sakura.ms0060.domain.WorkingStorage;
+import com.sakura.ms0060.runtime.Ms0060Datasets;
+import com.sakura.runtime.BatchServiceBase;
+import com.sakura.runtime.JobAbortException;
+import com.sakura.runtime.ParagraphJumpSignal;
+import com.sakura.runtime.ProgramExitSignal;
+import com.sakura.runtime.ScreenRendererAware;
+import com.sakura.runtime.ScreenRendererInstance;
+import com.sakura.runtime.StopRunSignal;
+import com.sakura.runtime.io.AbstractDatasets;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import com.sakura.runtime.Utility;
+import com.sakura.runtime.DatasetEnums.*;
+import com.sakura.runtime.ScreenModels.*;
+import com.sakura.ms0060.screen.ScreenDefs;
+import com.sakura.runtime.linkage.DateutLinkParm;
+import com.sakura.runtime.linkage.AbortxLinkParm;
+
+/**
+ * Business logic service generated from COBOL program MS0060.
+ */
+@Service
+@Scope(&quot;prototype&quot;)
+public class Ms0060Service extends BatchServiceBase {
+    /**
+     * Shared file instances for all FD files in this program.
+     */
+    private final Ms0060Datasets fileSet;
+
+    /**
+     * Injected service for COBOL CALL DATEUT.
+     */
+    private DateutService dateutService;
+
+    /**
+     * Injected service for COBOL CALL ABORTX.
+     */
+    private AbortxService abortxService;
+
+    private final Ms0060FieldAccess ws;
+
+    public Ms0060Service(Ms0060Datasets fileSet, DateutService dateutService,
+<span class="fc" id="L49">            AbortxService abortxService, ScreenRendererInstance renderer) {</span>
+<span class="fc" id="L50">        this.fileSet = fileSet;</span>
+<span class="fc" id="L51">        this.ws = new Ms0060FieldAccess(new WorkingStorage(), fileSet);</span>
+<span class="fc" id="L52">        this.dateutService = dateutService;</span>
+<span class="fc" id="L53">        this.abortxService = abortxService;</span>
+<span class="fc" id="L54">        this.renderer = renderer;</span>
+<span class="fc" id="L55">    }</span>
+
+    @Override
+    public void setRenderer(ScreenRendererInstance renderer) {
+<span class="fc" id="L59">        super.setRenderer(renderer);</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (dateutService instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L61">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if (abortxService instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L64">            rra.setRenderer(renderer);</span>
+        }
+<span class="fc" id="L66">    }</span>
+
+    /**
+     * Program entry point — runs the first COBOL paragraph via runChain.
+     * Base class run() wraps this in StopRun/Abort/Exception handling.
+     */
+    @Override
+    protected void mainProcess() {
+        // Import anchors for types referenced by emitted paragraph bodies:
+        // StopRunSignal, JobAbortException, ParagraphJumpSignal, ProgramExitSignal
+<span class="nc" id="L76">        runChain(this::runMainProgram);</span>
+<span class="nc" id="L77">    }</span>
+
+    /**
+     * Returns COBOL COMPLETION-CODE after run() completes.
+     * Used by Tasklet to propagate exit code into StepExecutionContext.
+     */
+    @Override
+    public int getCompletionCode() {
+<span class="fc" id="L85">        return ws.getCompletionCode();</span>
+    }
+
+    /**
+     * Set COBOL COMPLETION-CODE. Called by base class run() on Abort (255) / Exception (12) paths.
+     */
+    @Override
+    protected void setCompletionCode(int code) {
+<span class="fc" id="L93">        ws.setCompletionCode(code);</span>
+<span class="fc" id="L94">    }</span>
+
+    /**
+     * Returns this program's FileSet (or null if no files declared).
+     * Base class run() uses this for commit/rollback/closeAll lifecycle.
+     */
+    @Override
+    protected AbstractDatasets getFileSet() {
+<span class="fc" id="L102">        return fileSet;</span>
+    }
+
+    /**
+     * COBOL paragraph: MAIN-000
+     */
+    private void runMainProgram() {
+<span class="fc" id="L109">        runChain(this::initializeProgram);</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        while ((ws.getEndFlg() != 1)) {</span>
+<span class="fc" id="L111">            runChain(this::runMainScreenCycle);</span>
+        }
+<span class="fc" id="L113">        runChain(this::closeCategoryFile);</span>
+<span class="fc" id="L114">        throw new ProgramExitSignal();</span>
+    }
+
+    /**
+     * COBOL paragraph: INIT-010
+     */
+    private void initializeProgram() {
+<span class="fc" id="L121">        ws.setWkProgid(&quot;MS0060&quot;);</span>
+<span class="fc" id="L122">        ws.setWkTitle(&quot;Category Master Maintenance&quot;);</span>
+<span class="fc" id="L123">        ws.setWkFkeyLine(&quot;ENTER=Read  PF9=Delete  PF3=End&quot;);</span>
+<span class="fc" id="L124">        ws.setKdFunc(&quot;TODY&quot;);</span>
+<span class="fc" id="L125">        callDateutService(ws.getKdate());</span>
+<span class="fc" id="L126">        ws.setWkSysymd(ws.getKdDate1());</span>
+<span class="fc" id="L127">        ws.setWkSysdate(ws.getKdDate1());</span>
+<span class="fc" id="L128">        fileSet.getCatgf().open(FileOpenMode.IO);</span>
+<span class="fc" id="L129">        ws.trySetString(&quot;FSTS&quot;, fileSet.getCatgf().getFileStatus());</span>
+<span class="fc bfc" id="L130" title="All 4 branches covered.">        if (Utility.fieldEquals(ws.getFsts(), &quot;35&quot;) || Utility.fieldEquals(ws.getFsts(), &quot;30&quot;)) {</span>
+<span class="fc" id="L131">            fileSet.getCatgf().open(FileOpenMode.OUTPUT);</span>
+<span class="fc" id="L132">            ws.trySetString(&quot;FSTS&quot;, fileSet.getCatgf().getFileStatus());</span>
+<span class="fc" id="L133">            fileSet.getCatgf().close();</span>
+<span class="fc" id="L134">            ws.trySetString(&quot;FSTS&quot;, fileSet.getCatgf().getFileStatus());</span>
+<span class="fc" id="L135">            fileSet.getCatgf().open(FileOpenMode.IO);</span>
+<span class="fc" id="L136">            ws.trySetString(&quot;FSTS&quot;, fileSet.getCatgf().getFileStatus());</span>
+        }
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        if (!Utility.fieldEquals(ws.getFsts(), &quot;00&quot;)) {</span>
+<span class="fc" id="L139">            ws.setKaFile(&quot;CATGF&quot;);</span>
+<span class="nc" id="L140">            runChain(this::abortOnFileOpenError);</span>
+        }
+<span class="fc" id="L142">    }</span>
+
+    /**
+     * COBOL paragraph: MAIN-RTN-010
+     */
+    private void runMainScreenCycle() {
+<span class="fc" id="L148">        runChain(this::clearWorkingRecord);</span>
+<span class="fc" id="L149">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-HEADER&quot;), ws);</span>
+<span class="fc" id="L150">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-FOOTER&quot;), ws);</span>
+<span class="fc" id="L151">        ws.setWkMsgLine(&quot; &quot;);</span>
+<span class="fc" id="L152">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L153">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-KEY&quot;), ws);</span>
+<span class="fc" id="L154">        String scValCtCode0 = Utility.acceptScreen(&quot;SC-KEY&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;SC-KEY&quot;)));</span>
+<span class="fc" id="L155">        ws.setCtCode(Utility.parseIntOr(scValCtCode0.trim(), 0));</span>
+<span class="fc" id="L156">        broadcastEstsStatus();</span>
+<span class="fc bfc" id="L157" title="All 3 branches covered.">        switch (String.valueOf(ws.getEsts())) {</span>
+        case &quot;03&quot; -&gt; {
+<span class="fc" id="L159">        ws.setString(&quot;END-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L160">        }</span>
+        case &quot;00&quot; -&gt; {
+<span class="fc" id="L162">        runChain(this::processCategoryKeyEntry);</span>
+<span class="fc" id="L163">        }</span>
+        default -&gt; {
+<span class="fc" id="L165">        ws.setWkMsgLine(&quot;Invalid function key&quot;);</span>
+<span class="fc" id="L166">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+        }
+<span class="fc" id="L169">    }</span>
+
+    /**
+     * COBOL paragraph: CLEAR-010
+     */
+    private void clearWorkingRecord() {
+<span class="fc" id="L175">        fileSet.getCatgf().setRecord();</span>
+<span class="fc" id="L176">        ws.setWkParentName(&quot; &quot;);</span>
+<span class="fc" id="L177">        ws.setWkConfirm(&quot; &quot;);</span>
+<span class="fc" id="L178">    }</span>
+
+    /**
+     * COBOL paragraph: PKEY-010
+     */
+    private void processCategoryKeyEntry() {
+<span class="fc bfc" id="L184" title="All 2 branches covered.">        if (ws.getCtCode() == 0) {</span>
+<span class="fc" id="L185">            ws.setWkMsgLine(&quot;Category code must not be zero&quot;);</span>
+<span class="fc" id="L186">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L187">            return;</span>
+        }
+<span class="fc" id="L189">        ws.setWkSaveCode(ws.getCtCode());</span>
+<span class="fc" id="L190">        readCategoryByCode();</span>
+<span class="fc bfc" id="L191" title="All 2 branches covered.">        if (fileSet.getCatgf().isInvalidKey()) {</span>
+<span class="fc" id="L192">            runChain(this::prepareNewCategoryEntry);</span>
+        }
+<span class="fc bfc" id="L194" title="All 2 branches covered.">        if (!fileSet.getCatgf().isInvalidKey()) {</span>
+<span class="fc" id="L195">            runChain(this::prepareExistingCategoryEntry);</span>
+        }
+<span class="fc" id="L197">        runChain(this::processCategoryEditScreen);</span>
+<span class="fc" id="L198">    }</span>
+
+    /**
+     * COBOL paragraph: SADD-010
+     */
+    private void prepareNewCategoryEntry() {
+<span class="fc" id="L204">        ws.setString(&quot;MODE-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L205">        fileSet.getCatgf().setRecord();</span>
+<span class="fc" id="L206">        ws.setCtCode(ws.getWkSaveCode());</span>
+<span class="fc" id="L207">        ws.setCtLevel(1);</span>
+<span class="fc" id="L208">        ws.setWkMsgLine(&quot;New category - enter details&quot;);</span>
+<span class="fc" id="L209">    }</span>
+
+    /**
+     * COBOL paragraph: SCHG-010
+     */
+    private void prepareExistingCategoryEntry() {
+<span class="fc bfc" id="L215" title="All 2 branches covered.">        if (ws.getCtDelFlag() == 1) {</span>
+<span class="fc" id="L216">            ws.setString(&quot;MODE-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L217">            ws.setWkMsgLine(&quot;Deleted category - re-registering&quot;);</span>
+        } else {
+<span class="fc" id="L219">            ws.setString(&quot;MODE-FLG&quot;, &quot;2&quot;);</span>
+<span class="fc" id="L220">            ws.setWkMsgLine(&quot;Existing category - change or PF9 delete&quot;);</span>
+        }
+<span class="fc" id="L222">        runChain(this::lookupParentCategoryName);</span>
+<span class="fc" id="L223">    }</span>
+
+    /**
+     * COBOL paragraph: EDIT-010
+     */
+    private void processCategoryEditScreen() {
+<span class="fc" id="L229">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L230">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-BODY&quot;), ws);</span>
+<span class="fc" id="L231">        String scValCtName2 = Utility.acceptScreen(&quot;CT-NAME&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;CT-NAME&quot;)));</span>
+<span class="fc" id="L232">        ws.setCtName(scValCtName2);</span>
+<span class="fc" id="L233">        String scValCtParent3 = Utility.acceptScreen(&quot;CT-PARENT&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;CT-PARENT&quot;)));</span>
+<span class="fc" id="L234">        ws.setCtParent(Utility.parseIntOr(scValCtParent3.trim(), 0));</span>
+<span class="fc" id="L235">        String scValCtLevel4 = Utility.acceptScreen(&quot;CT-LEVEL&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;CT-LEVEL&quot;)));</span>
+<span class="fc" id="L236">        ws.setCtLevel(Utility.parseIntOr(scValCtLevel4.trim(), 0));</span>
+<span class="fc" id="L237">        broadcastEstsStatus();</span>
+<span class="fc bfc" id="L238" title="All 5 branches covered.">        switch (String.valueOf(ws.getEsts())) {</span>
+        case &quot;03&quot; -&gt; {
+        /* CONTINUE */
+<span class="fc" id="L241">        }</span>
+        case &quot;04&quot; -&gt; {
+<span class="fc" id="L243">        ws.setWkMsgLine(&quot;Cancelled&quot;);</span>
+<span class="fc" id="L244">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L245">        }</span>
+        case &quot;09&quot; -&gt; {
+<span class="fc bfc" id="L247" title="All 2 branches covered.">        if ((ws.getModeFlg() == 2)) {</span>
+<span class="fc" id="L248">            runChain(this::confirmAndDeleteCategory);</span>
+        } else {
+<span class="fc" id="L250">            ws.setWkMsgLine(&quot;Nothing to delete&quot;);</span>
+<span class="fc" id="L251">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+<span class="fc" id="L253">        }</span>
+        case &quot;00&quot; -&gt; {
+<span class="fc" id="L255">        runChain(this::validateCategoryFields);</span>
+<span class="fc bfc" id="L256" title="All 2 branches covered.">        if ((ws.getErrFlg() != 1)) {</span>
+<span class="fc" id="L257">            runChain(this::saveCategoryRecord);</span>
+        }
+        }
+        default -&gt; {
+<span class="fc" id="L261">        ws.setWkMsgLine(&quot;Invalid function key&quot;);</span>
+<span class="fc" id="L262">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+        }
+<span class="fc" id="L265">    }</span>
+
+    /**
+     * COBOL paragraph: VAL-010
+     */
+    private void validateCategoryFields() {
+<span class="fc" id="L271">        ws.setErrFlg(0);</span>
+<span class="fc bfc" id="L272" title="All 2 branches covered.">        if (Utility.fieldEquals(ws.getCtName(), &quot; &quot;)) {</span>
+<span class="fc" id="L273">            ws.setWkMsgLine(&quot;Name is required&quot;);</span>
+<span class="fc" id="L274">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L275">            displayValidationMessage();</span>
+<span class="fc" id="L276">            return;</span>
+        }
+<span class="fc" id="L278">        runChain(this::validateParentCategory);</span>
+        // fall-through to next paragraph
+<span class="fc" id="L280">        displayValidationMessage();</span>
+<span class="fc" id="L281">    }</span>
+
+    /**
+     * COBOL paragraph: VAL-999
+     */
+    private void displayValidationMessage() {
+<span class="fc bfc" id="L287" title="All 2 branches covered.">        if ((ws.getErrFlg() == 1)) {</span>
+<span class="fc" id="L288">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+        /* CONTINUE */
+<span class="fc" id="L291">    }</span>
+
+    /**
+     * COBOL paragraph: CHKP-010
+     */
+    private void validateParentCategory() {
+<span class="fc bfc" id="L297" title="All 2 branches covered.">        if (ws.getCtParent() == 0) {</span>
+<span class="fc" id="L298">            return;</span>
+        }
+<span class="fc bfc" id="L300" title="All 2 branches covered.">        if (ws.getCtParent() == ws.getCtCode()) {</span>
+<span class="fc" id="L301">            ws.setWkMsgLine(&quot;Parent cannot be itself&quot;);</span>
+<span class="fc" id="L302">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L303">            return;</span>
+        }
+<span class="fc" id="L305">        ws.copyBytes(&quot;WK-SAVE-CTREC&quot;, &quot;CT-REC&quot;);</span>
+<span class="fc" id="L306">        ws.setCtCode(ws.getCtParent());</span>
+<span class="fc" id="L307">        readCategoryByCode();</span>
+<span class="fc bfc" id="L308" title="All 2 branches covered.">        if (fileSet.getCatgf().isInvalidKey()) {</span>
+<span class="fc" id="L309">            ws.setWkMsgLine(&quot;Parent category not found&quot;);</span>
+<span class="fc" id="L310">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+        }
+<span class="fc bfc" id="L312" title="All 2 branches covered.">        if (!fileSet.getCatgf().isInvalidKey()) {</span>
+<span class="fc bfc" id="L313" title="All 2 branches covered.">            if (ws.getCtDelFlag() == 1) {</span>
+<span class="fc" id="L314">                ws.setWkMsgLine(&quot;Parent category is deleted&quot;);</span>
+<span class="fc" id="L315">                ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+            } else {
+<span class="fc" id="L317">                ws.setWkParentName(ws.getCtName());</span>
+            }
+        }
+<span class="fc" id="L320">        ws.copyBytes(&quot;CT-REC&quot;, &quot;WK-SAVE-CTREC&quot;);</span>
+<span class="fc" id="L321">    }</span>
+
+    /**
+     * COBOL paragraph: SAVE-010
+     */
+    private void saveCategoryRecord() {
+<span class="fc" id="L327">        ws.setCtDelFlag(0);</span>
+<span class="fc bfc" id="L328" title="All 2 branches covered.">        if ((ws.getModeFlg() == 1)) {</span>
+<span class="fc" id="L329">            fileSet.getCatgf().write();</span>
+<span class="fc" id="L330">            ws.trySetString(&quot;FSTS&quot;, fileSet.getCatgf().getFileStatus());</span>
+<span class="fc bfc" id="L331" title="All 2 branches covered.">            if (fileSet.getCatgf().isInvalidKey()) {</span>
+<span class="fc" id="L332">                ws.setWkMsgLine(&quot;Write failed - duplicate&quot;);</span>
+<span class="fc" id="L333">                renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+            }
+<span class="fc bfc" id="L335" title="All 2 branches covered.">            if (!fileSet.getCatgf().isInvalidKey()) {</span>
+<span class="fc" id="L336">                ws.setWkMsgLine(&quot;Category added&quot;);</span>
+<span class="fc" id="L337">                renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+            }
+        } else {
+<span class="fc" id="L340">            fileSet.getCatgf().rewrite();</span>
+<span class="fc" id="L341">            ws.trySetString(&quot;FSTS&quot;, fileSet.getCatgf().getFileStatus());</span>
+<span class="fc bfc" id="L342" title="All 2 branches covered.">            if (fileSet.getCatgf().isInvalidKey()) {</span>
+<span class="fc" id="L343">                ws.setWkMsgLine(&quot;Update failed&quot;);</span>
+<span class="fc" id="L344">                renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+            }
+<span class="fc bfc" id="L346" title="All 2 branches covered.">            if (!fileSet.getCatgf().isInvalidKey()) {</span>
+<span class="fc" id="L347">                ws.setWkMsgLine(&quot;Category updated&quot;);</span>
+<span class="fc" id="L348">                renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+            }
+        }
+<span class="fc" id="L351">    }</span>
+
+    /**
+     * COBOL paragraph: DEL-010
+     */
+    private void confirmAndDeleteCategory() {
+<span class="fc" id="L357">        ws.setWkConfirm(&quot; &quot;);</span>
+<span class="fc" id="L358">        ws.setWkMsgLine(&quot;Press Y then ENTER to delete&quot;);</span>
+<span class="fc" id="L359">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L360">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-CONFIRM&quot;), ws);</span>
+<span class="fc" id="L361">        String scValWkConfirm6 = Utility.acceptScreen(&quot;SC-CONF&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;SC-CONF&quot;)));</span>
+<span class="fc" id="L362">        ws.setWkConfirm(scValWkConfirm6);</span>
+<span class="fc" id="L363">        broadcastEstsStatus();</span>
+<span class="fc bfc" id="L364" title="All 4 branches covered.">        if ((ws.getWkConfirm().equals(&quot;Y&quot;) || ws.getWkConfirm().equals(&quot;y&quot;))) {</span>
+<span class="fc" id="L365">            ws.setCtDelFlag(1);</span>
+<span class="fc" id="L366">            fileSet.getCatgf().rewrite();</span>
+<span class="fc" id="L367">            ws.trySetString(&quot;FSTS&quot;, fileSet.getCatgf().getFileStatus());</span>
+<span class="fc bfc" id="L368" title="All 2 branches covered.">            if (fileSet.getCatgf().isInvalidKey()) {</span>
+<span class="fc" id="L369">                ws.setWkMsgLine(&quot;Delete failed&quot;);</span>
+            }
+<span class="fc bfc" id="L371" title="All 2 branches covered.">            if (!fileSet.getCatgf().isInvalidKey()) {</span>
+<span class="fc" id="L372">                ws.setWkMsgLine(&quot;Category deleted&quot;);</span>
+            }
+        } else {
+<span class="fc" id="L375">            ws.setWkMsgLine(&quot;Delete cancelled&quot;);</span>
+        }
+<span class="fc" id="L377">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L378">    }</span>
+
+    /**
+     * COBOL paragraph: LOOK-010
+     */
+    private void lookupParentCategoryName() {
+<span class="fc" id="L384">        ws.setWkParentName(&quot; &quot;);</span>
+<span class="fc bfc" id="L385" title="All 2 branches covered.">        if (ws.getCtParent() == 0) {</span>
+<span class="fc" id="L386">            return;</span>
+        }
+<span class="fc" id="L388">        ws.copyBytes(&quot;WK-SAVE-CTREC&quot;, &quot;CT-REC&quot;);</span>
+<span class="fc" id="L389">        ws.setCtCode(ws.getCtParent());</span>
+<span class="fc" id="L390">        readCategoryByCode();</span>
+<span class="fc bfc" id="L391" title="All 2 branches covered.">        if (fileSet.getCatgf().isInvalidKey()) {</span>
+<span class="fc" id="L392">            ws.setWkParentName(&quot;??? unknown parent&quot;);</span>
+        }
+<span class="fc bfc" id="L394" title="All 2 branches covered.">        if (!fileSet.getCatgf().isInvalidKey()) {</span>
+<span class="fc" id="L395">            ws.setWkParentName(ws.getCtName());</span>
+        }
+<span class="fc" id="L397">        ws.copyBytes(&quot;CT-REC&quot;, &quot;WK-SAVE-CTREC&quot;);</span>
+<span class="fc" id="L398">    }</span>
+
+    /**
+     * COBOL paragraph: TERM-010
+     */
+    private void closeCategoryFile() {
+<span class="fc" id="L404">        fileSet.getCatgf().close();</span>
+<span class="fc" id="L405">        ws.trySetString(&quot;FSTS&quot;, fileSet.getCatgf().getFileStatus());</span>
+<span class="fc" id="L406">    }</span>
+
+    /**
+     * COBOL paragraph: ABEND-010
+     */
+    private void abortOnFileOpenError() {
+<span class="fc" id="L412">        ws.setKaProgid(&quot;MS0060&quot;);</span>
+<span class="fc" id="L413">        ws.setKaFsts(ws.getFsts());</span>
+<span class="fc" id="L414">        ws.setKaMsgcode(&quot;EOPEN &quot;);</span>
+<span class="fc" id="L415">        ws.setKaDetail(&quot;File open error&quot;);</span>
+<span class="fc" id="L416">        callAbortxService(ws.getKabend());</span>
+<span class="fc" id="L417">        ws.setCompletionCode(255);</span>
+<span class="fc" id="L418">        throw new ProgramExitSignal();</span>
+    }
+
+    /**
+     * COBOL CALL DATEUT — delegates to injected DateutService.
+     */
+    private void callDateutService(Object... args) {
+<span class="fc" id="L425">        DateutLinkParm params = new DateutLinkParm();</span>
+<span class="fc" id="L426">        params.getKdate().setKdFunc(ws.getKdFunc());</span>
+<span class="fc" id="L427">        params.getKdate().setKdDate1(ws.getKdDate1());</span>
+<span class="fc" id="L428">        params.getKdate().setKdDate2(ws.getKdDate2());</span>
+<span class="fc" id="L429">        params.getKdate().setKdDays(ws.getKdDays());</span>
+<span class="fc" id="L430">        params.getKdate().setKdWeekday(ws.getKdWeekday());</span>
+<span class="fc" id="L431">        params.getKdate().setKdStatus(ws.getKdStatus());</span>
+<span class="fc" id="L432">        dateutService.execute(params);</span>
+<span class="fc" id="L433">        ws.setKdFunc(params.getKdate().getKdFunc());</span>
+<span class="fc" id="L434">        ws.setKdDate1(params.getKdate().getKdDate1());</span>
+<span class="fc" id="L435">        ws.setKdDate2(params.getKdate().getKdDate2());</span>
+<span class="fc" id="L436">        ws.setKdDays(params.getKdate().getKdDays());</span>
+<span class="fc" id="L437">        ws.setKdWeekday(params.getKdate().getKdWeekday());</span>
+<span class="fc" id="L438">        ws.setKdStatus(params.getKdate().getKdStatus());</span>
+<span class="fc" id="L439">    }</span>
+
+    /**
+     * COBOL CALL ABORTX — delegates to injected AbortxService.
+     */
+    private void callAbortxService(Object... args) {
+<span class="fc" id="L445">        AbortxLinkParm params = new AbortxLinkParm();</span>
+<span class="fc" id="L446">        params.getKabend().setKaProgid(ws.getKaProgid());</span>
+<span class="fc" id="L447">        params.getKabend().setKaFile(ws.getKaFile());</span>
+<span class="fc" id="L448">        params.getKabend().setKaFsts(ws.getKaFsts());</span>
+<span class="fc" id="L449">        params.getKabend().setKaMsgcode(ws.getKaMsgcode());</span>
+<span class="fc" id="L450">        params.getKabend().setKaDetail(ws.getKaDetail());</span>
+<span class="fc" id="L451">        abortxService.execute(params);</span>
+<span class="fc" id="L452">        ws.setKaProgid(params.getKabend().getKaProgid());</span>
+<span class="fc" id="L453">        ws.setKaFile(params.getKabend().getKaFile());</span>
+<span class="fc" id="L454">        ws.setKaFsts(params.getKabend().getKaFsts());</span>
+<span class="fc" id="L455">        ws.setKaMsgcode(params.getKabend().getKaMsgcode());</span>
+<span class="fc" id="L456">        ws.setKaDetail(params.getKabend().getKaDetail());</span>
+<span class="fc" id="L457">    }</span>
+    /** Reads CRT STATUS and broadcasts to all ESTS fields — COBOL implicit after each ACCEPT. */
+    private void broadcastEstsStatus() {
+<span class="fc" id="L460">        Utility.broadcastEndStatus(ws, renderer.readEndStatus(), &quot;ESTS&quot;);</span>
+<span class="fc" id="L461">    }</span>
+
+    /** Reads the category file by CT-CODE, falling back to the current record's key. */
+    private void readCategoryByCode() {
+<span class="fc" id="L465">        String rkVal = &quot;&quot;;</span>
+<span class="pc bpc" id="L466" title="2 of 4 branches missed.">        if (rkVal == null || rkVal.trim().isEmpty()) {</span>
+<span class="pc" id="L467">          try { rkVal = ws.getString(&quot;CT-CODE&quot;); } catch (Exception _e) {}</span>
+        }
+<span class="pc bpc" id="L469" title="2 of 4 branches missed.">        if (rkVal == null || rkVal.trim().isEmpty()) {</span>
+<span class="nc" id="L470">          try { rkVal = fileSet.getCatgf().extractKeyFromCurrentRecord(); } catch (Exception _e3) {}</span>
+        }
+<span class="pc bpc" id="L472" title="1 of 2 branches missed.">        fileSet.getCatgf().readByKey(rkVal != null ? rkVal.trim() : &quot;&quot;);</span>
+<span class="fc" id="L473">        ws.trySetString(&quot;FSTS&quot;, fileSet.getCatgf().getFileStatus());</span>
+<span class="fc" id="L474">    }</span>
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

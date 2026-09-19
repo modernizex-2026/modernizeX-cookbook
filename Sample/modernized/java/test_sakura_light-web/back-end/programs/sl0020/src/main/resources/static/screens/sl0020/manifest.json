@@ -1,0 +1,277 @@
+{
+  "programId": "SL0020",
+  "screens": {
+    "DS-KEY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-SEL-NO", "WK-SEL-CUST", "WK-SEL-DATE"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "Invoice No :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-SEL-NO", "picture": "9(10)" }
+        ] },
+        { "line": 5, "fields": [
+          { "col": 6, "type": "literal", "text": "- or -", "color": "CYAN" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 2, "type": "literal", "text": "Customer   :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-SEL-CUST", "picture": "9(6)" },
+          { "col": 24, "type": "from", "name": "FILLER", "boundField": "WK-CUST-NAME", "picture": "X(40)", "color": "WHITE" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 2, "type": "literal", "text": "From Date  :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-SEL-DATE", "picture": "9(8)" }
+        ] }
+      ]
+    },
+    "DS-INV": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+        { "line": 3, "fields": [
+          { "col": 2, "type": "literal", "text": "Inv#:", "color": "YELLOW" },
+          { "col": 8, "type": "from", "name": "FILLER", "boundField": "IH-NO", "picture": "ZZZZZZZZZ9", "color": "WHITE" },
+          { "col": 22, "type": "literal", "text": "Date:", "color": "YELLOW" },
+          { "col": 28, "type": "from", "name": "FILLER", "boundField": "IH-DATE", "picture": "9(8)", "color": "WHITE" },
+          { "col": 40, "type": "literal", "text": "Kind:", "color": "YELLOW" },
+          { "col": 46, "type": "from", "name": "FILLER", "boundField": "WK-KIND-TEXT", "picture": "X(8)", "color": "WHITE" },
+          { "col": 56, "type": "literal", "text": "St:", "color": "YELLOW" },
+          { "col": 60, "type": "from", "name": "FILLER", "boundField": "WK-STAT-TEXT", "picture": "X(10)", "color": "WHITE" }
+        ] },
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "Cust:", "color": "YELLOW" },
+          { "col": 8, "type": "from", "name": "FILLER", "boundField": "IH-CUST", "picture": "9(6)", "color": "WHITE" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-CUST-NAME", "picture": "X(34)", "color": "WHITE" },
+          { "col": 52, "type": "literal", "text": "Ship#:", "color": "YELLOW" },
+          { "col": 59, "type": "from", "name": "FILLER", "boundField": "IH-SHIP-NO", "picture": "ZZZZZZZZZ9", "color": "WHITE" }
+        ] },
+        { "line": 5, "fields": [
+          { "col": 2, "type": "literal", "text": "Net :", "color": "YELLOW" },
+          { "col": 8, "type": "from", "name": "FILLER", "boundField": "IH-AMOUNT", "picture": "---,---,---,--9" },
+          { "col": 24, "type": "literal", "text": "Tax :", "color": "YELLOW" },
+          { "col": 30, "type": "from", "name": "FILLER", "boundField": "IH-TAX-AMOUNT", "picture": "---,---,--9" },
+          { "col": 44, "type": "literal", "text": "Total:", "color": "YELLOW" },
+          { "col": 51, "type": "from", "name": "FILLER", "boundField": "IH-TOTAL", "picture": "---,---,---,--9" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 2, "type": "literal", "text": "Cost:", "color": "YELLOW" },
+          { "col": 8, "type": "from", "name": "FILLER", "boundField": "IH-COST-TOTAL", "picture": "---,---,---,--9" },
+          { "col": 24, "type": "literal", "text": "Mgn :", "color": "YELLOW" },
+          { "col": 30, "type": "from", "name": "FILLER", "boundField": "WK-MARGIN-TOT", "picture": "---,---,--9" },
+          { "col": 44, "type": "literal", "text": "Staff:", "color": "YELLOW" },
+          { "col": 51, "type": "from", "name": "FILLER", "boundField": "IH-STAFF", "picture": "9(4)", "color": "WHITE" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 2, "type": "literal", "text": "Ln Product   Name           Qty      Amount", "color": "CYAN" },
+          { "col": 49, "type": "literal", "text": "Cost      Margin", "color": "CYAN" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WW-LINE(1)", "picture": "ZZ9" },
+          { "col": 6, "type": "from", "name": "FILLER", "boundField": "WW-PROD(1)", "picture": "9(8)" },
+          { "col": 15, "type": "from", "name": "FILLER", "boundField": "WW-NAME(1)", "picture": "X(12)" },
+          { "col": 28, "type": "from", "name": "FILLER", "boundField": "WW-QTY(1)", "picture": "---,--9" },
+          { "col": 36, "type": "from", "name": "FILLER", "boundField": "WW-AMT(1)", "picture": "----,---,--9" },
+          { "col": 49, "type": "from", "name": "FILLER", "boundField": "WW-COSTAMT(1)", "picture": "----,---,--9" },
+          { "col": 62, "type": "from", "name": "FILLER", "boundField": "WW-MARGIN(1)", "picture": "---,---,--9" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WW-LINE(2)", "picture": "ZZ9" },
+          { "col": 6, "type": "from", "name": "FILLER", "boundField": "WW-PROD(2)", "picture": "9(8)" },
+          { "col": 15, "type": "from", "name": "FILLER", "boundField": "WW-NAME(2)", "picture": "X(12)" },
+          { "col": 28, "type": "from", "name": "FILLER", "boundField": "WW-QTY(2)", "picture": "---,--9" },
+          { "col": 36, "type": "from", "name": "FILLER", "boundField": "WW-AMT(2)", "picture": "----,---,--9" },
+          { "col": 49, "type": "from", "name": "FILLER", "boundField": "WW-COSTAMT(2)", "picture": "----,---,--9" },
+          { "col": 62, "type": "from", "name": "FILLER", "boundField": "WW-MARGIN(2)", "picture": "---,---,--9" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WW-LINE(3)", "picture": "ZZ9" },
+          { "col": 6, "type": "from", "name": "FILLER", "boundField": "WW-PROD(3)", "picture": "9(8)" },
+          { "col": 15, "type": "from", "name": "FILLER", "boundField": "WW-NAME(3)", "picture": "X(12)" },
+          { "col": 28, "type": "from", "name": "FILLER", "boundField": "WW-QTY(3)", "picture": "---,--9" },
+          { "col": 36, "type": "from", "name": "FILLER", "boundField": "WW-AMT(3)", "picture": "----,---,--9" },
+          { "col": 49, "type": "from", "name": "FILLER", "boundField": "WW-COSTAMT(3)", "picture": "----,---,--9" },
+          { "col": 62, "type": "from", "name": "FILLER", "boundField": "WW-MARGIN(3)", "picture": "---,---,--9" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WW-LINE(4)", "picture": "ZZ9" },
+          { "col": 6, "type": "from", "name": "FILLER", "boundField": "WW-PROD(4)", "picture": "9(8)" },
+          { "col": 15, "type": "from", "name": "FILLER", "boundField": "WW-NAME(4)", "picture": "X(12)" },
+          { "col": 28, "type": "from", "name": "FILLER", "boundField": "WW-QTY(4)", "picture": "---,--9" },
+          { "col": 36, "type": "from", "name": "FILLER", "boundField": "WW-AMT(4)", "picture": "----,---,--9" },
+          { "col": 49, "type": "from", "name": "FILLER", "boundField": "WW-COSTAMT(4)", "picture": "----,---,--9" },
+          { "col": 62, "type": "from", "name": "FILLER", "boundField": "WW-MARGIN(4)", "picture": "---,---,--9" }
+        ] },
+        { "line": 12, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WW-LINE(5)", "picture": "ZZ9" },
+          { "col": 6, "type": "from", "name": "FILLER", "boundField": "WW-PROD(5)", "picture": "9(8)" },
+          { "col": 15, "type": "from", "name": "FILLER", "boundField": "WW-NAME(5)", "picture": "X(12)" },
+          { "col": 28, "type": "from", "name": "FILLER", "boundField": "WW-QTY(5)", "picture": "---,--9" },
+          { "col": 36, "type": "from", "name": "FILLER", "boundField": "WW-AMT(5)", "picture": "----,---,--9" },
+          { "col": 49, "type": "from", "name": "FILLER", "boundField": "WW-COSTAMT(5)", "picture": "----,---,--9" },
+          { "col": 62, "type": "from", "name": "FILLER", "boundField": "WW-MARGIN(5)", "picture": "---,---,--9" }
+        ] },
+        { "line": 13, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WW-LINE(6)", "picture": "ZZ9" },
+          { "col": 6, "type": "from", "name": "FILLER", "boundField": "WW-PROD(6)", "picture": "9(8)" },
+          { "col": 15, "type": "from", "name": "FILLER", "boundField": "WW-NAME(6)", "picture": "X(12)" },
+          { "col": 28, "type": "from", "name": "FILLER", "boundField": "WW-QTY(6)", "picture": "---,--9" },
+          { "col": 36, "type": "from", "name": "FILLER", "boundField": "WW-AMT(6)", "picture": "----,---,--9" },
+          { "col": 49, "type": "from", "name": "FILLER", "boundField": "WW-COSTAMT(6)", "picture": "----,---,--9" },
+          { "col": 62, "type": "from", "name": "FILLER", "boundField": "WW-MARGIN(6)", "picture": "---,---,--9" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WW-LINE(7)", "picture": "ZZ9" },
+          { "col": 6, "type": "from", "name": "FILLER", "boundField": "WW-PROD(7)", "picture": "9(8)" },
+          { "col": 15, "type": "from", "name": "FILLER", "boundField": "WW-NAME(7)", "picture": "X(12)" },
+          { "col": 28, "type": "from", "name": "FILLER", "boundField": "WW-QTY(7)", "picture": "---,--9" },
+          { "col": 36, "type": "from", "name": "FILLER", "boundField": "WW-AMT(7)", "picture": "----,---,--9" },
+          { "col": 49, "type": "from", "name": "FILLER", "boundField": "WW-COSTAMT(7)", "picture": "----,---,--9" },
+          { "col": 62, "type": "from", "name": "FILLER", "boundField": "WW-MARGIN(7)", "picture": "---,---,--9" }
+        ] },
+        { "line": 15, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WW-LINE(8)", "picture": "ZZ9" },
+          { "col": 6, "type": "from", "name": "FILLER", "boundField": "WW-PROD(8)", "picture": "9(8)" },
+          { "col": 15, "type": "from", "name": "FILLER", "boundField": "WW-NAME(8)", "picture": "X(12)" },
+          { "col": 28, "type": "from", "name": "FILLER", "boundField": "WW-QTY(8)", "picture": "---,--9" },
+          { "col": 36, "type": "from", "name": "FILLER", "boundField": "WW-AMT(8)", "picture": "----,---,--9" },
+          { "col": 49, "type": "from", "name": "FILLER", "boundField": "WW-COSTAMT(8)", "picture": "----,---,--9" },
+          { "col": 62, "type": "from", "name": "FILLER", "boundField": "WW-MARGIN(8)", "picture": "---,---,--9" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WW-LINE(9)", "picture": "ZZ9" },
+          { "col": 6, "type": "from", "name": "FILLER", "boundField": "WW-PROD(9)", "picture": "9(8)" },
+          { "col": 15, "type": "from", "name": "FILLER", "boundField": "WW-NAME(9)", "picture": "X(12)" },
+          { "col": 28, "type": "from", "name": "FILLER", "boundField": "WW-QTY(9)", "picture": "---,--9" },
+          { "col": 36, "type": "from", "name": "FILLER", "boundField": "WW-AMT(9)", "picture": "----,---,--9" },
+          { "col": 49, "type": "from", "name": "FILLER", "boundField": "WW-COSTAMT(9)", "picture": "----,---,--9" },
+          { "col": 62, "type": "from", "name": "FILLER", "boundField": "WW-MARGIN(9)", "picture": "---,---,--9" }
+        ] },
+        { "line": 17, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WW-LINE(10)", "picture": "ZZ9" },
+          { "col": 6, "type": "from", "name": "FILLER", "boundField": "WW-PROD(10)", "picture": "9(8)" },
+          { "col": 15, "type": "from", "name": "FILLER", "boundField": "WW-NAME(10)", "picture": "X(12)" },
+          { "col": 28, "type": "from", "name": "FILLER", "boundField": "WW-QTY(10)", "picture": "---,--9" },
+          { "col": 36, "type": "from", "name": "FILLER", "boundField": "WW-AMT(10)", "picture": "----,---,--9" },
+          { "col": 49, "type": "from", "name": "FILLER", "boundField": "WW-COSTAMT(10)", "picture": "----,---,--9" },
+          { "col": 62, "type": "from", "name": "FILLER", "boundField": "WW-MARGIN(10)", "picture": "---,---,--9" }
+        ] },
+        { "line": 18, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WW-LINE(11)", "picture": "ZZ9" },
+          { "col": 6, "type": "from", "name": "FILLER", "boundField": "WW-PROD(11)", "picture": "9(8)" },
+          { "col": 15, "type": "from", "name": "FILLER", "boundField": "WW-NAME(11)", "picture": "X(12)" },
+          { "col": 28, "type": "from", "name": "FILLER", "boundField": "WW-QTY(11)", "picture": "---,--9" },
+          { "col": 36, "type": "from", "name": "FILLER", "boundField": "WW-AMT(11)", "picture": "----,---,--9" },
+          { "col": 49, "type": "from", "name": "FILLER", "boundField": "WW-COSTAMT(11)", "picture": "----,---,--9" },
+          { "col": 62, "type": "from", "name": "FILLER", "boundField": "WW-MARGIN(11)", "picture": "---,---,--9" }
+        ] }
+      ]
+    },
+    "DS-STATUS": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+        { "line": 20, "fields": [
+          { "col": 2, "type": "literal", "text": "Lines:", "color": "YELLOW" },
+          { "col": 9, "type": "from", "name": "FILLER", "boundField": "WK-DCNT", "picture": "ZZ9", "color": "WHITE" },
+          { "col": 16, "type": "literal", "text": "Page:", "color": "YELLOW" },
+          { "col": 22, "type": "from", "name": "FILLER", "boundField": "WK-PAGE-NO", "picture": "ZZ9", "color": "WHITE" },
+          { "col": 26, "type": "literal", "text": "/", "color": "WHITE" },
+          { "col": 27, "type": "from", "name": "FILLER", "boundField": "WK-PAGE-CNT", "picture": "ZZ9", "color": "WHITE" }
+        ] }
+      ]
+    },
+    "DS-BROWSE": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-DUMMY"],
+      "rows": [
+        { "line": 20, "fields": [
+          { "col": 40, "type": "literal", "text": "PFkey:", "color": "CYAN" },
+          { "col": 47, "type": "from", "name": "FILLER", "boundField": "WK-DUMMY", "picture": "X(1)" }
+        ] }
+      ]
+    },
+    "DS-HEADER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-FOOTER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-MSG": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    }
+  },
+  "inputFields": {
+    "WK-SEL-NO": {
+      "screen": "DS-KEY",
+      "line": 4,
+      "col": 16,
+      "width": 10,
+      "picture": "9(10)",
+      "usingField": "WK-SEL-NO",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-SEL-CUST": {
+      "screen": "DS-KEY",
+      "line": 6,
+      "col": 16,
+      "width": 6,
+      "picture": "9(6)",
+      "usingField": "WK-SEL-CUST",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-SEL-DATE": {
+      "screen": "DS-KEY",
+      "line": 7,
+      "col": 16,
+      "width": 8,
+      "picture": "9(8)",
+      "usingField": "WK-SEL-DATE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-DUMMY": {
+      "screen": "DS-BROWSE",
+      "line": 20,
+      "col": 47,
+      "width": 1,
+      "picture": "X(1)",
+      "usingField": "WK-DUMMY",
+      "inputType": "alphanumeric",
+      "advanceEsts": null
+    }
+  },
+  "windows": {
+  },
+  "pfKeys": {
+    "ENTER": { "code": "00", "label": "Enter" },
+    "PF1":   { "code": "01", "label": "F1" },
+    "PF2":   { "code": "02", "label": "F2" },
+    "PF3":   { "code": "03", "label": "F3" },
+    "PF4":   { "code": "04", "label": "F4" },
+    "PF5":   { "code": "05", "label": "F5" },
+    "PF6":   { "code": "06", "label": "F6" },
+    "PF7":   { "code": "07", "label": "F7" },
+    "PF8":   { "code": "08", "label": "F8" },
+    "PF9":   { "code": "09", "label": "F9" },
+    "PF10":  { "code": "PA", "label": "F10" },
+    "PF11":  { "code": "PB", "label": "F11" },
+    "PF12":  { "code": "PC", "label": "F12" }
+  }
+}

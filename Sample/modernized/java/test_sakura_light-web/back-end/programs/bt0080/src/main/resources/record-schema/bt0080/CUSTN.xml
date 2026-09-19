@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : CUSTN
+  FD record name : NC-REC
+-->
+<dataLayout name="CUSTN" scope="file" charset="MS932" recordSize="313">
+  <group name="NC-REC" offset="0" size="313">
+    <field name="NC-REC" offset="0" size="313" javaType="String"/>
+  </group>
+</dataLayout>

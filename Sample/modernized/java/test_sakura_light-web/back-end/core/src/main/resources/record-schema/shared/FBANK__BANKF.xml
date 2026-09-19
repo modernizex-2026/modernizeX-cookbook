@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : BANKF
+  FD record name : BK-REC
+  Copybook src   : FBANK
+-->
+<dataLayout name="BANKF" scope="file" charset="MS932" recordSize="85">
+  <group name="BK-REC" offset="0" size="85">
+    <group name="BK-REC" offset="0" size="85">
+      <field name="BK-CODE" offset="0" size="4" javaType="int"/>
+      <field name="BK-NAME" offset="4" size="30" javaType="String"/>
+      <field name="BK-BRANCH" offset="34" size="30" javaType="String"/>
+      <field name="BK-DEL-FLAG" offset="64" size="1" javaType="int"/>
+      <field name="FILLER-65" offset="65" size="20" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

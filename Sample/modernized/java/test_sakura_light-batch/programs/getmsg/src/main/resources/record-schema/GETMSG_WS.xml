@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : GETMSG_WS
+-->
+<dataLayout name="GETMSG_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="6">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="FSTS" offset="4" size="2" javaType="String" value="00"/>
+  </group>
+</dataLayout>

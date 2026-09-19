@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : SUPPF
+  FD record name : SP-REC
+  Copybook src   : FSUPP
+-->
+<dataLayout name="SUPPF" scope="file" charset="MS932" recordSize="290">
+  <group name="SP-REC" offset="0" size="290">
+    <group name="SP-REC" offset="0" size="290">
+      <field name="SP-CODE" offset="0" size="6" javaType="int"/>
+      <field name="SP-NAME" offset="6" size="40" javaType="String"/>
+      <field name="SP-KANA" offset="46" size="40" javaType="String"/>
+      <field name="SP-ZIP" offset="86" size="8" javaType="String"/>
+      <field name="SP-ADDR1" offset="94" size="40" javaType="String"/>
+      <field name="SP-ADDR2" offset="134" size="40" javaType="String"/>
+      <field name="SP-TEL" offset="174" size="15" javaType="String"/>
+      <field name="SP-FAX" offset="189" size="15" javaType="String"/>
+      <field name="SP-CLOSE-DAY" offset="204" size="2" javaType="int"/>
+      <field name="SP-PAY-MONTH" offset="206" size="1" javaType="int"/>
+      <field name="SP-PAY-DAY" offset="207" size="2" javaType="int"/>
+      <field name="SP-PAY-METHOD" offset="209" size="1" javaType="int"/>
+      <field name="SP-TAX-TYPE" offset="210" size="1" javaType="int"/>
+      <field name="SP-BALANCE" offset="211" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="SP-BANK-CODE" offset="217" size="4" javaType="int"/>
+      <field name="SP-BANK-ACCT" offset="221" size="20" javaType="String"/>
+      <field name="SP-ADD-DATE" offset="241" size="8" javaType="int"/>
+      <field name="SP-ADD-USER" offset="249" size="6" javaType="int"/>
+      <field name="SP-UPD-DATE" offset="255" size="8" javaType="int"/>
+      <field name="SP-UPD-USER" offset="263" size="6" javaType="int"/>
+      <field name="SP-DEL-FLAG" offset="269" size="1" javaType="int"/>
+      <field name="FILLER-270" offset="270" size="20" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

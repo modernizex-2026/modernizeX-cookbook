@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : PRODN
+  FD record name : NP-REC
+-->
+<dataLayout name="PRODN" scope="file" charset="MS932" recordSize="267">
+  <group name="NP-REC" offset="0" size="267">
+    <field name="NP-REC" offset="0" size="267" javaType="String"/>
+  </group>
+</dataLayout>

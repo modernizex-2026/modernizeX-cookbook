@@ -1,0 +1,230 @@
+/* COBOL Screen Terminal — Green Screen Theme */
+/* Based on CSS Grid 80x24 from Online branch terminal.css */
+
+:root {
+  --term-bg: #000000;
+  --term-fg: #00ff00;
+  --term-font:
+    'Noto Sans Mono CJK JP', 'IBM Plex Sans', sans-serif, 'MS Gothic', 'Courier New', monospace;
+  --char-w: 0.6em;
+  --char-h: 1.2em;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  /* Use the page background so the body color does not leak as
+     a "terminal-style" backdrop behind modern overrides. The legacy
+     terminal grid still draws its own black background when actually
+     mounted, but no longer paints the viewport when covered. */
+  background: var(--scr-bg-page, #f5f7fb);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.program-selector {
+  color: var(--term-fg);
+  font-family: var(--term-font);
+  text-align: center;
+}
+.program-selector input {
+  background: #111;
+  color: var(--term-fg);
+  border: 1px solid var(--term-fg);
+  padding: 0.5em;
+  font-family: var(--term-font);
+  font-size: 1em;
+  margin: 0 0.5em;
+}
+.program-selector button {
+  background: #003300;
+  color: var(--term-fg);
+  border: 1px solid var(--term-fg);
+  padding: 0.5em 1em;
+  font-family: var(--term-font);
+  cursor: pointer;
+}
+
+.terminal-shell {
+  background: var(--term-bg);
+  color: var(--term-fg);
+  font-family: var(--term-font);
+  font-size: 14px;
+  line-height: var(--char-h);
+  padding: 8px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  outline: none;
+  position: relative;
+  width: calc(80 * var(--char-w) + 16px);
+}
+
+.screen-grid {
+  position: relative;
+  white-space: pre;
+  height: calc(24 * var(--char-h));
+  overflow: hidden;
+}
+
+.screen-row {
+  height: var(--char-h);
+  white-space: pre;
+}
+
+/* Full-width CJK cell — forced to 2 char widths regardless of font.
+   Prevents cumulative drift when the loaded CJK font renders glyphs
+   at something other than 2x ASCII width (e.g. Noto Sans Mono CJK
+   fallback on macOS). Input overlay positions and char-buffer
+   positions then stay aligned cell-by-cell. */
+.screen-row .cell-fw {
+  display: inline-block;
+  width: calc(var(--char-w) * 2);
+  overflow: hidden;
+  text-align: left;
+  vertical-align: top;
+}
+.screen-row .cell {
+  display: inline-block;
+  width: var(--char-w);
+  overflow: hidden;
+  text-align: left;
+  vertical-align: top;
+}
+
+/* COBOL color classes */
+.green {
+  color: #00ff00;
+}
+.yellow {
+  color: #ffff00;
+}
+.red {
+  color: #ff4444;
+}
+.blue {
+  color: #4444ff;
+}
+.white {
+  color: #ffffff;
+}
+.cyan {
+  color: #00ffff;
+}
+.magenta {
+  color: #ff44ff;
+}
+
+/* Attribute classes */
+.reverse {
+  background: var(--term-fg);
+  color: var(--term-bg);
+}
+.blink {
+  animation: blink-anim 1s step-end infinite;
+}
+.lowlight {
+  opacity: 0.5;
+}
+.highlight {
+  font-weight: bold;
+}
+.underline {
+  text-decoration: underline;
+}
+
+@keyframes blink-anim {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Input field overlay */
+.screen-input {
+  background: transparent;
+  color: #ffff00;
+  border: none;
+  border-bottom: 1px solid #ffff00;
+  font-family: var(--term-font);
+  font-size: 14px;
+  line-height: var(--char-h);
+  padding: 0;
+  outline: none;
+  caret-color: #ffff00;
+}
+
+/* PF key bar */
+.pf-key-bar {
+  display: flex;
+  gap: 4px;
+  padding: 8px 0;
+  flex-wrap: wrap;
+}
+.pf-key-btn {
+  background: #003300;
+  color: var(--term-fg);
+  border: 1px solid #006600;
+  padding: 4px 12px;
+  font-family: var(--term-font);
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.pf-key-btn:hover {
+  background: #006600;
+}
+.pf-key-btn:active {
+  background: #009900;
+}
+
+/* Status bar */
+.status-bar {
+  /* color: #ffff00; */
+  padding: 4px 0;
+  font-size: 12px;
+  min-height: 1.5em;
+}
+
+/* Window modal overlay */
+.window-modal {
+  box-shadow: 2px 2px 8px rgba(0, 255, 0, 0.3);
+}
+
+/* Finished bar */
+.finished-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+  color: #ffff00;
+}
+.finished-bar button {
+  background: #330000;
+  color: #ff4444;
+  border: 1px solid #ff4444;
+  padding: 4px 12px;
+  font-family: var(--term-font);
+  cursor: pointer;
+}
+
+/* Connection / error states */
+.connecting,
+.error-screen {
+  color: var(--term-fg);
+  font-family: var(--term-font);
+  text-align: center;
+  padding: 2em;
+}
+.error-screen {
+  color: #ff4444;
+}
+.error-screen button {
+  background: #330000;
+  color: #ff4444;
+  border: 1px solid #ff4444;
+  padding: 0.5em 1em;
+  font-family: var(--term-font);
+  cursor: pointer;
+  margin-top: 1em;
+}

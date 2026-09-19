@@ -1,0 +1,108 @@
+{
+  "programId": "MS0110",
+  "screens": {
+    "DS-KEY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["SC-KEY"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "Region Code   :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "SC-KEY", "boundField": "RG-CODE", "picture": "9(3)" }
+        ] }
+      ]
+    },
+    "DS-BODY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["RG-NAME"],
+      "rows": [
+        { "line": 6, "fields": [
+          { "col": 2, "type": "literal", "text": "Region Name   :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "RG-NAME", "picture": "X(30)" }
+        ] }
+      ]
+    },
+    "DS-CONFIRM": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["SC-CONF"],
+      "rows": [
+        { "line": 21, "fields": [
+          { "col": 2, "type": "literal", "text": "Confirm (Y/N) :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "SC-CONF", "boundField": "WK-CONFIRM", "picture": "X(1)" }
+        ] }
+      ]
+    },
+    "DS-HEADER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-FOOTER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-MSG": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    }
+  },
+  "inputFields": {
+    "SC-KEY": {
+      "screen": "DS-KEY",
+      "line": 4,
+      "col": 20,
+      "width": 3,
+      "picture": "9(3)",
+      "usingField": "RG-CODE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "RG-NAME": {
+      "screen": "DS-BODY",
+      "line": 6,
+      "col": 20,
+      "width": 30,
+      "picture": "X(30)",
+      "usingField": "RG-NAME",
+      "inputType": "alphanumeric",
+      "advanceEsts": "03"
+    },
+    "SC-CONF": {
+      "screen": "DS-CONFIRM",
+      "line": 21,
+      "col": 20,
+      "width": 1,
+      "picture": "X(1)",
+      "usingField": "WK-CONFIRM",
+      "inputType": "alphanumeric",
+      "advanceEsts": null
+    }
+  },
+  "windows": {
+  },
+  "pfKeys": {
+    "ENTER": { "code": "00", "label": "Enter" },
+    "PF1":   { "code": "01", "label": "F1" },
+    "PF2":   { "code": "02", "label": "F2" },
+    "PF3":   { "code": "03", "label": "F3" },
+    "PF4":   { "code": "04", "label": "F4" },
+    "PF5":   { "code": "05", "label": "F5" },
+    "PF6":   { "code": "06", "label": "F6" },
+    "PF7":   { "code": "07", "label": "F7" },
+    "PF8":   { "code": "08", "label": "F8" },
+    "PF9":   { "code": "09", "label": "F9" },
+    "PF10":  { "code": "PA", "label": "F10" },
+    "PF11":  { "code": "PB", "label": "F11" },
+    "PF12":  { "code": "PC", "label": "F12" }
+  }
+}

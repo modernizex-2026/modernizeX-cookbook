@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : CATGF
+  FD record name : CT-REC
+  Copybook src   : FCATG
+-->
+<dataLayout name="CATGF" scope="file" charset="MS932" recordSize="60">
+  <group name="CT-REC" offset="0" size="60">
+    <group name="CT-REC" offset="0" size="60">
+      <field name="CT-CODE" offset="0" size="4" javaType="int"/>
+      <field name="CT-NAME" offset="4" size="30" javaType="String"/>
+      <field name="CT-PARENT" offset="34" size="4" javaType="int"/>
+      <field name="CT-LEVEL" offset="38" size="1" javaType="int"/>
+      <field name="CT-DEL-FLAG" offset="39" size="1" javaType="int"/>
+      <field name="FILLER-40" offset="40" size="20" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

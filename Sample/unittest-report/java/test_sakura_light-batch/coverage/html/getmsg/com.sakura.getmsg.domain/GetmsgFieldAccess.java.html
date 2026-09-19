@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GetmsgFieldAccess.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">getmsg</a> &gt; <a href="index.source.html" class="el_package">com.sakura.getmsg.domain</a> &gt; <span class="el_source">GetmsgFieldAccess.java</span></div><h1>GetmsgFieldAccess.java</h1><pre class="source lang-java linenums">package com.sakura.getmsg.domain;
+
+import com.sakura.runtime.record.RuntimeFieldAccess;
+import com.sakura.getmsg.domain.WorkingStorage;
+import com.sakura.getmsg.runtime.GetmsgDatasets;
+
+/**
+ * Field accessor for GETMSG.
+ * Backend: RuntimeFieldAccess (raw RecordImage byte[]).
+ * Typed methods auto-generated from referenced fields — bodies delegate to the string-key API.
+ */
+public class GetmsgFieldAccess extends RuntimeFieldAccess {
+
+<span class="fc" id="L14">    public GetmsgFieldAccess(WorkingStorage ws, GetmsgDatasets fileSet) {</span>
+<span class="fc bfc" id="L15" title="All 2 branches covered.">        if (ws != null) {</span>
+<span class="fc" id="L16">            register(ws.buffer());</span>
+        }
+<span class="pc bpc" id="L18" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getMsgf() != null) {</span>
+<span class="fc" id="L19">            register(fileSet.getMsgf().buffer());</span>
+        }
+<span class="fc" id="L21">    }</span>
+
+    /* ── Typed wrappers (delegate → string-key) ─────────────── */
+<span class="fc" id="L24">    public int getCompletionCode() { return getInt(&quot;COMPLETION-CODE&quot;); }</span>
+<span class="fc" id="L25">    public void setCompletionCode(int value) { setInt(&quot;COMPLETION-CODE&quot;, value); }</span>
+<span class="fc" id="L26">    public String getFsts() { return getString(&quot;FSTS&quot;); }</span>
+<span class="fc" id="L27">    public void setFsts(String value) { setString(&quot;FSTS&quot;, value); }</span>
+<span class="fc" id="L28">    public String getMgCode() { return getString(&quot;MG-CODE&quot;); }</span>
+<span class="fc" id="L29">    public void setMgCode(String value) { setString(&quot;MG-CODE&quot;, value); }</span>
+<span class="fc" id="L30">    public String getMgText() { return getString(&quot;MG-TEXT&quot;); }</span>
+<span class="fc" id="L31">    public void setMgText(String value) { setString(&quot;MG-TEXT&quot;, value); }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

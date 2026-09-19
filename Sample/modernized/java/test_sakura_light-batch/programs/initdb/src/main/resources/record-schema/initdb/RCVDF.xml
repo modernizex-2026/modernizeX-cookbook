@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : RCVDF
+  FD record name : RD-REC
+  Copybook src   : FRCVD
+-->
+<dataLayout name="RCVDF" scope="file" charset="MS932" recordSize="64">
+  <group name="RD-REC" offset="0" size="64">
+    <group name="RD-REC" offset="0" size="64">
+      <field name="RD-NO" offset="0" size="10" javaType="long"/>
+      <field name="RD-LINE" offset="10" size="3" javaType="int"/>
+      <field name="RD-PO" offset="13" size="10" javaType="long"/>
+      <field name="RD-PO-LINE" offset="23" size="3" javaType="int"/>
+      <field name="RD-PROD" offset="26" size="8" javaType="int"/>
+      <field name="RD-WHSE" offset="34" size="3" javaType="int"/>
+      <field name="RD-QTY" offset="37" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="RD-UNIT-COST" offset="42" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      <field name="RD-AMOUNT" offset="48" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="FILLER-54" offset="54" size="10" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

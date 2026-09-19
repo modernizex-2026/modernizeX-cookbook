@@ -1,0 +1,141 @@
+{
+  "programId": "AR0020",
+  "screens": {
+    "DS-KEY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-KEY-CUST"],
+      "rows": [
+        { "line": 5, "fields": [
+          { "col": 2, "type": "literal", "text": "Customer Code:", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-KEY-CUST", "picture": "9(6)" }
+        ] }
+      ]
+    },
+    "DS-AGE": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+        { "line": 3, "fields": [
+          { "col": 2, "type": "literal", "text": "Customer :", "color": "YELLOW" },
+          { "col": 13, "type": "from", "name": "FILLER", "boundField": "WK-KEY-CUST", "picture": "9(6)", "color": "WHITE" },
+          { "col": 22, "type": "from", "name": "FILLER", "boundField": "WK-CUST-NAME", "picture": "X(40)", "color": "WHITE" }
+        ] },
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "AR Balance :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-CUR-BAL", "picture": "---,---,---,--9", "color": "WHITE" }
+        ] },
+        { "line": 5, "fields": [
+          { "col": 2, "type": "literal", "text": "Credit Lim :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-CR-LIMIT", "picture": "---,---,---,--9" },
+          { "col": 34, "type": "from", "name": "FILLER", "boundField": "WK-OVER", "picture": "X(10)", "color": "WHITE" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 2, "type": "literal", "text": "----- Aging -----", "color": "CYAN" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 2, "type": "literal", "text": "0 - 30 days:", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-B030", "picture": "---,---,---,--9", "color": "WHITE" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 2, "type": "literal", "text": "31 - 60 day:", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-B060", "picture": "---,---,---,--9", "color": "WHITE" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 2, "type": "literal", "text": "61 - 90 day:", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-B090", "picture": "---,---,---,--9", "color": "WHITE" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 2, "type": "literal", "text": "Over 90 day:", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-B90P", "picture": "---,---,---,--9", "color": "WHITE" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 2, "type": "literal", "text": "Debit/Cred :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-TOT-DR", "picture": "---,---,---,--9" },
+          { "col": 34, "type": "from", "name": "FILLER", "boundField": "WK-TOT-CR", "picture": "---,---,---,--9" }
+        ] },
+        { "line": 12, "fields": [
+          { "col": 2, "type": "literal", "text": "Recent ledger lines:", "color": "CYAN" }
+        ] },
+        { "line": 13, "fields": [
+          { "col": 2, "type": "literal", "text": "Date        Kind      Debit         Credit", "color": "CYAN" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(1)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 15, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(2)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(3)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 17, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(4)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 18, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(5)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 19, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(6)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 20, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(7)", "picture": "X(78)", "color": "WHITE" }
+        ] },
+        { "line": 21, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WK-LIST(8)", "picture": "X(78)", "color": "WHITE" }
+        ] }
+      ]
+    },
+    "DS-HEADER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-FOOTER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-MSG": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    }
+  },
+  "inputFields": {
+    "WK-KEY-CUST": {
+      "screen": "DS-KEY",
+      "line": 5,
+      "col": 20,
+      "width": 6,
+      "picture": "9(6)",
+      "usingField": "WK-KEY-CUST",
+      "inputType": "numeric",
+      "advanceEsts": null
+    }
+  },
+  "windows": {
+  },
+  "pfKeys": {
+    "ENTER": { "code": "00", "label": "Enter" },
+    "PF1":   { "code": "01", "label": "F1" },
+    "PF2":   { "code": "02", "label": "F2" },
+    "PF3":   { "code": "03", "label": "F3" },
+    "PF4":   { "code": "04", "label": "F4" },
+    "PF5":   { "code": "05", "label": "F5" },
+    "PF6":   { "code": "06", "label": "F6" },
+    "PF7":   { "code": "07", "label": "F7" },
+    "PF8":   { "code": "08", "label": "F8" },
+    "PF9":   { "code": "09", "label": "F9" },
+    "PF10":  { "code": "PA", "label": "F10" },
+    "PF11":  { "code": "PB", "label": "F11" },
+    "PF12":  { "code": "PC", "label": "F12" }
+  }
+}

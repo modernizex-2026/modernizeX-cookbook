@@ -1,0 +1,204 @@
+{
+  "programId": "PU0020",
+  "screens": {
+    "DS-SEARCH": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-SRCH-NO", "WK-SRCH-SUPP", "WK-SRCH-DATE"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "PO Number   :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-SRCH-NO", "picture": "9(10)" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 2, "type": "literal", "text": "--- or search by supplier ---", "color": "CYAN" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 2, "type": "literal", "text": "Supplier    :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-SRCH-SUPP", "picture": "9(6)" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 2, "type": "literal", "text": "From Date   :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-SRCH-DATE", "picture": "9(8)" }
+        ] }
+      ]
+    },
+    "DS-HDRVIEW": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+        { "line": 3, "fields": [
+          { "col": 2, "type": "literal", "text": "PO No     :", "color": "YELLOW" },
+          { "col": 14, "type": "from", "name": "FILLER", "boundField": "PH-NO", "picture": "ZZZZZZZZZ9", "color": "WHITE" },
+          { "col": 40, "type": "literal", "text": "Status:", "color": "YELLOW" },
+          { "col": 48, "type": "from", "name": "FILLER", "boundField": "WK-STAT-TEXT", "picture": "X(12)", "color": "WHITE" }
+        ] },
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "Date      :", "color": "YELLOW" },
+          { "col": 14, "type": "from", "name": "FILLER", "boundField": "PH-DATE", "picture": "9999B99B99", "color": "WHITE" }
+        ] },
+        { "line": 5, "fields": [
+          { "col": 2, "type": "literal", "text": "Supplier  :", "color": "YELLOW" },
+          { "col": 14, "type": "from", "name": "FILLER", "boundField": "PH-SUPP", "picture": "9(6)", "color": "WHITE" },
+          { "col": 22, "type": "from", "name": "FILLER", "boundField": "WK-SUPP-NAME", "picture": "X(40)", "color": "WHITE" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 2, "type": "literal", "text": "Warehouse :", "color": "YELLOW" },
+          { "col": 14, "type": "from", "name": "FILLER", "boundField": "PH-WHSE", "picture": "9(3)", "color": "WHITE" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 2, "type": "literal", "text": "Buyer     :", "color": "YELLOW" },
+          { "col": 14, "type": "from", "name": "FILLER", "boundField": "PH-STAFF", "picture": "9(4)", "color": "WHITE" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 2, "type": "literal", "text": "Due Date  :", "color": "YELLOW" },
+          { "col": 14, "type": "from", "name": "FILLER", "boundField": "PH-DUE-DATE", "picture": "9999B99B99", "color": "WHITE" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 2, "type": "literal", "text": "Net :", "color": "YELLOW" },
+          { "col": 8, "type": "from", "name": "FILLER", "boundField": "PH-AMOUNT", "picture": "---,---,---,--9", "color": "WHITE" },
+          { "col": 28, "type": "literal", "text": "Tax :", "color": "YELLOW" },
+          { "col": 34, "type": "from", "name": "FILLER", "boundField": "PH-TAX-AMOUNT", "picture": "---,---,---,--9", "color": "WHITE" },
+          { "col": 54, "type": "literal", "text": "Tot :", "color": "YELLOW" },
+          { "col": 60, "type": "from", "name": "FILLER", "boundField": "PH-TOTAL", "picture": "---,---,---,--9", "color": "WHITE" }
+        ] }
+      ]
+    },
+    "DS-COLHDR": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+        { "line": 11, "fields": [
+          { "col": 2, "type": "literal", "text": "Ln  Product  Name              Ordered   Received", "color": "CYAN" }
+        ] }
+      ]
+    },
+    "DS-ROWS": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+        { "line": 12, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(1)", "picture": "X(69)", "color": "WHITE" }
+        ] },
+        { "line": 13, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(2)", "picture": "X(69)", "color": "WHITE" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(3)", "picture": "X(69)", "color": "WHITE" }
+        ] },
+        { "line": 15, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(4)", "picture": "X(69)", "color": "WHITE" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(5)", "picture": "X(69)", "color": "WHITE" }
+        ] },
+        { "line": 17, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(6)", "picture": "X(69)", "color": "WHITE" }
+        ] },
+        { "line": 18, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(7)", "picture": "X(69)", "color": "WHITE" }
+        ] },
+        { "line": 19, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(8)", "picture": "X(69)", "color": "WHITE" }
+        ] },
+        { "line": 20, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(9)", "picture": "X(69)", "color": "WHITE" }
+        ] }
+      ]
+    },
+    "DS-NAV": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-NAV"],
+      "rows": [
+        { "line": 21, "fields": [
+          { "col": 2, "type": "literal", "text": "PF6=Next  PF3=Back :", "color": "CYAN" },
+          { "col": 24, "type": "from", "name": "FILLER", "boundField": "WK-NAV", "picture": "X(1)" }
+        ] }
+      ]
+    },
+    "DS-HEADER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-FOOTER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-MSG": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    }
+  },
+  "inputFields": {
+    "WK-SRCH-NO": {
+      "screen": "DS-SEARCH",
+      "line": 4,
+      "col": 16,
+      "width": 10,
+      "picture": "9(10)",
+      "usingField": "WK-SRCH-NO",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-SRCH-SUPP": {
+      "screen": "DS-SEARCH",
+      "line": 7,
+      "col": 16,
+      "width": 6,
+      "picture": "9(6)",
+      "usingField": "WK-SRCH-SUPP",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-SRCH-DATE": {
+      "screen": "DS-SEARCH",
+      "line": 8,
+      "col": 16,
+      "width": 8,
+      "picture": "9(8)",
+      "usingField": "WK-SRCH-DATE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-NAV": {
+      "screen": "DS-NAV",
+      "line": 21,
+      "col": 24,
+      "width": 1,
+      "picture": "X(1)",
+      "usingField": "WK-NAV",
+      "inputType": "alphanumeric",
+      "advanceEsts": null
+    }
+  },
+  "windows": {
+  },
+  "pfKeys": {
+    "ENTER": { "code": "00", "label": "Enter" },
+    "PF1":   { "code": "01", "label": "F1" },
+    "PF2":   { "code": "02", "label": "F2" },
+    "PF3":   { "code": "03", "label": "F3" },
+    "PF4":   { "code": "04", "label": "F4" },
+    "PF5":   { "code": "05", "label": "F5" },
+    "PF6":   { "code": "06", "label": "F6" },
+    "PF7":   { "code": "07", "label": "F7" },
+    "PF8":   { "code": "08", "label": "F8" },
+    "PF9":   { "code": "09", "label": "F9" },
+    "PF10":  { "code": "PA", "label": "F10" },
+    "PF11":  { "code": "PB", "label": "F11" },
+    "PF12":  { "code": "PC", "label": "F12" }
+  }
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : REGNF
+  FD record name : RG-REC
+  Copybook src   : FREGN
+-->
+<dataLayout name="REGNF" scope="file" charset="MS932" recordSize="54">
+  <group name="RG-REC" offset="0" size="54">
+    <group name="RG-REC" offset="0" size="54">
+      <field name="RG-CODE" offset="0" size="3" javaType="int"/>
+      <field name="RG-NAME" offset="3" size="30" javaType="String"/>
+      <field name="RG-DEL-FLAG" offset="33" size="1" javaType="int"/>
+      <field name="FILLER-34" offset="34" size="20" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

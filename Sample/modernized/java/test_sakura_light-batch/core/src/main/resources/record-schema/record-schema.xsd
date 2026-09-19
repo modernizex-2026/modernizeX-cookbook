@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  COBOL Data Layout Schema
+  Strict schema for <dataLayout> XML files emitted by cobol2java generator.
+
+  Two scopes:
+    - file: FD record layout (fixed byte record, requires recordSize)
+    - workingStorage: WORKING-STORAGE section state (variable size, recordSize optional)
+
+  Engine SchemaLoader validates against this XSD at load time.
+  Maven xml-maven-plugin validates emitted XML at build time.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+  <!-- =========================================================== -->
+  <!-- Root: <dataLayout>                                          -->
+  <!-- =========================================================== -->
+  <xs:element name="dataLayout">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="group" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="scope" type="ScopeEnum" use="required"/>
+      <xs:attribute name="charset" type="xs:string" default="MS932"/>
+      <xs:attribute name="recordSize" type="xs:nonNegativeInteger" use="optional"/>
+      <xs:attribute name="csv" type="xs:boolean" default="false"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- =========================================================== -->
+  <!-- <group> — container of fields + sub-groups                  -->
+  <!-- =========================================================== -->
+  <xs:element name="group">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="group"/>
+        <xs:element ref="field"/>
+      </xs:choice>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="offset" type="xs:nonNegativeInteger" use="optional"/>
+      <xs:attribute name="size" type="xs:nonNegativeInteger" use="optional"/>
+      <xs:attribute name="occurs" type="xs:positiveInteger" use="optional"/>
+      <xs:attribute name="elementSize" type="xs:positiveInteger" use="optional"/>
+      <xs:attribute name="indexedBy" type="xs:string" use="optional"/>
+      <xs:attribute name="redefines" type="xs:string" use="optional"/>
+      <!-- REDEFINES Flavor B (multi-record dispatcher).                                -->
+      <!-- discriminator    = name of the field whose value selects which variant       -->
+      <!--                    is "active" for child-name resolution.                    -->
+      <!-- variantWhen      = whitespace-separated list of discriminator values that    -->
+      <!--                    activate THIS group as a variant view. Mutually exclusive -->
+      <!--                    with siblings (only ONE variant is active at a time).     -->
+      <!-- Caller invokes RecordSchema.setActiveVariant(discrimField, value) at runtime -->
+      <!-- (typically right after a READ); names of inactive variants then throw.       -->
+      <xs:attribute name="discriminator" type="xs:string" use="optional"/>
+      <xs:attribute name="variantWhen"   type="xs:string" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- =========================================================== -->
+  <!-- <field> — elementary data item                              -->
+  <!-- =========================================================== -->
+  <xs:element name="field">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="offset" type="xs:nonNegativeInteger" use="optional"/>
+      <xs:attribute name="size" type="xs:positiveInteger" use="required"/>
+      <xs:attribute name="javaType" type="JavaTypeEnum" use="required"/>
+      <xs:attribute name="usage" type="UsageEnum" default="DISPLAY"/>
+      <xs:attribute name="signed" type="xs:boolean" default="false"/>
+      <xs:attribute name="scale" type="xs:nonNegativeInteger" default="0"/>
+      <xs:attribute name="value" type="xs:string" use="optional"/>
+      <xs:attribute name="redefines" type="xs:string" use="optional"/>
+      <!-- COBOL edit-picture: pre-processed semantics. Engine applies formatting on   -->
+      <!-- MOVE-to-edited; no raw PIC string carried.                                  -->
+      <xs:attribute name="editFormat"     type="EditFormatEnum"        default="NONE"/>
+      <xs:attribute name="integerDigits"  type="xs:nonNegativeInteger" use="optional"/>
+      <xs:attribute name="insertCommas"   type="xs:boolean"            default="false"/>
+      <xs:attribute name="hasTrailingNine" type="xs:boolean"           default="false"/>
+      <xs:attribute name="slashAfter"     type="xs:string"             use="optional"/>
+      <xs:attribute name="commaAfter"     type="xs:string"             use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- =========================================================== -->
+  <!-- Enum types                                                  -->
+  <!-- =========================================================== -->
+  <xs:simpleType name="ScopeEnum">
+    <xs:annotation>
+      <xs:documentation>
+        file = FD record layout (fixed byte record, requires recordSize at root)
+        workingStorage = WORKING-STORAGE section state (variable size, no record I/O)
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="file"/>
+      <xs:enumeration value="workingStorage"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="JavaTypeEnum">
+    <xs:annotation>
+      <xs:documentation>
+        Java type for runtime: int (≤9 digits), long (10-18), short (4-digit COMP-5),
+        BigDecimal (V9 implied-decimal or large), String (PIC X/N).
+        float / double for COMP-1 / COMP-2 (IEEE 754 single / double precision).
+        byte[] reserved for future binary blob support.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="int"/>
+      <xs:enumeration value="long"/>
+      <xs:enumeration value="short"/>
+      <xs:enumeration value="BigDecimal"/>
+      <xs:enumeration value="String"/>
+      <!-- NString = PIC N (DBCS national). SchemaLoader maps to Kind.DBCS, routing through
+           encodeDbcs (fullwidth-space pad 0x81 0x40) instead of encodeAlphanumeric (ASCII
+           space pad 0x20). Java accessor type stays String. -->
+      <xs:enumeration value="NString"/>
+      <xs:enumeration value="byte[]"/>
+      <xs:enumeration value="float"/>
+      <xs:enumeration value="double"/>
+      <xs:enumeration value="Float"/>
+      <xs:enumeration value="Double"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EditFormatEnum">
+    <xs:annotation>
+      <xs:documentation>
+        COBOL numeric edit-picture classification (pre-processed by generator).
+          NONE          = no editing (raw numeric or text)
+          ZERO_SUPPRESS = PIC Z(n) — leading 0 replaced with space; value 0 = all spaces
+          SIGN_SUPPRESS = PIC ---..9 — leading 0/sign replaced with space; '-' placed before
+                          first significant digit when value negative; terminal 9 (if present)
+                          always shows even when value=0
+        Future: STAR_FILL (PIC *), CURRENCY ($), CHECK_PROTECT (B), etc.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NONE"/>
+      <xs:enumeration value="ZERO_SUPPRESS"/>
+      <xs:enumeration value="SIGN_SUPPRESS"/>
+      <xs:enumeration value="INSERTION"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="UsageEnum">
+    <xs:annotation>
+      <xs:documentation>
+        DISPLAY = ASCII digits (1 byte/digit)
+        COMP-3 / COMP3 = Packed-decimal BCD (ceil((digits+1)/2) bytes, sign nibble)
+        BINARY = Big-endian binary integer (2/4/8 bytes)
+        COMP-1 / COMP1 = IEEE 754 single-precision float (4 bytes, big-endian)
+        COMP-2 / COMP2 = IEEE 754 double-precision double (8 bytes, big-endian)
+        Note: hyphenated forms match COBOL terminology; engine accepts both forms.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DISPLAY"/>
+      <xs:enumeration value="COMP3"/>
+      <xs:enumeration value="COMP-3"/>
+      <xs:enumeration value="BINARY"/>
+      <xs:enumeration value="COMP1"/>
+      <xs:enumeration value="COMP-1"/>
+      <xs:enumeration value="COMP2"/>
+      <xs:enumeration value="COMP-2"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

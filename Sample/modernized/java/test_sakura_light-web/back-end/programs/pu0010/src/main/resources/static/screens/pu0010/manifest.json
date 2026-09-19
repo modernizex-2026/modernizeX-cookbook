@@ -1,0 +1,257 @@
+{
+  "programId": "PU0010",
+  "screens": {
+    "DS-HEAD": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["PH-DATE", "PH-SUPP", "PH-WHSE", "PH-STAFF", "PH-DUE-DATE", "PH-TAX-TYPE", "PH-REMARK"],
+      "rows": [
+        { "line": 3, "fields": [
+          { "col": 2, "type": "literal", "text": "PO No      :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-PO-NO-D", "picture": "ZZZZZZZZZ9", "color": "WHITE" }
+        ] },
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "PO Date    :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "PH-DATE", "picture": "9(8)" }
+        ] },
+        { "line": 5, "fields": [
+          { "col": 2, "type": "literal", "text": "Supplier   :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "PH-SUPP", "picture": "9(6)" },
+          { "col": 24, "type": "from", "name": "FILLER", "boundField": "WK-SUPP-NAME", "picture": "X(40)", "color": "WHITE" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 2, "type": "literal", "text": "Warehouse  :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "PH-WHSE", "picture": "9(3)" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 2, "type": "literal", "text": "Buyer/Staff:", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "PH-STAFF", "picture": "9(4)" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 2, "type": "literal", "text": "Due Date   :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "PH-DUE-DATE", "picture": "9(8)" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 2, "type": "literal", "text": "Tax Type   :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "PH-TAX-TYPE", "picture": "9(1)" },
+          { "col": 20, "type": "literal", "text": "1:excl 2:incl 3:exempt", "color": "CYAN" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 2, "type": "literal", "text": "Remark     :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "PH-REMARK", "picture": "X(40)" }
+        ] }
+      ]
+    },
+    "DS-DETAIL": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-D-PROD", "WK-D-WHSE", "WK-D-QTY", "WK-D-COST"],
+      "rows": [
+        { "line": 12, "fields": [
+          { "col": 2, "type": "literal", "text": "--- Detail line entry ---", "color": "CYAN" }
+        ] },
+        { "line": 13, "fields": [
+          { "col": 2, "type": "literal", "text": "Product    :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-D-PROD", "picture": "9(8)" },
+          { "col": 26, "type": "from", "name": "FILLER", "boundField": "WK-D-NAME", "picture": "X(40)", "color": "WHITE" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 2, "type": "literal", "text": "Warehouse  :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-D-WHSE", "picture": "9(3)" }
+        ] },
+        { "line": 15, "fields": [
+          { "col": 2, "type": "literal", "text": "Quantity   :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-D-QTY", "picture": "S9(9)" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 2, "type": "literal", "text": "Unit Cost  :", "color": "YELLOW" },
+          { "col": 16, "type": "from", "name": "FILLER", "boundField": "WK-D-COST", "picture": "S9(9)V9(2)" }
+        ] }
+      ]
+    },
+    "DS-STATUS": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+        { "line": 19, "fields": [
+          { "col": 2, "type": "literal", "text": "Lines :", "color": "YELLOW" },
+          { "col": 10, "type": "from", "name": "FILLER", "boundField": "WK-LCNT", "picture": "ZZ9", "color": "WHITE" },
+          { "col": 20, "type": "literal", "text": "Net Total :", "color": "YELLOW" },
+          { "col": 32, "type": "from", "name": "FILLER", "boundField": "WK-NET-TOTAL", "picture": "---,---,---,--9", "color": "WHITE" }
+        ] }
+      ]
+    },
+    "DS-CONFIRM": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-CONFIRM"],
+      "rows": [
+        { "line": 21, "fields": [
+          { "col": 2, "type": "literal", "text": "Save PO ? (Y/N) :", "color": "YELLOW" },
+          { "col": 24, "type": "from", "name": "FILLER", "boundField": "WK-CONFIRM", "picture": "X(1)" }
+        ] }
+      ]
+    },
+    "DS-HEADER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-FOOTER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-MSG": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    }
+  },
+  "inputFields": {
+    "PH-DATE": {
+      "screen": "DS-HEAD",
+      "line": 4,
+      "col": 16,
+      "width": 8,
+      "picture": "9(8)",
+      "usingField": "PH-DATE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "PH-SUPP": {
+      "screen": "DS-HEAD",
+      "line": 5,
+      "col": 16,
+      "width": 6,
+      "picture": "9(6)",
+      "usingField": "PH-SUPP",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "PH-WHSE": {
+      "screen": "DS-HEAD",
+      "line": 6,
+      "col": 16,
+      "width": 3,
+      "picture": "9(3)",
+      "usingField": "PH-WHSE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "PH-STAFF": {
+      "screen": "DS-HEAD",
+      "line": 7,
+      "col": 16,
+      "width": 4,
+      "picture": "9(4)",
+      "usingField": "PH-STAFF",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "PH-DUE-DATE": {
+      "screen": "DS-HEAD",
+      "line": 8,
+      "col": 16,
+      "width": 8,
+      "picture": "9(8)",
+      "usingField": "PH-DUE-DATE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "PH-TAX-TYPE": {
+      "screen": "DS-HEAD",
+      "line": 9,
+      "col": 16,
+      "width": 1,
+      "picture": "9(1)",
+      "usingField": "PH-TAX-TYPE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "PH-REMARK": {
+      "screen": "DS-HEAD",
+      "line": 10,
+      "col": 16,
+      "width": 40,
+      "picture": "X(40)",
+      "usingField": "PH-REMARK",
+      "inputType": "alphanumeric",
+      "advanceEsts": null
+    },
+    "WK-D-PROD": {
+      "screen": "DS-DETAIL",
+      "line": 13,
+      "col": 16,
+      "width": 8,
+      "picture": "9(8)",
+      "usingField": "WK-D-PROD",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-D-WHSE": {
+      "screen": "DS-DETAIL",
+      "line": 14,
+      "col": 16,
+      "width": 3,
+      "picture": "9(3)",
+      "usingField": "WK-D-WHSE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-D-QTY": {
+      "screen": "DS-DETAIL",
+      "line": 15,
+      "col": 16,
+      "width": 9,
+      "picture": "S9(9)",
+      "usingField": "WK-D-QTY",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-D-COST": {
+      "screen": "DS-DETAIL",
+      "line": 16,
+      "col": 16,
+      "width": 9,
+      "picture": "S9(9)V9(2)",
+      "usingField": "WK-D-COST",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-CONFIRM": {
+      "screen": "DS-CONFIRM",
+      "line": 21,
+      "col": 24,
+      "width": 1,
+      "picture": "X(1)",
+      "usingField": "WK-CONFIRM",
+      "inputType": "alphanumeric",
+      "advanceEsts": null
+    }
+  },
+  "windows": {
+  },
+  "pfKeys": {
+    "ENTER": { "code": "00", "label": "Enter" },
+    "PF1":   { "code": "01", "label": "F1" },
+    "PF2":   { "code": "02", "label": "F2" },
+    "PF3":   { "code": "03", "label": "F3" },
+    "PF4":   { "code": "04", "label": "F4" },
+    "PF5":   { "code": "05", "label": "F5" },
+    "PF6":   { "code": "06", "label": "F6" },
+    "PF7":   { "code": "07", "label": "F7" },
+    "PF8":   { "code": "08", "label": "F8" },
+    "PF9":   { "code": "09", "label": "F9" },
+    "PF10":  { "code": "PA", "label": "F10" },
+    "PF11":  { "code": "PB", "label": "F11" },
+    "PF12":  { "code": "PC", "label": "F12" }
+  }
+}

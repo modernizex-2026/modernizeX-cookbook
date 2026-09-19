@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : TAXF
+  FD record name : TX-REC
+  Copybook src   : FTAX
+-->
+<dataLayout name="TAXF" scope="file" charset="MS932" recordSize="42">
+  <group name="TX-REC" offset="0" size="42">
+    <group name="TX-REC" offset="0" size="42">
+      <field name="TX-CODE" offset="0" size="1" javaType="int"/>
+      <field name="TX-START-DATE" offset="1" size="8" javaType="int"/>
+      <field name="TX-RATE" offset="9" size="3" javaType="BigDecimal" signed="true" scale="3" usage="COMP-3"/>
+      <field name="TX-NAME" offset="12" size="20" javaType="String"/>
+      <field name="FILLER-32" offset="32" size="10" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

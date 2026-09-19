@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DateutService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">dateut</a> &gt; <a href="index.source.html" class="el_package">com.sakura.dateut.service</a> &gt; <span class="el_source">DateutService.java</span></div><h1>DateutService.java</h1><pre class="source lang-java linenums">package com.sakura.dateut.service;
+
+import com.sakura.dateut.domain.DateutFieldAccess;
+import com.sakura.dateut.domain.WorkingStorage;
+import com.sakura.runtime.BatchServiceBase;
+import com.sakura.runtime.JobAbortException;
+import com.sakura.runtime.ParagraphJumpSignal;
+import com.sakura.runtime.ProgramExitSignal;
+import com.sakura.runtime.StopRunSignal;
+import com.sakura.runtime.io.AbstractDatasets;
+import com.sakura.runtime.linkage.DateutLinkParm;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import com.sakura.runtime.Utility;
+import com.sakura.runtime.DatasetEnums.*;
+import com.sakura.runtime.linkage.DateutLinkParm;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+
+/**
+ * Business logic service generated from COBOL program DATEUT.
+ */
+@Service
+@Scope(&quot;prototype&quot;)
+<span class="fc" id="L25">public class DateutService extends BatchServiceBase {</span>
+<span class="fc" id="L26">    private final DateutLinkParm link = new DateutLinkParm();</span>
+
+<span class="fc" id="L28">    private final DateutFieldAccess ws = new DateutFieldAccess(new WorkingStorage());</span>
+
+    // Howard Hinnant civil-calendar algorithm constants (days_from_civil / civil_from_days).
+    private static final int DATE_MMDD_SCALE = 10000;
+    private static final int DATE_DD_SCALE = 100;
+    private static final int CENTURY_DIVISOR = 100;
+    private static final int ERA_LENGTH_YEARS = 400;
+    private static final int DAYS_PER_ERA = 146097;
+    private static final int EPOCH_SHIFT_DAYS = 719468;
+    private static final int MONTH_OFFSET_DIVISOR = 153;
+    private static final int DAYS_PER_YEAR = 365;
+    private static final int MIN_SUPPORTED_YEAR = 1900;
+
+    /**
+     * Program entry point — runs the first COBOL paragraph via runChain.
+     * Base class run() wraps this in StopRun/Abort/Exception handling.
+     */
+    @Override
+    protected void mainProcess() {
+        // Import anchors for types referenced by emitted paragraph bodies:
+        // StopRunSignal, JobAbortException, ParagraphJumpSignal, ProgramExitSignal
+<span class="nc" id="L49">        runChain(this::dispatchDateFunction);</span>
+<span class="nc" id="L50">    }</span>
+
+    /**
+     * Returns COBOL COMPLETION-CODE after run() completes.
+     * Used by Tasklet to propagate exit code into StepExecutionContext.
+     */
+    @Override
+    public int getCompletionCode() {
+<span class="fc" id="L58">        return ws.getCompletionCode();</span>
+    }
+
+    /**
+     * Set COBOL COMPLETION-CODE. Called by base class run() on Abort (255) / Exception (12) paths.
+     */
+    @Override
+    protected void setCompletionCode(int code) {
+<span class="fc" id="L66">        ws.setCompletionCode(code);</span>
+<span class="fc" id="L67">    }</span>
+
+    /**
+     * Returns this program's FileSet (or null if no files declared).
+     * Base class run() uses this for commit/rollback/closeAll lifecycle.
+     */
+    @Override
+    protected AbstractDatasets getFileSet() {
+<span class="fc" id="L75">        return null;</span>
+    }
+
+    /**
+     * COBOL paragraph: MAIN-000
+     */
+    private void dispatchDateFunction() {
+<span class="fc" id="L82">        link.getKdate().setKdStatus(&quot;00&quot;);</span>
+<span class="fc bfc" id="L83" title="All 8 branches covered.">        switch (String.valueOf(link.getKdate().getKdFunc())) {</span>
+        case &quot;TODY&quot; -&gt; {
+<span class="fc" id="L85">        runChain(this::computeTodayDate);</span>
+<span class="fc" id="L86">        }</span>
+        case &quot;VALD&quot; -&gt; {
+<span class="fc" id="L88">        runChain(this::validateDateFields);</span>
+<span class="fc" id="L89">        }</span>
+        case &quot;ADDD&quot; -&gt; {
+<span class="fc" id="L91">        runChain(this::addDaysToDate);</span>
+<span class="fc" id="L92">        }</span>
+        case &quot;DIFF&quot; -&gt; {
+<span class="fc" id="L94">        runChain(this::computeDateDifference);</span>
+<span class="fc" id="L95">        }</span>
+        case &quot;EOM &quot; -&gt; {
+<span class="fc" id="L97">        runChain(this::computeEndOfMonth);</span>
+<span class="fc" id="L98">        }</span>
+        case &quot;EOM&quot; -&gt; {
+<span class="fc" id="L100">        runChain(this::computeEndOfMonth);</span>
+<span class="fc" id="L101">        }</span>
+        case &quot;YOBI&quot; -&gt; {
+<span class="fc" id="L103">        runChain(this::computeWeekdayForDate);</span>
+<span class="fc" id="L104">        }</span>
+        default -&gt; {
+<span class="fc" id="L106">        link.getKdate().setKdStatus(&quot;99&quot;);</span>
+        }
+        }
+<span class="fc" id="L109">        throw new ProgramExitSignal();</span>
+    }
+
+    /**
+     * COBOL paragraph: FN-TODAY-010
+     */
+    private void computeTodayDate() {
+<span class="fc" id="L116">        LocalDate accDateWk60 = LocalDate.now();</span>
+<span class="fc" id="L117">        String dateValWk60 = accDateWk60.format(DateTimeFormatter.ofPattern(&quot;yyMMdd&quot;));</span>
+<span class="fc" id="L118">        ws.setWk6(Utility.parseNumeric(dateValWk60).intValue());</span>
+<span class="fc" id="L119">        ws.setWkYy((ws.getWk6() / DATE_MMDD_SCALE));</span>
+<span class="fc" id="L120">        ws.setWkM(((ws.getWk6() - (ws.getWkYy() * DATE_MMDD_SCALE)) / DATE_DD_SCALE));</span>
+<span class="fc" id="L121">        ws.setWkD((ws.getWk6() - ((ws.getWk6() / DATE_DD_SCALE) * DATE_DD_SCALE)));</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        if (ws.getWkYy() &lt; 80) {</span>
+<span class="fc" id="L123">            ws.setWkY((2000 + ws.getWkYy()));</span>
+        } else {
+<span class="fc" id="L125">            ws.setWkY((MIN_SUPPORTED_YEAR + ws.getWkYy()));</span>
+        }
+<span class="fc" id="L127">        runChain(this::buildDateFromYmd);</span>
+<span class="fc" id="L128">        runChain(this::convertYmdToSerialDay);</span>
+<span class="fc" id="L129">        runChain(this::computeWeekdayFromSerial);</span>
+<span class="fc" id="L130">    }</span>
+
+    /**
+     * COBOL paragraph: FN-VALIDATE-010
+     */
+    private void validateDateFields() {
+<span class="fc" id="L136">        runChain(this::parseDateToYmd);</span>
+<span class="fc bfc" id="L137" title="All 4 branches covered.">        if (ws.getWkY() &lt; MIN_SUPPORTED_YEAR || ws.getWkY() &gt; 2999) {</span>
+<span class="fc" id="L138">            link.getKdate().setKdStatus(&quot;99&quot;);</span>
+<span class="fc" id="L139">            return;</span>
+        }
+<span class="fc bfc" id="L141" title="All 4 branches covered.">        if (ws.getWkM() &lt; 1 || ws.getWkM() &gt; 12) {</span>
+<span class="fc" id="L142">            link.getKdate().setKdStatus(&quot;99&quot;);</span>
+<span class="fc" id="L143">            return;</span>
+        }
+<span class="fc" id="L145">        runChain(this::computeDaysInMonth);</span>
+<span class="fc bfc" id="L146" title="All 4 branches covered.">        if (ws.getWkD() &lt; 1 || ws.getWkD() &gt; ws.getWkDim()) {</span>
+<span class="fc" id="L147">            link.getKdate().setKdStatus(&quot;99&quot;);</span>
+        }
+<span class="fc" id="L149">    }</span>
+
+    /**
+     * COBOL paragraph: FN-ADDDAYS-010
+     */
+    private void addDaysToDate() {
+<span class="fc" id="L155">        runChain(this::parseDateToYmd);</span>
+<span class="fc" id="L156">        runChain(this::convertYmdToSerialDay);</span>
+<span class="fc" id="L157">        ws.setWkSer(ws.getWkSer() + link.getKdate().getKdDays());</span>
+<span class="fc" id="L158">        runChain(this::convertSerialDayToYmd);</span>
+<span class="fc" id="L159">        runChain(this::buildDateFromYmd);</span>
+<span class="fc" id="L160">    }</span>
+
+    /**
+     * COBOL paragraph: FN-DIFF-010
+     */
+    private void computeDateDifference() {
+<span class="fc" id="L166">        runChain(this::parseDateToYmd);</span>
+<span class="fc" id="L167">        runChain(this::convertYmdToSerialDay);</span>
+<span class="fc" id="L168">        ws.setWkSer2(ws.getWkSer());</span>
+<span class="fc" id="L169">        link.getKdate().setKdDate1(link.getKdate().getKdDate2());</span>
+<span class="fc" id="L170">        runChain(this::parseDateToYmd);</span>
+<span class="fc" id="L171">        runChain(this::convertYmdToSerialDay);</span>
+<span class="fc" id="L172">        link.getKdate().setKdDays((ws.getWkSer() - ws.getWkSer2()));</span>
+<span class="fc" id="L173">    }</span>
+
+    /**
+     * COBOL paragraph: FN-EOM-010
+     */
+    private void computeEndOfMonth() {
+<span class="fc" id="L179">        runChain(this::parseDateToYmd);</span>
+<span class="fc" id="L180">        ws.setWkD(1);</span>
+<span class="fc" id="L181">        ws.setWkM(ws.getWkM() + 1);</span>
+<span class="fc bfc" id="L182" title="All 2 branches covered.">        if (ws.getWkM() &gt; 12) {</span>
+<span class="fc" id="L183">            ws.setWkM(1);</span>
+<span class="fc" id="L184">            ws.setWkY(ws.getWkY() + 1);</span>
+        }
+<span class="fc" id="L186">        runChain(this::buildDateFromYmd);</span>
+<span class="fc" id="L187">        runChain(this::parseDateToYmd);</span>
+<span class="fc" id="L188">        runChain(this::convertYmdToSerialDay);</span>
+<span class="fc" id="L189">        ws.setWkSer(ws.getWkSer() - (1));</span>
+<span class="fc" id="L190">        runChain(this::convertSerialDayToYmd);</span>
+<span class="fc" id="L191">        runChain(this::buildDateFromYmd);</span>
+<span class="fc" id="L192">    }</span>
+
+    /**
+     * COBOL paragraph: FN-WEEKDAY-010
+     */
+    private void computeWeekdayForDate() {
+<span class="fc" id="L198">        runChain(this::parseDateToYmd);</span>
+<span class="fc" id="L199">        runChain(this::convertYmdToSerialDay);</span>
+<span class="fc" id="L200">        runChain(this::computeWeekdayFromSerial);</span>
+<span class="fc" id="L201">    }</span>
+
+    /**
+     * COBOL paragraph: PARSE-010
+     */
+    private void parseDateToYmd() {
+<span class="fc" id="L207">        ws.setWkY((link.getKdate().getKdDate1() / DATE_MMDD_SCALE));</span>
+<span class="fc" id="L208">        ws.setWkM(((link.getKdate().getKdDate1() - (ws.getWkY() * DATE_MMDD_SCALE)) / DATE_DD_SCALE));</span>
+<span class="fc" id="L209">        ws.setWkD(((link.getKdate().getKdDate1() - (ws.getWkY() * DATE_MMDD_SCALE)) - (ws.getWkM() * DATE_DD_SCALE)));</span>
+<span class="fc" id="L210">    }</span>
+
+    /**
+     * COBOL paragraph: BUILD-010
+     */
+    private void buildDateFromYmd() {
+<span class="fc" id="L216">        link.getKdate().setKdDate1((((ws.getWkY() * DATE_MMDD_SCALE) + (ws.getWkM() * DATE_DD_SCALE)) + ws.getWkD()));</span>
+<span class="fc" id="L217">    }</span>
+
+    /**
+     * COBOL paragraph: TOSER-010
+     */
+    private void convertYmdToSerialDay() {
+<span class="fc" id="L223">        ws.setWkY2(ws.getWkY());</span>
+<span class="fc bfc" id="L224" title="All 2 branches covered.">        if (ws.getWkM() &lt;= 2) {</span>
+<span class="fc" id="L225">            ws.setWkY2(ws.getWkY2() - (1));</span>
+        }
+<span class="fc" id="L227">        ws.setWkEra((ws.getWkY2() / ERA_LENGTH_YEARS));</span>
+<span class="fc" id="L228">        ws.setWkYoe((ws.getWkY2() - (ws.getWkEra() * ERA_LENGTH_YEARS)));</span>
+<span class="fc bfc" id="L229" title="All 2 branches covered.">        if (ws.getWkM() &gt; 2) {</span>
+<span class="fc" id="L230">            ws.setWkMp((ws.getWkM() - 3));</span>
+        } else {
+<span class="fc" id="L232">            ws.setWkMp((ws.getWkM() + 9));</span>
+        }
+<span class="fc" id="L234">        ws.setWkDoy((((((MONTH_OFFSET_DIVISOR * ws.getWkMp()) + 2) / 5) + ws.getWkD()) - 1));</span>
+<span class="fc" id="L235">        ws.setWkDoe(((((ws.getWkYoe() * DAYS_PER_YEAR) + (ws.getWkYoe() / 4)) - (ws.getWkYoe() / CENTURY_DIVISOR)) + ws.getWkDoy()));</span>
+<span class="fc" id="L236">        ws.setWkSer((((ws.getWkEra() * DAYS_PER_ERA) + ws.getWkDoe()) - EPOCH_SHIFT_DAYS));</span>
+<span class="fc" id="L237">    }</span>
+
+    /**
+     * COBOL paragraph: FRSER-010
+     */
+    private void convertSerialDayToYmd() {
+<span class="fc" id="L243">        ws.setWkZ((ws.getWkSer() + EPOCH_SHIFT_DAYS));</span>
+<span class="fc" id="L244">        ws.setWkEra((ws.getWkZ() / DAYS_PER_ERA));</span>
+<span class="fc" id="L245">        ws.setWkDoe((ws.getWkZ() - (ws.getWkEra() * DAYS_PER_ERA)));</span>
+<span class="fc" id="L246">        ws.setWkYoe(((((ws.getWkDoe() - (ws.getWkDoe() / 1460)) + (ws.getWkDoe() / 36524)) - (ws.getWkDoe() / 146096)) / DAYS_PER_YEAR));</span>
+<span class="fc" id="L247">        ws.setWkY((ws.getWkYoe() + (ws.getWkEra() * ERA_LENGTH_YEARS)));</span>
+<span class="fc" id="L248">        ws.setWkDoy((ws.getWkDoe() - (((DAYS_PER_YEAR * ws.getWkYoe()) + (ws.getWkYoe() / 4)) - (ws.getWkYoe() / CENTURY_DIVISOR))));</span>
+<span class="fc" id="L249">        ws.setWkMp((((5 * ws.getWkDoy()) + 2) / MONTH_OFFSET_DIVISOR));</span>
+<span class="fc" id="L250">        ws.setWkD(((ws.getWkDoy() - (((MONTH_OFFSET_DIVISOR * ws.getWkMp()) + 2) / 5)) + 1));</span>
+<span class="fc bfc" id="L251" title="All 2 branches covered.">        if (ws.getWkMp() &lt; 10) {</span>
+<span class="fc" id="L252">            ws.setWkM((ws.getWkMp() + 3));</span>
+        } else {
+<span class="fc" id="L254">            ws.setWkM((ws.getWkMp() - 9));</span>
+        }
+<span class="fc bfc" id="L256" title="All 2 branches covered.">        if (ws.getWkM() &lt;= 2) {</span>
+<span class="fc" id="L257">            ws.setWkY(ws.getWkY() + 1);</span>
+        }
+<span class="fc" id="L259">    }</span>
+
+    /**
+     * COBOL paragraph: CWD-010
+     */
+    private void computeWeekdayFromSerial() {
+<span class="fc" id="L265">        ws.setWkTmp((ws.getWkSer() + 4));</span>
+<span class="fc" id="L266">        ws.setWkTmp((ws.getWkTmp() - ((ws.getWkTmp() / 7) * 7)));</span>
+<span class="fc bfc" id="L267" title="All 2 branches covered.">        if (ws.getWkTmp() &lt; 0) {</span>
+<span class="fc" id="L268">            ws.setWkTmp(ws.getWkTmp() + 7);</span>
+        }
+<span class="fc" id="L270">        link.getKdate().setKdWeekday(ws.getWkTmp());</span>
+<span class="fc" id="L271">    }</span>
+
+    /**
+     * COBOL paragraph: DIM-010
+     */
+    private void computeDaysInMonth() {
+<span class="fc" id="L277">        ws.setWkLeap(0);</span>
+<span class="fc" id="L278">        ws.setWkTmp((ws.getWkY() - ((ws.getWkY() / 4) * 4)));</span>
+<span class="fc bfc" id="L279" title="All 2 branches covered.">        if (ws.getWkTmp() == 0) {</span>
+<span class="fc" id="L280">            ws.setWkLeap(1);</span>
+        }
+<span class="fc" id="L282">        ws.setWkTmp((ws.getWkY() - ((ws.getWkY() / CENTURY_DIVISOR) * CENTURY_DIVISOR)));</span>
+<span class="fc bfc" id="L283" title="All 2 branches covered.">        if (ws.getWkTmp() == 0) {</span>
+<span class="fc" id="L284">            ws.setWkLeap(0);</span>
+        }
+<span class="fc" id="L286">        ws.setWkTmp((ws.getWkY() - ((ws.getWkY() / ERA_LENGTH_YEARS) * ERA_LENGTH_YEARS)));</span>
+<span class="fc bfc" id="L287" title="All 2 branches covered.">        if (ws.getWkTmp() == 0) {</span>
+<span class="fc" id="L288">            ws.setWkLeap(1);</span>
+        }
+<span class="pc bpc" id="L290" title="1 of 13 branches missed.">        switch (ws.getWkM()) {</span>
+        case 1 -&gt; {
+<span class="fc" id="L292">        ws.setWkDim(31);</span>
+<span class="fc" id="L293">        }</span>
+        case 2 -&gt; {
+<span class="fc bfc" id="L295" title="All 2 branches covered.">        if (ws.getWkLeap() == 1) {</span>
+<span class="fc" id="L296">            ws.setWkDim(29);</span>
+        } else {
+<span class="fc" id="L298">            ws.setWkDim(28);</span>
+        }
+<span class="fc" id="L300">        }</span>
+        case 3 -&gt; {
+<span class="fc" id="L302">        ws.setWkDim(31);</span>
+<span class="fc" id="L303">        }</span>
+        case 4 -&gt; {
+<span class="fc" id="L305">        ws.setWkDim(30);</span>
+<span class="fc" id="L306">        }</span>
+        case 5 -&gt; {
+<span class="fc" id="L308">        ws.setWkDim(31);</span>
+<span class="fc" id="L309">        }</span>
+        case 6 -&gt; {
+<span class="fc" id="L311">        ws.setWkDim(30);</span>
+<span class="fc" id="L312">        }</span>
+        case 7 -&gt; {
+<span class="fc" id="L314">        ws.setWkDim(31);</span>
+<span class="fc" id="L315">        }</span>
+        case 8 -&gt; {
+<span class="fc" id="L317">        ws.setWkDim(31);</span>
+<span class="fc" id="L318">        }</span>
+        case 9 -&gt; {
+<span class="fc" id="L320">        ws.setWkDim(30);</span>
+<span class="fc" id="L321">        }</span>
+        case 10 -&gt; {
+<span class="fc" id="L323">        ws.setWkDim(31);</span>
+<span class="fc" id="L324">        }</span>
+        case 11 -&gt; {
+<span class="fc" id="L326">        ws.setWkDim(30);</span>
+<span class="fc" id="L327">        }</span>
+        case 12 -&gt; {
+<span class="fc" id="L329">        ws.setWkDim(31);</span>
+<span class="fc" id="L330">        }</span>
+        default -&gt; {
+<span class="nc" id="L332">        ws.setWkDim(0);</span>
+        }
+        }
+<span class="fc" id="L335">    }</span>
+
+    /**
+     * Execute this program as a COBOL CALL callee.
+     * Copies params into Linkage section, runs business logic, copies back.
+     */
+    public void execute(DateutLinkParm params) {
+<span class="fc" id="L342">        link.getKdate().setKdFunc(params.getKdate().getKdFunc());</span>
+<span class="fc" id="L343">        link.getKdate().setKdDate1(params.getKdate().getKdDate1());</span>
+<span class="fc" id="L344">        link.getKdate().setKdDate2(params.getKdate().getKdDate2());</span>
+<span class="fc" id="L345">        link.getKdate().setKdDays(params.getKdate().getKdDays());</span>
+<span class="fc" id="L346">        link.getKdate().setKdWeekday(params.getKdate().getKdWeekday());</span>
+<span class="fc" id="L347">        link.getKdate().setKdStatus(params.getKdate().getKdStatus());</span>
+<span class="fc" id="L348">        executeSubprogram(this::dispatchDateFunction);</span>
+<span class="fc" id="L349">        params.getKdate().setKdFunc(link.getKdate().getKdFunc());</span>
+<span class="fc" id="L350">        params.getKdate().setKdDate1(link.getKdate().getKdDate1());</span>
+<span class="fc" id="L351">        params.getKdate().setKdDate2(link.getKdate().getKdDate2());</span>
+<span class="fc" id="L352">        params.getKdate().setKdDays(link.getKdate().getKdDays());</span>
+<span class="fc" id="L353">        params.getKdate().setKdWeekday(link.getKdate().getKdWeekday());</span>
+<span class="fc" id="L354">        params.getKdate().setKdStatus(link.getKdate().getKdStatus());</span>
+<span class="fc" id="L355">    }</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

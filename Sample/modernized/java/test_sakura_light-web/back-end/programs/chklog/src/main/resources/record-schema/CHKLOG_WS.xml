@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : CHKLOG_WS
+-->
+<dataLayout name="CHKLOG_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="11">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="FSTS" offset="4" size="2" javaType="String" value="00"/>
+    <field name="WK-AUTH" offset="6" size="5" javaType="String" value="SPACE"/>
+  </group>
+</dataLayout>

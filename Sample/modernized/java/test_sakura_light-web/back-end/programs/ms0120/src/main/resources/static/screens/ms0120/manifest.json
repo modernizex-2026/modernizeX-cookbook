@@ -1,0 +1,230 @@
+{
+  "programId": "MS0120",
+  "screens": {
+    "DS-KEY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["SC-KEY"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "User Code     :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "SC-KEY", "boundField": "US-CODE", "picture": "9(6)" }
+        ] }
+      ]
+    },
+    "DS-BODY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["US-LOGIN", "US-PASSWORD", "US-NAME", "US-ROLE", "US-AUTH-MASTER", "US-AUTH-ORDER", "US-AUTH-SALES", "US-AUTH-PURCH", "US-AUTH-CLOSE"],
+      "rows": [
+        { "line": 6, "fields": [
+          { "col": 2, "type": "literal", "text": "Login ID      :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "US-LOGIN", "picture": "X(12)" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 2, "type": "literal", "text": "Password      :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "US-PASSWORD", "picture": "X(16)" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 2, "type": "literal", "text": "User Name     :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "US-NAME", "picture": "X(30)" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 2, "type": "literal", "text": "Staff Name    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-STAFF-NAME", "picture": "X(30)", "color": "WHITE" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 2, "type": "literal", "text": "Role          :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "US-ROLE", "picture": "9(1)" },
+          { "col": 24, "type": "literal", "text": "1:admin 2:manager 3:clerk", "color": "CYAN" }
+        ] },
+        { "line": 12, "fields": [
+          { "col": 2, "type": "literal", "text": "Auth Master   :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "US-AUTH-MASTER", "picture": "9(1)" },
+          { "col": 24, "type": "literal", "text": "0:no 1:yes", "color": "CYAN" }
+        ] },
+        { "line": 13, "fields": [
+          { "col": 2, "type": "literal", "text": "Auth Order    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "US-AUTH-ORDER", "picture": "9(1)" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 2, "type": "literal", "text": "Auth Sales    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "US-AUTH-SALES", "picture": "9(1)" }
+        ] },
+        { "line": 15, "fields": [
+          { "col": 2, "type": "literal", "text": "Auth Purchase :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "US-AUTH-PURCH", "picture": "9(1)" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 2, "type": "literal", "text": "Auth Close    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "US-AUTH-CLOSE", "picture": "9(1)" }
+        ] },
+        { "line": 18, "fields": [
+          { "col": 2, "type": "literal", "text": "Last Login    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "US-LAST-LOGIN", "picture": "9999B99B99", "color": "WHITE" }
+        ] }
+      ]
+    },
+    "DS-CONFIRM": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["SC-CONF"],
+      "rows": [
+        { "line": 21, "fields": [
+          { "col": 2, "type": "literal", "text": "Confirm (Y/N) :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "SC-CONF", "boundField": "WK-CONFIRM", "picture": "X(1)" }
+        ] }
+      ]
+    },
+    "DS-HEADER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-FOOTER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-MSG": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    }
+  },
+  "inputFields": {
+    "SC-KEY": {
+      "screen": "DS-KEY",
+      "line": 4,
+      "col": 20,
+      "width": 6,
+      "picture": "9(6)",
+      "usingField": "US-CODE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "US-LOGIN": {
+      "screen": "DS-BODY",
+      "line": 6,
+      "col": 20,
+      "width": 12,
+      "picture": "X(12)",
+      "usingField": "US-LOGIN",
+      "inputType": "alphanumeric",
+      "advanceEsts": "03"
+    },
+    "US-PASSWORD": {
+      "screen": "DS-BODY",
+      "line": 7,
+      "col": 20,
+      "width": 16,
+      "picture": "X(16)",
+      "usingField": "US-PASSWORD",
+      "inputType": "password",
+      "advanceEsts": "03"
+    },
+    "US-NAME": {
+      "screen": "DS-BODY",
+      "line": 8,
+      "col": 20,
+      "width": 30,
+      "picture": "X(30)",
+      "usingField": "US-NAME",
+      "inputType": "alphanumeric",
+      "advanceEsts": "03"
+    },
+    "US-ROLE": {
+      "screen": "DS-BODY",
+      "line": 10,
+      "col": 20,
+      "width": 1,
+      "picture": "9(1)",
+      "usingField": "US-ROLE",
+      "inputType": "numeric",
+      "advanceEsts": "03"
+    },
+    "US-AUTH-MASTER": {
+      "screen": "DS-BODY",
+      "line": 12,
+      "col": 20,
+      "width": 1,
+      "picture": "9(1)",
+      "usingField": "US-AUTH-MASTER",
+      "inputType": "numeric",
+      "advanceEsts": "03"
+    },
+    "US-AUTH-ORDER": {
+      "screen": "DS-BODY",
+      "line": 13,
+      "col": 20,
+      "width": 1,
+      "picture": "9(1)",
+      "usingField": "US-AUTH-ORDER",
+      "inputType": "numeric",
+      "advanceEsts": "03"
+    },
+    "US-AUTH-SALES": {
+      "screen": "DS-BODY",
+      "line": 14,
+      "col": 20,
+      "width": 1,
+      "picture": "9(1)",
+      "usingField": "US-AUTH-SALES",
+      "inputType": "numeric",
+      "advanceEsts": "03"
+    },
+    "US-AUTH-PURCH": {
+      "screen": "DS-BODY",
+      "line": 15,
+      "col": 20,
+      "width": 1,
+      "picture": "9(1)",
+      "usingField": "US-AUTH-PURCH",
+      "inputType": "numeric",
+      "advanceEsts": "03"
+    },
+    "US-AUTH-CLOSE": {
+      "screen": "DS-BODY",
+      "line": 16,
+      "col": 20,
+      "width": 1,
+      "picture": "9(1)",
+      "usingField": "US-AUTH-CLOSE",
+      "inputType": "numeric",
+      "advanceEsts": "03"
+    },
+    "SC-CONF": {
+      "screen": "DS-CONFIRM",
+      "line": 21,
+      "col": 20,
+      "width": 1,
+      "picture": "X(1)",
+      "usingField": "WK-CONFIRM",
+      "inputType": "alphanumeric",
+      "advanceEsts": null
+    }
+  },
+  "windows": {
+  },
+  "pfKeys": {
+    "ENTER": { "code": "00", "label": "Enter" },
+    "PF1":   { "code": "01", "label": "F1" },
+    "PF2":   { "code": "02", "label": "F2" },
+    "PF3":   { "code": "03", "label": "F3" },
+    "PF4":   { "code": "04", "label": "F4" },
+    "PF5":   { "code": "05", "label": "F5" },
+    "PF6":   { "code": "06", "label": "F6" },
+    "PF7":   { "code": "07", "label": "F7" },
+    "PF8":   { "code": "08", "label": "F8" },
+    "PF9":   { "code": "09", "label": "F9" },
+    "PF10":  { "code": "PA", "label": "F10" },
+    "PF11":  { "code": "PB", "label": "F11" },
+    "PF12":  { "code": "PC", "label": "F12" }
+  }
+}

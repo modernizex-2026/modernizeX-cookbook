@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Iv0050FieldAccess.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">iv0050</a> &gt; <a href="index.source.html" class="el_package">com.sakura.iv0050.domain</a> &gt; <span class="el_source">Iv0050FieldAccess.java</span></div><h1>Iv0050FieldAccess.java</h1><pre class="source lang-java linenums">package com.sakura.iv0050.domain;
+
+import com.sakura.runtime.record.RuntimeFieldAccess;
+import com.sakura.iv0050.domain.WorkingStorage;
+import com.sakura.iv0050.runtime.Iv0050Datasets;
+import java.math.BigDecimal;
+
+/**
+ * Field accessor for IV0050.
+ * Backend: RuntimeFieldAccess (raw RecordImage byte[]).
+ * Typed methods auto-generated from referenced fields — bodies delegate to the string-key API.
+ */
+public class Iv0050FieldAccess extends RuntimeFieldAccess {
+
+<span class="fc" id="L15">    public Iv0050FieldAccess(WorkingStorage ws, Iv0050Datasets fileSet) {</span>
+<span class="pc bpc" id="L16" title="1 of 2 branches missed.">        if (ws != null) {</span>
+<span class="fc" id="L17">            register(ws.buffer());</span>
+        }
+<span class="pc bpc" id="L19" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getStokf() != null) {</span>
+<span class="fc" id="L20">            register(fileSet.getStokf().buffer());</span>
+        }
+<span class="pc bpc" id="L22" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getSmovf() != null) {</span>
+<span class="fc" id="L23">            register(fileSet.getSmovf().buffer());</span>
+        }
+<span class="pc bpc" id="L25" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getProdf() != null) {</span>
+<span class="fc" id="L26">            register(fileSet.getProdf().buffer());</span>
+        }
+<span class="pc bpc" id="L28" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getWhsef() != null) {</span>
+<span class="fc" id="L29">            register(fileSet.getWhsef().buffer());</span>
+        }
+<span class="fc" id="L31">    }</span>
+
+    /* ── Typed wrappers (delegate → string-key) ─────────────── */
+<span class="fc" id="L34">    public int getCompletionCode() { return getInt(&quot;COMPLETION-CODE&quot;); }</span>
+<span class="fc" id="L35">    public void setCompletionCode(int value) { setInt(&quot;COMPLETION-CODE&quot;, value); }</span>
+<span class="fc" id="L36">    public int getEndFlg() { return getInt(&quot;END-FLG&quot;); }</span>
+<span class="nc" id="L37">    public void setEndFlg(int value) { setInt(&quot;END-FLG&quot;, value); }</span>
+<span class="fc" id="L38">    public int getErrFlg() { return getInt(&quot;ERR-FLG&quot;); }</span>
+<span class="fc" id="L39">    public void setErrFlg(int value) { setInt(&quot;ERR-FLG&quot;, value); }</span>
+<span class="fc" id="L40">    public String getEsts() { return getString(&quot;ESTS&quot;); }</span>
+<span class="fc" id="L41">    public void setEsts(String value) { setString(&quot;ESTS&quot;, value); }</span>
+<span class="fc" id="L42">    public String getFsts() { return getString(&quot;FSTS&quot;); }</span>
+<span class="nc" id="L43">    public void setFsts(String value) { setString(&quot;FSTS&quot;, value); }</span>
+<span class="fc" id="L44">    public String getKaDetail() { return getString(&quot;KA-DETAIL&quot;); }</span>
+<span class="fc" id="L45">    public void setKaDetail(String value) { setString(&quot;KA-DETAIL&quot;, value); }</span>
+<span class="fc" id="L46">    public String getKaFile() { return getString(&quot;KA-FILE&quot;); }</span>
+<span class="fc" id="L47">    public void setKaFile(String value) { setString(&quot;KA-FILE&quot;, value); }</span>
+<span class="fc" id="L48">    public String getKaFsts() { return getString(&quot;KA-FSTS&quot;); }</span>
+<span class="fc" id="L49">    public void setKaFsts(String value) { setString(&quot;KA-FSTS&quot;, value); }</span>
+<span class="fc" id="L50">    public String getKaMsgcode() { return getString(&quot;KA-MSGCODE&quot;); }</span>
+<span class="fc" id="L51">    public void setKaMsgcode(String value) { setString(&quot;KA-MSGCODE&quot;, value); }</span>
+<span class="fc" id="L52">    public String getKaProgid() { return getString(&quot;KA-PROGID&quot;); }</span>
+<span class="fc" id="L53">    public void setKaProgid(String value) { setString(&quot;KA-PROGID&quot;, value); }</span>
+<span class="fc" id="L54">    public String getKabend() { return groupToString(&quot;KABEND&quot;); }</span>
+<span class="nc" id="L55">    public void setKabend(String value) { setGroup(&quot;KABEND&quot;, value); }</span>
+<span class="fc" id="L56">    public int getKdDate1() { return getInt(&quot;KD-DATE1&quot;); }</span>
+<span class="fc" id="L57">    public void setKdDate1(int value) { setInt(&quot;KD-DATE1&quot;, value); }</span>
+<span class="fc" id="L58">    public int getKdDate2() { return getInt(&quot;KD-DATE2&quot;); }</span>
+<span class="fc" id="L59">    public void setKdDate2(int value) { setInt(&quot;KD-DATE2&quot;, value); }</span>
+<span class="fc" id="L60">    public int getKdDays() { return getInt(&quot;KD-DAYS&quot;); }</span>
+<span class="fc" id="L61">    public void setKdDays(int value) { setInt(&quot;KD-DAYS&quot;, value); }</span>
+<span class="fc" id="L62">    public String getKdFunc() { return getString(&quot;KD-FUNC&quot;); }</span>
+<span class="fc" id="L63">    public void setKdFunc(String value) { setString(&quot;KD-FUNC&quot;, value); }</span>
+<span class="fc" id="L64">    public String getKdStatus() { return getString(&quot;KD-STATUS&quot;); }</span>
+<span class="fc" id="L65">    public void setKdStatus(String value) { setString(&quot;KD-STATUS&quot;, value); }</span>
+<span class="fc" id="L66">    public int getKdWeekday() { return getInt(&quot;KD-WEEKDAY&quot;); }</span>
+<span class="fc" id="L67">    public void setKdWeekday(int value) { setInt(&quot;KD-WEEKDAY&quot;, value); }</span>
+<span class="fc" id="L68">    public String getKdate() { return groupToString(&quot;KDATE&quot;); }</span>
+<span class="nc" id="L69">    public void setKdate(String value) { setGroup(&quot;KDATE&quot;, value); }</span>
+<span class="fc" id="L70">    public String getKnum() { return groupToString(&quot;KNUM&quot;); }</span>
+<span class="nc" id="L71">    public void setKnum(String value) { setGroup(&quot;KNUM&quot;, value); }</span>
+<span class="fc" id="L72">    public String getKnumKey() { return getString(&quot;KNUM-KEY&quot;); }</span>
+<span class="fc" id="L73">    public void setKnumKey(String value) { setString(&quot;KNUM-KEY&quot;, value); }</span>
+<span class="fc" id="L74">    public long getKnumNumber() { return getLong(&quot;KNUM-NUMBER&quot;); }</span>
+<span class="fc" id="L75">    public void setKnumNumber(long value) { setLong(&quot;KNUM-NUMBER&quot;, value); }</span>
+<span class="fc" id="L76">    public String getKnumStatus() { return getString(&quot;KNUM-STATUS&quot;); }</span>
+<span class="fc" id="L77">    public void setKnumStatus(String value) { setString(&quot;KNUM-STATUS&quot;, value); }</span>
+<span class="nc" id="L78">    public int getPrCode() { return getInt(&quot;PR-CODE&quot;); }</span>
+<span class="fc" id="L79">    public void setPrCode(int value) { setInt(&quot;PR-CODE&quot;, value); }</span>
+<span class="fc" id="L80">    public int getPrDelFlag() { return getInt(&quot;PR-DEL-FLAG&quot;); }</span>
+<span class="fc" id="L81">    public void setPrDelFlag(int value) { setInt(&quot;PR-DEL-FLAG&quot;, value); }</span>
+<span class="fc" id="L82">    public String getPrName() { return getString(&quot;PR-NAME&quot;); }</span>
+<span class="fc" id="L83">    public void setPrName(String value) { setString(&quot;PR-NAME&quot;, value); }</span>
+<span class="fc" id="L84">    public int getPrStockMng() { return getInt(&quot;PR-STOCK-MNG&quot;); }</span>
+<span class="fc" id="L85">    public void setPrStockMng(int value) { setInt(&quot;PR-STOCK-MNG&quot;, value); }</span>
+<span class="fc" id="L86">    public BigDecimal getSkAllocated() { return getDecimal(&quot;SK-ALLOCATED&quot;); }</span>
+<span class="fc" id="L87">    public void setSkAllocated(BigDecimal value) { setDecimal(&quot;SK-ALLOCATED&quot;, value); }</span>
+<span class="fc" id="L88">    public BigDecimal getSkAvgCost() { return getDecimal(&quot;SK-AVG-COST&quot;); }</span>
+<span class="fc" id="L89">    public void setSkAvgCost(BigDecimal value) { setDecimal(&quot;SK-AVG-COST&quot;, value); }</span>
+<span class="fc" id="L90">    public int getSkLastInDate() { return getInt(&quot;SK-LAST-IN-DATE&quot;); }</span>
+<span class="fc" id="L91">    public void setSkLastInDate(int value) { setInt(&quot;SK-LAST-IN-DATE&quot;, value); }</span>
+<span class="fc" id="L92">    public int getSkLastOutDate() { return getInt(&quot;SK-LAST-OUT-DATE&quot;); }</span>
+<span class="fc" id="L93">    public void setSkLastOutDate(int value) { setInt(&quot;SK-LAST-OUT-DATE&quot;, value); }</span>
+<span class="nc" id="L94">    public BigDecimal getSkOnOrder() { return getDecimal(&quot;SK-ON-ORDER&quot;); }</span>
+<span class="fc" id="L95">    public void setSkOnOrder(BigDecimal value) { setDecimal(&quot;SK-ON-ORDER&quot;, value); }</span>
+<span class="fc" id="L96">    public BigDecimal getSkOnhand() { return getDecimal(&quot;SK-ONHAND&quot;); }</span>
+<span class="fc" id="L97">    public void setSkOnhand(BigDecimal value) { setDecimal(&quot;SK-ONHAND&quot;, value); }</span>
+<span class="nc" id="L98">    public int getSkProd() { return getInt(&quot;SK-PROD&quot;); }</span>
+<span class="fc" id="L99">    public void setSkProd(int value) { setInt(&quot;SK-PROD&quot;, value); }</span>
+<span class="nc" id="L100">    public int getSkWhse() { return getInt(&quot;SK-WHSE&quot;); }</span>
+<span class="fc" id="L101">    public void setSkWhse(int value) { setInt(&quot;SK-WHSE&quot;, value); }</span>
+<span class="fc" id="L102">    public BigDecimal getSkYtdIn() { return getDecimal(&quot;SK-YTD-IN&quot;); }</span>
+<span class="fc" id="L103">    public void setSkYtdIn(BigDecimal value) { setDecimal(&quot;SK-YTD-IN&quot;, value); }</span>
+<span class="fc" id="L104">    public BigDecimal getSkYtdOut() { return getDecimal(&quot;SK-YTD-OUT&quot;); }</span>
+<span class="fc" id="L105">    public void setSkYtdOut(BigDecimal value) { setDecimal(&quot;SK-YTD-OUT&quot;, value); }</span>
+<span class="fc" id="L106">    public BigDecimal getSmBalAfter() { return getDecimal(&quot;SM-BAL-AFTER&quot;); }</span>
+<span class="fc" id="L107">    public void setSmBalAfter(BigDecimal value) { setDecimal(&quot;SM-BAL-AFTER&quot;, value); }</span>
+<span class="fc" id="L108">    public int getSmDate() { return getInt(&quot;SM-DATE&quot;); }</span>
+<span class="fc" id="L109">    public void setSmDate(int value) { setInt(&quot;SM-DATE&quot;, value); }</span>
+<span class="fc" id="L110">    public int getSmKind() { return getInt(&quot;SM-KIND&quot;); }</span>
+<span class="fc" id="L111">    public void setSmKind(int value) { setInt(&quot;SM-KIND&quot;, value); }</span>
+<span class="fc" id="L112">    public int getSmProd() { return getInt(&quot;SM-PROD&quot;); }</span>
+<span class="fc" id="L113">    public void setSmProd(int value) { setInt(&quot;SM-PROD&quot;, value); }</span>
+<span class="fc" id="L114">    public BigDecimal getSmQty() { return getDecimal(&quot;SM-QTY&quot;); }</span>
+<span class="fc" id="L115">    public void setSmQty(BigDecimal value) { setDecimal(&quot;SM-QTY&quot;, value); }</span>
+<span class="fc" id="L116">    public long getSmRefNo() { return getLong(&quot;SM-REF-NO&quot;); }</span>
+<span class="fc" id="L117">    public void setSmRefNo(long value) { setLong(&quot;SM-REF-NO&quot;, value); }</span>
+<span class="fc" id="L118">    public int getSmRefType() { return getInt(&quot;SM-REF-TYPE&quot;); }</span>
+<span class="fc" id="L119">    public void setSmRefType(int value) { setInt(&quot;SM-REF-TYPE&quot;, value); }</span>
+<span class="fc" id="L120">    public long getSmSeq() { return getLong(&quot;SM-SEQ&quot;); }</span>
+<span class="fc" id="L121">    public void setSmSeq(long value) { setLong(&quot;SM-SEQ&quot;, value); }</span>
+<span class="nc" id="L122">    public BigDecimal getSmUnitCost() { return getDecimal(&quot;SM-UNIT-COST&quot;); }</span>
+<span class="fc" id="L123">    public void setSmUnitCost(BigDecimal value) { setDecimal(&quot;SM-UNIT-COST&quot;, value); }</span>
+<span class="fc" id="L124">    public int getSmUser() { return getInt(&quot;SM-USER&quot;); }</span>
+<span class="fc" id="L125">    public void setSmUser(int value) { setInt(&quot;SM-USER&quot;, value); }</span>
+<span class="fc" id="L126">    public int getSmWhse() { return getInt(&quot;SM-WHSE&quot;); }</span>
+<span class="fc" id="L127">    public void setSmWhse(int value) { setInt(&quot;SM-WHSE&quot;, value); }</span>
+<span class="nc" id="L128">    public int getWhCode() { return getInt(&quot;WH-CODE&quot;); }</span>
+<span class="fc" id="L129">    public void setWhCode(int value) { setInt(&quot;WH-CODE&quot;, value); }</span>
+<span class="fc" id="L130">    public int getWhDelFlag() { return getInt(&quot;WH-DEL-FLAG&quot;); }</span>
+<span class="fc" id="L131">    public void setWhDelFlag(int value) { setInt(&quot;WH-DEL-FLAG&quot;, value); }</span>
+<span class="fc" id="L132">    public String getWhName() { return getString(&quot;WH-NAME&quot;); }</span>
+<span class="fc" id="L133">    public void setWhName(String value) { setString(&quot;WH-NAME&quot;, value); }</span>
+<span class="fc" id="L134">    public int getWkAvail() { return getInt(&quot;WK-AVAIL&quot;); }</span>
+<span class="fc" id="L135">    public void setWkAvail(int value) { setInt(&quot;WK-AVAIL&quot;, value); }</span>
+<span class="fc" id="L136">    public String getWkConfirm() { return getString(&quot;WK-CONFIRM&quot;); }</span>
+<span class="fc" id="L137">    public void setWkConfirm(String value) { setString(&quot;WK-CONFIRM&quot;, value); }</span>
+<span class="fc" id="L138">    public int getWkDstNew() { return getInt(&quot;WK-DST-NEW&quot;); }</span>
+<span class="fc" id="L139">    public void setWkDstNew(int value) { setInt(&quot;WK-DST-NEW&quot;, value); }</span>
+<span class="fc" id="L140">    public int getWkDstOnhand() { return getInt(&quot;WK-DST-ONHAND&quot;); }</span>
+<span class="fc" id="L141">    public void setWkDstOnhand(int value) { setInt(&quot;WK-DST-ONHAND&quot;, value); }</span>
+<span class="fc" id="L142">    public long getWkEdQty() { return getLong(&quot;WK-ED-QTY&quot;); }</span>
+<span class="fc" id="L143">    public void setWkEdQty(long value) { setLong(&quot;WK-ED-QTY&quot;, value); }</span>
+<span class="nc" id="L144">    public String getWkFkeyLine() { return getString(&quot;WK-FKEY-LINE&quot;); }</span>
+<span class="fc" id="L145">    public void setWkFkeyLine(String value) { setString(&quot;WK-FKEY-LINE&quot;, value); }</span>
+<span class="fc" id="L146">    public String getWkFromName() { return getString(&quot;WK-FROM-NAME&quot;); }</span>
+<span class="fc" id="L147">    public void setWkFromName(String value) { setString(&quot;WK-FROM-NAME&quot;, value); }</span>
+<span class="fc" id="L148">    public int getWkFromWhse() { return getInt(&quot;WK-FROM-WHSE&quot;); }</span>
+<span class="fc" id="L149">    public void setWkFromWhse(int value) { setInt(&quot;WK-FROM-WHSE&quot;, value); }</span>
+<span class="fc" id="L150">    public int getWkKeyProd() { return getInt(&quot;WK-KEY-PROD&quot;); }</span>
+<span class="fc" id="L151">    public void setWkKeyProd(int value) { setInt(&quot;WK-KEY-PROD&quot;, value); }</span>
+<span class="fc" id="L152">    public String getWkMsgLine() { return getString(&quot;WK-MSG-LINE&quot;); }</span>
+<span class="fc" id="L153">    public void setWkMsgLine(String value) { setString(&quot;WK-MSG-LINE&quot;, value); }</span>
+<span class="fc" id="L154">    public int getWkMvBal() { return getInt(&quot;WK-MV-BAL&quot;); }</span>
+<span class="fc" id="L155">    public void setWkMvBal(int value) { setInt(&quot;WK-MV-BAL&quot;, value); }</span>
+<span class="fc" id="L156">    public int getWkMvQty() { return getInt(&quot;WK-MV-QTY&quot;); }</span>
+<span class="fc" id="L157">    public void setWkMvQty(int value) { setInt(&quot;WK-MV-QTY&quot;, value); }</span>
+<span class="fc" id="L158">    public int getWkMvWhse() { return getInt(&quot;WK-MV-WHSE&quot;); }</span>
+<span class="fc" id="L159">    public void setWkMvWhse(int value) { setInt(&quot;WK-MV-WHSE&quot;, value); }</span>
+<span class="nc" id="L160">    public String getWkPrName() { return getString(&quot;WK-PR-NAME&quot;); }</span>
+<span class="fc" id="L161">    public void setWkPrName(String value) { setString(&quot;WK-PR-NAME&quot;, value); }</span>
+<span class="fc" id="L162">    public String getWkProgid() { return getString(&quot;WK-PROGID&quot;); }</span>
+<span class="fc" id="L163">    public void setWkProgid(String value) { setString(&quot;WK-PROGID&quot;, value); }</span>
+<span class="nc" id="L164">    public int getWkSrcAlloc() { return getInt(&quot;WK-SRC-ALLOC&quot;); }</span>
+<span class="fc" id="L165">    public void setWkSrcAlloc(int value) { setInt(&quot;WK-SRC-ALLOC&quot;, value); }</span>
+<span class="fc" id="L166">    public int getWkSrcNew() { return getInt(&quot;WK-SRC-NEW&quot;); }</span>
+<span class="fc" id="L167">    public void setWkSrcNew(int value) { setInt(&quot;WK-SRC-NEW&quot;, value); }</span>
+<span class="fc" id="L168">    public int getWkSrcOnhand() { return getInt(&quot;WK-SRC-ONHAND&quot;); }</span>
+<span class="fc" id="L169">    public void setWkSrcOnhand(int value) { setInt(&quot;WK-SRC-ONHAND&quot;, value); }</span>
+<span class="fc" id="L170">    public int getWkStkMng() { return getInt(&quot;WK-STK-MNG&quot;); }</span>
+<span class="fc" id="L171">    public void setWkStkMng(int value) { setInt(&quot;WK-STK-MNG&quot;, value); }</span>
+<span class="fc" id="L172">    public int getWkSysdate() { return getInt(&quot;WK-SYSDATE&quot;); }</span>
+<span class="fc" id="L173">    public void setWkSysdate(int value) { setInt(&quot;WK-SYSDATE&quot;, value); }</span>
+<span class="nc" id="L174">    public int getWkSysymd() { return getInt(&quot;WK-SYSYMD&quot;); }</span>
+<span class="fc" id="L175">    public void setWkSysymd(int value) { setInt(&quot;WK-SYSYMD&quot;, value); }</span>
+<span class="fc" id="L176">    public String getWkTitle() { return getString(&quot;WK-TITLE&quot;); }</span>
+<span class="fc" id="L177">    public void setWkTitle(String value) { setString(&quot;WK-TITLE&quot;, value); }</span>
+<span class="fc" id="L178">    public String getWkToName() { return getString(&quot;WK-TO-NAME&quot;); }</span>
+<span class="fc" id="L179">    public void setWkToName(String value) { setString(&quot;WK-TO-NAME&quot;, value); }</span>
+<span class="fc" id="L180">    public int getWkToWhse() { return getInt(&quot;WK-TO-WHSE&quot;); }</span>
+<span class="fc" id="L181">    public void setWkToWhse(int value) { setInt(&quot;WK-TO-WHSE&quot;, value); }</span>
+<span class="fc" id="L182">    public int getWkTrQty() { return getInt(&quot;WK-TR-QTY&quot;); }</span>
+<span class="fc" id="L183">    public void setWkTrQty(int value) { setInt(&quot;WK-TR-QTY&quot;, value); }</span>
+<span class="fc" id="L184">    public BigDecimal getWkUnitCost() { return getDecimal(&quot;WK-UNIT-COST&quot;); }</span>
+<span class="fc" id="L185">    public void setWkUnitCost(BigDecimal value) { setDecimal(&quot;WK-UNIT-COST&quot;, value); }</span>
+<span class="fc" id="L186">    public int getWkUserCode() { return getInt(&quot;WK-USER-CODE&quot;); }</span>
+<span class="fc" id="L187">    public void setWkUserCode(int value) { setInt(&quot;WK-USER-CODE&quot;, value); }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

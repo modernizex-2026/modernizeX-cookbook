@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : LOGF
+  FD record name : LOG-REC
+-->
+<dataLayout name="LOGF" scope="file" charset="MS932" recordSize="120">
+  <group name="LOG-REC" offset="0" size="120">
+    <field name="LOG-REC" offset="0" size="120" javaType="String"/>
+  </group>
+</dataLayout>

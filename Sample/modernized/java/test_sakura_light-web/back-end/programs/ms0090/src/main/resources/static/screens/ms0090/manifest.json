@@ -1,0 +1,139 @@
+{
+  "programId": "MS0090",
+  "screens": {
+    "DS-KEY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["TX-CODE", "TX-START-DATE"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "Tax Category  :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "TX-CODE", "picture": "9(1)" },
+          { "col": 24, "type": "literal", "text": "1:standard 2:reduced 3:exempt", "color": "CYAN" }
+        ] },
+        { "line": 5, "fields": [
+          { "col": 2, "type": "literal", "text": "Start Date    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "TX-START-DATE", "picture": "9(8)" },
+          { "col": 30, "type": "literal", "text": "YYYYMMDD", "color": "CYAN" }
+        ] }
+      ]
+    },
+    "DS-BODY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["TX-RATE", "TX-NAME"],
+      "rows": [
+        { "line": 7, "fields": [
+          { "col": 2, "type": "literal", "text": "Tax Rate      :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "TX-RATE", "picture": "S9(2)V9(3)" },
+          { "col": 30, "type": "literal", "text": "e.g. 0.100 = 10 percent", "color": "CYAN" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 2, "type": "literal", "text": "Rate Name     :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "TX-NAME", "picture": "X(20)" }
+        ] }
+      ]
+    },
+    "DS-CONFIRM": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["SC-CONF"],
+      "rows": [
+        { "line": 21, "fields": [
+          { "col": 2, "type": "literal", "text": "Confirm (Y/N) :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "SC-CONF", "boundField": "WK-CONFIRM", "picture": "X(1)" }
+        ] }
+      ]
+    },
+    "DS-HEADER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-FOOTER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-MSG": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    }
+  },
+  "inputFields": {
+    "TX-CODE": {
+      "screen": "DS-KEY",
+      "line": 4,
+      "col": 20,
+      "width": 1,
+      "picture": "9(1)",
+      "usingField": "TX-CODE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "TX-START-DATE": {
+      "screen": "DS-KEY",
+      "line": 5,
+      "col": 20,
+      "width": 8,
+      "picture": "9(8)",
+      "usingField": "TX-START-DATE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "TX-RATE": {
+      "screen": "DS-BODY",
+      "line": 7,
+      "col": 20,
+      "width": 2,
+      "picture": "S9(2)V9(3)",
+      "usingField": "TX-RATE",
+      "inputType": "numeric",
+      "advanceEsts": "03"
+    },
+    "TX-NAME": {
+      "screen": "DS-BODY",
+      "line": 8,
+      "col": 20,
+      "width": 20,
+      "picture": "X(20)",
+      "usingField": "TX-NAME",
+      "inputType": "alphanumeric",
+      "advanceEsts": "03"
+    },
+    "SC-CONF": {
+      "screen": "DS-CONFIRM",
+      "line": 21,
+      "col": 20,
+      "width": 1,
+      "picture": "X(1)",
+      "usingField": "WK-CONFIRM",
+      "inputType": "alphanumeric",
+      "advanceEsts": null
+    }
+  },
+  "windows": {
+  },
+  "pfKeys": {
+    "ENTER": { "code": "00", "label": "Enter" },
+    "PF1":   { "code": "01", "label": "F1" },
+    "PF2":   { "code": "02", "label": "F2" },
+    "PF3":   { "code": "03", "label": "F3" },
+    "PF4":   { "code": "04", "label": "F4" },
+    "PF5":   { "code": "05", "label": "F5" },
+    "PF6":   { "code": "06", "label": "F6" },
+    "PF7":   { "code": "07", "label": "F7" },
+    "PF8":   { "code": "08", "label": "F8" },
+    "PF9":   { "code": "09", "label": "F9" },
+    "PF10":  { "code": "PA", "label": "F10" },
+    "PF11":  { "code": "PB", "label": "F11" },
+    "PF12":  { "code": "PC", "label": "F12" }
+  }
+}

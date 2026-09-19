@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : POHF
+  FD record name : PH-REC
+  Copybook src   : FPOH
+-->
+<dataLayout name="POHF" scope="file" charset="MS932" recordSize="137">
+  <group name="PH-REC" offset="0" size="137">
+    <group name="PH-REC" offset="0" size="137">
+      <field name="PH-NO" offset="0" size="10" javaType="long"/>
+      <field name="PH-DATE" offset="10" size="8" javaType="int"/>
+      <field name="PH-SUPP" offset="18" size="6" javaType="int"/>
+      <field name="PH-WHSE" offset="24" size="3" javaType="int"/>
+      <field name="PH-STAFF" offset="27" size="4" javaType="int"/>
+      <field name="PH-DUE-DATE" offset="31" size="8" javaType="int"/>
+      <field name="PH-TAX-TYPE" offset="39" size="1" javaType="int"/>
+      <field name="PH-AMOUNT" offset="40" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="PH-TAX-AMOUNT" offset="46" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="PH-TOTAL" offset="52" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="PH-STATUS" offset="58" size="1" javaType="int"/>
+      <field name="PH-LINES" offset="59" size="3" javaType="int"/>
+      <field name="PH-REMARK" offset="62" size="40" javaType="String"/>
+      <field name="PH-ADD-DATE" offset="102" size="8" javaType="int"/>
+      <field name="PH-ADD-USER" offset="110" size="6" javaType="int"/>
+      <field name="PH-DEL-FLAG" offset="116" size="1" javaType="int"/>
+      <field name="FILLER-117" offset="117" size="20" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

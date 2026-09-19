@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : PODF
+  FD record name : PD-REC
+  Copybook src   : FPOD
+-->
+<dataLayout name="PODF" scope="file" charset="MS932" recordSize="65">
+  <group name="PD-REC" offset="0" size="65">
+    <group name="PD-REC" offset="0" size="65">
+      <field name="PD-NO" offset="0" size="10" javaType="long"/>
+      <field name="PD-LINE" offset="10" size="3" javaType="int"/>
+      <field name="PD-PROD" offset="13" size="8" javaType="int"/>
+      <field name="PD-WHSE" offset="21" size="3" javaType="int"/>
+      <field name="PD-QTY" offset="24" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="PD-UNIT-COST" offset="29" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      <field name="PD-AMOUNT" offset="35" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="PD-RECV-QTY" offset="41" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="PD-DUE-DATE" offset="46" size="8" javaType="int"/>
+      <field name="PD-STATUS" offset="54" size="1" javaType="int"/>
+      <field name="FILLER-55" offset="55" size="10" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

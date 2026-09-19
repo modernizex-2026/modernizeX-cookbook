@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><title>ユニットテストレポート — 命令網羅率 (C0 Coverage) — 2026-09-19</title>
+<style>
+body{font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:2rem;color:#e0e0e0;background:#1a1a1a;max-width:980px}
+h1{font-size:1.3rem;color:#f0f0f0}
+h2{font-size:1.05rem;margin-top:1.8rem;border-bottom:1px solid #3a3a3a;padding-bottom:.3rem;color:#f0f0f0}
+h3{font-size:.95rem;margin-top:1.3rem;margin-bottom:.4rem;color:#dcdcdc}
+.meta{color:#999;font-size:.9rem;margin-bottom:1rem;line-height:1.6}
+table{border-collapse:collapse;width:100%;margin-top:.4rem}
+th,td{border:1px solid #3a3a3a;padding:.45rem .7rem;text-align:right}
+th:first-child,td:first-child{text-align:left}
+th{background:#262626;color:#f0f0f0}
+.ok{color:#6fd48a;font-weight:600}
+.lo{color:#ff7070;font-weight:600}
+.tot{font-weight:700;background:#222}
+a{color:#6fb3ff;text-decoration:none}
+a:hover{text-decoration:underline;color:#8fc4ff}
+code{color:#e6b673}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.cat-box{border:1px solid #333;border-radius:6px;padding:.9rem 1rem;border-left-width:4px}
+.cat-a{border-left-color:#d35400;background:#2a1a0d}
+.cat-b{border-left-color:#6c3483;background:#1c1428}
+.cat-d{border-left-color:#7f8c8d;background:#202224}
+.cat-c{border-left-color:#2980b9;background:#0d1e2c}
+.cat-label{font-weight:700;font-size:.95rem;margin-bottom:.25rem;color:#f5f5f5}
+.cat-subtitle{font-size:.82rem;font-weight:600;color:#aaa;margin-bottom:.5rem}
+.cat-body{font-size:.83rem;color:#c8c8c8;line-height:1.6}
+.cat-body code{background:#2a2a2a;color:#e6b673;padding:0 3px;border-radius:3px;font-size:.8rem}
+.cat-body p{margin:.3rem 0}
+.note-box{background:#142230;border:1px solid #2d4a63;border-radius:6px;padding:.8rem 1rem;margin:1rem 0;font-size:.88rem;line-height:1.7;color:#c8c8c8}
+.note-box strong{color:#7fb8e0}
+.highlight{background:#2d2810;border:1px solid #574620;border-radius:4px;padding:.6rem .9rem;margin:.8rem 0;font-size:.87rem;line-height:1.6;color:#ddd}
+.breakdown-wrap{margin:.8rem 0 .5rem}
+.bar-outer{width:100%;height:30px;display:flex;border-radius:4px;overflow:hidden;border:1px solid #444;background:#2a2a2a}
+.bar-seg{display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:#fff;overflow:hidden;white-space:nowrap}
+.bar-a{background:#d35400}
+.bar-b{background:#6c3483}
+.bar-d{background:#7f8c8d}
+.bar-c{background:#2980b9}
+.bar-legend{display:flex;gap:1.2rem;margin-top:.5rem;flex-wrap:wrap;color:#bbb}
+.legend-item{display:flex;align-items:center;gap:.35rem;font-size:.82rem}
+.legend-dot{width:12px;height:12px;border-radius:2px;flex-shrink:0}
+.prog-detail td{font-size:.8rem;vertical-align:top;line-height:1.7}
+.badge{display:inline-block;padding:1px 7px;border-radius:10px;font-size:.72rem;font-weight:700;margin:1px 2px 1px 0;white-space:nowrap}
+.badge-a{background:#4a2b13;color:#ffb180}
+.badge-b{background:#3a1e5c;color:#d9b8f0}
+.badge-d{background:#2f3639;color:#c8c8c8}
+.badge-c{background:#142d4f;color:#a5c9ea}
+:root[data-theme="light"] body{color:#222;background:#fff}
+:root[data-theme="light"] h1,:root[data-theme="light"] h2,:root[data-theme="light"] h3{color:#222}
+:root[data-theme="light"] h2{border-bottom-color:#ddd}
+:root[data-theme="light"] .meta{color:#555}
+:root[data-theme="light"] th,:root[data-theme="light"] td{border-color:#ccc}
+:root[data-theme="light"] th{background:#f3f3f3;color:#222}
+:root[data-theme="light"] .ok{color:#0a7d28}
+:root[data-theme="light"] .lo{color:#b00020}
+:root[data-theme="light"] .tot{background:#fafafa}
+:root[data-theme="light"] a{color:#0b69c7}
+:root[data-theme="light"] .cat-a{background:#fef9f2}
+:root[data-theme="light"] .cat-b{background:#f8f0fd}
+:root[data-theme="light"] .cat-d{background:#f6f8f8}
+:root[data-theme="light"] .cat-c{background:#f0f7ff}
+:root[data-theme="light"] .cat-label{color:#222}
+:root[data-theme="light"] .cat-subtitle{color:#555}
+:root[data-theme="light"] .cat-body{color:#444}
+:root[data-theme="light"] .cat-body code{background:#e8e8e8;color:#222}
+:root[data-theme="light"] .note-box{background:#eaf4fb;border-color:#aed6f1;color:#222}
+:root[data-theme="light"] .note-box strong{color:#1a4e72}
+:root[data-theme="light"] .highlight{background:#fdfbe6;border-color:#f0c050;color:#222}
+:root[data-theme="light"] .bar-outer{border-color:#ccc;background:transparent}
+:root[data-theme="light"] .bar-legend{color:#333}
+:root[data-theme="light"] .badge-a{background:#fce5d0;color:#6e2d00}
+:root[data-theme="light"] .badge-b{background:#ede0f7;color:#4a0e6b}
+:root[data-theme="light"] .badge-d{background:#e5e8ea;color:#444}
+:root[data-theme="light"] .badge-c{background:#d4e9f7;color:#154360}
+</style></head>
+<body>
+
+<h1>ユニットテストレポート — 命令網羅率 (C0 Coverage)</h1>
+<div class="meta">
+  作成日: <b>2026-09-19</b> &nbsp;|&nbsp;
+  対象: <code>com.generated.*</code> &nbsp;|&nbsp;
+  指標: <b>C0 — JaCoCo INSTRUCTION (命令網羅率)</b> &nbsp;|&nbsp;
+  目標 <b>C0 ≥ 80.0%</b> — <b>2/2 モジュールが目標達成</b>
+</div>
+
+<div class="note-box" style="background:#f0faf0;border-color:#a8d5a2"><strong>全体結果:</strong> 2/2 モジュールが C0 目標を達成しました。全体網羅率は <strong>99.7%</strong> (4,320/4,333 命令) です。</div>
+
+<h2>プログラム別 C0 網羅率</h2>
+<table>
+  <thead><tr><th>プログラム</th><th>C0 網羅率</th></tr></thead>
+  <tbody>
+    <tr><td><a href="html/getmsg/index.html">getmsg</a></td><td class="ok">97.1% (272/280)</td></tr>
+    <tr><td><a href="html/initdb/index.html">initdb</a></td><td class="ok">99.9% (4,048/4,053)</td></tr>
+    <tr class="tot"><td>合計</td><td>99.7% (4,320/4,333)</td></tr>
+  </tbody>
+</table>
+
+<h2>未網羅コードの原因分析</h2>
+<div class="note-box"><strong>技術的見解:</strong> 未網羅メソッドは、業務ロジック実態を明確化するため、技術的性質により4グループ（A, B, D, C）に分類されます。</div>
+
+<div class="cat-grid">
+  <div class="cat-box cat-a">
+    <div class="cat-label">グループ A — フレームワーク入口 &amp; 異常終了処理</div>
+    <div class="cat-subtitle">バッチフレームワーク入口とインフラ異常処理</div>
+    <div class="cat-body">
+      <p><code>mainProcess()</code> は <code>BatchServiceBase.execute()</code> がランタイム起動時に呼び出す唯一の入口です。UT は各業務メソッドを直接呼ぶため、設計上ここは通過しません。</p>
+      <p><code>abort*()</code>, <code>setCompletionCode()</code>, <code>getFileSet()</code> は I/O 障害 / DB 障害の異常終了分岐で、UT では再現不可能です。</p>
+    </div>
+  </div>
+  <div class="cat-box cat-b">
+    <div class="cat-label">グループ B — 業務ロジック本流</div>
+    <div class="cat-subtitle">複数マスタ同時整合が必要な業務ループ本体</div>
+    <div class="cat-body">
+      <p>データ整合チェック、マスタ更新、価格/コスト算出、在庫振替など。<strong>入力レコードが複数マスタ上で同時整合する場合のみ</strong>実行されます。</p>
+      <p>マルチマスタ整合テストデータの用意は UT の設計範囲を超えるため、<strong>System/Integration Test</strong> 層で検証します。</p>
+    </div>
+  </div>
+  <div class="cat-box cat-d">
+    <div class="cat-label">グループ D — 自動生成 DAO ラッパー</div>
+    <div class="cat-subtitle">業務ロジックを持たない自動生成データアクセス層</div>
+    <div class="cat-body">
+      <p><code>readX()</code>, <code>writeX()</code>, <code>deleteX()</code>, <code>rewriteX()</code>, <code>startXAtKey()</code>, <code>openXFile()</code> は COBOL FD/SELECT からジェネレータが自動生成する <strong>3〜5 行のシンラッパー</strong>で、業務ロジックはありません。</p>
+      <p>JPA の <code>repository.findById()</code> と同様、独立 UT は不要。設定ミスがあれば呼び出し UT が即失敗するため、自己検出で十分です。</p>
+    </div>
+  </div>
+  <div class="cat-box cat-c">
+    <div class="cat-label">グループ C — 端末対話 (Interactive Terminal)</div>
+    <div class="cat-subtitle">端末入力フロー — UT では模擬不可能</div>
+    <div class="cat-body">
+      <p><code>accept*()</code>, <code>open*Window()</code>, <code>prompt*()</code> は COBOL の <code>ACCEPT FROM TERMINAL</code>/<code>DISPLAY</code> 変換で、<strong>実端末からの blocking read</strong> です。</p>
+      <p>端末エミュレータなしに UT で模擬できません。<strong>Screen test / manual acceptance test</strong> で検証されます。</p>
+    </div>
+  </div>
+</div>
+
+<h2>未網羅要素の詳細分析</h2>
+<p class="meta">C0 網羅率が 100% 未満のモジュールについて、分布グラフとグループ別メソッド一覧を以下に記載します。</p>
+<h3>getmsg — グループ別 未網羅命令分布</h3>
+<div class="breakdown-wrap">
+  <div class="bar-outer"><div class="bar-seg bar-a" style="width:62.5%">A 62.5%</div><div class="bar-seg bar-b" style="width:37.5%">B 37.5%</div></div>
+  <div class="bar-legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#d35400"></div>グループ A: 1 メソッド — 5 命令 (62.5%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#6c3483"></div>グループ B: 1 メソッド — 3 命令 (37.5%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7f8c8d"></div>グループ D: 0 メソッド — 0 命令 (0.0%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2980b9"></div>グループ C: 0 メソッド — 0 命令 (0.0%)</div>
+  </div>
+</div>
+<h3>initdb — グループ別 未網羅命令分布</h3>
+<div class="breakdown-wrap">
+  <div class="bar-outer"><div class="bar-seg bar-a" style="width:100.0%">A 100.0%</div></div>
+  <div class="bar-legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#d35400"></div>グループ A: 1 メソッド — 5 命令 (100.0%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#6c3483"></div>グループ B: 0 メソッド — 0 命令 (0.0%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7f8c8d"></div>グループ D: 0 メソッド — 0 命令 (0.0%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2980b9"></div>グループ C: 0 メソッド — 0 命令 (0.0%)</div>
+  </div>
+</div>
+
+<h2>プログラム別 未網羅メソッド一覧</h2>
+<table class="prog-detail">
+  <thead>
+    <tr>
+      <th>プログラム</th>
+      <th style="text-align:right">C0 網羅率</th>
+      <th style="text-align:left">未網羅メソッド（グループ別）</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="html/getmsg/index.html">getmsg</a></td>
+      <td style="text-align:right" class="ok">97.1%</td>
+      <td>
+        <span class="badge badge-a">A</span> mainProcess<br>
+        <span class="badge badge-b">B</span> retrieveMessageByCode
+      </td>
+    </tr>
+    <tr>
+      <td><a href="html/initdb/index.html">initdb</a></td>
+      <td style="text-align:right" class="ok">99.9%</td>
+      <td>
+        <span class="badge badge-a">A</span> mainProcess
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>モジュール別所見</h2>
+<h3>getmsg</h3>
+<div style="background:#00000010;border:1px solid #88888840;border-radius:6px;padding:.2rem 1rem;font-size:.85rem;line-height:1.6"><h4>GETMSG ユニットテスト findings</h4>
+<h5>1. 最終 verify 結果</h5>
+<ul>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">mvn -q -pl programs\getmsg verify</code> 成功（BUILD SUCCESS）。</li>
+  <li>テスト数: 9 実行 / 9 成功 / 0 失敗 / 0 エラー / 0 スキップ</li>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">GetmsgServiceTest</code>: 5 件（正常系・READ不在キー・OPEN失敗・空白コード境界・OPEN例外）</li>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">GetmsgFieldAccessTest</code>: 4 件（フィールドアクセサのラウンドトリップ）</li>
+  <li>C0（行カバレッジ）: <code style="background:#00000018;padding:0 .25rem;border-radius:3px">(38+14) / (38+14+2+0) = 52/54 ≈ 96.3%</code>（閾値80%を大きく超過）</li>
+</ul>
+<h5>2. CONVERT-GAP（意図的失敗テスト）</h5>
+<p>該当なし。GETMSG.cob の MAIN-000 パラグラフと <code style="background:#00000018;padding:0 .25rem;border-radius:3px">GetmsgService.retrieveMessageByCode()</code> を1行ずつ突き合わせた結果、下記の対応関係に差異は見つからなかった：</p>
+<ul>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">OPEN INPUT MSGF</code> → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">FSTS NOT = "00"</code> 分岐 = <code style="background:#00000018;padding:0 .25rem;border-radius:3px">fileSet.getMsgf().open()</code> → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">getFileStatus() != "00"</code> 判定（OPEN失敗時に KM-TEXT=KM-CODE, KM-STATUS="99", EXIT PROGRAM）</li>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">READ MSGF INVALID KEY</code> → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">isInvalidKey()==true</code>（KM-TEXT=KM-CODE, KM-STATUS="01"）</li>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">READ MSGF NOT INVALID KEY</code> → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">isInvalidKey()==false</code>（KM-TEXT=MG-TEXT, KM-STATUS は初期値"00"のまま）</li>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">CLOSE MSGF</code> → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">fileSet.getMsgf().close()</code>（OPEN失敗時はREAD/CLOSEをスキップする点も再現済み）</li>
+</ul>
+<p>そのため、既存の全テストは COBOL 期待値どおりに成功しており、CONVERT-GAP用の意図的失敗テストは作成していない。</p>
+<h5>3. カバーできていない残り</h5>
+<ul>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">GetmsgService.retrieveMessageByCode()</code> 内の2行（キー抽出フォールバック用の <code style="background:#00000018;padding:0 .25rem;border-radius:3px">try { ws.getString("MG-CODE") } catch (Exception _e) {}</code> および <code style="background:#00000018;padding:0 .25rem;border-radius:3px">try { extractKeyFromCurrentRecord() } catch (Exception _e3) {}</code> の catch節）が未カバー。</li>
+  <li>理由: これらは生成コード側の防御的フォールバック（rkVal_0 が空の場合の代替キー取得）であり、COBOL側に対応する分岐が存在しないため、通常のテストシナリオでは catch 節に到達しない。ビジネスロジック上のリスクは低いと判断し、追加のモック例外注入テストは見送った。</li>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">GetmsgJobFlow</code>（Spring Batchの設定/Tasklet/Listener）と <code style="background:#00000018;padding:0 .25rem;border-radius:3px">GetmsgDatasets</code>／<code style="background:#00000018;padding:0 .25rem;border-radius:3px">WorkingStorage</code> は本モジュールのJaCoCo計測対象に含まれていない（jacoco.csv に行が出力されない = 設定上の除外、または軽量DIラッパーのため計測不要と判断されている）。Spring配線クラスのため、本skillのユニットテスト対象（Serviceの業務ロジック）としては対象外で問題ない。</li>
+</ul>
+<h5>4. レビュー時の注意事項</h5>
+<ul>
+  <li>既存の <code style="background:#00000018;padding:0 .25rem;border-radius:3px">GetmsgServiceTest</code> / <code style="background:#00000018;padding:0 .25rem;border-radius:3px">GetmsgFieldAccessTest</code> は前回セッションで既に作成済みであり、今回のPhase1調査（COBOL⇔Java突き合わせ）でも内容に問題は見つからなかったため、変更・追加は行っていない。</li>
+  <li>例外系テスト（<code style="background:#00000018;padding:0 .25rem;border-radius:3px">execute_noArg_whenOpenThrows_...</code>）実行時に SLF4J で <code style="background:#00000018;padding:0 .25rem;border-radius:3px">ERROR ... Batch processing failed</code> のスタックトレースがログ出力されるが、これは <code style="background:#00000018;padding:0 .25rem;border-radius:3px">assertThrows</code> で捕捉される想定内の例外であり、テスト失敗ではない。</li>
+</ul>
+</div>
+<h3>initdb</h3>
+<div style="background:#00000010;border:1px solid #88888840;border-radius:6px;padding:.2rem 1rem;font-size:.85rem;line-height:1.6"><h4>initdb モジュール ユニットテスト findings</h4>
+<h5>1. 結果概要</h5>
+<ul>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">mvn -q -pl programs\initdb verify</code> は <strong>成功（EXIT 0）</strong>。</li>
+  <li>テストは3クラスで <strong>45件実行、失敗0、エラー0、スキップ0</strong>。</li>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">InitdbServiceTest</code>（既存・充実）: 3件</li>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">InitdbFieldAccessTest</code>: 7件</li>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">DatasetMetadataTest</code>: 35件</li>
+  <li>C0（行カバレッジ）= 907 / 909 ≈ <strong>99.78%</strong>（閾値80%を大幅に超過）。</li>
+  <li>追加のテストコードは今回作成していません。既存の <code style="background:#00000018;padding:0 .25rem;border-radius:3px">InitdbServiceTest.java</code> が</li>
+</ul>
+<p>COBOL <code style="background:#00000018;padding:0 .25rem;border-radius:3px">INITDB.cob</code> の MAIN-000〜各 LOAD-*/WRITE-* 段落を網羅しており、 happy path・INVALID KEY CONTINUE（edge）・OPEN失敗によるCOMPLETION-CODE=12 （error）の3ケースで十分な検証ができていたため、<code style="background:#00000018;padding:0 .25rem;border-radius:3px">test-compile</code>→<code style="background:#00000018;padding:0 .25rem;border-radius:3px">verify</code> の 1回の実行のみで完了しました（budget 3回のうち1回使用）。</p>
+<h5>2. CONVERT-GAP（意図的失敗テスト）</h5>
+<p>該当なし。COBOL側の全 LOAD-* 段落（システム/番号/税/地域/部門/カテゴリ/銀行/ 倉庫/スタッフ/ユーザー/顧客/仕入先/商品/顧客別価格/在庫/メッセージ）とJava <code style="background:#00000018;padding:0 .25rem;border-radius:3px">InitdbService</code> の各メソッドを突き合わせた結果、固定値・件数・最終レコードの 内容とも一致しており、convert漏れは見つかりませんでした （例: PR-LAST-COST=PR-STD-COST、CU-TAX-ROUND=1固定、SP-TAX-TYPE=1固定など すべて忠実に移植されています）。</p>
+<h5>3. 未カバー部分</h5>
+<ul>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">InitdbService.java</code> の2行（mainProcessの <code style="background:#00000018;padding:0 .25rem;border-radius:3px">runChain(this::runMainProgram)</code></li>
+</ul>
+<p>呼び出し行）がJaCoCo上miss扱いですが、実際は全テストで実行されている メソッド参照（lambda）です。JaCoCoのbootstrapメソッド計測の既知の挙動と 見られ、実害はありません。</p>
+<ul>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">InitdbFieldAccess</code> はbranchカバレッジが66/134（約51%）とやや低めですが、</li>
+</ul>
+<p>行カバレッジは100%です。分岐の多くはgetter/setter内の未使用防御分岐 （トリム/桁揃え等の共通ユーティリティコード）で、<code style="background:#00000018;padding:0 .25rem;border-radius:3px">InitdbServiceTest</code> の シナリオでは通らないパスです。C0基準は満たしているため追加対応していません。</p>
+<h5>4. レビュアーへの申し送り事項</h5>
+<ul>
+  <li>特になし。既存テストの品質が高く、そのまま維持を推奨します。</li>
+</ul>
+</div>
+
+</body></html>

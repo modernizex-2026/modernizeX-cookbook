@@ -1,0 +1,180 @@
+{
+  "programId": "MS0040",
+  "screens": {
+    "DS-KEY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["SC-KEY"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "Warehouse Code:", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "SC-KEY", "boundField": "WH-CODE", "picture": "9(3)" }
+        ] }
+      ]
+    },
+    "DS-BODY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WH-NAME", "WH-ZIP", "WH-ADDR", "WH-TEL", "WH-TYPE", "WH-MANAGER"],
+      "rows": [
+        { "line": 6, "fields": [
+          { "col": 2, "type": "literal", "text": "Name          :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WH-NAME", "picture": "X(30)" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 2, "type": "literal", "text": "Post Code     :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WH-ZIP", "picture": "X(8)" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 2, "type": "literal", "text": "Address       :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WH-ADDR", "picture": "X(40)" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 2, "type": "literal", "text": "Telephone     :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WH-TEL", "picture": "X(15)" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 2, "type": "literal", "text": "Type          :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WH-TYPE", "picture": "9(1)" },
+          { "col": 24, "type": "literal", "text": "1:normal 2:transit 3:defect", "color": "CYAN" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 2, "type": "literal", "text": "Manager       :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WH-MANAGER", "picture": "9(4)" },
+          { "col": 26, "type": "from", "name": "FILLER", "boundField": "WK-MGR-NAME", "picture": "X(30)", "color": "WHITE" }
+        ] }
+      ]
+    },
+    "DS-CONFIRM": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["SC-CONF"],
+      "rows": [
+        { "line": 21, "fields": [
+          { "col": 2, "type": "literal", "text": "Confirm (Y/N) :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "SC-CONF", "boundField": "WK-CONFIRM", "picture": "X(1)" }
+        ] }
+      ]
+    },
+    "DS-HEADER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-FOOTER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-MSG": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    }
+  },
+  "inputFields": {
+    "SC-KEY": {
+      "screen": "DS-KEY",
+      "line": 4,
+      "col": 20,
+      "width": 3,
+      "picture": "9(3)",
+      "usingField": "WH-CODE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WH-NAME": {
+      "screen": "DS-BODY",
+      "line": 6,
+      "col": 20,
+      "width": 30,
+      "picture": "X(30)",
+      "usingField": "WH-NAME",
+      "inputType": "alphanumeric",
+      "advanceEsts": "03"
+    },
+    "WH-ZIP": {
+      "screen": "DS-BODY",
+      "line": 7,
+      "col": 20,
+      "width": 8,
+      "picture": "X(8)",
+      "usingField": "WH-ZIP",
+      "inputType": "alphanumeric",
+      "advanceEsts": "03"
+    },
+    "WH-ADDR": {
+      "screen": "DS-BODY",
+      "line": 8,
+      "col": 20,
+      "width": 40,
+      "picture": "X(40)",
+      "usingField": "WH-ADDR",
+      "inputType": "alphanumeric",
+      "advanceEsts": "03"
+    },
+    "WH-TEL": {
+      "screen": "DS-BODY",
+      "line": 9,
+      "col": 20,
+      "width": 15,
+      "picture": "X(15)",
+      "usingField": "WH-TEL",
+      "inputType": "alphanumeric",
+      "advanceEsts": "03"
+    },
+    "WH-TYPE": {
+      "screen": "DS-BODY",
+      "line": 10,
+      "col": 20,
+      "width": 1,
+      "picture": "9(1)",
+      "usingField": "WH-TYPE",
+      "inputType": "numeric",
+      "advanceEsts": "03"
+    },
+    "WH-MANAGER": {
+      "screen": "DS-BODY",
+      "line": 11,
+      "col": 20,
+      "width": 4,
+      "picture": "9(4)",
+      "usingField": "WH-MANAGER",
+      "inputType": "numeric",
+      "advanceEsts": "03"
+    },
+    "SC-CONF": {
+      "screen": "DS-CONFIRM",
+      "line": 21,
+      "col": 20,
+      "width": 1,
+      "picture": "X(1)",
+      "usingField": "WK-CONFIRM",
+      "inputType": "alphanumeric",
+      "advanceEsts": null
+    }
+  },
+  "windows": {
+  },
+  "pfKeys": {
+    "ENTER": { "code": "00", "label": "Enter" },
+    "PF1":   { "code": "01", "label": "F1" },
+    "PF2":   { "code": "02", "label": "F2" },
+    "PF3":   { "code": "03", "label": "F3" },
+    "PF4":   { "code": "04", "label": "F4" },
+    "PF5":   { "code": "05", "label": "F5" },
+    "PF6":   { "code": "06", "label": "F6" },
+    "PF7":   { "code": "07", "label": "F7" },
+    "PF8":   { "code": "08", "label": "F8" },
+    "PF9":   { "code": "09", "label": "F9" },
+    "PF10":  { "code": "PA", "label": "F10" },
+    "PF11":  { "code": "PB", "label": "F11" },
+    "PF12":  { "code": "PC", "label": "F12" }
+  }
+}

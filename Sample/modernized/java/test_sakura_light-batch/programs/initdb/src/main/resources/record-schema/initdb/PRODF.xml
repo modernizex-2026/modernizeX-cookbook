@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : PRODF
+  FD record name : PR-REC
+  Copybook src   : FPROD
+-->
+<dataLayout name="PRODF" scope="file" charset="MS932" recordSize="267">
+  <group name="PR-REC" offset="0" size="267">
+    <group name="PR-REC" offset="0" size="267">
+      <field name="PR-CODE" offset="0" size="8" javaType="int"/>
+      <field name="PR-NAME" offset="8" size="40" javaType="String"/>
+      <field name="PR-KANA" offset="48" size="40" javaType="String"/>
+      <field name="PR-SPEC" offset="88" size="30" javaType="String"/>
+      <field name="PR-CATEGORY" offset="118" size="4" javaType="int"/>
+      <field name="PR-BARCODE" offset="122" size="13" javaType="String"/>
+      <field name="PR-UNIT" offset="135" size="6" javaType="String"/>
+      <field name="PR-STD-COST" offset="141" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      <field name="PR-LAST-COST" offset="147" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      <field name="PR-LIST-PRICE" offset="153" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      <group name="PR-PRICE-TBL" offset="159" size="30" occurs="5" elementSize="6">
+        <field name="PR-RANK-PRICE" offset="159" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      </group>
+      <field name="PR-TAX-CATEGORY" offset="189" size="1" javaType="int"/>
+      <field name="PR-SAFETY-STOCK" offset="190" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="PR-REORDER-POINT" offset="195" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="PR-REORDER-QTY" offset="200" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="PR-LEAD-DAYS" offset="205" size="3" javaType="int"/>
+      <field name="PR-DFLT-SUPP" offset="208" size="6" javaType="int"/>
+      <field name="PR-DFLT-WHSE" offset="214" size="3" javaType="int"/>
+      <field name="PR-STOCK-MNG" offset="217" size="1" javaType="int"/>
+      <field name="PR-ADD-DATE" offset="218" size="8" javaType="int"/>
+      <field name="PR-ADD-USER" offset="226" size="6" javaType="int"/>
+      <field name="PR-UPD-DATE" offset="232" size="8" javaType="int"/>
+      <field name="PR-UPD-USER" offset="240" size="6" javaType="int"/>
+      <field name="PR-DEL-FLAG" offset="246" size="1" javaType="int"/>
+      <field name="FILLER-247" offset="247" size="20" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

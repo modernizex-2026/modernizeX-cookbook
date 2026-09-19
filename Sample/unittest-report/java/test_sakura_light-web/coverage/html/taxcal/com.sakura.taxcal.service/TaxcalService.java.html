@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaxcalService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">taxcal</a> &gt; <a href="index.source.html" class="el_package">com.sakura.taxcal.service</a> &gt; <span class="el_source">TaxcalService.java</span></div><h1>TaxcalService.java</h1><pre class="source lang-java linenums">package com.sakura.taxcal.service;
+
+import com.sakura.runtime.BatchServiceBase;
+import com.sakura.runtime.JobAbortException;
+import com.sakura.runtime.ParagraphJumpSignal;
+import com.sakura.runtime.ProgramExitSignal;
+import com.sakura.runtime.StopRunSignal;
+import com.sakura.runtime.io.AbstractDatasets;
+import com.sakura.runtime.linkage.TaxcalLinkParm;
+import com.sakura.taxcal.domain.TaxcalFieldAccess;
+import com.sakura.taxcal.domain.WorkingStorage;
+import com.sakura.taxcal.runtime.TaxcalDatasets;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import com.sakura.runtime.Utility;
+import com.sakura.runtime.DatasetEnums.*;
+import com.sakura.runtime.linkage.TaxcalLinkParm;
+import java.math.BigDecimal;
+
+/**
+ * Business logic service generated from COBOL program TAXCAL.
+ */
+@Service
+@Scope(&quot;prototype&quot;)
+public class TaxcalService extends BatchServiceBase {
+    /**
+     * Shared file instances for all FD files in this program.
+     */
+    private final TaxcalDatasets fileSet;
+
+<span class="fc" id="L31">    private final TaxcalLinkParm link = new TaxcalLinkParm();</span>
+
+    private final TaxcalFieldAccess ws;
+
+<span class="fc" id="L35">    public TaxcalService(TaxcalDatasets fileSet) {</span>
+<span class="fc" id="L36">        this.fileSet = fileSet;</span>
+<span class="fc" id="L37">        this.ws = new TaxcalFieldAccess(new WorkingStorage(), fileSet);</span>
+<span class="fc" id="L38">    }</span>
+
+    /**
+     * Program entry point — runs the first COBOL paragraph via runChain.
+     * Base class run() wraps this in StopRun/Abort/Exception handling.
+     */
+    @Override
+    protected void mainProcess() {
+        // Import anchors for types referenced by emitted paragraph bodies:
+        // StopRunSignal, JobAbortException, ParagraphJumpSignal, ProgramExitSignal
+<span class="nc" id="L48">        runChain(this::calculateTax);</span>
+<span class="nc" id="L49">    }</span>
+
+    /**
+     * Returns COBOL COMPLETION-CODE after run() completes.
+     * Used by Tasklet to propagate exit code into StepExecutionContext.
+     */
+    @Override
+    public int getCompletionCode() {
+<span class="nc" id="L57">        return ws.getCompletionCode();</span>
+    }
+
+    /**
+     * Set COBOL COMPLETION-CODE. Called by base class run() on Abort (255) / Exception (12) paths.
+     */
+    @Override
+    protected void setCompletionCode(int code) {
+<span class="nc" id="L65">        ws.setCompletionCode(code);</span>
+<span class="nc" id="L66">    }</span>
+
+    /**
+     * Returns this program's FileSet (or null if no files declared).
+     * Base class run() uses this for commit/rollback/closeAll lifecycle.
+     */
+    @Override
+    protected AbstractDatasets getFileSet() {
+<span class="fc" id="L74">        return fileSet;</span>
+    }
+
+    /**
+     * COBOL paragraph: MAIN-000
+     */
+    private void calculateTax() {
+<span class="fc" id="L81">        var ktax = link.getKtax();</span>
+<span class="fc" id="L82">        ktax.setKtStatus(&quot;00&quot;);</span>
+<span class="fc" id="L83">        ktax.setKtTax(BigDecimal.ZERO);</span>
+<span class="fc" id="L84">        ktax.setKtNet(BigDecimal.ZERO);</span>
+<span class="fc" id="L85">        ktax.setKtGross(BigDecimal.ZERO);</span>
+<span class="fc bfc" id="L86" title="All 4 branches covered.">        if (ktax.getKtCategory() == 3 || ktax.getKtTaxType() == 3) {</span>
+<span class="fc" id="L87">            ktax.setKtNet(ktax.getKtAmount());</span>
+<span class="fc" id="L88">            ktax.setKtGross(ktax.getKtAmount());</span>
+<span class="fc" id="L89">            ktax.setKtRate(BigDecimal.ZERO);</span>
+<span class="fc" id="L90">            throw new ProgramExitSignal();</span>
+        }
+<span class="fc" id="L92">        runChain(this::findApplicableTaxRate);</span>
+<span class="fc" id="L93">        ktax.setKtRate(ws.getWkRate());</span>
+<span class="fc" id="L94">        runChain(this::computeTaxAmounts);</span>
+<span class="fc" id="L95">        throw new ProgramExitSignal();</span>
+    }
+
+    /**
+     * COBOL paragraph: FIND-010
+     */
+    private void findApplicableTaxRate() {
+<span class="fc" id="L102">        ws.setWkFound(0);</span>
+<span class="fc" id="L103">        ws.setWkRate(BigDecimal.ZERO);</span>
+<span class="fc" id="L104">        fileSet.getTaxf().open(FileOpenMode.INPUT);</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        if (!Utility.fieldEquals(fileSet.getTaxf().getFileStatus(), &quot;00&quot;)) {</span>
+<span class="fc" id="L106">            runChain(this::applyDefaultTaxRate);</span>
+<span class="fc" id="L107">            return;</span>
+        }
+<span class="fc" id="L109">        ws.setTxCode(link.getKtax().getKtCategory());</span>
+<span class="fc" id="L110">        ws.setTxStartDate(0);</span>
+<span class="fc" id="L111">        fileSet.getTaxf().start(&quot;TX-CODE TX-START-DATE&quot;, &quot;NOT LESS THAN&quot;);</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        if (fileSet.getTaxf().isInvalidKey()) {</span>
+            /* CONTINUE */
+        }
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">        if (Utility.fieldEquals(fileSet.getTaxf().getFileStatus(), &quot;00&quot;)) {</span>
+<span class="fc" id="L116">            runChain(this::scanForEffectiveRate);</span>
+        }
+<span class="fc" id="L118">        fileSet.getTaxf().close();</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        if (ws.getWkFound() == 0) {</span>
+<span class="fc" id="L120">            runChain(this::applyDefaultTaxRate);</span>
+        }
+<span class="fc" id="L122">    }</span>
+
+    /**
+     * COBOL paragraph: SCAN-010
+     */
+    private void scanForEffectiveRate() {
+<span class="fc" id="L128">        var ktax = link.getKtax();</span>
+        while (true) {
+<span class="fc" id="L130">            fileSet.getTaxf().readNext();</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">            if (fileSet.getTaxf().isAtEnd()) {</span>
+<span class="fc" id="L132">                return;</span>
+            }
+<span class="fc bfc" id="L134" title="All 2 branches covered.">            if (ws.getTxCode() != ktax.getKtCategory()) {</span>
+<span class="fc" id="L135">                return;</span>
+            }
+<span class="fc bfc" id="L137" title="All 2 branches covered.">            if (ws.getTxStartDate() &lt;= ktax.getKtDate()) {</span>
+<span class="fc" id="L138">                ws.setWkRate(ws.getTxRate());</span>
+<span class="fc" id="L139">                ws.setWkFound(1);</span>
+            }
+        }
+    }
+
+    /**
+     * COBOL paragraph: DEF-010
+     */
+    private void applyDefaultTaxRate() {
+<span class="fc bfc" id="L148" title="All 2 branches covered.">        if (link.getKtax().getKtCategory() == 2) {</span>
+<span class="fc" id="L149">            ws.setWkRate(new BigDecimal(&quot;0.080&quot;));</span>
+        } else {
+<span class="fc" id="L151">            ws.setWkRate(new BigDecimal(&quot;0.100&quot;));</span>
+        }
+<span class="fc" id="L153">    }</span>
+
+    /**
+     * COBOL paragraph: CT-010
+     */
+    private void computeTaxAmounts() {
+<span class="fc" id="L159">        var ktax = link.getKtax();</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">        if (ktax.getKtTaxType() == 2) {</span>
+<span class="fc" id="L161">            ktax.setKtGross(ktax.getKtAmount());</span>
+<span class="fc" id="L162">            ws.setWkRaw((ktax.getKtGross().multiply(ws.getWkRate()).divide(BigDecimal.valueOf(1).add(ws.getWkRate()), 12, java.math.RoundingMode.HALF_UP)).setScale(5, java.math.RoundingMode.DOWN));</span>
+<span class="fc" id="L163">            runChain(this::roundTaxAmount);</span>
+<span class="fc" id="L164">            ktax.setKtTax(BigDecimal.valueOf(ws.getWkInt()));</span>
+<span class="fc" id="L165">            ktax.setKtNet((ktax.getKtGross().subtract(ktax.getKtTax())).setScale(0, java.math.RoundingMode.DOWN));</span>
+        } else {
+<span class="fc" id="L167">            ktax.setKtNet(ktax.getKtAmount());</span>
+<span class="fc" id="L168">            ws.setWkRaw((ktax.getKtNet().multiply(ws.getWkRate())).setScale(5, java.math.RoundingMode.DOWN));</span>
+<span class="fc" id="L169">            runChain(this::roundTaxAmount);</span>
+<span class="fc" id="L170">            ktax.setKtTax(BigDecimal.valueOf(ws.getWkInt()));</span>
+<span class="fc" id="L171">            ktax.setKtGross((ktax.getKtNet().add(ktax.getKtTax())).setScale(0, java.math.RoundingMode.DOWN));</span>
+        }
+<span class="fc" id="L173">    }</span>
+
+    /**
+     * COBOL paragraph: AR-010
+     */
+    private void roundTaxAmount() {
+<span class="fc" id="L179">        ws.setWkInt(ws.getWkRaw().longValue());</span>
+<span class="fc" id="L180">        ws.setWkFrac((ws.getWkRaw().subtract(BigDecimal.valueOf(ws.getWkInt()))).setScale(5, java.math.RoundingMode.DOWN));</span>
+<span class="fc bfc" id="L181" title="All 3 branches covered.">        switch (link.getKtax().getKtRound()) {</span>
+        case 2 -&gt; {
+        /* CONTINUE */
+<span class="fc" id="L184">        }</span>
+        case 3 -&gt; {
+<span class="pc bpc" id="L186" title="1 of 2 branches missed.">        if ((ws.getWkFrac().signum() &gt; 0)) {</span>
+<span class="fc" id="L187">            ws.setWkInt(ws.getWkInt() + 1);</span>
+        }
+        }
+        default -&gt; {
+<span class="fc bfc" id="L191" title="All 2 branches covered.">        if ((ws.getWkFrac().compareTo(new BigDecimal(&quot;0.5&quot;)) &gt;= 0)) {</span>
+<span class="fc" id="L192">            ws.setWkInt(ws.getWkInt() + 1);</span>
+        }
+        }
+        }
+<span class="fc" id="L196">    }</span>
+
+    /**
+     * Execute this program as a COBOL CALL callee.
+     * Copies params into Linkage section, runs business logic, copies back.
+     */
+    public void execute(TaxcalLinkParm params) {
+<span class="fc" id="L203">        copyKtax(params.getKtax(), link.getKtax());</span>
+<span class="fc" id="L204">        executeSubprogram(this::calculateTax);</span>
+<span class="fc" id="L205">        copyKtax(link.getKtax(), params.getKtax());</span>
+<span class="fc" id="L206">    }</span>
+
+    /** Copy all KTAX linkage fields from src into dest. */
+    private static void copyKtax(TaxcalLinkParm.Ktax src, TaxcalLinkParm.Ktax dest) {
+<span class="fc" id="L210">        dest.setKtCategory(src.getKtCategory());</span>
+<span class="fc" id="L211">        dest.setKtTaxType(src.getKtTaxType());</span>
+<span class="fc" id="L212">        dest.setKtRound(src.getKtRound());</span>
+<span class="fc" id="L213">        dest.setKtDate(src.getKtDate());</span>
+<span class="fc" id="L214">        dest.setKtAmount(src.getKtAmount());</span>
+<span class="fc" id="L215">        dest.setKtTax(src.getKtTax());</span>
+<span class="fc" id="L216">        dest.setKtNet(src.getKtNet());</span>
+<span class="fc" id="L217">        dest.setKtGross(src.getKtGross());</span>
+<span class="fc" id="L218">        dest.setKtRate(src.getKtRate());</span>
+<span class="fc" id="L219">        dest.setKtStatus(src.getKtStatus());</span>
+<span class="fc" id="L220">    }</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

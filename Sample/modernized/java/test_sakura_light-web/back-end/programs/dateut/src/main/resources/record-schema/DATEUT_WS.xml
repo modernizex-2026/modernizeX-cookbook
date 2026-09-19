@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : DATEUT_WS
+-->
+<dataLayout name="DATEUT_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="132">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="WK-Y" offset="4" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-M" offset="13" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-D" offset="22" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-Y2" offset="31" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-ERA" offset="40" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-YOE" offset="49" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-MP" offset="58" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-DOY" offset="67" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-DOE" offset="76" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-SER" offset="85" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-SER2" offset="94" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-Z" offset="103" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-TMP" offset="112" size="9" javaType="int" signed="true" value="0"/>
+    <field name="WK-DIM" offset="121" size="2" javaType="int" value="0"/>
+    <field name="WK-6" offset="123" size="6" javaType="int" value="0"/>
+    <field name="WK-YY" offset="129" size="2" javaType="int" value="0"/>
+    <field name="WK-LEAP" offset="131" size="1" javaType="int" value="0"/>
+  </group>
+</dataLayout>

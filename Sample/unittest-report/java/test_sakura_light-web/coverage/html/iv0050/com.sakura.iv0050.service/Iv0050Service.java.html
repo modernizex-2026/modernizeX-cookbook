@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Iv0050Service.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">iv0050</a> &gt; <a href="index.source.html" class="el_package">com.sakura.iv0050.service</a> &gt; <span class="el_source">Iv0050Service.java</span></div><h1>Iv0050Service.java</h1><pre class="source lang-java linenums">package com.sakura.iv0050.service;
+
+import com.sakura.abortx.service.AbortxService;
+import com.sakura.dateut.service.DateutService;
+import com.sakura.iv0050.domain.Iv0050FieldAccess;
+import com.sakura.iv0050.domain.WorkingStorage;
+import com.sakura.iv0050.runtime.Iv0050Datasets;
+import com.sakura.numgen.service.NumgenService;
+import com.sakura.runtime.BatchServiceBase;
+import com.sakura.runtime.JobAbortException;
+import com.sakura.runtime.ParagraphJumpSignal;
+import com.sakura.runtime.ProgramExitSignal;
+import com.sakura.runtime.ScreenRendererAware;
+import com.sakura.runtime.ScreenRendererInstance;
+import com.sakura.runtime.StopRunSignal;
+import com.sakura.runtime.io.AbstractDatasets;
+import com.sakura.runtime.record.RawDatasetBase;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import com.sakura.runtime.Utility;
+import com.sakura.runtime.DatasetEnums.*;
+import com.sakura.runtime.ScreenModels.*;
+import com.sakura.iv0050.screen.ScreenDefs;
+import com.sakura.runtime.linkage.DateutLinkParm;
+import com.sakura.runtime.linkage.NumgenLinkParm;
+import com.sakura.runtime.linkage.AbortxLinkParm;
+import java.math.BigDecimal;
+
+/**
+ * Business logic service generated from COBOL program IV0050.
+ */
+@Service
+@Scope(&quot;prototype&quot;)
+public class Iv0050Service extends BatchServiceBase {
+    /**
+     * Shared file instances for all FD files in this program.
+     */
+    private final Iv0050Datasets fileSet;
+
+    /**
+     * Injected service for COBOL CALL DATEUT.
+     */
+    private DateutService dateutService;
+
+    /**
+     * Injected service for COBOL CALL NUMGEN.
+     */
+    private NumgenService numgenService;
+
+    /**
+     * Injected service for COBOL CALL ABORTX.
+     */
+    private AbortxService abortxService;
+
+    private final Iv0050FieldAccess ws;
+
+    public Iv0050Service(Iv0050Datasets fileSet, DateutService dateutService,
+            NumgenService numgenService, AbortxService abortxService,
+<span class="fc" id="L59">            ScreenRendererInstance renderer) {</span>
+<span class="fc" id="L60">        this.fileSet = fileSet;</span>
+<span class="fc" id="L61">        this.ws = new Iv0050FieldAccess(new WorkingStorage(), fileSet);</span>
+<span class="fc" id="L62">        this.dateutService = dateutService;</span>
+<span class="fc" id="L63">        this.numgenService = numgenService;</span>
+<span class="fc" id="L64">        this.abortxService = abortxService;</span>
+<span class="fc" id="L65">        this.renderer = renderer;</span>
+<span class="fc" id="L66">    }</span>
+
+    @Override
+    public void setRenderer(ScreenRendererInstance renderer) {
+<span class="fc" id="L70">        super.setRenderer(renderer);</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        if (dateutService instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L72">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if (numgenService instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L75">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if (abortxService instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L78">            rra.setRenderer(renderer);</span>
+        }
+<span class="fc" id="L80">    }</span>
+
+    /**
+     * Program entry point — runs the first COBOL paragraph via runChain.
+     * Base class run() wraps this in StopRun/Abort/Exception handling.
+     */
+    @Override
+    protected void mainProcess() {
+        // Import anchors for types referenced by emitted paragraph bodies:
+        // StopRunSignal, JobAbortException, ParagraphJumpSignal, ProgramExitSignal
+<span class="nc" id="L90">        runChain(this::runMainProgram);</span>
+<span class="nc" id="L91">    }</span>
+
+    /**
+     * Returns COBOL COMPLETION-CODE after run() completes.
+     * Used by Tasklet to propagate exit code into StepExecutionContext.
+     */
+    @Override
+    public int getCompletionCode() {
+<span class="nc" id="L99">        return ws.getCompletionCode();</span>
+    }
+
+    /**
+     * Set COBOL COMPLETION-CODE. Called by base class run() on Abort (255) / Exception (12) paths.
+     */
+    @Override
+    protected void setCompletionCode(int code) {
+<span class="nc" id="L107">        ws.setCompletionCode(code);</span>
+<span class="nc" id="L108">    }</span>
+
+    /**
+     * Returns this program's FileSet (or null if no files declared).
+     * Base class run() uses this for commit/rollback/closeAll lifecycle.
+     */
+    @Override
+    protected AbstractDatasets getFileSet() {
+<span class="nc" id="L116">        return fileSet;</span>
+    }
+
+    /**
+     * COBOL paragraph: MAIN-000
+     */
+    private void runMainProgram() {
+<span class="nc" id="L123">        runChain(this::initializeProgram);</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        while ((ws.getEndFlg() != 1)) {</span>
+<span class="nc" id="L125">            runChain(this::processMainScreenCycle);</span>
+        }
+<span class="nc" id="L127">        runChain(this::closeProgramFiles);</span>
+<span class="nc" id="L128">        throw new ProgramExitSignal();</span>
+    }
+
+    /**
+     * COBOL paragraph: INIT-010
+     */
+    private void initializeProgram() {
+<span class="fc" id="L135">        ws.setWkProgid(&quot;IV0050&quot;);</span>
+<span class="fc" id="L136">        ws.setWkTitle(&quot;Inter-Warehouse Transfer&quot;);</span>
+<span class="fc" id="L137">        ws.setWkFkeyLine(&quot;ENTER=Read  PF3=End  PF4=Clear&quot;);</span>
+<span class="fc" id="L138">        ws.setKdFunc(&quot;TODY&quot;);</span>
+<span class="fc" id="L139">        dateut(ws.getKdate());</span>
+<span class="fc" id="L140">        ws.setWkSysymd(ws.getKdDate1());</span>
+<span class="fc" id="L141">        ws.setWkSysdate(ws.getKdDate1());</span>
+<span class="fc" id="L142">        runChain(this::openProgramFiles);</span>
+<span class="fc" id="L143">    }</span>
+
+    /**
+     * COBOL paragraph: OPENF-010
+     */
+    private void openProgramFiles() {
+<span class="fc" id="L149">        openWithCreateRetry(fileSet.getStokf(), FileOpenMode.IO);</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">        if (!Utility.fieldEquals(ws.getFsts(), &quot;00&quot;)) {</span>
+<span class="fc" id="L151">            ws.setKaFile(&quot;STOKF&quot;);</span>
+<span class="nc" id="L152">            runChain(this::abortOnFileOpenError);</span>
+        }
+<span class="fc" id="L154">        openWithCreateRetry(fileSet.getSmovf(), FileOpenMode.IO);</span>
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">        if (!Utility.fieldEquals(ws.getFsts(), &quot;00&quot;)) {</span>
+<span class="nc" id="L156">            ws.setKaFile(&quot;SMOVF&quot;);</span>
+<span class="nc" id="L157">            runChain(this::abortOnFileOpenError);</span>
+        }
+<span class="fc" id="L159">        openWithCreateRetry(fileSet.getProdf(), FileOpenMode.INPUT);</span>
+<span class="fc" id="L160">        openWithCreateRetry(fileSet.getWhsef(), FileOpenMode.INPUT);</span>
+<span class="fc" id="L161">    }</span>
+
+    /**
+     * COBOL paragraph: MAINR-010
+     */
+    private void processMainScreenCycle() {
+<span class="fc" id="L167">        runChain(this::acceptTransferKeyFields);</span>
+<span class="pc bpc" id="L168" title="1 of 3 branches missed.">        switch (String.valueOf(ws.getEsts())) {</span>
+        case &quot;03&quot; -&gt; {
+<span class="fc" id="L170">        ws.setString(&quot;END-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L171">        }</span>
+        case &quot;00&quot; -&gt; {
+<span class="nc" id="L173">        runChain(this::processTransferKey);</span>
+<span class="nc" id="L174">        }</span>
+        default -&gt; {
+<span class="fc" id="L176">        ws.setWkMsgLine(&quot;Invalid function key&quot;);</span>
+<span class="fc" id="L177">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+        }
+<span class="fc" id="L180">    }</span>
+
+    /**
+     * COBOL paragraph: GKEY-010
+     */
+    private void acceptTransferKeyFields() {
+<span class="fc" id="L186">        runChain(this::clearTransferWorkFields);</span>
+<span class="fc" id="L187">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-HEADER&quot;), ws);</span>
+<span class="fc" id="L188">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-FOOTER&quot;), ws);</span>
+<span class="fc" id="L189">        ws.setWkMsgLine(&quot;Enter product, from/to warehouse and quantity&quot;);</span>
+<span class="fc" id="L190">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L191">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-KEY&quot;), ws);</span>
+<span class="fc" id="L192">        String scValWkKeyProd0 = Utility.acceptScreen(&quot;WK-KEY-PROD&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;WK-KEY-PROD&quot;)));</span>
+<span class="fc" id="L193">        ws.setWkKeyProd(Utility.parseIntOr(scValWkKeyProd0.trim(), 0));</span>
+<span class="fc" id="L194">        String scValWkFromWhse1 = Utility.acceptScreen(&quot;WK-FROM-WHSE&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;WK-FROM-WHSE&quot;)));</span>
+<span class="fc" id="L195">        ws.setWkFromWhse(Utility.parseIntOr(scValWkFromWhse1.trim(), 0));</span>
+<span class="fc" id="L196">        String scValWkToWhse2 = Utility.acceptScreen(&quot;WK-TO-WHSE&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;WK-TO-WHSE&quot;)));</span>
+<span class="fc" id="L197">        ws.setWkToWhse(Utility.parseIntOr(scValWkToWhse2.trim(), 0));</span>
+<span class="fc" id="L198">        String scValWkTrQty3 = Utility.acceptScreen(&quot;WK-TR-QTY&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;WK-TR-QTY&quot;)));</span>
+<span class="fc" id="L199">        ws.setWkTrQty(Utility.parseIntOr(scValWkTrQty3.trim(), 0));</span>
+<span class="fc" id="L200">        broadcastEstsStatus();</span>
+<span class="fc" id="L201">    }</span>
+
+    /**
+     * COBOL paragraph: CLRW-010
+     */
+    private void clearTransferWorkFields() {
+<span class="fc" id="L207">        fileSet.getStokf().setRecord();</span>
+<span class="fc" id="L208">        ws.setWkKeyProd(0);</span>
+<span class="fc" id="L209">        ws.setWkFromWhse(0);</span>
+<span class="fc" id="L210">        ws.setWkToWhse(0);</span>
+<span class="fc" id="L211">        ws.setWkTrQty(0);</span>
+<span class="fc" id="L212">        ws.setWkAvail(0);</span>
+<span class="fc" id="L213">        ws.setWkSrcOnhand(0);</span>
+<span class="fc" id="L214">        ws.setWkSrcAlloc(0);</span>
+<span class="fc" id="L215">        ws.setWkDstOnhand(0);</span>
+<span class="fc" id="L216">        ws.setWkSrcNew(0);</span>
+<span class="fc" id="L217">        ws.setWkDstNew(0);</span>
+<span class="fc" id="L218">        ws.setWkUnitCost(BigDecimal.ZERO);</span>
+<span class="fc" id="L219">        ws.setWkStkMng(0);</span>
+<span class="fc" id="L220">        ws.setWkPrName(&quot; &quot;);</span>
+<span class="fc" id="L221">        ws.setWkConfirm(&quot; &quot;);</span>
+<span class="fc" id="L222">        ws.setWkFromName(&quot; &quot;);</span>
+<span class="fc" id="L223">        ws.setWkToName(&quot; &quot;);</span>
+<span class="fc" id="L224">    }</span>
+
+    /**
+     * COBOL paragraph: PKEY-010
+     */
+    private void processTransferKey() {
+<span class="nc" id="L230">        runChain(this::validateTransferInput);</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">        if ((ws.getErrFlg() == 1)) {</span>
+<span class="nc" id="L232">            return;</span>
+        }
+<span class="nc" id="L234">        runChain(this::loadAndValidateSourceStock);</span>
+<span class="nc bnc" id="L235" title="All 2 branches missed.">        if ((ws.getErrFlg() == 1)) {</span>
+<span class="nc" id="L236">            return;</span>
+        }
+<span class="nc" id="L238">        runChain(this::loadDestinationStockOnHand);</span>
+<span class="nc" id="L239">        ws.setWkSrcNew((ws.getWkSrcOnhand() - ws.getWkTrQty()));</span>
+<span class="nc" id="L240">        ws.setWkDstNew((ws.getWkDstOnhand() + ws.getWkTrQty()));</span>
+<span class="nc" id="L241">        runChain(this::confirmAndProcessTransfer);</span>
+<span class="nc" id="L242">    }</span>
+
+    /**
+     * COBOL paragraph: VIN-010
+     */
+    private void validateTransferInput() {
+<span class="fc" id="L248">        ws.setErrFlg(0);</span>
+<span class="fc bfc" id="L249" title="All 2 branches covered.">        if (!validateProductCodeEntered()) {</span>
+<span class="fc" id="L250">            displayValidationErrorIfAny();</span>
+<span class="fc" id="L251">            return;</span>
+        }
+<span class="fc bfc" id="L253" title="All 2 branches covered.">        if (!loadProduct()) {</span>
+<span class="fc" id="L254">            displayValidationErrorIfAny();</span>
+<span class="fc" id="L255">            return;</span>
+        }
+<span class="fc bfc" id="L257" title="All 2 branches covered.">        if (!validateWarehouseSelection()) {</span>
+<span class="fc" id="L258">            displayValidationErrorIfAny();</span>
+<span class="fc" id="L259">            return;</span>
+        }
+<span class="fc" id="L261">        String fromName = validateWarehouse(ws.getWkFromWhse(), &quot;From warehouse not found&quot;, &quot;From warehouse is deleted&quot;);</span>
+<span class="fc bfc" id="L262" title="All 2 branches covered.">        if (fromName == null) {</span>
+<span class="fc" id="L263">            displayValidationErrorIfAny();</span>
+<span class="fc" id="L264">            return;</span>
+        }
+<span class="fc" id="L266">        ws.setWkFromName(fromName);</span>
+<span class="fc" id="L267">        String toName = validateWarehouse(ws.getWkToWhse(), &quot;To warehouse not found&quot;, &quot;To warehouse is deleted&quot;);</span>
+<span class="fc bfc" id="L268" title="All 2 branches covered.">        if (toName == null) {</span>
+<span class="fc" id="L269">            displayValidationErrorIfAny();</span>
+<span class="fc" id="L270">            return;</span>
+        }
+<span class="fc" id="L272">        ws.setWkToName(toName);</span>
+<span class="fc bfc" id="L273" title="All 2 branches covered.">        if (ws.getWkTrQty() &lt;= 0) {</span>
+<span class="fc" id="L274">            ws.setWkMsgLine(&quot;Transfer quantity must be positive&quot;);</span>
+<span class="fc" id="L275">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+        }
+<span class="fc" id="L277">        displayValidationErrorIfAny();</span>
+<span class="fc" id="L278">    }</span>
+
+    /**
+     * COBOL paragraph: VIN-999
+     */
+    private void displayValidationErrorIfAny() {
+<span class="fc bfc" id="L284" title="All 2 branches covered.">        if ((ws.getErrFlg() == 1)) {</span>
+<span class="fc" id="L285">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+        /* CONTINUE */
+<span class="fc" id="L288">    }</span>
+
+    /**
+     * COBOL paragraph: RSS-010
+     */
+    private void loadAndValidateSourceStock() {
+<span class="fc" id="L294">        ws.setErrFlg(0);</span>
+<span class="fc" id="L295">        ws.setSkProd(ws.getWkKeyProd());</span>
+<span class="fc" id="L296">        ws.setSkWhse(ws.getWkFromWhse());</span>
+<span class="fc" id="L297">        readStockByProdWhse();</span>
+<span class="fc bfc" id="L298" title="All 2 branches covered.">        if (fileSet.getStokf().isInvalidKey()) {</span>
+<span class="fc" id="L299">            ws.setWkMsgLine(&quot;No stock at source warehouse&quot;);</span>
+<span class="fc" id="L300">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L301">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L302">            return;</span>
+        }
+<span class="fc" id="L304">        ws.setWkSrcOnhand(ws.getSkOnhand().intValue());</span>
+<span class="fc" id="L305">        ws.setWkSrcAlloc(ws.getSkAllocated().intValue());</span>
+<span class="fc" id="L306">        ws.setWkUnitCost(ws.getSkAvgCost());</span>
+<span class="fc" id="L307">        ws.setWkAvail(ws.getSkOnhand().subtract(ws.getSkAllocated()).intValue());</span>
+<span class="fc bfc" id="L308" title="All 2 branches covered.">        if (ws.getWkTrQty() &gt; ws.getWkAvail()) {</span>
+<span class="fc" id="L309">            ws.setWkMsgLine(&quot;Quantity exceeds available at source&quot;);</span>
+<span class="fc" id="L310">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L311">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+<span class="fc" id="L313">    }</span>
+
+    /**
+     * COBOL paragraph: RDS-010
+     */
+    private void loadDestinationStockOnHand() {
+<span class="fc" id="L319">        ws.setWkDstOnhand(0);</span>
+<span class="fc" id="L320">        ws.setSkProd(ws.getWkKeyProd());</span>
+<span class="fc" id="L321">        ws.setSkWhse(ws.getWkToWhse());</span>
+<span class="fc" id="L322">        readStockByProdWhse();</span>
+<span class="fc bfc" id="L323" title="All 2 branches covered.">        if (fileSet.getStokf().isInvalidKey()) {</span>
+<span class="fc" id="L324">            ws.setWkDstOnhand(0);</span>
+        }
+<span class="fc bfc" id="L326" title="All 2 branches covered.">        if (!fileSet.getStokf().isInvalidKey()) {</span>
+<span class="fc" id="L327">            ws.setWkDstOnhand(ws.getSkOnhand().intValue());</span>
+        }
+<span class="fc" id="L329">    }</span>
+
+    /**
+     * COBOL paragraph: CFT-010
+     */
+    private void confirmAndProcessTransfer() {
+<span class="fc" id="L335">        ws.setWkConfirm(&quot; &quot;);</span>
+<span class="fc" id="L336">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-SHOW&quot;), ws);</span>
+<span class="fc" id="L337">        ws.setWkMsgLine(&quot;Confirm the transfer (Y/N)&quot;);</span>
+<span class="fc" id="L338">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L339">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-CONFIRM&quot;), ws);</span>
+<span class="fc" id="L340">        String scValWkConfirm9 = Utility.acceptScreen(&quot;SC-CONF&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;SC-CONF&quot;)));</span>
+<span class="fc" id="L341">        ws.setWkConfirm(scValWkConfirm9);</span>
+<span class="fc" id="L342">        broadcastEstsStatus();</span>
+<span class="pc bpc" id="L343" title="1 of 4 branches missed.">        if ((ws.getWkConfirm().equals(&quot;Y&quot;) || ws.getWkConfirm().equals(&quot;y&quot;))) {</span>
+<span class="fc" id="L344">            runChain(this::executeStockTransfer);</span>
+        } else {
+<span class="fc" id="L346">            ws.setWkMsgLine(&quot;Transfer cancelled&quot;);</span>
+<span class="fc" id="L347">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+<span class="fc" id="L349">    }</span>
+
+    /**
+     * COBOL paragraph: PT-010
+     */
+    private void executeStockTransfer() {
+<span class="fc" id="L355">        runChain(this::decrementSourceStock);</span>
+<span class="fc bfc" id="L356" title="All 2 branches covered.">        if ((ws.getErrFlg() == 1)) {</span>
+<span class="fc" id="L357">            return;</span>
+        }
+<span class="fc" id="L359">        ws.setWkMvWhse(ws.getWkFromWhse());</span>
+<span class="fc" id="L360">        ws.setWkMvQty((0 - ws.getWkTrQty()));</span>
+<span class="fc" id="L361">        ws.setWkMvBal(ws.getWkSrcNew());</span>
+<span class="fc" id="L362">        runChain(this::writeStockMovementRecord);</span>
+<span class="fc" id="L363">        runChain(this::incrementDestinationStock);</span>
+<span class="fc" id="L364">        ws.setWkMvWhse(ws.getWkToWhse());</span>
+<span class="fc" id="L365">        ws.setWkMvQty(ws.getWkTrQty());</span>
+<span class="fc" id="L366">        ws.setWkMvBal(ws.getWkDstNew());</span>
+<span class="fc" id="L367">        runChain(this::writeStockMovementRecord);</span>
+<span class="fc" id="L368">        runChain(this::displayTransferResult);</span>
+<span class="fc" id="L369">    }</span>
+
+    /**
+     * COBOL paragraph: DSR-010
+     */
+    private void decrementSourceStock() {
+<span class="fc" id="L375">        ws.setErrFlg(0);</span>
+<span class="fc" id="L376">        ws.setSkProd(ws.getWkKeyProd());</span>
+<span class="fc" id="L377">        ws.setSkWhse(ws.getWkFromWhse());</span>
+<span class="fc" id="L378">        readStockByProdWhse();</span>
+<span class="fc bfc" id="L379" title="All 2 branches covered.">        if (fileSet.getStokf().isInvalidKey()) {</span>
+<span class="fc" id="L380">            ws.setWkMsgLine(&quot;Source stock disappeared&quot;);</span>
+<span class="fc" id="L381">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L382">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L383">            return;</span>
+        }
+<span class="fc" id="L385">        ws.setSkOnhand(ws.getSkOnhand().subtract(BigDecimal.valueOf(ws.getWkTrQty())));</span>
+<span class="fc" id="L386">        ws.setSkYtdOut(ws.getSkYtdOut().add(BigDecimal.valueOf(ws.getWkTrQty())));</span>
+<span class="fc" id="L387">        ws.setSkLastOutDate(ws.getWkSysdate());</span>
+<span class="fc" id="L388">        ws.setWkSrcNew(ws.getSkOnhand().intValue());</span>
+<span class="fc" id="L389">        ws.setWkUnitCost(ws.getSkAvgCost());</span>
+<span class="fc" id="L390">        fileSet.getStokf().rewrite();</span>
+<span class="fc" id="L391">        ws.trySetString(&quot;FSTS&quot;, fileSet.getStokf().getFileStatus());</span>
+<span class="fc bfc" id="L392" title="All 2 branches covered.">        if (fileSet.getStokf().isInvalidKey()) {</span>
+<span class="fc" id="L393">            ws.setWkMsgLine(&quot;Source stock update failed&quot;);</span>
+<span class="fc" id="L394">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L395">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+<span class="fc" id="L397">    }</span>
+
+    /**
+     * COBOL paragraph: IND-010
+     */
+    private void incrementDestinationStock() {
+<span class="fc" id="L403">        ws.setSkProd(ws.getWkKeyProd());</span>
+<span class="fc" id="L404">        ws.setSkWhse(ws.getWkToWhse());</span>
+<span class="fc" id="L405">        readStockByProdWhse();</span>
+<span class="fc bfc" id="L406" title="All 2 branches covered.">        if (fileSet.getStokf().isInvalidKey()) {</span>
+<span class="fc" id="L407">            runChain(this::createDestinationStockRecord);</span>
+<span class="fc" id="L408">            return;</span>
+        }
+<span class="fc" id="L410">        ws.setSkOnhand(ws.getSkOnhand().add(BigDecimal.valueOf(ws.getWkTrQty())));</span>
+<span class="fc" id="L411">        ws.setSkYtdIn(ws.getSkYtdIn().add(BigDecimal.valueOf(ws.getWkTrQty())));</span>
+<span class="fc" id="L412">        ws.setSkLastInDate(ws.getWkSysdate());</span>
+<span class="fc" id="L413">        ws.setWkDstNew(ws.getSkOnhand().intValue());</span>
+<span class="fc" id="L414">        fileSet.getStokf().rewrite();</span>
+<span class="fc" id="L415">        ws.trySetString(&quot;FSTS&quot;, fileSet.getStokf().getFileStatus());</span>
+<span class="fc bfc" id="L416" title="All 2 branches covered.">        if (fileSet.getStokf().isInvalidKey()) {</span>
+<span class="fc" id="L417">            ws.setWkMsgLine(&quot;Dest stock update failed&quot;);</span>
+<span class="fc" id="L418">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+<span class="fc" id="L420">    }</span>
+
+    /**
+     * COBOL paragraph: CRD-010
+     */
+    private void createDestinationStockRecord() {
+<span class="fc" id="L426">        fileSet.getStokf().setRecord();</span>
+<span class="fc" id="L427">        ws.setSkProd(ws.getWkKeyProd());</span>
+<span class="fc" id="L428">        ws.setSkWhse(ws.getWkToWhse());</span>
+<span class="fc" id="L429">        ws.setSkOnhand(BigDecimal.valueOf(ws.getWkTrQty()));</span>
+<span class="fc" id="L430">        ws.setSkAllocated(BigDecimal.ZERO);</span>
+<span class="fc" id="L431">        ws.setSkOnOrder(BigDecimal.ZERO);</span>
+<span class="fc" id="L432">        ws.setSkAvgCost(ws.getWkUnitCost());</span>
+<span class="fc" id="L433">        ws.setSkLastInDate(ws.getWkSysdate());</span>
+<span class="fc" id="L434">        ws.setSkYtdIn(BigDecimal.valueOf(ws.getWkTrQty()));</span>
+<span class="fc" id="L435">        ws.setWkDstNew(ws.getWkTrQty());</span>
+<span class="fc" id="L436">        fileSet.getStokf().write();</span>
+<span class="fc" id="L437">        ws.trySetString(&quot;FSTS&quot;, fileSet.getStokf().getFileStatus());</span>
+<span class="pc bpc" id="L438" title="1 of 2 branches missed.">        if (fileSet.getStokf().isInvalidKey()) {</span>
+<span class="fc" id="L439">            ws.setWkMsgLine(&quot;Dest stock create failed&quot;);</span>
+<span class="fc" id="L440">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+<span class="fc" id="L442">    }</span>
+
+    /**
+     * COBOL paragraph: WMV-010
+     */
+    private void writeStockMovementRecord() {
+<span class="fc" id="L448">        ws.setKnumKey(&quot;STKMOV&quot;);</span>
+<span class="fc" id="L449">        numgen(ws.getKnum());</span>
+<span class="fc bfc" id="L450" title="All 2 branches covered.">        if (!Utility.fieldEquals(ws.getKnumStatus(), &quot;00&quot;)) {</span>
+<span class="fc" id="L451">            ws.setWkMsgLine(&quot;Movement number assignment failed&quot;);</span>
+<span class="fc" id="L452">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L453">            return;</span>
+        }
+<span class="fc" id="L455">        fileSet.getSmovf().setRecord();</span>
+<span class="fc" id="L456">        ws.setSmSeq(ws.getKnumNumber());</span>
+<span class="fc" id="L457">        ws.setSmDate(ws.getWkSysdate());</span>
+<span class="fc" id="L458">        ws.setSmProd(ws.getWkKeyProd());</span>
+<span class="fc" id="L459">        ws.setSmWhse(ws.getWkMvWhse());</span>
+<span class="fc" id="L460">        ws.setSmKind(40);</span>
+<span class="fc" id="L461">        ws.setSmQty(BigDecimal.valueOf(ws.getWkMvQty()));</span>
+<span class="fc" id="L462">        ws.setSmUnitCost(ws.getWkUnitCost());</span>
+<span class="fc" id="L463">        ws.setSmBalAfter(BigDecimal.valueOf(ws.getWkMvBal()));</span>
+<span class="fc" id="L464">        ws.setSmRefType(40);</span>
+<span class="fc" id="L465">        ws.setSmRefNo(ws.getKnumNumber());</span>
+<span class="fc" id="L466">        ws.setSmUser(ws.getWkUserCode());</span>
+<span class="fc" id="L467">        fileSet.getSmovf().write();</span>
+<span class="fc" id="L468">        ws.trySetString(&quot;FSTS&quot;, fileSet.getSmovf().getFileStatus());</span>
+<span class="fc bfc" id="L469" title="All 2 branches covered.">        if (fileSet.getSmovf().isInvalidKey()) {</span>
+<span class="fc" id="L470">            ws.setWkMsgLine(&quot;Movement write failed&quot;);</span>
+<span class="fc" id="L471">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+<span class="fc" id="L473">    }</span>
+
+    /**
+     * COBOL paragraph: SHR-010
+     */
+    private void displayTransferResult() {
+<span class="fc" id="L479">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-SHOW&quot;), ws);</span>
+<span class="fc" id="L480">        ws.setWkEdQty(ws.getWkTrQty());</span>
+<span class="fc" id="L481">        ws.setWkMsgLine(&quot;Transferred &quot; + String.format(&quot;%012d&quot;, (long) ws.getWkEdQty()) + &quot; units - done&quot;);</span>
+<span class="fc" id="L482">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L483">    }</span>
+
+    /**
+     * COBOL paragraph: TERM-010
+     */
+    private void closeProgramFiles() {
+<span class="fc" id="L489">        fileSet.getStokf().close();</span>
+<span class="fc" id="L490">        ws.trySetString(&quot;FSTS&quot;, fileSet.getStokf().getFileStatus());</span>
+<span class="fc" id="L491">        fileSet.getSmovf().close();</span>
+<span class="fc" id="L492">        ws.trySetString(&quot;FSTS&quot;, fileSet.getSmovf().getFileStatus());</span>
+<span class="fc" id="L493">        fileSet.getProdf().close();</span>
+<span class="fc" id="L494">        ws.trySetString(&quot;FSTS&quot;, fileSet.getProdf().getFileStatus());</span>
+<span class="fc" id="L495">        fileSet.getWhsef().close();</span>
+<span class="fc" id="L496">        ws.trySetString(&quot;FSTS&quot;, fileSet.getWhsef().getFileStatus());</span>
+<span class="fc" id="L497">    }</span>
+
+    /**
+     * COBOL paragraph: ABEND-010
+     */
+    private void abortOnFileOpenError() {
+<span class="fc" id="L503">        ws.setKaProgid(&quot;IV0050&quot;);</span>
+<span class="fc" id="L504">        ws.setKaFsts(ws.getFsts());</span>
+<span class="fc" id="L505">        ws.setKaMsgcode(&quot;EOPEN &quot;);</span>
+<span class="fc" id="L506">        ws.setKaDetail(&quot;File open error&quot;);</span>
+<span class="fc" id="L507">        abortx(ws.getKabend());</span>
+<span class="fc" id="L508">        ws.setCompletionCode(255);</span>
+<span class="fc" id="L509">        throw new ProgramExitSignal();</span>
+    }
+
+    /**
+     * COBOL CALL DATEUT — delegates to injected DateutService.
+     */
+    private void dateut(Object... args) {
+<span class="fc" id="L516">        DateutLinkParm params = new DateutLinkParm();</span>
+<span class="fc" id="L517">        params.getKdate().setKdFunc(ws.getKdFunc());</span>
+<span class="fc" id="L518">        params.getKdate().setKdDate1(ws.getKdDate1());</span>
+<span class="fc" id="L519">        params.getKdate().setKdDate2(ws.getKdDate2());</span>
+<span class="fc" id="L520">        params.getKdate().setKdDays(ws.getKdDays());</span>
+<span class="fc" id="L521">        params.getKdate().setKdWeekday(ws.getKdWeekday());</span>
+<span class="fc" id="L522">        params.getKdate().setKdStatus(ws.getKdStatus());</span>
+<span class="fc" id="L523">        dateutService.execute(params);</span>
+<span class="fc" id="L524">        ws.setKdFunc(params.getKdate().getKdFunc());</span>
+<span class="fc" id="L525">        ws.setKdDate1(params.getKdate().getKdDate1());</span>
+<span class="fc" id="L526">        ws.setKdDate2(params.getKdate().getKdDate2());</span>
+<span class="fc" id="L527">        ws.setKdDays(params.getKdate().getKdDays());</span>
+<span class="fc" id="L528">        ws.setKdWeekday(params.getKdate().getKdWeekday());</span>
+<span class="fc" id="L529">        ws.setKdStatus(params.getKdate().getKdStatus());</span>
+<span class="fc" id="L530">    }</span>
+
+    /**
+     * COBOL CALL NUMGEN — delegates to injected NumgenService.
+     */
+    private void numgen(Object... args) {
+<span class="fc" id="L536">        NumgenLinkParm params = new NumgenLinkParm();</span>
+<span class="fc" id="L537">        params.getKnum().setKnumKey(ws.getKnumKey());</span>
+<span class="fc" id="L538">        params.getKnum().setKnumNumber(ws.getKnumNumber());</span>
+<span class="fc" id="L539">        params.getKnum().setKnumStatus(ws.getKnumStatus());</span>
+<span class="fc" id="L540">        numgenService.execute(params);</span>
+<span class="fc" id="L541">        ws.setKnumKey(params.getKnum().getKnumKey());</span>
+<span class="fc" id="L542">        ws.setKnumNumber(params.getKnum().getKnumNumber());</span>
+<span class="fc" id="L543">        ws.setKnumStatus(params.getKnum().getKnumStatus());</span>
+<span class="fc" id="L544">    }</span>
+
+    /**
+     * COBOL CALL ABORTX — delegates to injected AbortxService.
+     */
+    private void abortx(Object... args) {
+<span class="fc" id="L550">        AbortxLinkParm params = new AbortxLinkParm();</span>
+<span class="fc" id="L551">        params.getKabend().setKaProgid(ws.getKaProgid());</span>
+<span class="fc" id="L552">        params.getKabend().setKaFile(ws.getKaFile());</span>
+<span class="fc" id="L553">        params.getKabend().setKaFsts(ws.getKaFsts());</span>
+<span class="fc" id="L554">        params.getKabend().setKaMsgcode(ws.getKaMsgcode());</span>
+<span class="fc" id="L555">        params.getKabend().setKaDetail(ws.getKaDetail());</span>
+<span class="fc" id="L556">        abortxService.execute(params);</span>
+<span class="fc" id="L557">        ws.setKaProgid(params.getKabend().getKaProgid());</span>
+<span class="fc" id="L558">        ws.setKaFile(params.getKabend().getKaFile());</span>
+<span class="fc" id="L559">        ws.setKaFsts(params.getKabend().getKaFsts());</span>
+<span class="fc" id="L560">        ws.setKaMsgcode(params.getKabend().getKaMsgcode());</span>
+<span class="fc" id="L561">        ws.setKaDetail(params.getKabend().getKaDetail());</span>
+<span class="fc" id="L562">    }</span>
+    /** Reads CRT STATUS and broadcasts to all ESTS fields — COBOL implicit after each ACCEPT. */
+    private void broadcastEstsStatus() {
+<span class="fc" id="L565">        Utility.broadcastEndStatus(ws, renderer.readEndStatus(), &quot;ESTS&quot;);</span>
+<span class="fc" id="L566">    }</span>
+
+    /** Validate that a product code was entered before loading the product master. */
+    private boolean validateProductCodeEntered() {
+<span class="fc bfc" id="L570" title="All 2 branches covered.">        if (ws.getWkKeyProd() == 0) {</span>
+<span class="fc" id="L571">            ws.setWkMsgLine(&quot;Product code must not be zero&quot;);</span>
+<span class="fc" id="L572">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L573">            return false;</span>
+        }
+<span class="fc" id="L575">        return true;</span>
+    }
+
+    /** Read the product master by code and confirm it is active and stock-managed. */
+    private boolean loadProduct() {
+<span class="fc" id="L580">        ws.setPrCode(ws.getWkKeyProd());</span>
+<span class="fc" id="L581">        String rkVal_4 = &quot;&quot;;</span>
+<span class="pc bpc" id="L582" title="2 of 4 branches missed.">        if (rkVal_4 == null || rkVal_4.trim().isEmpty()) {</span>
+<span class="pc" id="L583">          try { rkVal_4 = ws.getString(&quot;PR-CODE&quot;); } catch (Exception _e) {}</span>
+        }
+<span class="pc bpc" id="L585" title="2 of 4 branches missed.">        if (rkVal_4 == null || rkVal_4.trim().isEmpty()) {</span>
+<span class="nc" id="L586">          try { rkVal_4 = fileSet.getProdf().extractKeyFromCurrentRecord(); } catch (Exception _e3) {}</span>
+        }
+<span class="pc bpc" id="L588" title="1 of 2 branches missed.">        fileSet.getProdf().readByKey(rkVal_4 != null ? rkVal_4.trim() : &quot;&quot;);</span>
+<span class="fc" id="L589">        ws.trySetString(&quot;FSTS&quot;, fileSet.getProdf().getFileStatus());</span>
+<span class="fc bfc" id="L590" title="All 2 branches covered.">        if (fileSet.getProdf().isInvalidKey()) {</span>
+<span class="fc" id="L591">            ws.setWkMsgLine(&quot;Product not found&quot;);</span>
+<span class="fc" id="L592">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L593">            return false;</span>
+        }
+<span class="fc bfc" id="L595" title="All 2 branches covered.">        if (ws.getPrDelFlag() == 1) {</span>
+<span class="fc" id="L596">            ws.setWkMsgLine(&quot;Product is deleted&quot;);</span>
+<span class="fc" id="L597">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L598">            return false;</span>
+        }
+<span class="fc" id="L600">        ws.setWkPrName(ws.getPrName());</span>
+<span class="fc" id="L601">        ws.setWkStkMng(ws.getPrStockMng());</span>
+<span class="fc bfc" id="L602" title="All 2 branches covered.">        if (ws.getWkStkMng() == 0) {</span>
+<span class="fc" id="L603">            ws.setWkMsgLine(&quot;Product is not stock-managed&quot;);</span>
+<span class="fc" id="L604">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L605">            return false;</span>
+        }
+<span class="fc" id="L607">        return true;</span>
+    }
+
+    /** Validate that both warehouses were entered and are not the same. */
+    private boolean validateWarehouseSelection() {
+<span class="pc bpc" id="L612" title="1 of 4 branches missed.">        if (ws.getWkFromWhse() == 0 || ws.getWkToWhse() == 0) {</span>
+<span class="fc" id="L613">            ws.setWkMsgLine(&quot;Both warehouses are required&quot;);</span>
+<span class="fc" id="L614">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L615">            return false;</span>
+        }
+<span class="fc bfc" id="L617" title="All 2 branches covered.">        if (ws.getWkFromWhse() == ws.getWkToWhse()) {</span>
+<span class="fc" id="L618">            ws.setWkMsgLine(&quot;From and to warehouse must differ&quot;);</span>
+<span class="fc" id="L619">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L620">            return false;</span>
+        }
+<span class="fc" id="L622">        return true;</span>
+    }
+
+    /** Read the warehouse master by code and return its name, or null with an error message set. */
+    private String validateWarehouse(int whCode, String notFoundMsg, String deletedMsg) {
+<span class="fc" id="L627">        ws.setWhCode(whCode);</span>
+<span class="fc" id="L628">        String rkVal = &quot;&quot;;</span>
+<span class="pc bpc" id="L629" title="2 of 4 branches missed.">        if (rkVal == null || rkVal.trim().isEmpty()) {</span>
+<span class="pc" id="L630">          try { rkVal = ws.getString(&quot;WH-CODE&quot;); } catch (Exception _e) {}</span>
+        }
+<span class="pc bpc" id="L632" title="2 of 4 branches missed.">        if (rkVal == null || rkVal.trim().isEmpty()) {</span>
+<span class="nc" id="L633">          try { rkVal = fileSet.getWhsef().extractKeyFromCurrentRecord(); } catch (Exception _e3) {}</span>
+        }
+<span class="pc bpc" id="L635" title="1 of 2 branches missed.">        fileSet.getWhsef().readByKey(rkVal != null ? rkVal.trim() : &quot;&quot;);</span>
+<span class="fc" id="L636">        ws.trySetString(&quot;FSTS&quot;, fileSet.getWhsef().getFileStatus());</span>
+<span class="fc bfc" id="L637" title="All 2 branches covered.">        if (fileSet.getWhsef().isInvalidKey()) {</span>
+<span class="fc" id="L638">            ws.setWkMsgLine(notFoundMsg);</span>
+<span class="fc" id="L639">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L640">            return null;</span>
+        }
+<span class="fc bfc" id="L642" title="All 2 branches covered.">        if (ws.getWhDelFlag() == 1) {</span>
+<span class="fc" id="L643">            ws.setWkMsgLine(deletedMsg);</span>
+<span class="fc" id="L644">            ws.setString(&quot;ERR-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L645">            return null;</span>
+        }
+<span class="fc" id="L647">        return ws.getWhName();</span>
+    }
+
+    /** Read STOKF by the product/warehouse composite key already set in SK-PROD / SK-WHSE. */
+    private void readStockByProdWhse() {
+<span class="fc" id="L652">        StringBuilder rkSb = new StringBuilder();</span>
+<span class="fc" id="L653">        String rkPart0 = &quot;&quot;;</span>
+<span class="pc" id="L654">        try { rkPart0 = ws.getString(&quot;SK-PROD&quot;); } catch (Exception _e) {}</span>
+<span class="pc bpc" id="L655" title="1 of 2 branches missed.">        rkSb.append(rkPart0 != null ? rkPart0.trim() : &quot;&quot;);</span>
+<span class="fc" id="L656">        String rkPart1 = &quot;&quot;;</span>
+<span class="pc" id="L657">        try { rkPart1 = ws.getString(&quot;SK-WHSE&quot;); } catch (Exception _e) {}</span>
+<span class="fc" id="L658">        rkSb.append('|');</span>
+<span class="pc bpc" id="L659" title="1 of 2 branches missed.">        rkSb.append(rkPart1 != null ? rkPart1.trim() : &quot;&quot;);</span>
+<span class="fc" id="L660">        fileSet.getStokf().readByKey(rkSb.toString());</span>
+<span class="fc" id="L661">        ws.trySetString(&quot;FSTS&quot;, fileSet.getStokf().getFileStatus());</span>
+<span class="fc" id="L662">    }</span>
+
+    /** Open a file for I/O, creating it first via an OUTPUT open/close if it does not yet exist. */
+    private void openWithCreateRetry(RawDatasetBase file, FileOpenMode mode) {
+<span class="fc" id="L666">        file.open(mode);</span>
+<span class="fc" id="L667">        ws.trySetString(&quot;FSTS&quot;, file.getFileStatus());</span>
+<span class="pc bpc" id="L668" title="1 of 4 branches missed.">        if (Utility.fieldEquals(ws.getFsts(), &quot;35&quot;) || Utility.fieldEquals(ws.getFsts(), &quot;30&quot;)) {</span>
+<span class="fc" id="L669">            file.open(FileOpenMode.OUTPUT);</span>
+<span class="fc" id="L670">            ws.trySetString(&quot;FSTS&quot;, file.getFileStatus());</span>
+<span class="fc" id="L671">            file.close();</span>
+<span class="fc" id="L672">            ws.trySetString(&quot;FSTS&quot;, file.getFileStatus());</span>
+<span class="fc" id="L673">            file.open(mode);</span>
+<span class="fc" id="L674">            ws.trySetString(&quot;FSTS&quot;, file.getFileStatus());</span>
+        }
+<span class="fc" id="L676">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : PURHF
+  FD record name : VH-REC
+  Copybook src   : FPURH
+-->
+<dataLayout name="PURHF" scope="file" charset="MS932" recordSize="139">
+  <group name="VH-REC" offset="0" size="139">
+    <group name="VH-REC" offset="0" size="139">
+      <field name="VH-NO" offset="0" size="10" javaType="long"/>
+      <field name="VH-DATE" offset="10" size="8" javaType="int"/>
+      <field name="VH-SUPP" offset="18" size="6" javaType="int"/>
+      <field name="VH-RECV-NO" offset="24" size="10" javaType="long"/>
+      <field name="VH-CLOSE-YM" offset="34" size="6" javaType="int"/>
+      <field name="VH-TAX-TYPE" offset="40" size="1" javaType="int"/>
+      <field name="VH-AMOUNT" offset="41" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="VH-TAX-AMOUNT" offset="47" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="VH-TOTAL" offset="53" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="VH-STATUS" offset="59" size="1" javaType="int"/>
+      <field name="VH-KIND" offset="60" size="1" javaType="int"/>
+      <field name="VH-LINES" offset="61" size="3" javaType="int"/>
+      <field name="VH-REMARK" offset="64" size="40" javaType="String"/>
+      <field name="VH-ADD-DATE" offset="104" size="8" javaType="int"/>
+      <field name="VH-ADD-USER" offset="112" size="6" javaType="int"/>
+      <field name="VH-DEL-FLAG" offset="118" size="1" javaType="int"/>
+      <field name="FILLER-119" offset="119" size="20" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

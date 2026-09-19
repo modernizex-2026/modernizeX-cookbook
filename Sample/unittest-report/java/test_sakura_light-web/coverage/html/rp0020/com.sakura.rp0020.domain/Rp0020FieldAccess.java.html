@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Rp0020FieldAccess.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rp0020</a> &gt; <a href="index.source.html" class="el_package">com.sakura.rp0020.domain</a> &gt; <span class="el_source">Rp0020FieldAccess.java</span></div><h1>Rp0020FieldAccess.java</h1><pre class="source lang-java linenums">package com.sakura.rp0020.domain;
+
+import com.sakura.runtime.record.RuntimeFieldAccess;
+import com.sakura.rp0020.domain.WorkingStorage;
+import com.sakura.rp0020.runtime.Rp0020Datasets;
+import java.math.BigDecimal;
+
+/**
+ * Field accessor for RP0020.
+ * Backend: RuntimeFieldAccess (raw RecordImage byte[]).
+ * Typed methods auto-generated from referenced fields — bodies delegate to the string-key API.
+ */
+public class Rp0020FieldAccess extends RuntimeFieldAccess {
+
+<span class="fc" id="L15">    public Rp0020FieldAccess(WorkingStorage ws, Rp0020Datasets fileSet) {</span>
+<span class="fc bfc" id="L16" title="All 2 branches covered.">        if (ws != null) {</span>
+<span class="fc" id="L17">            register(ws.buffer());</span>
+        }
+<span class="pc bpc" id="L19" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getProdf() != null) {</span>
+<span class="fc" id="L20">            register(fileSet.getProdf().buffer());</span>
+        }
+<span class="pc bpc" id="L22" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getCatgf() != null) {</span>
+<span class="fc" id="L23">            register(fileSet.getCatgf().buffer());</span>
+        }
+<span class="pc bpc" id="L25" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getSyscf() != null) {</span>
+<span class="fc" id="L26">            register(fileSet.getSyscf().buffer());</span>
+        }
+<span class="pc bpc" id="L28" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getRepf() != null) {</span>
+<span class="fc" id="L29">            register(fileSet.getRepf().buffer());</span>
+        }
+<span class="fc" id="L31">    }</span>
+
+    /* ── Typed wrappers (delegate → string-key) ─────────────── */
+<span class="fc" id="L34">    public int getCompletionCode() { return getInt(&quot;COMPLETION-CODE&quot;); }</span>
+<span class="fc" id="L35">    public void setCompletionCode(int value) { setInt(&quot;COMPLETION-CODE&quot;, value); }</span>
+<span class="fc" id="L36">    public int getCtCode() { return getInt(&quot;CT-CODE&quot;); }</span>
+<span class="fc" id="L37">    public void setCtCode(int value) { setInt(&quot;CT-CODE&quot;, value); }</span>
+<span class="fc" id="L38">    public String getCtName() { return getString(&quot;CT-NAME&quot;); }</span>
+<span class="fc" id="L39">    public void setCtName(String value) { setString(&quot;CT-NAME&quot;, value); }</span>
+<span class="fc" id="L40">    public String getFsts() { return getString(&quot;FSTS&quot;); }</span>
+<span class="nc" id="L41">    public void setFsts(String value) { setString(&quot;FSTS&quot;, value); }</span>
+<span class="fc" id="L42">    public String getH1Company() { return getString(&quot;H1-COMPANY&quot;); }</span>
+<span class="fc" id="L43">    public void setH1Company(String value) { setString(&quot;H1-COMPANY&quot;, value); }</span>
+<span class="fc" id="L44">    public int getH1Page() { return getInt(&quot;H1-PAGE&quot;); }</span>
+<span class="fc" id="L45">    public void setH1Page(int value) { setInt(&quot;H1-PAGE&quot;, value); }</span>
+<span class="nc" id="L46">    public String getH1Title() { return getString(&quot;H1-TITLE&quot;); }</span>
+<span class="fc" id="L47">    public void setH1Title(String value) { setString(&quot;H1-TITLE&quot;, value); }</span>
+<span class="nc" id="L48">    public int getH2Date() { return getInt(&quot;H2-DATE&quot;); }</span>
+<span class="fc" id="L49">    public void setH2Date(int value) { setInt(&quot;H2-DATE&quot;, value); }</span>
+<span class="nc" id="L50">    public String getH2Info() { return getString(&quot;H2-INFO&quot;); }</span>
+<span class="fc" id="L51">    public void setH2Info(String value) { setString(&quot;H2-INFO&quot;, value); }</span>
+<span class="fc" id="L52">    public String getKaDetail() { return getString(&quot;KA-DETAIL&quot;); }</span>
+<span class="fc" id="L53">    public void setKaDetail(String value) { setString(&quot;KA-DETAIL&quot;, value); }</span>
+<span class="fc" id="L54">    public String getKaFile() { return getString(&quot;KA-FILE&quot;); }</span>
+<span class="fc" id="L55">    public void setKaFile(String value) { setString(&quot;KA-FILE&quot;, value); }</span>
+<span class="fc" id="L56">    public String getKaFsts() { return getString(&quot;KA-FSTS&quot;); }</span>
+<span class="fc" id="L57">    public void setKaFsts(String value) { setString(&quot;KA-FSTS&quot;, value); }</span>
+<span class="fc" id="L58">    public String getKaMsgcode() { return getString(&quot;KA-MSGCODE&quot;); }</span>
+<span class="fc" id="L59">    public void setKaMsgcode(String value) { setString(&quot;KA-MSGCODE&quot;, value); }</span>
+<span class="fc" id="L60">    public String getKaProgid() { return getString(&quot;KA-PROGID&quot;); }</span>
+<span class="fc" id="L61">    public void setKaProgid(String value) { setString(&quot;KA-PROGID&quot;, value); }</span>
+<span class="fc" id="L62">    public String getKabend() { return groupToString(&quot;KABEND&quot;); }</span>
+<span class="nc" id="L63">    public void setKabend(String value) { setGroup(&quot;KABEND&quot;, value); }</span>
+<span class="fc" id="L64">    public int getKdDate1() { return getInt(&quot;KD-DATE1&quot;); }</span>
+<span class="fc" id="L65">    public void setKdDate1(int value) { setInt(&quot;KD-DATE1&quot;, value); }</span>
+<span class="fc" id="L66">    public int getKdDate2() { return getInt(&quot;KD-DATE2&quot;); }</span>
+<span class="fc" id="L67">    public void setKdDate2(int value) { setInt(&quot;KD-DATE2&quot;, value); }</span>
+<span class="fc" id="L68">    public int getKdDays() { return getInt(&quot;KD-DAYS&quot;); }</span>
+<span class="fc" id="L69">    public void setKdDays(int value) { setInt(&quot;KD-DAYS&quot;, value); }</span>
+<span class="fc" id="L70">    public String getKdFunc() { return getString(&quot;KD-FUNC&quot;); }</span>
+<span class="fc" id="L71">    public void setKdFunc(String value) { setString(&quot;KD-FUNC&quot;, value); }</span>
+<span class="fc" id="L72">    public String getKdStatus() { return getString(&quot;KD-STATUS&quot;); }</span>
+<span class="fc" id="L73">    public void setKdStatus(String value) { setString(&quot;KD-STATUS&quot;, value); }</span>
+<span class="fc" id="L74">    public int getKdWeekday() { return getInt(&quot;KD-WEEKDAY&quot;); }</span>
+<span class="fc" id="L75">    public void setKdWeekday(int value) { setInt(&quot;KD-WEEKDAY&quot;, value); }</span>
+<span class="fc" id="L76">    public String getKdate() { return groupToString(&quot;KDATE&quot;); }</span>
+<span class="nc" id="L77">    public void setKdate(String value) { setGroup(&quot;KDATE&quot;, value); }</span>
+<span class="fc" id="L78">    public int getPrCategory() { return getInt(&quot;PR-CATEGORY&quot;); }</span>
+<span class="fc" id="L79">    public void setPrCategory(int value) { setInt(&quot;PR-CATEGORY&quot;, value); }</span>
+<span class="fc" id="L80">    public int getPrCode() { return getInt(&quot;PR-CODE&quot;); }</span>
+<span class="fc" id="L81">    public void setPrCode(int value) { setInt(&quot;PR-CODE&quot;, value); }</span>
+<span class="fc" id="L82">    public int getPrDelFlag() { return getInt(&quot;PR-DEL-FLAG&quot;); }</span>
+<span class="fc" id="L83">    public void setPrDelFlag(int value) { setInt(&quot;PR-DEL-FLAG&quot;, value); }</span>
+<span class="fc" id="L84">    public BigDecimal getPrListPrice() { return getDecimal(&quot;PR-LIST-PRICE&quot;); }</span>
+<span class="fc" id="L85">    public void setPrListPrice(BigDecimal value) { setDecimal(&quot;PR-LIST-PRICE&quot;, value); }</span>
+<span class="fc" id="L86">    public String getPrName() { return getString(&quot;PR-NAME&quot;); }</span>
+<span class="fc" id="L87">    public void setPrName(String value) { setString(&quot;PR-NAME&quot;, value); }</span>
+<span class="fc" id="L88">    public BigDecimal getPrStdCost() { return getDecimal(&quot;PR-STD-COST&quot;); }</span>
+<span class="fc" id="L89">    public void setPrStdCost(BigDecimal value) { setDecimal(&quot;PR-STD-COST&quot;, value); }</span>
+<span class="fc" id="L90">    public String getPrUnit() { return getString(&quot;PR-UNIT&quot;); }</span>
+<span class="fc" id="L91">    public void setPrUnit(String value) { setString(&quot;PR-UNIT&quot;, value); }</span>
+<span class="nc" id="L92">    public String getRdProd() { return groupToString(&quot;RD-PROD&quot;); }</span>
+<span class="nc" id="L93">    public void setRdProd(String value) { setGroup(&quot;RD-PROD&quot;, value); }</span>
+<span class="fc" id="L94">    public String getRepRec() { return getString(&quot;REP-REC&quot;); }</span>
+<span class="fc" id="L95">    public void setRepRec(String value) { setString(&quot;REP-REC&quot;, value); }</span>
+<span class="nc" id="L96">    public String getRhProd() { return groupToString(&quot;RH-PROD&quot;); }</span>
+<span class="nc" id="L97">    public void setRhProd(String value) { setGroup(&quot;RH-PROD&quot;, value); }</span>
+<span class="fc" id="L98">    public String getRpCategory() { return getString(&quot;RP-CATEGORY&quot;); }</span>
+<span class="fc" id="L99">    public void setRpCategory(String value) { setString(&quot;RP-CATEGORY&quot;, value); }</span>
+<span class="fc" id="L100">    public int getRpCode() { return getInt(&quot;RP-CODE&quot;); }</span>
+<span class="fc" id="L101">    public void setRpCode(int value) { setInt(&quot;RP-CODE&quot;, value); }</span>
+<span class="fc" id="L102">    public BigDecimal getRpCost() { return getDecimal(&quot;RP-COST&quot;); }</span>
+<span class="fc" id="L103">    public void setRpCost(BigDecimal value) { setDecimal(&quot;RP-COST&quot;, value); }</span>
+<span class="fc" id="L104">    public String getRpName() { return getString(&quot;RP-NAME&quot;); }</span>
+<span class="fc" id="L105">    public void setRpName(String value) { setString(&quot;RP-NAME&quot;, value); }</span>
+<span class="fc" id="L106">    public BigDecimal getRpPrice() { return getDecimal(&quot;RP-PRICE&quot;); }</span>
+<span class="fc" id="L107">    public void setRpPrice(BigDecimal value) { setDecimal(&quot;RP-PRICE&quot;, value); }</span>
+<span class="fc" id="L108">    public String getRpUnit() { return getString(&quot;RP-UNIT&quot;); }</span>
+<span class="fc" id="L109">    public void setRpUnit(String value) { setString(&quot;RP-UNIT&quot;, value); }</span>
+<span class="nc" id="L110">    public String getRptH1() { return groupToString(&quot;RPT-H1&quot;); }</span>
+<span class="nc" id="L111">    public void setRptH1(String value) { setGroup(&quot;RPT-H1&quot;, value); }</span>
+<span class="nc" id="L112">    public String getRptH2() { return groupToString(&quot;RPT-H2&quot;); }</span>
+<span class="nc" id="L113">    public void setRptH2(String value) { setGroup(&quot;RPT-H2&quot;, value); }</span>
+<span class="fc" id="L114">    public String getRptRule() { return getString(&quot;RPT-RULE&quot;); }</span>
+<span class="nc" id="L115">    public void setRptRule(String value) { setString(&quot;RPT-RULE&quot;, value); }</span>
+<span class="fc" id="L116">    public int getRtCount() { return getInt(&quot;RT-COUNT&quot;); }</span>
+<span class="fc" id="L117">    public void setRtCount(int value) { setInt(&quot;RT-COUNT&quot;, value); }</span>
+<span class="nc" id="L118">    public String getRtProd() { return groupToString(&quot;RT-PROD&quot;); }</span>
+<span class="nc" id="L119">    public void setRtProd(String value) { setGroup(&quot;RT-PROD&quot;, value); }</span>
+<span class="fc" id="L120">    public String getSyCompanyName() { return getString(&quot;SY-COMPANY-NAME&quot;); }</span>
+<span class="fc" id="L121">    public void setSyCompanyName(String value) { setString(&quot;SY-COMPANY-NAME&quot;, value); }</span>
+<span class="nc" id="L122">    public int getSyKey() { return getInt(&quot;SY-KEY&quot;); }</span>
+<span class="fc" id="L123">    public void setSyKey(int value) { setInt(&quot;SY-KEY&quot;, value); }</span>
+<span class="fc" id="L124">    public String getWkCatgName() { return getString(&quot;WK-CATG-NAME&quot;); }</span>
+<span class="fc" id="L125">    public void setWkCatgName(String value) { setString(&quot;WK-CATG-NAME&quot;, value); }</span>
+<span class="fc" id="L126">    public int getWkCnt() { return getInt(&quot;WK-CNT&quot;); }</span>
+<span class="fc" id="L127">    public void setWkCnt(int value) { setInt(&quot;WK-CNT&quot;, value); }</span>
+<span class="fc" id="L128">    public String getWkCompany() { return getString(&quot;WK-COMPANY&quot;); }</span>
+<span class="fc" id="L129">    public void setWkCompany(String value) { setString(&quot;WK-COMPANY&quot;, value); }</span>
+<span class="fc" id="L130">    public String getWkInFrom() { return getString(&quot;WK-IN-FROM&quot;); }</span>
+<span class="fc" id="L131">    public void setWkInFrom(String value) { setString(&quot;WK-IN-FROM&quot;, value); }</span>
+<span class="fc" id="L132">    public String getWkInTo() { return getString(&quot;WK-IN-TO&quot;); }</span>
+<span class="fc" id="L133">    public void setWkInTo(String value) { setString(&quot;WK-IN-TO&quot;, value); }</span>
+<span class="fc" id="L134">    public int getWkLine() { return getInt(&quot;WK-LINE&quot;); }</span>
+<span class="fc" id="L135">    public void setWkLine(int value) { setInt(&quot;WK-LINE&quot;, value); }</span>
+<span class="fc" id="L136">    public int getWkMainEof() { return getInt(&quot;WK-MAIN-EOF&quot;); }</span>
+<span class="fc" id="L137">    public void setWkMainEof(int value) { setInt(&quot;WK-MAIN-EOF&quot;, value); }</span>
+<span class="fc" id="L138">    public int getWkPage() { return getInt(&quot;WK-PAGE&quot;); }</span>
+<span class="fc" id="L139">    public void setWkPage(int value) { setInt(&quot;WK-PAGE&quot;, value); }</span>
+<span class="fc" id="L140">    public int getWkProdFrom() { return getInt(&quot;WK-PROD-FROM&quot;); }</span>
+<span class="fc" id="L141">    public void setWkProdFrom(int value) { setInt(&quot;WK-PROD-FROM&quot;, value); }</span>
+<span class="fc" id="L142">    public int getWkProdTo() { return getInt(&quot;WK-PROD-TO&quot;); }</span>
+<span class="fc" id="L143">    public void setWkProdTo(int value) { setInt(&quot;WK-PROD-TO&quot;, value); }</span>
+<span class="fc" id="L144">    public String getWkProgid() { return getString(&quot;WK-PROGID&quot;); }</span>
+<span class="fc" id="L145">    public void setWkProgid(String value) { setString(&quot;WK-PROGID&quot;, value); }</span>
+<span class="fc" id="L146">    public int getWkSysdate() { return getInt(&quot;WK-SYSDATE&quot;); }</span>
+<span class="fc" id="L147">    public void setWkSysdate(int value) { setInt(&quot;WK-SYSDATE&quot;, value); }</span>
+<span class="fc" id="L148">    public String getWkTitle() { return getString(&quot;WK-TITLE&quot;); }</span>
+<span class="fc" id="L149">    public void setWkTitle(String value) { setString(&quot;WK-TITLE&quot;, value); }</span>
+
+    /* ── Byte-level copy wrappers (preserves COMP-3/BINARY raw bytes) ── */
+<span class="fc" id="L152">    public void copyRepRecFromRdProd() { copyBytes(&quot;REP-REC&quot;, &quot;RD-PROD&quot;); }</span>
+<span class="fc" id="L153">    public void copyRepRecFromRhProd() { copyBytes(&quot;REP-REC&quot;, &quot;RH-PROD&quot;); }</span>
+<span class="fc" id="L154">    public void copyRepRecFromRptH1() { copyBytes(&quot;REP-REC&quot;, &quot;RPT-H1&quot;); }</span>
+<span class="fc" id="L155">    public void copyRepRecFromRptH2() { copyBytes(&quot;REP-REC&quot;, &quot;RPT-H2&quot;); }</span>
+<span class="fc" id="L156">    public void copyRepRecFromRtProd() { copyBytes(&quot;REP-REC&quot;, &quot;RT-PROD&quot;); }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

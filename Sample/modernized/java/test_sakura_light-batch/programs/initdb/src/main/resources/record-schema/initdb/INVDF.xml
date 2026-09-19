@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : INVDF
+  FD record name : ID-REC
+  Copybook src   : FINVD
+-->
+<dataLayout name="INVDF" scope="file" charset="MS932" recordSize="94">
+  <group name="ID-REC" offset="0" size="94">
+    <group name="ID-REC" offset="0" size="94">
+      <field name="ID-NO" offset="0" size="10" javaType="long"/>
+      <field name="ID-LINE" offset="10" size="3" javaType="int"/>
+      <field name="ID-PROD" offset="13" size="8" javaType="int"/>
+      <field name="ID-WHSE" offset="21" size="3" javaType="int"/>
+      <field name="ID-QTY" offset="24" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="ID-UNIT-PRICE" offset="29" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      <field name="ID-AMOUNT" offset="35" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="ID-UNIT-COST" offset="41" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      <field name="ID-COST-AMOUNT" offset="47" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="ID-TAX-CATEGORY" offset="53" size="1" javaType="int"/>
+      <field name="ID-REMARK" offset="54" size="30" javaType="String"/>
+      <field name="FILLER-84" offset="84" size="10" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

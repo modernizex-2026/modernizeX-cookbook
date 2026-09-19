@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : CUSTF
+  FD record name : CU-REC
+  Copybook src   : FCUST
+-->
+<dataLayout name="CUSTF" scope="file" charset="MS932" recordSize="313">
+  <group name="CU-REC" offset="0" size="313">
+    <group name="CU-REC" offset="0" size="313">
+      <field name="CU-CODE" offset="0" size="6" javaType="int"/>
+      <field name="CU-NAME" offset="6" size="40" javaType="String"/>
+      <field name="CU-KANA" offset="46" size="40" javaType="String"/>
+      <field name="CU-ZIP" offset="86" size="8" javaType="String"/>
+      <field name="CU-ADDR1" offset="94" size="40" javaType="String"/>
+      <field name="CU-ADDR2" offset="134" size="40" javaType="String"/>
+      <field name="CU-TEL" offset="174" size="15" javaType="String"/>
+      <field name="CU-FAX" offset="189" size="15" javaType="String"/>
+      <field name="CU-REGION" offset="204" size="3" javaType="int"/>
+      <field name="CU-STAFF" offset="207" size="4" javaType="int"/>
+      <field name="CU-CLOSE-DAY" offset="211" size="2" javaType="int"/>
+      <field name="CU-PAY-MONTH" offset="213" size="1" javaType="int"/>
+      <field name="CU-PAY-DAY" offset="214" size="2" javaType="int"/>
+      <field name="CU-PAY-METHOD" offset="216" size="1" javaType="int"/>
+      <field name="CU-TAX-TYPE" offset="217" size="1" javaType="int"/>
+      <field name="CU-TAX-ROUND" offset="218" size="1" javaType="int"/>
+      <field name="CU-CREDIT-LIMIT" offset="219" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="CU-BALANCE" offset="225" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="CU-PRICE-RANK" offset="231" size="1" javaType="int"/>
+      <field name="CU-BANK-CODE" offset="232" size="4" javaType="int"/>
+      <field name="CU-BANK-ACCT" offset="236" size="20" javaType="String"/>
+      <field name="CU-START-DATE" offset="256" size="8" javaType="int"/>
+      <field name="CU-ADD-DATE" offset="264" size="8" javaType="int"/>
+      <field name="CU-ADD-USER" offset="272" size="6" javaType="int"/>
+      <field name="CU-UPD-DATE" offset="278" size="8" javaType="int"/>
+      <field name="CU-UPD-USER" offset="286" size="6" javaType="int"/>
+      <field name="CU-DEL-FLAG" offset="292" size="1" javaType="int"/>
+      <field name="FILLER-293" offset="293" size="20" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

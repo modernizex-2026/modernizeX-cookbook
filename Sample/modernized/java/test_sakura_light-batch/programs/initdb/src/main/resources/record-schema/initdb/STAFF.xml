@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : STAFF
+  FD record name : SF-REC
+  Copybook src   : FSTAF
+-->
+<dataLayout name="STAFF" scope="file" charset="MS932" recordSize="164">
+  <group name="SF-REC" offset="0" size="164">
+    <group name="SF-REC" offset="0" size="164">
+      <field name="SF-CODE" offset="0" size="4" javaType="int"/>
+      <field name="SF-NAME" offset="4" size="30" javaType="String"/>
+      <field name="SF-KANA" offset="34" size="30" javaType="String"/>
+      <field name="SF-DEPT" offset="64" size="4" javaType="int"/>
+      <field name="SF-TEL" offset="68" size="15" javaType="String"/>
+      <field name="SF-EMAIL" offset="83" size="40" javaType="String"/>
+      <field name="SF-TITLE" offset="123" size="20" javaType="String"/>
+      <field name="SF-DEL-FLAG" offset="143" size="1" javaType="int"/>
+      <field name="FILLER-144" offset="144" size="20" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : PURDF
+  FD record name : VD-REC
+  Copybook src   : FPURD
+-->
+<dataLayout name="PURDF" scope="file" charset="MS932" recordSize="52">
+  <group name="VD-REC" offset="0" size="52">
+    <group name="VD-REC" offset="0" size="52">
+      <field name="VD-NO" offset="0" size="10" javaType="long"/>
+      <field name="VD-LINE" offset="10" size="3" javaType="int"/>
+      <field name="VD-PROD" offset="13" size="8" javaType="int"/>
+      <field name="VD-WHSE" offset="21" size="3" javaType="int"/>
+      <field name="VD-QTY" offset="24" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="VD-UNIT-COST" offset="29" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      <field name="VD-AMOUNT" offset="35" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="VD-TAX-CATEGORY" offset="41" size="1" javaType="int"/>
+      <field name="FILLER-42" offset="42" size="10" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

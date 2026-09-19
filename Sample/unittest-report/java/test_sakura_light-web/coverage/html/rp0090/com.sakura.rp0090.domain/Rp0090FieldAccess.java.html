@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Rp0090FieldAccess.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rp0090</a> &gt; <a href="index.source.html" class="el_package">com.sakura.rp0090.domain</a> &gt; <span class="el_source">Rp0090FieldAccess.java</span></div><h1>Rp0090FieldAccess.java</h1><pre class="source lang-java linenums">package com.sakura.rp0090.domain;
+
+import com.sakura.runtime.record.RuntimeFieldAccess;
+import com.sakura.rp0090.domain.WorkingStorage;
+import com.sakura.rp0090.runtime.Rp0090Datasets;
+import java.math.BigDecimal;
+
+/**
+ * Field accessor for RP0090.
+ * Backend: RuntimeFieldAccess (raw RecordImage byte[]).
+ * Typed methods auto-generated from referenced fields — bodies delegate to the string-key API.
+ */
+public class Rp0090FieldAccess extends RuntimeFieldAccess {
+
+<span class="fc" id="L15">    public Rp0090FieldAccess(WorkingStorage ws, Rp0090Datasets fileSet) {</span>
+<span class="fc bfc" id="L16" title="All 2 branches covered.">        if (ws != null) {</span>
+<span class="fc" id="L17">            register(ws.buffer());</span>
+        }
+<span class="pc bpc" id="L19" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getOrdhf() != null) {</span>
+<span class="fc" id="L20">            register(fileSet.getOrdhf().buffer());</span>
+        }
+<span class="pc bpc" id="L22" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getOrddf() != null) {</span>
+<span class="fc" id="L23">            register(fileSet.getOrddf().buffer());</span>
+        }
+<span class="pc bpc" id="L25" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getCustf() != null) {</span>
+<span class="fc" id="L26">            register(fileSet.getCustf().buffer());</span>
+        }
+<span class="pc bpc" id="L28" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getProdf() != null) {</span>
+<span class="fc" id="L29">            register(fileSet.getProdf().buffer());</span>
+        }
+<span class="pc bpc" id="L31" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getSyscf() != null) {</span>
+<span class="fc" id="L32">            register(fileSet.getSyscf().buffer());</span>
+        }
+<span class="pc bpc" id="L34" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getRepf() != null) {</span>
+<span class="fc" id="L35">            register(fileSet.getRepf().buffer());</span>
+        }
+<span class="fc" id="L37">    }</span>
+
+    /* ── Typed wrappers (delegate → string-key) ─────────────── */
+<span class="fc" id="L40">    public int getCompletionCode() { return getInt(&quot;COMPLETION-CODE&quot;); }</span>
+<span class="fc" id="L41">    public void setCompletionCode(int value) { setInt(&quot;COMPLETION-CODE&quot;, value); }</span>
+<span class="nc" id="L42">    public int getCuCode() { return getInt(&quot;CU-CODE&quot;); }</span>
+<span class="fc" id="L43">    public void setCuCode(int value) { setInt(&quot;CU-CODE&quot;, value); }</span>
+<span class="fc" id="L44">    public String getCuName() { return getString(&quot;CU-NAME&quot;); }</span>
+<span class="fc" id="L45">    public void setCuName(String value) { setString(&quot;CU-NAME&quot;, value); }</span>
+<span class="fc" id="L46">    public String getFsts() { return getString(&quot;FSTS&quot;); }</span>
+<span class="fc" id="L47">    public void setFsts(String value) { setString(&quot;FSTS&quot;, value); }</span>
+<span class="fc" id="L48">    public long getGtAmt() { return getLong(&quot;GT-AMT&quot;); }</span>
+<span class="fc" id="L49">    public void setGtAmt(long value) { setLong(&quot;GT-AMT&quot;, value); }</span>
+<span class="fc" id="L50">    public int getGtQty() { return getInt(&quot;GT-QTY&quot;); }</span>
+<span class="fc" id="L51">    public void setGtQty(int value) { setInt(&quot;GT-QTY&quot;, value); }</span>
+<span class="nc" id="L52">    public String getH1Company() { return getString(&quot;H1-COMPANY&quot;); }</span>
+<span class="fc" id="L53">    public void setH1Company(String value) { setString(&quot;H1-COMPANY&quot;, value); }</span>
+<span class="nc" id="L54">    public int getH1Page() { return getInt(&quot;H1-PAGE&quot;); }</span>
+<span class="fc" id="L55">    public void setH1Page(int value) { setInt(&quot;H1-PAGE&quot;, value); }</span>
+<span class="nc" id="L56">    public String getH1Title() { return getString(&quot;H1-TITLE&quot;); }</span>
+<span class="fc" id="L57">    public void setH1Title(String value) { setString(&quot;H1-TITLE&quot;, value); }</span>
+<span class="nc" id="L58">    public int getH2Date() { return getInt(&quot;H2-DATE&quot;); }</span>
+<span class="fc" id="L59">    public void setH2Date(int value) { setInt(&quot;H2-DATE&quot;, value); }</span>
+<span class="nc" id="L60">    public String getH2Info() { return getString(&quot;H2-INFO&quot;); }</span>
+<span class="fc" id="L61">    public void setH2Info(String value) { setString(&quot;H2-INFO&quot;, value); }</span>
+<span class="fc" id="L62">    public String getKaDetail() { return getString(&quot;KA-DETAIL&quot;); }</span>
+<span class="fc" id="L63">    public void setKaDetail(String value) { setString(&quot;KA-DETAIL&quot;, value); }</span>
+<span class="fc" id="L64">    public String getKaFile() { return getString(&quot;KA-FILE&quot;); }</span>
+<span class="fc" id="L65">    public void setKaFile(String value) { setString(&quot;KA-FILE&quot;, value); }</span>
+<span class="fc" id="L66">    public String getKaFsts() { return getString(&quot;KA-FSTS&quot;); }</span>
+<span class="fc" id="L67">    public void setKaFsts(String value) { setString(&quot;KA-FSTS&quot;, value); }</span>
+<span class="fc" id="L68">    public String getKaMsgcode() { return getString(&quot;KA-MSGCODE&quot;); }</span>
+<span class="fc" id="L69">    public void setKaMsgcode(String value) { setString(&quot;KA-MSGCODE&quot;, value); }</span>
+<span class="fc" id="L70">    public String getKaProgid() { return getString(&quot;KA-PROGID&quot;); }</span>
+<span class="fc" id="L71">    public void setKaProgid(String value) { setString(&quot;KA-PROGID&quot;, value); }</span>
+<span class="fc" id="L72">    public String getKabend() { return groupToString(&quot;KABEND&quot;); }</span>
+<span class="nc" id="L73">    public void setKabend(String value) { setGroup(&quot;KABEND&quot;, value); }</span>
+<span class="fc" id="L74">    public int getKdDate1() { return getInt(&quot;KD-DATE1&quot;); }</span>
+<span class="fc" id="L75">    public void setKdDate1(int value) { setInt(&quot;KD-DATE1&quot;, value); }</span>
+<span class="fc" id="L76">    public int getKdDate2() { return getInt(&quot;KD-DATE2&quot;); }</span>
+<span class="fc" id="L77">    public void setKdDate2(int value) { setInt(&quot;KD-DATE2&quot;, value); }</span>
+<span class="fc" id="L78">    public int getKdDays() { return getInt(&quot;KD-DAYS&quot;); }</span>
+<span class="fc" id="L79">    public void setKdDays(int value) { setInt(&quot;KD-DAYS&quot;, value); }</span>
+<span class="fc" id="L80">    public String getKdFunc() { return getString(&quot;KD-FUNC&quot;); }</span>
+<span class="fc" id="L81">    public void setKdFunc(String value) { setString(&quot;KD-FUNC&quot;, value); }</span>
+<span class="fc" id="L82">    public String getKdStatus() { return getString(&quot;KD-STATUS&quot;); }</span>
+<span class="fc" id="L83">    public void setKdStatus(String value) { setString(&quot;KD-STATUS&quot;, value); }</span>
+<span class="fc" id="L84">    public int getKdWeekday() { return getInt(&quot;KD-WEEKDAY&quot;); }</span>
+<span class="fc" id="L85">    public void setKdWeekday(int value) { setInt(&quot;KD-WEEKDAY&quot;, value); }</span>
+<span class="fc" id="L86">    public String getKdate() { return groupToString(&quot;KDATE&quot;); }</span>
+<span class="nc" id="L87">    public void setKdate(String value) { setGroup(&quot;KDATE&quot;, value); }</span>
+<span class="nc" id="L88">    public long getOdAmtE() { return getLong(&quot;OD-AMT-E&quot;); }</span>
+<span class="fc" id="L89">    public void setOdAmtE(long value) { setLong(&quot;OD-AMT-E&quot;, value); }</span>
+<span class="fc" id="L90">    public int getOdLine() { return getInt(&quot;OD-LINE&quot;); }</span>
+<span class="fc" id="L91">    public void setOdLine(int value) { setInt(&quot;OD-LINE&quot;, value); }</span>
+<span class="nc" id="L92">    public int getOdLineE() { return getInt(&quot;OD-LINE-E&quot;); }</span>
+<span class="fc" id="L93">    public void setOdLineE(int value) { setInt(&quot;OD-LINE-E&quot;, value); }</span>
+<span class="fc" id="L94">    public long getOdNo() { return getLong(&quot;OD-NO&quot;); }</span>
+<span class="fc" id="L95">    public void setOdNo(long value) { setLong(&quot;OD-NO&quot;, value); }</span>
+<span class="nc" id="L96">    public int getOdOrdE() { return getInt(&quot;OD-ORD-E&quot;); }</span>
+<span class="fc" id="L97">    public void setOdOrdE(int value) { setInt(&quot;OD-ORD-E&quot;, value); }</span>
+<span class="nc" id="L98">    public int getOdOutE() { return getInt(&quot;OD-OUT-E&quot;); }</span>
+<span class="fc" id="L99">    public void setOdOutE(int value) { setInt(&quot;OD-OUT-E&quot;, value); }</span>
+<span class="nc" id="L100">    public String getOdPname() { return getString(&quot;OD-PNAME&quot;); }</span>
+<span class="fc" id="L101">    public void setOdPname(String value) { setString(&quot;OD-PNAME&quot;, value); }</span>
+<span class="nc" id="L102">    public BigDecimal getOdPriceE() { return getDecimal(&quot;OD-PRICE-E&quot;); }</span>
+<span class="fc" id="L103">    public void setOdPriceE(BigDecimal value) { setDecimal(&quot;OD-PRICE-E&quot;, value); }</span>
+<span class="fc" id="L104">    public int getOdProd() { return getInt(&quot;OD-PROD&quot;); }</span>
+<span class="fc" id="L105">    public void setOdProd(int value) { setInt(&quot;OD-PROD&quot;, value); }</span>
+<span class="nc" id="L106">    public int getOdProdE() { return getInt(&quot;OD-PROD-E&quot;); }</span>
+<span class="fc" id="L107">    public void setOdProdE(int value) { setInt(&quot;OD-PROD-E&quot;, value); }</span>
+<span class="fc" id="L108">    public BigDecimal getOdQty() { return getDecimal(&quot;OD-QTY&quot;); }</span>
+<span class="fc" id="L109">    public void setOdQty(BigDecimal value) { setDecimal(&quot;OD-QTY&quot;, value); }</span>
+<span class="fc" id="L110">    public BigDecimal getOdShippedQty() { return getDecimal(&quot;OD-SHIPPED-QTY&quot;); }</span>
+<span class="fc" id="L111">    public void setOdShippedQty(BigDecimal value) { setDecimal(&quot;OD-SHIPPED-QTY&quot;, value); }</span>
+<span class="nc" id="L112">    public int getOdShpE() { return getInt(&quot;OD-SHP-E&quot;); }</span>
+<span class="fc" id="L113">    public void setOdShpE(int value) { setInt(&quot;OD-SHP-E&quot;, value); }</span>
+<span class="fc" id="L114">    public BigDecimal getOdUnitPrice() { return getDecimal(&quot;OD-UNIT-PRICE&quot;); }</span>
+<span class="fc" id="L115">    public void setOdUnitPrice(BigDecimal value) { setDecimal(&quot;OD-UNIT-PRICE&quot;, value); }</span>
+<span class="fc" id="L116">    public String getOhCname() { return getString(&quot;OH-CNAME&quot;); }</span>
+<span class="fc" id="L117">    public void setOhCname(String value) { setString(&quot;OH-CNAME&quot;, value); }</span>
+<span class="fc" id="L118">    public int getOhCust() { return getInt(&quot;OH-CUST&quot;); }</span>
+<span class="fc" id="L119">    public void setOhCust(int value) { setInt(&quot;OH-CUST&quot;, value); }</span>
+<span class="nc" id="L120">    public int getOhCustE() { return getInt(&quot;OH-CUST-E&quot;); }</span>
+<span class="fc" id="L121">    public void setOhCustE(int value) { setInt(&quot;OH-CUST-E&quot;, value); }</span>
+<span class="fc" id="L122">    public int getOhDate() { return getInt(&quot;OH-DATE&quot;); }</span>
+<span class="fc" id="L123">    public void setOhDate(int value) { setInt(&quot;OH-DATE&quot;, value); }</span>
+<span class="nc" id="L124">    public int getOhDateE() { return getInt(&quot;OH-DATE-E&quot;); }</span>
+<span class="fc" id="L125">    public void setOhDateE(int value) { setInt(&quot;OH-DATE-E&quot;, value); }</span>
+<span class="fc" id="L126">    public int getOhDelFlag() { return getInt(&quot;OH-DEL-FLAG&quot;); }</span>
+<span class="fc" id="L127">    public void setOhDelFlag(int value) { setInt(&quot;OH-DEL-FLAG&quot;, value); }</span>
+<span class="fc" id="L128">    public int getOhDueDate() { return getInt(&quot;OH-DUE-DATE&quot;); }</span>
+<span class="fc" id="L129">    public void setOhDueDate(int value) { setInt(&quot;OH-DUE-DATE&quot;, value); }</span>
+<span class="nc" id="L130">    public int getOhDueE() { return getInt(&quot;OH-DUE-E&quot;); }</span>
+<span class="fc" id="L131">    public void setOhDueE(int value) { setInt(&quot;OH-DUE-E&quot;, value); }</span>
+<span class="fc" id="L132">    public long getOhNo() { return getLong(&quot;OH-NO&quot;); }</span>
+<span class="fc" id="L133">    public void setOhNo(long value) { setLong(&quot;OH-NO&quot;, value); }</span>
+<span class="nc" id="L134">    public long getOhNoE() { return getLong(&quot;OH-NO-E&quot;); }</span>
+<span class="fc" id="L135">    public void setOhNoE(long value) { setLong(&quot;OH-NO-E&quot;, value); }</span>
+<span class="nc" id="L136">    public int getOhStE() { return getInt(&quot;OH-ST-E&quot;); }</span>
+<span class="fc" id="L137">    public void setOhStE(int value) { setInt(&quot;OH-ST-E&quot;, value); }</span>
+<span class="fc" id="L138">    public int getOhStatus() { return getInt(&quot;OH-STATUS&quot;); }</span>
+<span class="fc" id="L139">    public void setOhStatus(int value) { setInt(&quot;OH-STATUS&quot;, value); }</span>
+<span class="nc" id="L140">    public int getPrCode() { return getInt(&quot;PR-CODE&quot;); }</span>
+<span class="fc" id="L141">    public void setPrCode(int value) { setInt(&quot;PR-CODE&quot;, value); }</span>
+<span class="fc" id="L142">    public String getPrName() { return getString(&quot;PR-NAME&quot;); }</span>
+<span class="fc" id="L143">    public void setPrName(String value) { setString(&quot;PR-NAME&quot;, value); }</span>
+<span class="nc" id="L144">    public String getRdDhead() { return groupToString(&quot;RD-DHEAD&quot;); }</span>
+<span class="nc" id="L145">    public void setRdDhead(String value) { setGroup(&quot;RD-DHEAD&quot;, value); }</span>
+<span class="nc" id="L146">    public String getRdGrand() { return groupToString(&quot;RD-GRAND&quot;); }</span>
+<span class="nc" id="L147">    public void setRdGrand(String value) { setGroup(&quot;RD-GRAND&quot;, value); }</span>
+<span class="nc" id="L148">    public String getRdOrdd() { return groupToString(&quot;RD-ORDD&quot;); }</span>
+<span class="nc" id="L149">    public void setRdOrdd(String value) { setGroup(&quot;RD-ORDD&quot;, value); }</span>
+<span class="nc" id="L150">    public String getRdOrdh() { return groupToString(&quot;RD-ORDH&quot;); }</span>
+<span class="nc" id="L151">    public void setRdOrdh(String value) { setGroup(&quot;RD-ORDH&quot;, value); }</span>
+<span class="nc" id="L152">    public String getRdSub() { return groupToString(&quot;RD-SUB&quot;); }</span>
+<span class="nc" id="L153">    public void setRdSub(String value) { setGroup(&quot;RD-SUB&quot;, value); }</span>
+<span class="fc" id="L154">    public String getRepRec() { return getString(&quot;REP-REC&quot;); }</span>
+<span class="fc" id="L155">    public void setRepRec(String value) { setString(&quot;REP-REC&quot;, value); }</span>
+<span class="nc" id="L156">    public String getRptH1() { return groupToString(&quot;RPT-H1&quot;); }</span>
+<span class="nc" id="L157">    public void setRptH1(String value) { setGroup(&quot;RPT-H1&quot;, value); }</span>
+<span class="nc" id="L158">    public String getRptH2() { return groupToString(&quot;RPT-H2&quot;); }</span>
+<span class="nc" id="L159">    public void setRptH2(String value) { setGroup(&quot;RPT-H2&quot;, value); }</span>
+<span class="fc" id="L160">    public String getRptRule() { return getString(&quot;RPT-RULE&quot;); }</span>
+<span class="nc" id="L161">    public void setRptRule(String value) { setString(&quot;RPT-RULE&quot;, value); }</span>
+<span class="fc" id="L162">    public long getSubAmt() { return getLong(&quot;SUB-AMT&quot;); }</span>
+<span class="fc" id="L163">    public void setSubAmt(long value) { setLong(&quot;SUB-AMT&quot;, value); }</span>
+<span class="fc" id="L164">    public int getSubQty() { return getInt(&quot;SUB-QTY&quot;); }</span>
+<span class="fc" id="L165">    public void setSubQty(int value) { setInt(&quot;SUB-QTY&quot;, value); }</span>
+<span class="fc" id="L166">    public String getSyCompanyName() { return getString(&quot;SY-COMPANY-NAME&quot;); }</span>
+<span class="fc" id="L167">    public void setSyCompanyName(String value) { setString(&quot;SY-COMPANY-NAME&quot;, value); }</span>
+<span class="nc" id="L168">    public int getSyKey() { return getInt(&quot;SY-KEY&quot;); }</span>
+<span class="fc" id="L169">    public void setSyKey(int value) { setInt(&quot;SY-KEY&quot;, value); }</span>
+<span class="fc" id="L170">    public String getWkCompany() { return getString(&quot;WK-COMPANY&quot;); }</span>
+<span class="fc" id="L171">    public void setWkCompany(String value) { setString(&quot;WK-COMPANY&quot;, value); }</span>
+<span class="fc" id="L172">    public String getWkCustName() { return getString(&quot;WK-CUST-NAME&quot;); }</span>
+<span class="fc" id="L173">    public void setWkCustName(String value) { setString(&quot;WK-CUST-NAME&quot;, value); }</span>
+<span class="fc" id="L174">    public int getWkDtlEof() { return getInt(&quot;WK-DTL-EOF&quot;); }</span>
+<span class="fc" id="L175">    public void setWkDtlEof(int value) { setInt(&quot;WK-DTL-EOF&quot;, value); }</span>
+<span class="fc" id="L176">    public BigDecimal getWkGAmt() { return getDecimal(&quot;WK-G-AMT&quot;); }</span>
+<span class="fc" id="L177">    public void setWkGAmt(BigDecimal value) { setDecimal(&quot;WK-G-AMT&quot;, value); }</span>
+<span class="fc" id="L178">    public int getWkGLin() { return getInt(&quot;WK-G-LIN&quot;); }</span>
+<span class="fc" id="L179">    public void setWkGLin(int value) { setInt(&quot;WK-G-LIN&quot;, value); }</span>
+<span class="fc" id="L180">    public int getWkGOrd() { return getInt(&quot;WK-G-ORD&quot;); }</span>
+<span class="fc" id="L181">    public void setWkGOrd(int value) { setInt(&quot;WK-G-ORD&quot;, value); }</span>
+<span class="fc" id="L182">    public BigDecimal getWkGQty() { return getDecimal(&quot;WK-G-QTY&quot;); }</span>
+<span class="fc" id="L183">    public void setWkGQty(BigDecimal value) { setDecimal(&quot;WK-G-QTY&quot;, value); }</span>
+<span class="fc" id="L184">    public int getWkHdrPrinted() { return getInt(&quot;WK-HDR-PRINTED&quot;); }</span>
+<span class="fc" id="L185">    public void setWkHdrPrinted(int value) { setInt(&quot;WK-HDR-PRINTED&quot;, value); }</span>
+<span class="fc" id="L186">    public int getWkLine() { return getInt(&quot;WK-LINE&quot;); }</span>
+<span class="fc" id="L187">    public void setWkLine(int value) { setInt(&quot;WK-LINE&quot;, value); }</span>
+<span class="fc" id="L188">    public int getWkMainEof() { return getInt(&quot;WK-MAIN-EOF&quot;); }</span>
+<span class="fc" id="L189">    public void setWkMainEof(int value) { setInt(&quot;WK-MAIN-EOF&quot;, value); }</span>
+<span class="fc" id="L190">    public BigDecimal getWkOrdAmt() { return getDecimal(&quot;WK-ORD-AMT&quot;); }</span>
+<span class="fc" id="L191">    public void setWkOrdAmt(BigDecimal value) { setDecimal(&quot;WK-ORD-AMT&quot;, value); }</span>
+<span class="fc" id="L192">    public BigDecimal getWkOrdQty() { return getDecimal(&quot;WK-ORD-QTY&quot;); }</span>
+<span class="fc" id="L193">    public void setWkOrdQty(BigDecimal value) { setDecimal(&quot;WK-ORD-QTY&quot;, value); }</span>
+<span class="fc" id="L194">    public long getWkOut() { return getLong(&quot;WK-OUT&quot;); }</span>
+<span class="fc" id="L195">    public void setWkOut(long value) { setLong(&quot;WK-OUT&quot;, value); }</span>
+<span class="fc" id="L196">    public BigDecimal getWkOutAmt() { return getDecimal(&quot;WK-OUT-AMT&quot;); }</span>
+<span class="fc" id="L197">    public void setWkOutAmt(BigDecimal value) { setDecimal(&quot;WK-OUT-AMT&quot;, value); }</span>
+<span class="fc" id="L198">    public int getWkPage() { return getInt(&quot;WK-PAGE&quot;); }</span>
+<span class="fc" id="L199">    public void setWkPage(int value) { setInt(&quot;WK-PAGE&quot;, value); }</span>
+<span class="fc" id="L200">    public String getWkProdName() { return getString(&quot;WK-PROD-NAME&quot;); }</span>
+<span class="fc" id="L201">    public void setWkProdName(String value) { setString(&quot;WK-PROD-NAME&quot;, value); }</span>
+<span class="fc" id="L202">    public String getWkProgid() { return getString(&quot;WK-PROGID&quot;); }</span>
+<span class="fc" id="L203">    public void setWkProgid(String value) { setString(&quot;WK-PROGID&quot;, value); }</span>
+<span class="fc" id="L204">    public int getWkSysdate() { return getInt(&quot;WK-SYSDATE&quot;); }</span>
+<span class="fc" id="L205">    public void setWkSysdate(int value) { setInt(&quot;WK-SYSDATE&quot;, value); }</span>
+<span class="fc" id="L206">    public String getWkTitle() { return getString(&quot;WK-TITLE&quot;); }</span>
+<span class="fc" id="L207">    public void setWkTitle(String value) { setString(&quot;WK-TITLE&quot;, value); }</span>
+
+    /* ── Byte-level copy wrappers (preserves COMP-3/BINARY raw bytes) ── */
+<span class="fc" id="L210">    public void copyRepRecFromRdDhead() { copyBytes(&quot;REP-REC&quot;, &quot;RD-DHEAD&quot;); }</span>
+<span class="fc" id="L211">    public void copyRepRecFromRdGrand() { copyBytes(&quot;REP-REC&quot;, &quot;RD-GRAND&quot;); }</span>
+<span class="fc" id="L212">    public void copyRepRecFromRdOrdd() { copyBytes(&quot;REP-REC&quot;, &quot;RD-ORDD&quot;); }</span>
+<span class="fc" id="L213">    public void copyRepRecFromRdOrdh() { copyBytes(&quot;REP-REC&quot;, &quot;RD-ORDH&quot;); }</span>
+<span class="fc" id="L214">    public void copyRepRecFromRdSub() { copyBytes(&quot;REP-REC&quot;, &quot;RD-SUB&quot;); }</span>
+<span class="fc" id="L215">    public void copyRepRecFromRptH1() { copyBytes(&quot;REP-REC&quot;, &quot;RPT-H1&quot;); }</span>
+<span class="fc" id="L216">    public void copyRepRecFromRptH2() { copyBytes(&quot;REP-REC&quot;, &quot;RPT-H2&quot;); }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : STOKF
+  FD record name : SK-REC
+  Copybook src   : FSTOK
+-->
+<dataLayout name="STOKF" scope="file" charset="MS932" recordSize="80">
+  <group name="SK-REC" offset="0" size="80">
+    <group name="SK-REC" offset="0" size="80">
+      <field name="SK-PROD" offset="0" size="8" javaType="int"/>
+      <field name="SK-WHSE" offset="8" size="3" javaType="int"/>
+      <field name="SK-ONHAND" offset="11" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="SK-ALLOCATED" offset="16" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="SK-ON-ORDER" offset="21" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="SK-AVG-COST" offset="26" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      <field name="SK-LAST-IN-DATE" offset="32" size="8" javaType="int"/>
+      <field name="SK-LAST-OUT-DATE" offset="40" size="8" javaType="int"/>
+      <field name="SK-YTD-IN" offset="48" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="SK-YTD-OUT" offset="54" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="SK-LOCATION" offset="60" size="10" javaType="String"/>
+      <field name="FILLER-70" offset="70" size="10" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : WHSEF
+  FD record name : WH-REC
+  Copybook src   : FWHSE
+-->
+<dataLayout name="WHSEF" scope="file" charset="MS932" recordSize="122">
+  <group name="WH-REC" offset="0" size="122">
+    <group name="WH-REC" offset="0" size="122">
+      <field name="WH-CODE" offset="0" size="3" javaType="int"/>
+      <field name="WH-NAME" offset="3" size="30" javaType="String"/>
+      <field name="WH-ZIP" offset="33" size="8" javaType="String"/>
+      <field name="WH-ADDR" offset="41" size="40" javaType="String"/>
+      <field name="WH-TEL" offset="81" size="15" javaType="String"/>
+      <field name="WH-TYPE" offset="96" size="1" javaType="int"/>
+      <field name="WH-MANAGER" offset="97" size="4" javaType="int"/>
+      <field name="WH-DEL-FLAG" offset="101" size="1" javaType="int"/>
+      <field name="FILLER-102" offset="102" size="20" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

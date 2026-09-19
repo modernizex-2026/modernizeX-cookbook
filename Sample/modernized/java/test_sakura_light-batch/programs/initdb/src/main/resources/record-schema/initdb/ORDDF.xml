@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : ORDDF
+  FD record name : OD-REC
+  Copybook src   : FORDD
+-->
+<dataLayout name="ORDDF" scope="file" charset="MS932" recordSize="101">
+  <group name="OD-REC" offset="0" size="101">
+    <group name="OD-REC" offset="0" size="101">
+      <field name="OD-NO" offset="0" size="10" javaType="long"/>
+      <field name="OD-LINE" offset="10" size="3" javaType="int"/>
+      <field name="OD-PROD" offset="13" size="8" javaType="int"/>
+      <field name="OD-WHSE" offset="21" size="3" javaType="int"/>
+      <field name="OD-QTY" offset="24" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="OD-UNIT-PRICE" offset="29" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      <field name="OD-AMOUNT" offset="35" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="OD-TAX-CATEGORY" offset="41" size="1" javaType="int"/>
+      <field name="OD-SHIPPED-QTY" offset="42" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="OD-ALLOC-QTY" offset="47" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="OD-DUE-DATE" offset="52" size="8" javaType="int"/>
+      <field name="OD-STATUS" offset="60" size="1" javaType="int"/>
+      <field name="OD-REMARK" offset="61" size="30" javaType="String"/>
+      <field name="FILLER-91" offset="91" size="10" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

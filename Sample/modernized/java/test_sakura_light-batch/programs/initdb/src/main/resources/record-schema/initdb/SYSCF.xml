@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : SYSCF
+  FD record name : SY-REC
+  Copybook src   : FSYSC
+-->
+<dataLayout name="SYSCF" scope="file" charset="MS932" recordSize="160">
+  <group name="SY-REC" offset="0" size="160">
+    <group name="SY-REC" offset="0" size="160">
+      <field name="SY-KEY" offset="0" size="1" javaType="int"/>
+      <field name="SY-COMPANY-NAME" offset="1" size="40" javaType="String"/>
+      <field name="SY-COMPANY-ZIP" offset="41" size="8" javaType="String"/>
+      <field name="SY-COMPANY-ADDR" offset="49" size="40" javaType="String"/>
+      <field name="SY-COMPANY-TEL" offset="89" size="15" javaType="String"/>
+      <field name="SY-FISCAL-START" offset="104" size="2" javaType="int"/>
+      <field name="SY-CURR-YM" offset="106" size="6" javaType="int"/>
+      <field name="SY-LAST-DAY-CLOSE" offset="112" size="8" javaType="int"/>
+      <field name="SY-LAST-MON-CLOSE" offset="120" size="6" javaType="int"/>
+      <field name="SY-TAX-DFLT-RATE" offset="126" size="3" javaType="BigDecimal" signed="true" scale="3" usage="COMP-3"/>
+      <field name="SY-DEC-ROUND" offset="129" size="1" javaType="int"/>
+      <field name="FILLER-130" offset="130" size="30" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

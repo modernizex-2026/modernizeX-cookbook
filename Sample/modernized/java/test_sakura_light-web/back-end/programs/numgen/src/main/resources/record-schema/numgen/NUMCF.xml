@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : NUMCF
+  FD record name : NM-REC
+  Copybook src   : FNUMC
+-->
+<dataLayout name="NUMCF" scope="file" charset="MS932" recordSize="32">
+  <group name="NM-REC" offset="0" size="32">
+    <group name="NM-REC" offset="0" size="32">
+      <field name="NM-KEY" offset="0" size="8" javaType="String"/>
+      <field name="NM-PREFIX" offset="8" size="2" javaType="String"/>
+      <field name="NM-CURRENT" offset="10" size="10" javaType="long"/>
+      <field name="NM-WIDTH" offset="20" size="2" javaType="int"/>
+      <field name="FILLER-22" offset="22" size="10" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

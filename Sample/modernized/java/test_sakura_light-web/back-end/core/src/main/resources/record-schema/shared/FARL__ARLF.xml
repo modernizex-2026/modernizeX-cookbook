@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : ARLF
+  FD record name : AL-REC
+  Copybook src   : FARL
+-->
+<dataLayout name="ARLF" scope="file" charset="MS932" recordSize="107">
+  <group name="AL-REC" offset="0" size="107">
+    <group name="AL-REC" offset="0" size="107">
+      <field name="AL-SEQ" offset="0" size="10" javaType="long"/>
+      <field name="AL-CUST" offset="10" size="6" javaType="int"/>
+      <field name="AL-DATE" offset="16" size="8" javaType="int"/>
+      <field name="AL-CLOSE-YM" offset="24" size="6" javaType="int"/>
+      <field name="AL-KIND" offset="30" size="1" javaType="int"/>
+      <field name="AL-REF-TYPE" offset="31" size="2" javaType="int"/>
+      <field name="AL-REF-NO" offset="33" size="10" javaType="long"/>
+      <field name="AL-DEBIT" offset="43" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="AL-CREDIT" offset="49" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="AL-BALANCE" offset="55" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="AL-REMARK" offset="61" size="30" javaType="String"/>
+      <field name="AL-USER" offset="91" size="6" javaType="int"/>
+      <field name="FILLER-97" offset="97" size="10" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

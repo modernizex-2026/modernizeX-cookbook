@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DateutFieldAccess.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">dateut</a> &gt; <a href="index.source.html" class="el_package">com.sakura.dateut.domain</a> &gt; <span class="el_source">DateutFieldAccess.java</span></div><h1>DateutFieldAccess.java</h1><pre class="source lang-java linenums">package com.sakura.dateut.domain;
+
+import com.sakura.runtime.record.RuntimeFieldAccess;
+import com.sakura.dateut.domain.WorkingStorage;
+
+/**
+ * Field accessor for DATEUT.
+ * Backend: RuntimeFieldAccess (raw RecordImage byte[]).
+ * Typed methods auto-generated from referenced fields — bodies delegate to the string-key API.
+ */
+public class DateutFieldAccess extends RuntimeFieldAccess {
+
+<span class="fc" id="L13">    public DateutFieldAccess(WorkingStorage ws) {</span>
+<span class="pc bpc" id="L14" title="1 of 2 branches missed.">        if (ws != null) {</span>
+<span class="fc" id="L15">            register(ws.buffer());</span>
+        }
+<span class="fc" id="L17">    }</span>
+
+    /* ── Typed wrappers (delegate → string-key) ─────────────── */
+<span class="fc" id="L20">    public int getCompletionCode() { return getInt(&quot;COMPLETION-CODE&quot;); }</span>
+<span class="fc" id="L21">    public void setCompletionCode(int value) { setInt(&quot;COMPLETION-CODE&quot;, value); }</span>
+<span class="fc" id="L22">    public int getWk6() { return getInt(&quot;WK-6&quot;); }</span>
+<span class="fc" id="L23">    public void setWk6(int value) { setInt(&quot;WK-6&quot;, value); }</span>
+<span class="fc" id="L24">    public int getWkD() { return getInt(&quot;WK-D&quot;); }</span>
+<span class="fc" id="L25">    public void setWkD(int value) { setInt(&quot;WK-D&quot;, value); }</span>
+<span class="fc" id="L26">    public int getWkDim() { return getInt(&quot;WK-DIM&quot;); }</span>
+<span class="fc" id="L27">    public void setWkDim(int value) { setInt(&quot;WK-DIM&quot;, value); }</span>
+<span class="fc" id="L28">    public int getWkDoe() { return getInt(&quot;WK-DOE&quot;); }</span>
+<span class="fc" id="L29">    public void setWkDoe(int value) { setInt(&quot;WK-DOE&quot;, value); }</span>
+<span class="fc" id="L30">    public int getWkDoy() { return getInt(&quot;WK-DOY&quot;); }</span>
+<span class="fc" id="L31">    public void setWkDoy(int value) { setInt(&quot;WK-DOY&quot;, value); }</span>
+<span class="fc" id="L32">    public int getWkEra() { return getInt(&quot;WK-ERA&quot;); }</span>
+<span class="fc" id="L33">    public void setWkEra(int value) { setInt(&quot;WK-ERA&quot;, value); }</span>
+<span class="fc" id="L34">    public int getWkLeap() { return getInt(&quot;WK-LEAP&quot;); }</span>
+<span class="fc" id="L35">    public void setWkLeap(int value) { setInt(&quot;WK-LEAP&quot;, value); }</span>
+<span class="fc" id="L36">    public int getWkM() { return getInt(&quot;WK-M&quot;); }</span>
+<span class="fc" id="L37">    public void setWkM(int value) { setInt(&quot;WK-M&quot;, value); }</span>
+<span class="fc" id="L38">    public int getWkMp() { return getInt(&quot;WK-MP&quot;); }</span>
+<span class="fc" id="L39">    public void setWkMp(int value) { setInt(&quot;WK-MP&quot;, value); }</span>
+<span class="fc" id="L40">    public int getWkSer() { return getInt(&quot;WK-SER&quot;); }</span>
+<span class="fc" id="L41">    public void setWkSer(int value) { setInt(&quot;WK-SER&quot;, value); }</span>
+<span class="fc" id="L42">    public int getWkSer2() { return getInt(&quot;WK-SER2&quot;); }</span>
+<span class="fc" id="L43">    public void setWkSer2(int value) { setInt(&quot;WK-SER2&quot;, value); }</span>
+<span class="fc" id="L44">    public int getWkTmp() { return getInt(&quot;WK-TMP&quot;); }</span>
+<span class="fc" id="L45">    public void setWkTmp(int value) { setInt(&quot;WK-TMP&quot;, value); }</span>
+<span class="fc" id="L46">    public int getWkY() { return getInt(&quot;WK-Y&quot;); }</span>
+<span class="fc" id="L47">    public void setWkY(int value) { setInt(&quot;WK-Y&quot;, value); }</span>
+<span class="fc" id="L48">    public int getWkY2() { return getInt(&quot;WK-Y2&quot;); }</span>
+<span class="fc" id="L49">    public void setWkY2(int value) { setInt(&quot;WK-Y2&quot;, value); }</span>
+<span class="fc" id="L50">    public int getWkYoe() { return getInt(&quot;WK-YOE&quot;); }</span>
+<span class="fc" id="L51">    public void setWkYoe(int value) { setInt(&quot;WK-YOE&quot;, value); }</span>
+<span class="fc" id="L52">    public int getWkYy() { return getInt(&quot;WK-YY&quot;); }</span>
+<span class="fc" id="L53">    public void setWkYy(int value) { setInt(&quot;WK-YY&quot;, value); }</span>
+<span class="fc" id="L54">    public int getWkZ() { return getInt(&quot;WK-Z&quot;); }</span>
+<span class="fc" id="L55">    public void setWkZ(int value) { setInt(&quot;WK-Z&quot;, value); }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

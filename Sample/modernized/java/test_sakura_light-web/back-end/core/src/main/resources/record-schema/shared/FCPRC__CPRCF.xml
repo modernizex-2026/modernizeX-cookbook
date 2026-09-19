@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : CPRCF
+  FD record name : CP-REC
+  Copybook src   : FCPRC
+-->
+<dataLayout name="CPRCF" scope="file" charset="MS932" recordSize="47">
+  <group name="CP-REC" offset="0" size="47">
+    <group name="CP-REC" offset="0" size="47">
+      <field name="CP-CUST" offset="0" size="6" javaType="int"/>
+      <field name="CP-PROD" offset="6" size="8" javaType="int"/>
+      <field name="CP-PRICE" offset="14" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      <field name="CP-START-DATE" offset="20" size="8" javaType="int"/>
+      <field name="CP-END-DATE" offset="28" size="8" javaType="int"/>
+      <field name="CP-DEL-FLAG" offset="36" size="1" javaType="int"/>
+      <field name="FILLER-37" offset="37" size="10" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

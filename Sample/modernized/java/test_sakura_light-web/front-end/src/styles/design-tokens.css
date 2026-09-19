@@ -1,0 +1,977 @@
+﻿/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   Design system â€” Modern UI tokens
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+   Used by AI-generated screen components to enforce a consistent look across
+   all modernized COBOL programs. Raw terminal styles live in
+   terminal-screen.css and are NOT affected by this file.
+
+   Design-token layer for the generated single-page app.
+   Token naming: --scr-{category}-{variant}
+   Class naming: .scr-* (modern classes) or .btn/.dialog/... (generic reusable)
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
+@import './data-table.css';
+
+/* Legacy terminal styling is suppressed when a modern override is active â€”
+   otherwise the black 780px terminal container leaks behind the fullscreen
+   app-shell component (causing the visible darker rectangle in screen transitions). */
+.terminal-shell.override-active {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+
+/* Terminal blanket: full-viewport cover that hides the legacy .terminal-shell
+   raw-character grid behind a fullscreen override. Without this, transient
+   screen transitions (override unmount â†’ next override mount) flash the old
+   green-on-black terminal in the background. The blanket sits between the
+   .terminal-shell grid and the override component, so the override's own
+   background paints on top while the legacy terminal stays hidden. */
+.terminal-blanket {
+  position: fixed;
+  inset: 0;
+  background: var(--scr-bg-page, #f5f7fb);
+  z-index: 50;
+  pointer-events: none;
+}
+
+:root {
+  /* â”€â”€ Base typography â”€â”€
+     Browser default root = 16px which leaks into elements OUTSIDE .scr-page
+     (dialog/toast portals, page-shell text) and makes them feel 14% larger
+     than the Vercel reference. Reference forces 14px globally via `:root`.
+     We do the same so the entire app surface inherits a consistent
+     14px base â€” .scr-page already sets 14px explicitly, but this also covers the
+     out-of-page leak (login modal, terminal-blanket headings, etc.). */
+  font-size: 14px;
+  /* font-family thật: cũng là khai báo CSS, KHÔNG được nằm ở lớp token dùng chung. */
+  font-family: var(--scr-font-ui);
+}
+
+/* LỚP TOKEN đã chuyển sang nguồn dùng chung: core/src/styles/tokens/base.css (R9.5).
+ * Nạp ở main.ts TRƯỚC file này. Ở đây chỉ còn lớp class trình bày của riêng nhánh web. */
+
+html,
+body,
+#root {
+  font-family: var(--scr-font-ui);
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   Modern page shell â€” used as top-level container for modern components
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+.scr-page {
+  /* position:fixed escapes the .terminal-shell fixed-width container so
+     modern UIs can take the full viewport like a normal web app. */
+  position: fixed;
+  inset: 0;
+  background: var(--scr-bg-page);
+  font-family: var(--scr-font-ui);
+  color: var(--scr-text);
+  z-index: 30;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.scr-page-sticky-top {
+  flex: 0 0 auto;
+  background: var(--scr-bg-card);
+  border-bottom: 1px solid var(--scr-border);
+}
+
+.scr-page-body {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: auto;
+  padding: 12px 16px;
+  background: var(--scr-bg-page);
+}
+/* Centered content column: keep the modernized
+   body content in a max-width column centered horizontally, instead of stretching
+   edge-to-edge on a wide viewport where a sparse form reads as lost in a full-width
+   void. The reference design is top-aligned + centered (NOT a terminal-style 24-line
+   spread), so the remaining bottom whitespace is intentional web-form behaviour. */
+.scr-page-body > * {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.scr-page-body-container {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: auto;
+  position: relative;
+}
+
+.scr-page-footer {
+  flex: 0 0 auto;
+  background: var(--scr-bg-card);
+  border-top: 1px solid var(--scr-border);
+  padding: 8px 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+
+/* Hint text in footer â€” must never wrap mid-string. .scr-subtitle defaults
+   to white-space:normal which collapses to ~24px wide in a tight flex row,
+   stacking each kanji vertically. */
+.scr-page-footer .scr-subtitle {
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+/* PF buttons and the picker input must also not collapse below their natural
+   width when the footer wraps. */
+.scr-page-footer .btn,
+.scr-page-footer .ui-button,
+.scr-page-footer .scr-input,
+.scr-page-footer .scr-label {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   Page header â€” COBOL program tag + title + status
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+.scr-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.scr-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.scr-program-tag {
+  display: inline-block;
+  background: var(--scr-primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--scr-font-ui);
+  padding: 3px 10px;
+  letter-spacing: 0.05em;
+}
+
+.scr-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--scr-primary);
+  margin: 0;
+}
+
+.scr-subtitle {
+  font-size: 12px;
+  color: var(--scr-text-muted);
+  margin-left: 6px;
+}
+
+.scr-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   Toolbar â€” primary actions left, filters/toggles right (Vercel POC pattern)
+   Used by form/list archetypes to surface page-level controls (æ–°è¦/å‚ç…§/å°åˆ·)
+   plus filter checkboxes/dropdowns without consuming form body space.
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+.scr-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 16px 8px;
+  border-top: 1px solid var(--scr-border);
+  background: var(--scr-bg-card);
+  flex-wrap: wrap;
+}
+.scr-toolbar-left,
+.scr-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.scr-filter-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--scr-text-muted);
+  user-select: none;
+  cursor: pointer;
+}
+.scr-filter-label:hover {
+  color: var(--scr-text);
+}
+.scr-filter-check {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--scr-primary);
+  cursor: pointer;
+}
+.scr-filter-select {
+  height: 26px;
+  font-size: 12px;
+  padding: 0 8px;
+  border: 1px solid var(--scr-border);
+  border-radius: var(--scr-radius);
+  background: var(--scr-bg-card);
+  color: var(--scr-text);
+}
+
+/* Empty-state row for OCCURS tables when no data â€” replaces the visual
+   "10 blank <tr>s" with a single explicit message (Vercel pattern). */
+.scr-empty-state {
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--scr-text-muted);
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* Mode-select indicator â€” fixed-position chip in upper-right after a
+   ModeSelectModal closes. Shows the selected mode + a "switch mode" button.
+   Used by mode-select archetype components. */
+.scr-mode-indicator {
+  position: fixed;
+  top: 14px;
+  right: 18px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  background: var(--scr-bg-card);
+  border: 1px solid var(--scr-border);
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+.scr-mode-switch-btn {
+  border: 0;
+  background: transparent;
+  font-size: 11px;
+  color: var(--scr-text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.scr-mode-switch-btn:hover {
+  color: var(--scr-text);
+}
+.scr-mode-switch-btn kbd {
+  font-size: 10px;
+  padding: 1px 5px;
+  background: var(--scr-bg-muted);
+  border: 1px solid var(--scr-border);
+  border-radius: 3px;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   Buttons â€” .btn base + color variants + size modifiers
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 32px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--scr-radius);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--scr-font-ui);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-sm {
+  height: 28px;
+  padding: 0 12px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+.btn-lg {
+  height: 36px;
+  padding: 0 20px;
+  font-size: 14px;
+  border-radius: 7px;
+}
+
+.btn-primary {
+  background: var(--scr-primary);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--scr-primary-hover);
+}
+.btn-primary:active {
+  background: var(--scr-primary-active);
+}
+
+.btn-success {
+  background: var(--scr-success);
+  color: #fff;
+}
+.btn-success:hover {
+  background: var(--scr-success-hover);
+}
+
+.btn-danger {
+  background: var(--scr-danger);
+  color: #fff;
+}
+.btn-danger:hover {
+  background: var(--scr-danger-hover);
+  color: #fff;
+}
+
+.btn-warning {
+  background: var(--scr-warning);
+  color: #fff;
+}
+.btn-warning:hover {
+  background: var(--scr-warning-hover);
+}
+
+.btn-outline {
+  background: var(--color-outline-bg, #fff);
+  color: var(--scr-text-label);
+  border: 1px solid var(--color-border-gray);
+}
+.btn-outline:hover {
+  background: var(--scr-bg-muted);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--scr-text-label);
+}
+.btn-ghost:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Keyboard hint badge on buttons */
+.hotkey-hint,
+.btn kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  font-family: var(--scr-font-ui);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: inherit;
+}
+.btn-outline kbd,
+.btn-ghost kbd {
+  background: var(--scr-bg-muted);
+  border-color: var(--scr-border);
+  color: var(--scr-text-muted);
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   Form inputs â€” labeled input groups
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+.scr-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.scr-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--scr-text-label);
+}
+
+.scr-input {
+  padding: 8px 12px;
+  border: 2px solid var(--scr-border);
+  border-radius: var(--scr-radius);
+  font-size: 14px;
+  font-family: var(--scr-font-ui);
+  background: #fff;
+  color: var(--scr-text);
+  box-sizing: border-box;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+  outline: none;
+}
+
+/* confirm-anchor row (focus-target + hint pointing to footer).
+ * Replaces the meaningless 1-char SC-OK textbox. Footer already has ç™»éŒ² F4 +
+ * ç¢ºå®š Enter buttons (the actual action affordances), so this row shows only
+ * a discrete focus-target so F4 keystroke still works via the @keydown handler. */
+.scr-confirm-anchor {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: var(--scr-radius);
+  outline: none;
+  background: rgba(30, 58, 138, 0.06);
+  border-left: 3px solid var(--scr-primary);
+}
+.scr-confirm-anchor[data-active='true'] {
+  box-shadow: 0 0 0 2px rgba(30, 58, 138, 0.3);
+}
+.scr-confirm-hint {
+  font-size: 13px;
+  color: var(--scr-text);
+  white-space: nowrap;
+}
+.scr-confirm-hint kbd {
+  font-family: var(--scr-font-ui);
+  font-size: 11px;
+  background: var(--scr-primary);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin: 0 2px;
+}
+.scr-input:focus {
+  border-color: var(--scr-primary);
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
+}
+.scr-input[data-active='true'] {
+  border-color: var(--scr-primary);
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
+}
+.scr-input[readonly] {
+  background: var(--scr-bg-muted);
+  color: var(--scr-text-muted);
+  border-color: var(--scr-border);
+  cursor: default;
+}
+.scr-input.scr-numeric {
+  /* dropped mono font (Consolas) â€” matched table-cell + form-value
+     fix so all numeric surfaces render in the same UI font as text. Right-align
+     + tabular-nums preserved so digits still stack column-aligned. */
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.scr-input.is-error {
+  border-color: var(--scr-danger);
+}
+.scr-input-with-desc {
+  display: flex;
+  gap: 10px;
+}
+.scr-input-with-desc input {
+  border: 1px solid var(--scr-border);
+  height: 32px;
+  width: 100%;
+  padding: 0 10px;
+  border-radius: var(--scr-radius-lg);
+}
+.scr-input-with-desc input:disabled {
+  background: var(--scr-bg-muted);
+  color: var(--scr-text-muted);
+  border-color: var(--scr-border);
+  cursor: default;
+}
+.scr-input-with-desc input:first-child {
+  width: 100px;
+}
+.scr-input-with-desc input.scr-numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Resolved code->name value rendered as a read-only gray box, matching the
+   login archetype's disabled desc input. Used by the
+   dialog + form archetypes for the name shown beside a code input, so the
+   code+name pair looks consistent across archetypes. */
+.scr-desc-box {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 10px;
+  background: var(--scr-bg-muted);
+  color: var(--scr-text-muted);
+  border: 1px solid var(--scr-border);
+  border-radius: var(--scr-radius-lg);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  box-sizing: border-box;
+}
+
+.scr-error-message {
+  background: var(--scr-status-danger-bg);
+  color: var(--scr-status-danger-fg);
+  padding: 8px 12px;
+  border-radius: var(--scr-radius);
+  font-size: 12px;
+  border: 1px solid #fecaca;
+  margin-bottom: 10px;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   Card / dialog / modal
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+.scr-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 28, 44, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.scr-dialog {
+  background: var(--scr-bg-card);
+  border-radius: var(--scr-radius-xl);
+  /* padding: 24px; */
+  min-width: 360px;
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: var(--scr-shadow-lg);
+  font-family: var(--scr-font-ui);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.scr-dialog-header {
+  padding: 16px;
+  background: #F3F4F6;
+  font-size: 14px;
+  color:#272C36;
+}
+.scr-dialog-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--scr-primary);
+  margin-bottom: 12px;
+  flex: 0 0 auto;
+}
+.scr-dialog-body {
+  font-size: 13px;
+  color: var(--scr-text);
+  line-height: 1.6;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 18px;
+}
+.scr-dialog-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+/* Login card (centered, gradient header) */
+.scr-login-page {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 40;
+}
+.scr-login-intro {
+  text-align: center;
+}
+.scr-login-intro h2 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  color: var(--scr-primary);
+  margin: 0;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.scr-login-intro p {
+  font-size: 16px;
+  color: var(--color-outline-text);
+  line-height: 24px;
+  margin: 0;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.scr-login-programs {
+  display: flex;
+  gap: 20px;
+  margin: 30px 0 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+@media (max-width: 549px) {
+  .scr-login-programs {
+    flex-direction: column;
+    align-items: center;
+  }
+  .scr-login-programs .scr-program-item {
+    width: 80vw;
+    max-width: 320px;
+  }
+}
+.scr-login-programs .scr-program-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-weight: 700;
+  padding: 32px 34px;
+  background: var(--scr-bg-muted);
+  color: var(--scr-primary);
+  border: 1px solid var(--scr-border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  border-radius: var(--scr-radius-sm);
+}
+.scr-login-programs .scr-program-item:hover {
+  background: var(--scr-bg-card);
+  /* border: 2px solid var(--scr-primary); */
+  box-shadow: 0 2px 4px rgba(0, 32, 79, 0.5);
+  cursor: pointer;
+}
+.scr-login-programs .scr-program-item:focus-visible,
+.scr-login-programs .scr-program-item.is-active {
+  background: var(--scr-bg-card);
+  border-color: var(--scr-primary);
+  box-shadow: 0 2px 4px rgba(0, 32, 79, 0.5);
+  outline: none;
+}
+.scr-login-programs .scr-program-item .scr-program-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.scr-login-programs .scr-program-item .scr-program-icon[data-direction='inbound'] {
+  background: var(--scr-inbound);
+}
+.scr-login-programs .scr-program-item .scr-program-icon[data-direction='outbound'] {
+  background: var(--scr-outbound);
+}
+.scr-login-programs .scr-program-item .scr-program-label {
+  font-size: 18px;
+}
+.scr-login-programs .scr-program-item.is-loading {
+  opacity: 0.6;
+  cursor: wait;
+  pointer-events: none;
+}
+
+/* Simulation login form (above program cards) */
+.scr-sim-form {
+  width: 100%;
+  max-width: 480px;
+  padding: 16px 20px;
+  background: var(--scr-bg-card);
+  border: 1px solid var(--scr-border);
+  border-radius: var(--scr-radius-sm);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.scr-sim-form-row {
+  display: flex;
+  gap: 16px;
+}
+.scr-sim-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.scr-sim-field label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--scr-text-muted);
+}
+.scr-sim-field input {
+  padding: 7px 10px;
+  border: 1px solid var(--scr-border);
+  border-radius: var(--scr-radius-sm);
+  font-size: 13px;
+  color: var(--scr-text);
+  background: var(--scr-bg-muted);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.scr-sim-field input:focus {
+  border-color: var(--scr-primary);
+  background: var(--scr-bg-card);
+}
+.scr-sim-error {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--scr-danger);
+}
+.scr-login-card {
+  background: var(--scr-bg-card);
+  border-radius: var(--scr-radius-xl);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 420px;
+  max-width: 90vw;
+  overflow: hidden;
+}
+.scr-login-header {
+  background: var(--scr-primary);
+  color: #fff;
+  padding: 32px 32px 24px;
+  text-align: center;
+}
+.scr-login-header h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.scr-login-header p {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.85;
+  color: var(--scr-text-link);
+}
+.scr-login-body {
+  padding: 32px;
+}
+.scr-login-footer {
+  padding: 12px 32px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--scr-text-muted);
+  border-top: 1px solid var(--scr-bg-muted);
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   Form grid â€” label + input pairs for product-form style screens
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+.scr-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.scr-form-section {
+  background: var(--scr-bg-card);
+  border: 1px solid var(--scr-border);
+  border-radius: var(--scr-radius-lg);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.scr-form-section-title {
+  font-size: 16px;
+  font-weight: 400;
+  color: #272C36;
+  margin: 0;
+  padding: 8px 16px;
+  background-color: var(--scr-bg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+/* S1: inner padding for the rows inside a section card (the card itself is
+   overflow:hidden with no padding, and the title bar has its own). */
+.scr-form-section-body {
+  padding: 14px 16px;
+}
+/* Rows placed DIRECTLY in a section card — the #1B
+   scalar/overlay strips that don't wrap their rows in .scr-form-section-body —
+   still need the card's inner gutter so fields don't sit flush against the border. */
+.scr-form-section > .scr-input-group {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.scr-form-section > .scr-input-group:first-child { padding-top: 14px; }
+.scr-form-section > .scr-input-group:last-child { padding-bottom: 14px; }
+/* S4: styled notice box for a static instructional message literal (用紙は
+   「Ａ４・横」…をセットして下さい). Amber callout + warning icon — mirror gold szp020. */
+.scr-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #fff8e6;
+  border: 1px solid #f0d488;
+  border-radius: var(--scr-radius);
+  color: #7a5b00;
+  font-size: 14px;
+}
+.scr-notice svg { flex: 0 0 auto; }
+.scr-form-grid {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 6px 12px;
+  align-items: center;
+}
+.scr-form-grid .scr-label {
+  text-align: right;
+  padding: 4px 0;
+  font-size: 12px;
+}
+.scr-form-grid .scr-value {
+  font-size: 13px;
+  color: var(--scr-text);
+  /* dropped mono font for visual consistency with text values
+     and the table-cell numeric fix above. tabular-nums keeps proportional
+     Meiryo UI digits column-aligned when stacked vertically in the form. */
+  font-variant-numeric: tabular-nums;
+  padding: 4px 0;
+}
+
+/* Multi-item row on same visual line — used by labels context section for
+   COBOL screens where multiple label/value pairs share one manifest line
+   Unlike scr-form-grid's 2-column grid,
+   this flex-wrap layout preserves the COBOL visual pattern of N labels/values
+   flowing horizontally with gap-based separation. */
+.scr-form-row-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  align-items: center;
+  padding: 4px 0;
+}
+.scr-form-row-line .scr-label {
+  text-align: left;
+  padding: 0;
+  font-size: 12px;
+  min-width: auto;
+}
+.scr-form-row-line .scr-value {
+  font-size: 13px;
+  color: var(--scr-text);
+  font-variant-numeric: tabular-nums;
+  padding: 0;
+  min-width: 60px;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   Status + misc
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+.scr-status-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.scr-status-success {
+  background: var(--scr-status-success-bg);
+  color: var(--scr-status-success-fg);
+}
+.scr-status-warning {
+  background: var(--scr-status-warning-bg);
+  color: var(--scr-status-warning-fg);
+}
+.scr-status-danger {
+  background: var(--scr-status-danger-bg);
+  color: var(--scr-status-danger-fg);
+}
+.scr-status-info {
+  background: var(--scr-status-info-bg);
+  color: var(--scr-status-info-fg);
+}
+
+.scr-status-line {
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: var(--scr-radius-sm);
+}
+.scr-status-line.is-error {
+  background: var(--scr-status-danger-bg);
+  color: var(--scr-status-danger-fg);
+}
+.scr-status-line.is-warning {
+  background: var(--scr-status-warning-bg);
+  color: var(--scr-status-warning-fg);
+}
+.scr-status-line.is-info {
+  background: var(--scr-status-info-bg);
+  color: var(--scr-status-info-fg);
+}
+
+/* Inline hint text â€” shown below an input (e.g. "1.æ–°è¦ 2.å¤‰æ›´ 3.å‰Šé™¤"
+   options hint from the manifest literal text). Keep small and muted so
+   it doesn't compete with the input visually. */
+.scr-hint {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--scr-text-muted);
+  letter-spacing: 0.05em;
+  width: 100%;
+}
+
+/* Mini info bar â€” used by mini-info archetype (transient validation popups).
+   pointer-events: none on the bar prevents the absolute-positioned strip from
+   intercepting clicks on buttons/inputs underneath it when an AI-generated SFC
+   accidentally uses this class for an inline hint. Children that need clicks
+   (inputs, buttons) re-enable via `pointer-events: auto`. */
+.scr-mini-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--scr-bg-card);
+  border-top: 2px solid var(--scr-primary);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 50;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+.scr-mini-info > * {
+  pointer-events: auto;
+}
+.scr-mini-info .scr-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--scr-primary);
+  min-width: 140px;
+}
+.scr-mini-info .scr-input {
+  flex: 1;
+  max-width: 320px;
+}
+.scr-mini-info .scr-hint {
+  font-size: 11px;
+  color: var(--scr-text-muted);
+  margin-left: auto;
+}

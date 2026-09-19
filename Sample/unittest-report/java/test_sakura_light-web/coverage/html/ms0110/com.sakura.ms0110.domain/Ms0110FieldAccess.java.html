@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Ms0110FieldAccess.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms0110</a> &gt; <a href="index.source.html" class="el_package">com.sakura.ms0110.domain</a> &gt; <span class="el_source">Ms0110FieldAccess.java</span></div><h1>Ms0110FieldAccess.java</h1><pre class="source lang-java linenums">package com.sakura.ms0110.domain;
+
+import com.sakura.runtime.record.RuntimeFieldAccess;
+import com.sakura.ms0110.domain.WorkingStorage;
+import com.sakura.ms0110.runtime.Ms0110Datasets;
+
+/**
+ * Field accessor for MS0110.
+ * Backend: RuntimeFieldAccess (raw RecordImage byte[]).
+ * Typed methods auto-generated from referenced fields — bodies delegate to the string-key API.
+ */
+public class Ms0110FieldAccess extends RuntimeFieldAccess {
+
+<span class="fc" id="L14">    public Ms0110FieldAccess(WorkingStorage ws, Ms0110Datasets fileSet) {</span>
+<span class="fc bfc" id="L15" title="All 2 branches covered.">        if (ws != null) {</span>
+<span class="fc" id="L16">            register(ws.buffer());</span>
+        }
+<span class="pc bpc" id="L18" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getRegnf() != null) {</span>
+<span class="fc" id="L19">            register(fileSet.getRegnf().buffer());</span>
+        }
+<span class="fc" id="L21">    }</span>
+
+    /* ── Typed wrappers (delegate → string-key) ─────────────── */
+<span class="fc" id="L24">    public int getCompletionCode() { return getInt(&quot;COMPLETION-CODE&quot;); }</span>
+<span class="fc" id="L25">    public void setCompletionCode(int value) { setInt(&quot;COMPLETION-CODE&quot;, value); }</span>
+<span class="fc" id="L26">    public int getEndFlg() { return getInt(&quot;END-FLG&quot;); }</span>
+<span class="fc" id="L27">    public void setEndFlg(int value) { setInt(&quot;END-FLG&quot;, value); }</span>
+<span class="fc" id="L28">    public int getErrFlg() { return getInt(&quot;ERR-FLG&quot;); }</span>
+<span class="fc" id="L29">    public void setErrFlg(int value) { setInt(&quot;ERR-FLG&quot;, value); }</span>
+<span class="fc" id="L30">    public String getEsts() { return getString(&quot;ESTS&quot;); }</span>
+<span class="fc" id="L31">    public void setEsts(String value) { setString(&quot;ESTS&quot;, value); }</span>
+<span class="fc" id="L32">    public String getFsts() { return getString(&quot;FSTS&quot;); }</span>
+<span class="fc" id="L33">    public void setFsts(String value) { setString(&quot;FSTS&quot;, value); }</span>
+<span class="fc" id="L34">    public String getKaDetail() { return getString(&quot;KA-DETAIL&quot;); }</span>
+<span class="fc" id="L35">    public void setKaDetail(String value) { setString(&quot;KA-DETAIL&quot;, value); }</span>
+<span class="fc" id="L36">    public String getKaFile() { return getString(&quot;KA-FILE&quot;); }</span>
+<span class="fc" id="L37">    public void setKaFile(String value) { setString(&quot;KA-FILE&quot;, value); }</span>
+<span class="fc" id="L38">    public String getKaFsts() { return getString(&quot;KA-FSTS&quot;); }</span>
+<span class="fc" id="L39">    public void setKaFsts(String value) { setString(&quot;KA-FSTS&quot;, value); }</span>
+<span class="fc" id="L40">    public String getKaMsgcode() { return getString(&quot;KA-MSGCODE&quot;); }</span>
+<span class="fc" id="L41">    public void setKaMsgcode(String value) { setString(&quot;KA-MSGCODE&quot;, value); }</span>
+<span class="fc" id="L42">    public String getKaProgid() { return getString(&quot;KA-PROGID&quot;); }</span>
+<span class="fc" id="L43">    public void setKaProgid(String value) { setString(&quot;KA-PROGID&quot;, value); }</span>
+<span class="fc" id="L44">    public String getKabend() { return groupToString(&quot;KABEND&quot;); }</span>
+<span class="fc" id="L45">    public void setKabend(String value) { setGroup(&quot;KABEND&quot;, value); }</span>
+<span class="fc" id="L46">    public int getKdDate1() { return getInt(&quot;KD-DATE1&quot;); }</span>
+<span class="fc" id="L47">    public void setKdDate1(int value) { setInt(&quot;KD-DATE1&quot;, value); }</span>
+<span class="fc" id="L48">    public int getKdDate2() { return getInt(&quot;KD-DATE2&quot;); }</span>
+<span class="fc" id="L49">    public void setKdDate2(int value) { setInt(&quot;KD-DATE2&quot;, value); }</span>
+<span class="fc" id="L50">    public int getKdDays() { return getInt(&quot;KD-DAYS&quot;); }</span>
+<span class="fc" id="L51">    public void setKdDays(int value) { setInt(&quot;KD-DAYS&quot;, value); }</span>
+<span class="fc" id="L52">    public String getKdFunc() { return getString(&quot;KD-FUNC&quot;); }</span>
+<span class="fc" id="L53">    public void setKdFunc(String value) { setString(&quot;KD-FUNC&quot;, value); }</span>
+<span class="fc" id="L54">    public String getKdStatus() { return getString(&quot;KD-STATUS&quot;); }</span>
+<span class="fc" id="L55">    public void setKdStatus(String value) { setString(&quot;KD-STATUS&quot;, value); }</span>
+<span class="fc" id="L56">    public int getKdWeekday() { return getInt(&quot;KD-WEEKDAY&quot;); }</span>
+<span class="fc" id="L57">    public void setKdWeekday(int value) { setInt(&quot;KD-WEEKDAY&quot;, value); }</span>
+<span class="fc" id="L58">    public String getKdate() { return groupToString(&quot;KDATE&quot;); }</span>
+<span class="fc" id="L59">    public void setKdate(String value) { setGroup(&quot;KDATE&quot;, value); }</span>
+<span class="fc" id="L60">    public int getModeFlg() { return getInt(&quot;MODE-FLG&quot;); }</span>
+<span class="fc" id="L61">    public void setModeFlg(int value) { setInt(&quot;MODE-FLG&quot;, value); }</span>
+<span class="fc" id="L62">    public int getRgCode() { return getInt(&quot;RG-CODE&quot;); }</span>
+<span class="fc" id="L63">    public void setRgCode(int value) { setInt(&quot;RG-CODE&quot;, value); }</span>
+<span class="fc" id="L64">    public int getRgDelFlag() { return getInt(&quot;RG-DEL-FLAG&quot;); }</span>
+<span class="fc" id="L65">    public void setRgDelFlag(int value) { setInt(&quot;RG-DEL-FLAG&quot;, value); }</span>
+<span class="fc" id="L66">    public String getRgName() { return getString(&quot;RG-NAME&quot;); }</span>
+<span class="fc" id="L67">    public void setRgName(String value) { setString(&quot;RG-NAME&quot;, value); }</span>
+<span class="fc" id="L68">    public String getWkConfirm() { return getString(&quot;WK-CONFIRM&quot;); }</span>
+<span class="fc" id="L69">    public void setWkConfirm(String value) { setString(&quot;WK-CONFIRM&quot;, value); }</span>
+<span class="fc" id="L70">    public String getWkFkeyLine() { return getString(&quot;WK-FKEY-LINE&quot;); }</span>
+<span class="fc" id="L71">    public void setWkFkeyLine(String value) { setString(&quot;WK-FKEY-LINE&quot;, value); }</span>
+<span class="fc" id="L72">    public String getWkMsgLine() { return getString(&quot;WK-MSG-LINE&quot;); }</span>
+<span class="fc" id="L73">    public void setWkMsgLine(String value) { setString(&quot;WK-MSG-LINE&quot;, value); }</span>
+<span class="fc" id="L74">    public String getWkProgid() { return getString(&quot;WK-PROGID&quot;); }</span>
+<span class="fc" id="L75">    public void setWkProgid(String value) { setString(&quot;WK-PROGID&quot;, value); }</span>
+<span class="fc" id="L76">    public int getWkSaveCode() { return getInt(&quot;WK-SAVE-CODE&quot;); }</span>
+<span class="fc" id="L77">    public void setWkSaveCode(int value) { setInt(&quot;WK-SAVE-CODE&quot;, value); }</span>
+<span class="fc" id="L78">    public int getWkSysdate() { return getInt(&quot;WK-SYSDATE&quot;); }</span>
+<span class="fc" id="L79">    public void setWkSysdate(int value) { setInt(&quot;WK-SYSDATE&quot;, value); }</span>
+<span class="fc" id="L80">    public int getWkSysymd() { return getInt(&quot;WK-SYSYMD&quot;); }</span>
+<span class="fc" id="L81">    public void setWkSysymd(int value) { setInt(&quot;WK-SYSYMD&quot;, value); }</span>
+<span class="fc" id="L82">    public String getWkTitle() { return getString(&quot;WK-TITLE&quot;); }</span>
+<span class="fc" id="L83">    public void setWkTitle(String value) { setString(&quot;WK-TITLE&quot;, value); }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

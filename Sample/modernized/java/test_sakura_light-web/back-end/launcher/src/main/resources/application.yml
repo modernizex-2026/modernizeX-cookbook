@@ -1,0 +1,47 @@
+spring:
+  batch:
+    jdbc:
+      initialize-schema: always
+      isolation-level-for-create: READ_COMMITTED
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      continue-on-error: true
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=Oracle
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    hikari:
+      auto-commit: false  # Transaction atomicity for multi-statement save paragraphs
+      idle-timeout: 600000      # 10 min — survives slow but active sessions
+      max-lifetime: 1800000     # 30 min — keeps long flows alive
+      keepalive-time: 300000    # 5 min — Hikari pings idle connections every 5min
+  # To use Oracle, set environment variables:
+  #   SPRING_DATASOURCE_URL=jdbc:oracle:thin:@host:1521:sid
+  #   SPRING_DATASOURCE_USERNAME=user
+  #   SPRING_DATASOURCE_PASSWORD=pass
+  #   SPRING_DATASOURCE_DRIVER_CLASS_NAME=oracle.jdbc.OracleDriver
+
+screen:
+  renderer: console  # console | websocket
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  file:
+    name: logs/batch-app.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 3
+      total-size-cap: 100MB
+  level:
+    org.springframework.batch: INFO
+    org.springframework.jdbc.core: WARN
+    org.springframework.jdbc.core.StatementCreatorUtils: WARN

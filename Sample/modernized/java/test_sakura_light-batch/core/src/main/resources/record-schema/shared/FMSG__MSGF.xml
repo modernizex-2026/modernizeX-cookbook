@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : MSGF
+  FD record name : MG-REC
+  Copybook src   : FMSG
+-->
+<dataLayout name="MSGF" scope="file" charset="MS932" recordSize="76">
+  <group name="MG-REC" offset="0" size="76">
+    <group name="MG-REC" offset="0" size="76">
+      <field name="MG-CODE" offset="0" size="6" javaType="String"/>
+      <field name="MG-TEXT" offset="6" size="60" javaType="String"/>
+      <field name="FILLER-66" offset="66" size="10" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

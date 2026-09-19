@@ -1,0 +1,378 @@
+{
+  "programId": "MENU00",
+  "screens": {
+    "DS-LOGIN": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["KL-LOGIN", "KL-PASSWORD"],
+      "rows": [
+        { "line": 8, "fields": [
+          { "col": 20, "type": "literal", "text": "Login ID :", "color": "YELLOW" },
+          { "col": 32, "type": "from", "name": "FILLER", "boundField": "KL-LOGIN", "picture": "X(12)" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 20, "type": "literal", "text": "Password :", "color": "YELLOW" },
+          { "col": 32, "type": "from", "name": "FILLER", "boundField": "KL-PASSWORD", "picture": "X(16)" }
+        ] }
+      ]
+    },
+    "DS-MAIN": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-CHOICE"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 6, "type": "literal", "text": "MAIN MENU", "color": "CYAN" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 8, "type": "literal", "text": " 1. Master Maintenance" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 8, "type": "literal", "text": " 2. Order / Sales" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 8, "type": "literal", "text": " 3. Purchasing" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 8, "type": "literal", "text": " 4. Inventory" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 8, "type": "literal", "text": " 5. Receivable / Payable" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 8, "type": "literal", "text": " 6. Reports" }
+        ] },
+        { "line": 12, "fields": [
+          { "col": 8, "type": "literal", "text": " 7. Batch / Closing" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 8, "type": "literal", "text": " 0. Sign off" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 8, "type": "literal", "text": "Select :", "color": "YELLOW" },
+          { "col": 18, "type": "from", "name": "FILLER", "boundField": "WK-CHOICE", "picture": "9(2)" }
+        ] }
+      ]
+    },
+    "DS-MENU-MST": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-CHOICE"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 6, "type": "literal", "text": "MASTER MAINTENANCE", "color": "CYAN" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 8, "type": "literal", "text": " 1. Customer" },
+          { "col": 40, "type": "literal", "text": " 7. Customer Price" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 8, "type": "literal", "text": " 2. Supplier" },
+          { "col": 40, "type": "literal", "text": " 8. Department" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 8, "type": "literal", "text": " 3. Product" },
+          { "col": 40, "type": "literal", "text": " 9. Tax Rate" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 8, "type": "literal", "text": " 4. Warehouse" },
+          { "col": 40, "type": "literal", "text": "10. Bank" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 8, "type": "literal", "text": " 5. Staff" },
+          { "col": 40, "type": "literal", "text": "11. Region" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 8, "type": "literal", "text": " 6. Category" },
+          { "col": 40, "type": "literal", "text": "12. User" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 8, "type": "literal", "text": " 0. Back" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 8, "type": "literal", "text": "Select :", "color": "YELLOW" },
+          { "col": 18, "type": "from", "name": "FILLER", "boundField": "WK-CHOICE", "picture": "9(2)" }
+        ] }
+      ]
+    },
+    "DS-MENU-ORD": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-CHOICE"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 6, "type": "literal", "text": "ORDER / SALES", "color": "CYAN" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 8, "type": "literal", "text": " 1. Order Entry" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 8, "type": "literal", "text": " 2. Order Inquiry" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 8, "type": "literal", "text": " 3. Order Allocation" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 8, "type": "literal", "text": " 4. Shipping" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 8, "type": "literal", "text": " 5. Sales Entry" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 8, "type": "literal", "text": " 6. Sales Inquiry" }
+        ] },
+        { "line": 12, "fields": [
+          { "col": 8, "type": "literal", "text": " 7. Sales Return" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 34, "type": "literal", "text": " 8. Order Maintenance" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 34, "type": "literal", "text": " 9. Sales Credit Note" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 34, "type": "literal", "text": "10. Order Ack Print" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 8, "type": "literal", "text": " 0. Back" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 8, "type": "literal", "text": "Select :", "color": "YELLOW" },
+          { "col": 18, "type": "from", "name": "FILLER", "boundField": "WK-CHOICE", "picture": "9(2)" }
+        ] }
+      ]
+    },
+    "DS-MENU-PUR": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-CHOICE"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 6, "type": "literal", "text": "PURCHASING", "color": "CYAN" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 8, "type": "literal", "text": " 1. Purchase Order Entry" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 8, "type": "literal", "text": " 2. Purchase Order Inquiry" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 8, "type": "literal", "text": " 3. Receiving" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 8, "type": "literal", "text": " 4. Purchase Entry" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 8, "type": "literal", "text": " 5. Purchase Return" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 8, "type": "literal", "text": " 0. Back" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 8, "type": "literal", "text": "Select :", "color": "YELLOW" },
+          { "col": 18, "type": "from", "name": "FILLER", "boundField": "WK-CHOICE", "picture": "9(2)" }
+        ] }
+      ]
+    },
+    "DS-MENU-INV": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-CHOICE"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 6, "type": "literal", "text": "INVENTORY / AR / AP", "color": "CYAN" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 8, "type": "literal", "text": " 1. Stock Inquiry" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 8, "type": "literal", "text": " 2. Stock Adjustment" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 8, "type": "literal", "text": " 3. Stocktaking" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 8, "type": "literal", "text": " 4. Movement Inquiry" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 8, "type": "literal", "text": " 5. Cash Receipt Entry" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 8, "type": "literal", "text": " 6. AR Inquiry" }
+        ] },
+        { "line": 12, "fields": [
+          { "col": 8, "type": "literal", "text": " 7. Payment Entry" }
+        ] },
+        { "line": 13, "fields": [
+          { "col": 8, "type": "literal", "text": " 8. AP Inquiry" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 36, "type": "literal", "text": " 9. Warehouse Transfer" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 8, "type": "literal", "text": " 0. Back" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 8, "type": "literal", "text": "Select :", "color": "YELLOW" },
+          { "col": 18, "type": "from", "name": "FILLER", "boundField": "WK-CHOICE", "picture": "9(2)" }
+        ] }
+      ]
+    },
+    "DS-MENU-RPT": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-CHOICE"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 6, "type": "literal", "text": "REPORTS", "color": "CYAN" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 8, "type": "literal", "text": " 1. Customer List" },
+          { "col": 40, "type": "literal", "text": " 7. AR Aging" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 8, "type": "literal", "text": " 2. Product List" },
+          { "col": 40, "type": "literal", "text": " 8. AP Balance" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 8, "type": "literal", "text": " 3. Sales Journal" },
+          { "col": 40, "type": "literal", "text": " 9. Order Backlog" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 8, "type": "literal", "text": " 4. Sales by Customer" },
+          { "col": 40, "type": "literal", "text": "10. Purchase Journal" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 8, "type": "literal", "text": " 5. Sales by Product" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 8, "type": "literal", "text": " 6. Inventory List" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 40, "type": "literal", "text": "11. Reorder Suggestion" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 40, "type": "literal", "text": "12. Sales Rep Perf" }
+        ] },
+        { "line": 12, "fields": [
+          { "col": 8, "type": "literal", "text": "13. Customer Statement" },
+          { "col": 40, "type": "literal", "text": "14. Dead Stock" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 8, "type": "literal", "text": " 0. Back" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 8, "type": "literal", "text": "Select :", "color": "YELLOW" },
+          { "col": 18, "type": "from", "name": "FILLER", "boundField": "WK-CHOICE", "picture": "9(2)" }
+        ] }
+      ]
+    },
+    "DS-MENU-BAT": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-CHOICE"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 6, "type": "literal", "text": "BATCH / CLOSING", "color": "CYAN" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 8, "type": "literal", "text": " 1. Daily Close" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 8, "type": "literal", "text": " 2. Monthly Close" }
+        ] },
+        { "line": 8, "fields": [
+          { "col": 8, "type": "literal", "text": " 3. Stock Monthly Update" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 8, "type": "literal", "text": " 4. AR Balance Update" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 8, "type": "literal", "text": " 5. AP Balance Update" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 8, "type": "literal", "text": " 6. Purge / Archive" }
+        ] },
+        { "line": 12, "fields": [
+          { "col": 8, "type": "literal", "text": " 7. Fiscal Year Close" }
+        ] },
+        { "line": 13, "fields": [
+          { "col": 8, "type": "literal", "text": " 8. Reindex / Rebuild" }
+        ] },
+        { "line": 6, "fields": [
+          { "col": 36, "type": "literal", "text": " 9. Integrity Check" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 8, "type": "literal", "text": " 0. Back" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 8, "type": "literal", "text": "Select :", "color": "YELLOW" },
+          { "col": 18, "type": "from", "name": "FILLER", "boundField": "WK-CHOICE", "picture": "9(2)" }
+        ] }
+      ]
+    },
+    "DS-HEADER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-MSG": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    }
+  },
+  "inputFields": {
+    "KL-LOGIN": {
+      "screen": "DS-LOGIN",
+      "line": 8,
+      "col": 32,
+      "width": 12,
+      "picture": "X(12)",
+      "usingField": "KL-LOGIN",
+      "inputType": "alphanumeric",
+      "advanceEsts": null
+    },
+    "KL-PASSWORD": {
+      "screen": "DS-LOGIN",
+      "line": 10,
+      "col": 32,
+      "width": 16,
+      "picture": "X(16)",
+      "usingField": "KL-PASSWORD",
+      "inputType": "password",
+      "advanceEsts": null
+    },
+    "WK-CHOICE": {
+      "screen": "DS-MAIN",
+      "line": 16,
+      "col": 18,
+      "width": 2,
+      "picture": "9(2)",
+      "usingField": "WK-CHOICE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    }
+  },
+  "windows": {
+  },
+  "pfKeys": {
+    "ENTER": { "code": "00", "label": "Enter" },
+    "PF1":   { "code": "01", "label": "F1" },
+    "PF2":   { "code": "02", "label": "F2" },
+    "PF3":   { "code": "03", "label": "F3" },
+    "PF4":   { "code": "04", "label": "F4" },
+    "PF5":   { "code": "05", "label": "F5" },
+    "PF6":   { "code": "06", "label": "F6" },
+    "PF7":   { "code": "07", "label": "F7" },
+    "PF8":   { "code": "08", "label": "F8" },
+    "PF9":   { "code": "09", "label": "F9" },
+    "PF10":  { "code": "PA", "label": "F10" },
+    "PF11":  { "code": "PB", "label": "F11" },
+    "PF12":  { "code": "PC", "label": "F12" }
+  }
+}

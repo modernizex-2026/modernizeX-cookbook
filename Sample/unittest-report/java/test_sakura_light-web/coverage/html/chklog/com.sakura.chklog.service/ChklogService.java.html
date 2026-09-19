@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ChklogService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">chklog</a> &gt; <a href="index.source.html" class="el_package">com.sakura.chklog.service</a> &gt; <span class="el_source">ChklogService.java</span></div><h1>ChklogService.java</h1><pre class="source lang-java linenums">package com.sakura.chklog.service;
+
+import com.sakura.chklog.domain.ChklogFieldAccess;
+import com.sakura.chklog.domain.WorkingStorage;
+import com.sakura.chklog.runtime.ChklogDatasets;
+import com.sakura.runtime.BatchServiceBase;
+import com.sakura.runtime.JobAbortException;
+import com.sakura.runtime.ParagraphJumpSignal;
+import com.sakura.runtime.ProgramExitSignal;
+import com.sakura.runtime.StopRunSignal;
+import com.sakura.runtime.io.AbstractDatasets;
+import com.sakura.runtime.linkage.ChklogLinkParm;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import com.sakura.runtime.Utility;
+import com.sakura.runtime.DatasetEnums.*;
+
+/**
+ * Business logic service generated from COBOL program CHKLOG.
+ */
+@Service
+@Scope(&quot;prototype&quot;)
+public class ChklogService extends BatchServiceBase {
+    /**
+     * Shared file instances for all FD files in this program.
+     */
+    private final ChklogDatasets fileSet;
+
+<span class="fc" id="L29">    private final ChklogLinkParm link = new ChklogLinkParm();</span>
+
+    private final ChklogFieldAccess ws;
+
+<span class="fc" id="L33">    public ChklogService(ChklogDatasets fileSet) {</span>
+<span class="fc" id="L34">        this.fileSet = fileSet;</span>
+<span class="fc" id="L35">        this.ws = new ChklogFieldAccess(new WorkingStorage(), fileSet);</span>
+<span class="fc" id="L36">    }</span>
+
+    /**
+     * Program entry point — runs the first COBOL paragraph via runChain.
+     * Base class run() wraps this in StopRun/Abort/Exception handling.
+     */
+    @Override
+    protected void mainProcess() {
+        // Import anchors for types referenced by emitted paragraph bodies:
+        // StopRunSignal, JobAbortException, ParagraphJumpSignal, ProgramExitSignal
+<span class="nc" id="L46">        runChain(this::validateUserLogin);</span>
+<span class="nc" id="L47">    }</span>
+
+    /**
+     * Returns COBOL COMPLETION-CODE after run() completes.
+     * Used by Tasklet to propagate exit code into StepExecutionContext.
+     */
+    @Override
+    public int getCompletionCode() {
+<span class="nc" id="L55">        return ws.getCompletionCode();</span>
+    }
+
+    /**
+     * Set COBOL COMPLETION-CODE. Called by base class run() on Abort (255) / Exception (12) paths.
+     */
+    @Override
+    protected void setCompletionCode(int code) {
+<span class="nc" id="L63">        ws.setCompletionCode(code);</span>
+<span class="nc" id="L64">    }</span>
+
+    /**
+     * Returns this program's FileSet (or null if no files declared).
+     * Base class run() uses this for commit/rollback/closeAll lifecycle.
+     */
+    @Override
+    protected AbstractDatasets getFileSet() {
+<span class="fc" id="L72">        return fileSet;</span>
+    }
+
+    /**
+     * COBOL paragraph: MAIN-000
+     */
+    private void validateUserLogin() {
+<span class="fc" id="L79">        link.getKlogin().setKlStatus(&quot;00&quot;);</span>
+<span class="fc" id="L80">        link.getKlogin().setKlUserCode(0);</span>
+<span class="fc" id="L81">        link.getKlogin().setKlUserName(&quot; &quot;);</span>
+<span class="fc" id="L82">        link.getKlogin().setKlRole(0);</span>
+<span class="fc" id="L83">        link.getKlogin().setKlAuth(&quot; &quot;);</span>
+<span class="fc" id="L84">        fileSet.getUserf().open(FileOpenMode.INPUT);</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (!Utility.fieldEquals(fileSet.getUserf().getFileStatus(), &quot;00&quot;)) {</span>
+<span class="fc" id="L86">            link.getKlogin().setKlStatus(&quot;99&quot;);</span>
+<span class="fc" id="L87">            throw new ProgramExitSignal();</span>
+        }
+<span class="fc" id="L89">        ws.setUsLogin(link.getKlogin().getKlLogin());</span>
+<span class="fc" id="L90">        String rkVal_0 = &quot;&quot;;</span>
+<span class="pc" id="L91">        try { rkVal_0 = ws.getString(&quot;US-LOGIN&quot;); } catch (Exception _e) {}</span>
+<span class="pc bpc" id="L92" title="2 of 4 branches missed.">        if (rkVal_0 == null || rkVal_0.trim().isEmpty()) {</span>
+<span class="nc" id="L93">          try { rkVal_0 = fileSet.getUserf().extractKeyFromCurrentRecord(); } catch (Exception _e2) {}</span>
+        }
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        fileSet.getUserf().readByKey(&quot;US-LOGIN&quot;, rkVal_0 != null ? rkVal_0.trim() : &quot;&quot;);</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        if (fileSet.getUserf().isInvalidKey()) {</span>
+<span class="fc" id="L97">            link.getKlogin().setKlStatus(&quot;99&quot;);</span>
+        }
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        if (!fileSet.getUserf().isInvalidKey()) {</span>
+<span class="fc" id="L100">            runChain(this::verifyPasswordAndAuthority);</span>
+        }
+<span class="fc" id="L102">        fileSet.getUserf().close();</span>
+<span class="fc" id="L103">        throw new ProgramExitSignal();</span>
+    }
+
+    /**
+     * COBOL paragraph: CHECK-010
+     */
+    private void verifyPasswordAndAuthority() {
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (ws.getUsDelFlag() == 1) {</span>
+<span class="fc" id="L111">            link.getKlogin().setKlStatus(&quot;99&quot;);</span>
+<span class="fc" id="L112">            return;</span>
+        }
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        if (!Utility.fieldEquals(ws.getUsPassword(), String.valueOf(link.getKlogin().getKlPassword()))) {</span>
+<span class="fc" id="L115">            link.getKlogin().setKlStatus(&quot;99&quot;);</span>
+<span class="fc" id="L116">            return;</span>
+        }
+<span class="fc" id="L118">        link.getKlogin().setKlUserCode(ws.getUsCode());</span>
+<span class="fc" id="L119">        link.getKlogin().setKlUserName(ws.getUsName());</span>
+<span class="fc" id="L120">        link.getKlogin().setKlRole(ws.getUsRole());</span>
+<span class="fc" id="L121">        ws.setWkAuth(Utility.setSubstring(String.valueOf(ws.getWkAuth()), 1, 1, String.valueOf(ws.getUsAuthMaster())));</span>
+<span class="fc" id="L122">        ws.setWkAuth(Utility.setSubstring(String.valueOf(ws.getWkAuth()), 2, 1, String.valueOf(ws.getUsAuthOrder())));</span>
+<span class="fc" id="L123">        ws.setWkAuth(Utility.setSubstring(String.valueOf(ws.getWkAuth()), 3, 1, String.valueOf(ws.getUsAuthSales())));</span>
+<span class="fc" id="L124">        ws.setWkAuth(Utility.setSubstring(String.valueOf(ws.getWkAuth()), 4, 1, String.valueOf(ws.getUsAuthPurch())));</span>
+<span class="fc" id="L125">        ws.setWkAuth(Utility.setSubstring(String.valueOf(ws.getWkAuth()), 5, 1, String.valueOf(ws.getUsAuthClose())));</span>
+<span class="fc" id="L126">        link.getKlogin().setKlAuth(ws.getWkAuth());</span>
+<span class="fc" id="L127">    }</span>
+
+    /**
+     * Execute this program as a COBOL CALL callee.
+     * Copies params into Linkage section, runs business logic, copies back.
+     */
+    public void execute(ChklogLinkParm params) {
+<span class="fc" id="L134">        link.getKlogin().setKlLogin(params.getKlogin().getKlLogin());</span>
+<span class="fc" id="L135">        link.getKlogin().setKlPassword(params.getKlogin().getKlPassword());</span>
+<span class="fc" id="L136">        link.getKlogin().setKlUserCode(params.getKlogin().getKlUserCode());</span>
+<span class="fc" id="L137">        link.getKlogin().setKlUserName(params.getKlogin().getKlUserName());</span>
+<span class="fc" id="L138">        link.getKlogin().setKlRole(params.getKlogin().getKlRole());</span>
+<span class="fc" id="L139">        link.getKlogin().setKlAuth(params.getKlogin().getKlAuth());</span>
+<span class="fc" id="L140">        link.getKlogin().setKlStatus(params.getKlogin().getKlStatus());</span>
+<span class="fc" id="L141">        executeSubprogram(this::validateUserLogin);</span>
+<span class="fc" id="L142">        params.getKlogin().setKlLogin(link.getKlogin().getKlLogin());</span>
+<span class="fc" id="L143">        params.getKlogin().setKlPassword(link.getKlogin().getKlPassword());</span>
+<span class="fc" id="L144">        params.getKlogin().setKlUserCode(link.getKlogin().getKlUserCode());</span>
+<span class="fc" id="L145">        params.getKlogin().setKlUserName(link.getKlogin().getKlUserName());</span>
+<span class="fc" id="L146">        params.getKlogin().setKlRole(link.getKlogin().getKlRole());</span>
+<span class="fc" id="L147">        params.getKlogin().setKlAuth(link.getKlogin().getKlAuth());</span>
+<span class="fc" id="L148">        params.getKlogin().setKlStatus(link.getKlogin().getKlStatus());</span>
+<span class="fc" id="L149">    }</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

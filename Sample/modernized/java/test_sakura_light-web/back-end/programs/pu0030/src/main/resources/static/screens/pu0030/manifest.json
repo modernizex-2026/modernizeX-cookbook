@@ -1,0 +1,202 @@
+{
+  "programId": "PU0030",
+  "screens": {
+    "DS-KEY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-RECV-KEY"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "Receiving No :", "color": "YELLOW" },
+          { "col": 18, "type": "from", "name": "FILLER", "boundField": "WK-RECV-KEY", "picture": "9(10)" }
+        ] }
+      ]
+    },
+    "DS-RINFO": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+        { "line": 3, "fields": [
+          { "col": 2, "type": "literal", "text": "Recv No   :", "color": "YELLOW" },
+          { "col": 14, "type": "from", "name": "FILLER", "boundField": "RH-NO", "picture": "ZZZZZZZZZ9", "color": "WHITE" }
+        ] },
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "From PO   :", "color": "YELLOW" },
+          { "col": 14, "type": "from", "name": "FILLER", "boundField": "RH-PO", "picture": "ZZZZZZZZZ9", "color": "WHITE" }
+        ] },
+        { "line": 5, "fields": [
+          { "col": 2, "type": "literal", "text": "Supplier  :", "color": "YELLOW" },
+          { "col": 14, "type": "from", "name": "FILLER", "boundField": "RH-SUPP", "picture": "9(6)", "color": "WHITE" },
+          { "col": 22, "type": "from", "name": "FILLER", "boundField": "WK-SUPP-NAME", "picture": "X(40)", "color": "WHITE" }
+        ] }
+      ]
+    },
+    "DS-VHEAD": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["VH-DATE", "VH-TAX-TYPE"],
+      "rows": [
+        { "line": 6, "fields": [
+          { "col": 2, "type": "literal", "text": "Purch Date:", "color": "YELLOW" },
+          { "col": 14, "type": "from", "name": "FILLER", "boundField": "VH-DATE", "picture": "9(8)" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 2, "type": "literal", "text": "Tax Type  :", "color": "YELLOW" },
+          { "col": 14, "type": "from", "name": "FILLER", "boundField": "VH-TAX-TYPE", "picture": "9(1)" },
+          { "col": 18, "type": "literal", "text": "1:excl 2:incl 3:exempt", "color": "CYAN" }
+        ] }
+      ]
+    },
+    "DS-COLHDR": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+        { "line": 9, "fields": [
+          { "col": 2, "type": "literal", "text": "Product  Name                 Qty      Cost", "color": "CYAN" }
+        ] }
+      ]
+    },
+    "DS-ROWS": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+        { "line": 10, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(1)", "picture": "X(66)", "color": "WHITE" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(2)", "picture": "X(66)", "color": "WHITE" }
+        ] },
+        { "line": 12, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(3)", "picture": "X(66)", "color": "WHITE" }
+        ] },
+        { "line": 13, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(4)", "picture": "X(66)", "color": "WHITE" }
+        ] },
+        { "line": 14, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(5)", "picture": "X(66)", "color": "WHITE" }
+        ] },
+        { "line": 15, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(6)", "picture": "X(66)", "color": "WHITE" }
+        ] },
+        { "line": 16, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(7)", "picture": "X(66)", "color": "WHITE" }
+        ] },
+        { "line": 17, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(8)", "picture": "X(66)", "color": "WHITE" }
+        ] },
+        { "line": 18, "fields": [
+          { "col": 2, "type": "from", "name": "FILLER", "boundField": "WR-BUF(9)", "picture": "X(66)", "color": "WHITE" }
+        ] }
+      ]
+    },
+    "DS-TOTAL": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+        { "line": 19, "fields": [
+          { "col": 2, "type": "literal", "text": "Net :", "color": "YELLOW" },
+          { "col": 8, "type": "from", "name": "FILLER", "boundField": "WK-NET-TOTAL", "picture": "---,---,---,--9", "color": "WHITE" },
+          { "col": 28, "type": "literal", "text": "Tax :", "color": "YELLOW" },
+          { "col": 34, "type": "from", "name": "FILLER", "boundField": "WK-TAX-TOTAL", "picture": "---,---,---,--9", "color": "WHITE" },
+          { "col": 54, "type": "literal", "text": "Tot :", "color": "YELLOW" },
+          { "col": 60, "type": "from", "name": "FILLER", "boundField": "WK-GRS-TOTAL", "picture": "---,---,---,--9", "color": "WHITE" }
+        ] }
+      ]
+    },
+    "DS-CONFIRM": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["WK-CONFIRM"],
+      "rows": [
+        { "line": 21, "fields": [
+          { "col": 2, "type": "literal", "text": "Book purchase ? (Y/N) :", "color": "YELLOW" },
+          { "col": 28, "type": "from", "name": "FILLER", "boundField": "WK-CONFIRM", "picture": "X(1)" }
+        ] }
+      ]
+    },
+    "DS-HEADER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-FOOTER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-MSG": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    }
+  },
+  "inputFields": {
+    "WK-RECV-KEY": {
+      "screen": "DS-KEY",
+      "line": 4,
+      "col": 18,
+      "width": 10,
+      "picture": "9(10)",
+      "usingField": "WK-RECV-KEY",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "VH-DATE": {
+      "screen": "DS-VHEAD",
+      "line": 6,
+      "col": 14,
+      "width": 8,
+      "picture": "9(8)",
+      "usingField": "VH-DATE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "VH-TAX-TYPE": {
+      "screen": "DS-VHEAD",
+      "line": 7,
+      "col": 14,
+      "width": 1,
+      "picture": "9(1)",
+      "usingField": "VH-TAX-TYPE",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "WK-CONFIRM": {
+      "screen": "DS-CONFIRM",
+      "line": 21,
+      "col": 28,
+      "width": 1,
+      "picture": "X(1)",
+      "usingField": "WK-CONFIRM",
+      "inputType": "alphanumeric",
+      "advanceEsts": null
+    }
+  },
+  "windows": {
+  },
+  "pfKeys": {
+    "ENTER": { "code": "00", "label": "Enter" },
+    "PF1":   { "code": "01", "label": "F1" },
+    "PF2":   { "code": "02", "label": "F2" },
+    "PF3":   { "code": "03", "label": "F3" },
+    "PF4":   { "code": "04", "label": "F4" },
+    "PF5":   { "code": "05", "label": "F5" },
+    "PF6":   { "code": "06", "label": "F6" },
+    "PF7":   { "code": "07", "label": "F7" },
+    "PF8":   { "code": "08", "label": "F8" },
+    "PF9":   { "code": "09", "label": "F9" },
+    "PF10":  { "code": "PA", "label": "F10" },
+    "PF11":  { "code": "PB", "label": "F11" },
+    "PF12":  { "code": "PC", "label": "F12" }
+  }
+}

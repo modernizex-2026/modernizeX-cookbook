@@ -1,0 +1,160 @@
+{
+  "programId": "MS0070",
+  "screens": {
+    "DS-KEY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["CP-CUST", "CP-PROD"],
+      "rows": [
+        { "line": 4, "fields": [
+          { "col": 2, "type": "literal", "text": "Customer Code :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "CP-CUST", "picture": "9(6)" }
+        ] },
+        { "line": 5, "fields": [
+          { "col": 2, "type": "literal", "text": "Product Code  :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "CP-PROD", "picture": "9(8)" }
+        ] }
+      ]
+    },
+    "DS-BODY": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["CP-PRICE", "CP-START-DATE", "CP-END-DATE"],
+      "rows": [
+        { "line": 6, "fields": [
+          { "col": 2, "type": "literal", "text": "Customer Name :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-CUST-NAME", "picture": "X(40)", "color": "WHITE" }
+        ] },
+        { "line": 7, "fields": [
+          { "col": 2, "type": "literal", "text": "Product Name  :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "WK-PROD-NAME", "picture": "X(40)", "color": "WHITE" }
+        ] },
+        { "line": 9, "fields": [
+          { "col": 2, "type": "literal", "text": "Contract Price:", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "CP-PRICE", "picture": "S9(9)V9(2)" }
+        ] },
+        { "line": 10, "fields": [
+          { "col": 2, "type": "literal", "text": "Start Date    :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "CP-START-DATE", "picture": "9(8)" },
+          { "col": 30, "type": "literal", "text": "YYYYMMDD", "color": "CYAN" }
+        ] },
+        { "line": 11, "fields": [
+          { "col": 2, "type": "literal", "text": "End Date      :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "FILLER", "boundField": "CP-END-DATE", "picture": "9(8)" },
+          { "col": 30, "type": "literal", "text": "YYYYMMDD  0=open", "color": "CYAN" }
+        ] }
+      ]
+    },
+    "DS-CONFIRM": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": ["SC-CONF"],
+      "rows": [
+        { "line": 21, "fields": [
+          { "col": 2, "type": "literal", "text": "Confirm (Y/N) :", "color": "YELLOW" },
+          { "col": 20, "type": "from", "name": "SC-CONF", "boundField": "WK-CONFIRM", "picture": "X(1)" }
+        ] }
+      ]
+    },
+    "DS-HEADER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-FOOTER": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    },
+    "DS-MSG": {
+      "_topLevel": true,
+      "clearScreen": false,
+      "inputFields": [],
+      "rows": [
+      ]
+    }
+  },
+  "inputFields": {
+    "CP-CUST": {
+      "screen": "DS-KEY",
+      "line": 4,
+      "col": 20,
+      "width": 6,
+      "picture": "9(6)",
+      "usingField": "CP-CUST",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "CP-PROD": {
+      "screen": "DS-KEY",
+      "line": 5,
+      "col": 20,
+      "width": 8,
+      "picture": "9(8)",
+      "usingField": "CP-PROD",
+      "inputType": "numeric",
+      "advanceEsts": null
+    },
+    "CP-PRICE": {
+      "screen": "DS-BODY",
+      "line": 9,
+      "col": 20,
+      "width": 9,
+      "picture": "S9(9)V9(2)",
+      "usingField": "CP-PRICE",
+      "inputType": "numeric",
+      "advanceEsts": "03"
+    },
+    "CP-START-DATE": {
+      "screen": "DS-BODY",
+      "line": 10,
+      "col": 20,
+      "width": 8,
+      "picture": "9(8)",
+      "usingField": "CP-START-DATE",
+      "inputType": "numeric",
+      "advanceEsts": "03"
+    },
+    "CP-END-DATE": {
+      "screen": "DS-BODY",
+      "line": 11,
+      "col": 20,
+      "width": 8,
+      "picture": "9(8)",
+      "usingField": "CP-END-DATE",
+      "inputType": "numeric",
+      "advanceEsts": "03"
+    },
+    "SC-CONF": {
+      "screen": "DS-CONFIRM",
+      "line": 21,
+      "col": 20,
+      "width": 1,
+      "picture": "X(1)",
+      "usingField": "WK-CONFIRM",
+      "inputType": "alphanumeric",
+      "advanceEsts": null
+    }
+  },
+  "windows": {
+  },
+  "pfKeys": {
+    "ENTER": { "code": "00", "label": "Enter" },
+    "PF1":   { "code": "01", "label": "F1" },
+    "PF2":   { "code": "02", "label": "F2" },
+    "PF3":   { "code": "03", "label": "F3" },
+    "PF4":   { "code": "04", "label": "F4" },
+    "PF5":   { "code": "05", "label": "F5" },
+    "PF6":   { "code": "06", "label": "F6" },
+    "PF7":   { "code": "07", "label": "F7" },
+    "PF8":   { "code": "08", "label": "F8" },
+    "PF9":   { "code": "09", "label": "F9" },
+    "PF10":  { "code": "PA", "label": "F10" },
+    "PF11":  { "code": "PB", "label": "F11" },
+    "PF12":  { "code": "PC", "label": "F12" }
+  }
+}

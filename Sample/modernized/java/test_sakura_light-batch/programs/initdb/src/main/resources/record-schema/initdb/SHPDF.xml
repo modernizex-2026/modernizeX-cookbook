@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : SHPDF
+  FD record name : XD-REC
+  Copybook src   : FSHPD
+-->
+<dataLayout name="SHPDF" scope="file" charset="MS932" recordSize="70">
+  <group name="XD-REC" offset="0" size="70">
+    <group name="XD-REC" offset="0" size="70">
+      <field name="XD-NO" offset="0" size="10" javaType="long"/>
+      <field name="XD-LINE" offset="10" size="3" javaType="int"/>
+      <field name="XD-ORDER" offset="13" size="10" javaType="long"/>
+      <field name="XD-ORDER-LINE" offset="23" size="3" javaType="int"/>
+      <field name="XD-PROD" offset="26" size="8" javaType="int"/>
+      <field name="XD-WHSE" offset="34" size="3" javaType="int"/>
+      <field name="XD-QTY" offset="37" size="5" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="XD-UNIT-PRICE" offset="42" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      <field name="XD-AMOUNT" offset="48" size="6" javaType="BigDecimal" signed="true" usage="COMP-3"/>
+      <field name="XD-UNIT-COST" offset="54" size="6" javaType="BigDecimal" signed="true" scale="2" usage="COMP-3"/>
+      <field name="FILLER-60" offset="60" size="10" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

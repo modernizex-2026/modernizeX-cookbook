@@ -1,0 +1,1625 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Menu00Service.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">menu00</a> &gt; <a href="index.source.html" class="el_package">com.sakura.menu00.service</a> &gt; <span class="el_source">Menu00Service.java</span></div><h1>Menu00Service.java</h1><pre class="source lang-java linenums">package com.sakura.menu00.service;
+
+import com.sakura.ap0010.service.Ap0010Service;
+import com.sakura.ap0020.service.Ap0020Service;
+import com.sakura.ar0010.service.Ar0010Service;
+import com.sakura.ar0020.service.Ar0020Service;
+import com.sakura.bt0010.service.Bt0010Service;
+import com.sakura.bt0020.service.Bt0020Service;
+import com.sakura.bt0030.service.Bt0030Service;
+import com.sakura.bt0040.service.Bt0040Service;
+import com.sakura.bt0050.service.Bt0050Service;
+import com.sakura.bt0060.service.Bt0060Service;
+import com.sakura.bt0070.service.Bt0070Service;
+import com.sakura.bt0080.service.Bt0080Service;
+import com.sakura.bt0090.service.Bt0090Service;
+import com.sakura.chklog.service.ChklogService;
+import com.sakura.dateut.service.DateutService;
+import com.sakura.iv0010.service.Iv0010Service;
+import com.sakura.iv0020.service.Iv0020Service;
+import com.sakura.iv0030.service.Iv0030Service;
+import com.sakura.iv0040.service.Iv0040Service;
+import com.sakura.iv0050.service.Iv0050Service;
+import com.sakura.menu00.domain.Menu00FieldAccess;
+import com.sakura.menu00.domain.WorkingStorage;
+import com.sakura.ms0010.service.Ms0010Service;
+import com.sakura.ms0020.service.Ms0020Service;
+import com.sakura.ms0030.service.Ms0030Service;
+import com.sakura.ms0040.service.Ms0040Service;
+import com.sakura.ms0050.service.Ms0050Service;
+import com.sakura.ms0060.service.Ms0060Service;
+import com.sakura.ms0070.service.Ms0070Service;
+import com.sakura.ms0080.service.Ms0080Service;
+import com.sakura.ms0090.service.Ms0090Service;
+import com.sakura.ms0100.service.Ms0100Service;
+import com.sakura.ms0110.service.Ms0110Service;
+import com.sakura.ms0120.service.Ms0120Service;
+import com.sakura.oe0010.service.Oe0010Service;
+import com.sakura.oe0020.service.Oe0020Service;
+import com.sakura.oe0030.service.Oe0030Service;
+import com.sakura.oe0040.service.Oe0040Service;
+import com.sakura.oe0050.service.Oe0050Service;
+import com.sakura.pu0010.service.Pu0010Service;
+import com.sakura.pu0020.service.Pu0020Service;
+import com.sakura.pu0030.service.Pu0030Service;
+import com.sakura.pu0040.service.Pu0040Service;
+import com.sakura.rc0010.service.Rc0010Service;
+import com.sakura.rp0010.service.Rp0010Service;
+import com.sakura.rp0020.service.Rp0020Service;
+import com.sakura.rp0030.service.Rp0030Service;
+import com.sakura.rp0040.service.Rp0040Service;
+import com.sakura.rp0050.service.Rp0050Service;
+import com.sakura.rp0060.service.Rp0060Service;
+import com.sakura.rp0070.service.Rp0070Service;
+import com.sakura.rp0080.service.Rp0080Service;
+import com.sakura.rp0090.service.Rp0090Service;
+import com.sakura.rp0100.service.Rp0100Service;
+import com.sakura.rp0110.service.Rp0110Service;
+import com.sakura.rp0120.service.Rp0120Service;
+import com.sakura.rp0130.service.Rp0130Service;
+import com.sakura.rp0140.service.Rp0140Service;
+import com.sakura.runtime.BatchServiceBase;
+import com.sakura.runtime.JobAbortException;
+import com.sakura.runtime.ParagraphJumpSignal;
+import com.sakura.runtime.ProgramExitSignal;
+import com.sakura.runtime.ScreenRendererAware;
+import com.sakura.runtime.ScreenRendererInstance;
+import com.sakura.runtime.StopRunSignal;
+import com.sakura.runtime.io.AbstractDatasets;
+import com.sakura.sh0010.service.Sh0010Service;
+import com.sakura.sl0010.service.Sl0010Service;
+import com.sakura.sl0020.service.Sl0020Service;
+import com.sakura.sl0030.service.Sl0030Service;
+import com.sakura.sl0040.service.Sl0040Service;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import com.sakura.runtime.Utility;
+import com.sakura.runtime.DatasetEnums.*;
+import com.sakura.runtime.ScreenModels.*;
+import com.sakura.menu00.screen.ScreenDefs;
+import com.sakura.runtime.linkage.DateutLinkParm;
+import com.sakura.runtime.linkage.ChklogLinkParm;
+
+/**
+ * Business logic service generated from COBOL program MENU00.
+ */
+@Service
+@Scope(&quot;prototype&quot;)
+public class Menu00Service extends BatchServiceBase {
+    /**
+     * Injected service for COBOL CALL DATEUT.
+     */
+    private DateutService dateutService;
+
+    /**
+     * Injected service for COBOL CALL CHKLOG.
+     */
+    private ChklogService chklogService;
+
+    /**
+     * Injected service for COBOL CALL MS0010.
+     */
+    private Ms0010Service ms0010Service;
+
+    /**
+     * Injected service for COBOL CALL MS0020.
+     */
+    private Ms0020Service ms0020Service;
+
+    /**
+     * Injected service for COBOL CALL MS0030.
+     */
+    private Ms0030Service ms0030Service;
+
+    /**
+     * Injected service for COBOL CALL MS0040.
+     */
+    private Ms0040Service ms0040Service;
+
+    /**
+     * Injected service for COBOL CALL MS0050.
+     */
+    private Ms0050Service ms0050Service;
+
+    /**
+     * Injected service for COBOL CALL MS0060.
+     */
+    private Ms0060Service ms0060Service;
+
+    /**
+     * Injected service for COBOL CALL MS0070.
+     */
+    private Ms0070Service ms0070Service;
+
+    /**
+     * Injected service for COBOL CALL MS0080.
+     */
+    private Ms0080Service ms0080Service;
+
+    /**
+     * Injected service for COBOL CALL MS0090.
+     */
+    private Ms0090Service ms0090Service;
+
+    /**
+     * Injected service for COBOL CALL MS0100.
+     */
+    private Ms0100Service ms0100Service;
+
+    /**
+     * Injected service for COBOL CALL MS0110.
+     */
+    private Ms0110Service ms0110Service;
+
+    /**
+     * Injected service for COBOL CALL MS0120.
+     */
+    private Ms0120Service ms0120Service;
+
+    /**
+     * Injected service for COBOL CALL OE0010.
+     */
+    private Oe0010Service oe0010Service;
+
+    /**
+     * Injected service for COBOL CALL OE0020.
+     */
+    private Oe0020Service oe0020Service;
+
+    /**
+     * Injected service for COBOL CALL OE0030.
+     */
+    private Oe0030Service oe0030Service;
+
+    /**
+     * Injected service for COBOL CALL OE0040.
+     */
+    private Oe0040Service oe0040Service;
+
+    /**
+     * Injected service for COBOL CALL OE0050.
+     */
+    private Oe0050Service oe0050Service;
+
+    /**
+     * Injected service for COBOL CALL SH0010.
+     */
+    private Sh0010Service sh0010Service;
+
+    /**
+     * Injected service for COBOL CALL SL0010.
+     */
+    private Sl0010Service sl0010Service;
+
+    /**
+     * Injected service for COBOL CALL SL0020.
+     */
+    private Sl0020Service sl0020Service;
+
+    /**
+     * Injected service for COBOL CALL SL0030.
+     */
+    private Sl0030Service sl0030Service;
+
+    /**
+     * Injected service for COBOL CALL SL0040.
+     */
+    private Sl0040Service sl0040Service;
+
+    /**
+     * Injected service for COBOL CALL PU0010.
+     */
+    private Pu0010Service pu0010Service;
+
+    /**
+     * Injected service for COBOL CALL PU0020.
+     */
+    private Pu0020Service pu0020Service;
+
+    /**
+     * Injected service for COBOL CALL PU0030.
+     */
+    private Pu0030Service pu0030Service;
+
+    /**
+     * Injected service for COBOL CALL PU0040.
+     */
+    private Pu0040Service pu0040Service;
+
+    /**
+     * Injected service for COBOL CALL RC0010.
+     */
+    private Rc0010Service rc0010Service;
+
+    /**
+     * Injected service for COBOL CALL IV0010.
+     */
+    private Iv0010Service iv0010Service;
+
+    /**
+     * Injected service for COBOL CALL IV0020.
+     */
+    private Iv0020Service iv0020Service;
+
+    /**
+     * Injected service for COBOL CALL IV0030.
+     */
+    private Iv0030Service iv0030Service;
+
+    /**
+     * Injected service for COBOL CALL IV0040.
+     */
+    private Iv0040Service iv0040Service;
+
+    /**
+     * Injected service for COBOL CALL IV0050.
+     */
+    private Iv0050Service iv0050Service;
+
+    /**
+     * Injected service for COBOL CALL AR0010.
+     */
+    private Ar0010Service ar0010Service;
+
+    /**
+     * Injected service for COBOL CALL AR0020.
+     */
+    private Ar0020Service ar0020Service;
+
+    /**
+     * Injected service for COBOL CALL AP0010.
+     */
+    private Ap0010Service ap0010Service;
+
+    /**
+     * Injected service for COBOL CALL AP0020.
+     */
+    private Ap0020Service ap0020Service;
+
+    /**
+     * Injected service for COBOL CALL RP0010.
+     */
+    private Rp0010Service rp0010Service;
+
+    /**
+     * Injected service for COBOL CALL RP0020.
+     */
+    private Rp0020Service rp0020Service;
+
+    /**
+     * Injected service for COBOL CALL RP0030.
+     */
+    private Rp0030Service rp0030Service;
+
+    /**
+     * Injected service for COBOL CALL RP0040.
+     */
+    private Rp0040Service rp0040Service;
+
+    /**
+     * Injected service for COBOL CALL RP0050.
+     */
+    private Rp0050Service rp0050Service;
+
+    /**
+     * Injected service for COBOL CALL RP0060.
+     */
+    private Rp0060Service rp0060Service;
+
+    /**
+     * Injected service for COBOL CALL RP0070.
+     */
+    private Rp0070Service rp0070Service;
+
+    /**
+     * Injected service for COBOL CALL RP0080.
+     */
+    private Rp0080Service rp0080Service;
+
+    /**
+     * Injected service for COBOL CALL RP0090.
+     */
+    private Rp0090Service rp0090Service;
+
+    /**
+     * Injected service for COBOL CALL RP0100.
+     */
+    private Rp0100Service rp0100Service;
+
+    /**
+     * Injected service for COBOL CALL RP0110.
+     */
+    private Rp0110Service rp0110Service;
+
+    /**
+     * Injected service for COBOL CALL RP0120.
+     */
+    private Rp0120Service rp0120Service;
+
+    /**
+     * Injected service for COBOL CALL RP0130.
+     */
+    private Rp0130Service rp0130Service;
+
+    /**
+     * Injected service for COBOL CALL RP0140.
+     */
+    private Rp0140Service rp0140Service;
+
+    /**
+     * Injected service for COBOL CALL BT0010.
+     */
+    private Bt0010Service bt0010Service;
+
+    /**
+     * Injected service for COBOL CALL BT0020.
+     */
+    private Bt0020Service bt0020Service;
+
+    /**
+     * Injected service for COBOL CALL BT0030.
+     */
+    private Bt0030Service bt0030Service;
+
+    /**
+     * Injected service for COBOL CALL BT0040.
+     */
+    private Bt0040Service bt0040Service;
+
+    /**
+     * Injected service for COBOL CALL BT0050.
+     */
+    private Bt0050Service bt0050Service;
+
+    /**
+     * Injected service for COBOL CALL BT0060.
+     */
+    private Bt0060Service bt0060Service;
+
+    /**
+     * Injected service for COBOL CALL BT0070.
+     */
+    private Bt0070Service bt0070Service;
+
+    /**
+     * Injected service for COBOL CALL BT0080.
+     */
+    private Bt0080Service bt0080Service;
+
+    /**
+     * Injected service for COBOL CALL BT0090.
+     */
+    private Bt0090Service bt0090Service;
+
+<span class="fc" id="L394">    private final Menu00FieldAccess ws = new Menu00FieldAccess(new WorkingStorage());</span>
+
+    /** Submenu choice 1..N -&gt; WK-CALL program code, indexed by (choice - 1). */
+<span class="fc" id="L397">    private static final String[] MASTER_PROGRAM_CODES = {</span>
+        &quot;MS0010&quot;, &quot;MS0020&quot;, &quot;MS0030&quot;, &quot;MS0040&quot;, &quot;MS0050&quot;, &quot;MS0060&quot;,
+        &quot;MS0070&quot;, &quot;MS0080&quot;, &quot;MS0090&quot;, &quot;MS0100&quot;, &quot;MS0110&quot;, &quot;MS0120&quot;
+    };
+
+    /** Submenu choice 1..N -&gt; WK-CALL program code, indexed by (choice - 1). */
+<span class="fc" id="L403">    private static final String[] ORDER_PROGRAM_CODES = {</span>
+        &quot;OE0010&quot;, &quot;OE0020&quot;, &quot;OE0030&quot;, &quot;SH0010&quot;, &quot;SL0010&quot;,
+        &quot;SL0020&quot;, &quot;SL0030&quot;, &quot;OE0040&quot;, &quot;SL0040&quot;, &quot;OE0050&quot;
+    };
+
+    /** Submenu choice 1..N -&gt; WK-CALL program code, indexed by (choice - 1). */
+<span class="fc" id="L409">    private static final String[] PURCHASE_PROGRAM_CODES = {</span>
+        &quot;PU0010&quot;, &quot;PU0020&quot;, &quot;RC0010&quot;, &quot;PU0030&quot;, &quot;PU0040&quot;
+    };
+
+    /** Submenu choice 1..N -&gt; WK-CALL program code, indexed by (choice - 1). */
+<span class="fc" id="L414">    private static final String[] INVOICE_PROGRAM_CODES = {</span>
+        &quot;IV0010&quot;, &quot;IV0020&quot;, &quot;IV0030&quot;, &quot;IV0040&quot;, &quot;AR0010&quot;,
+        &quot;AR0020&quot;, &quot;AP0010&quot;, &quot;AP0020&quot;, &quot;IV0050&quot;
+    };
+
+    /** Submenu choice 1..N -&gt; WK-CALL program code, indexed by (choice - 1). */
+<span class="fc" id="L420">    private static final String[] REPORT_PROGRAM_CODES = {</span>
+        &quot;RP0010&quot;, &quot;RP0020&quot;, &quot;RP0030&quot;, &quot;RP0040&quot;, &quot;RP0050&quot;, &quot;RP0060&quot;, &quot;RP0070&quot;,
+        &quot;RP0080&quot;, &quot;RP0090&quot;, &quot;RP0100&quot;, &quot;RP0110&quot;, &quot;RP0120&quot;, &quot;RP0130&quot;, &quot;RP0140&quot;
+    };
+
+    /** Submenu choice 1..N -&gt; WK-CALL program code, indexed by (choice - 1). */
+<span class="fc" id="L426">    private static final String[] BATCH_PROGRAM_CODES = {</span>
+        &quot;BT0010&quot;, &quot;BT0020&quot;, &quot;BT0030&quot;, &quot;BT0040&quot;, &quot;BT0050&quot;,
+        &quot;BT0060&quot;, &quot;BT0070&quot;, &quot;BT0080&quot;, &quot;BT0090&quot;
+    };
+
+    public Menu00Service(DateutService dateutService, ChklogService chklogService,
+            Ms0010Service ms0010Service, Ms0020Service ms0020Service, Ms0030Service ms0030Service,
+            Ms0040Service ms0040Service, Ms0050Service ms0050Service, Ms0060Service ms0060Service,
+            Ms0070Service ms0070Service, Ms0080Service ms0080Service, Ms0090Service ms0090Service,
+            Ms0100Service ms0100Service, Ms0110Service ms0110Service, Ms0120Service ms0120Service,
+            Oe0010Service oe0010Service, Oe0020Service oe0020Service, Oe0030Service oe0030Service,
+            Oe0040Service oe0040Service, Oe0050Service oe0050Service, Sh0010Service sh0010Service,
+            Sl0010Service sl0010Service, Sl0020Service sl0020Service, Sl0030Service sl0030Service,
+            Sl0040Service sl0040Service, Pu0010Service pu0010Service, Pu0020Service pu0020Service,
+            Pu0030Service pu0030Service, Pu0040Service pu0040Service, Rc0010Service rc0010Service,
+            Iv0010Service iv0010Service, Iv0020Service iv0020Service, Iv0030Service iv0030Service,
+            Iv0040Service iv0040Service, Iv0050Service iv0050Service, Ar0010Service ar0010Service,
+            Ar0020Service ar0020Service, Ap0010Service ap0010Service, Ap0020Service ap0020Service,
+            Rp0010Service rp0010Service, Rp0020Service rp0020Service, Rp0030Service rp0030Service,
+            Rp0040Service rp0040Service, Rp0050Service rp0050Service, Rp0060Service rp0060Service,
+            Rp0070Service rp0070Service, Rp0080Service rp0080Service, Rp0090Service rp0090Service,
+            Rp0100Service rp0100Service, Rp0110Service rp0110Service, Rp0120Service rp0120Service,
+            Rp0130Service rp0130Service, Rp0140Service rp0140Service, Bt0010Service bt0010Service,
+            Bt0020Service bt0020Service, Bt0030Service bt0030Service, Bt0040Service bt0040Service,
+            Bt0050Service bt0050Service, Bt0060Service bt0060Service, Bt0070Service bt0070Service,
+            Bt0080Service bt0080Service, Bt0090Service bt0090Service,
+<span class="fc" id="L452">            ScreenRendererInstance renderer) {</span>
+<span class="fc" id="L453">        this.dateutService = dateutService;</span>
+<span class="fc" id="L454">        this.chklogService = chklogService;</span>
+<span class="fc" id="L455">        this.ms0010Service = ms0010Service;</span>
+<span class="fc" id="L456">        this.ms0020Service = ms0020Service;</span>
+<span class="fc" id="L457">        this.ms0030Service = ms0030Service;</span>
+<span class="fc" id="L458">        this.ms0040Service = ms0040Service;</span>
+<span class="fc" id="L459">        this.ms0050Service = ms0050Service;</span>
+<span class="fc" id="L460">        this.ms0060Service = ms0060Service;</span>
+<span class="fc" id="L461">        this.ms0070Service = ms0070Service;</span>
+<span class="fc" id="L462">        this.ms0080Service = ms0080Service;</span>
+<span class="fc" id="L463">        this.ms0090Service = ms0090Service;</span>
+<span class="fc" id="L464">        this.ms0100Service = ms0100Service;</span>
+<span class="fc" id="L465">        this.ms0110Service = ms0110Service;</span>
+<span class="fc" id="L466">        this.ms0120Service = ms0120Service;</span>
+<span class="fc" id="L467">        this.oe0010Service = oe0010Service;</span>
+<span class="fc" id="L468">        this.oe0020Service = oe0020Service;</span>
+<span class="fc" id="L469">        this.oe0030Service = oe0030Service;</span>
+<span class="fc" id="L470">        this.oe0040Service = oe0040Service;</span>
+<span class="fc" id="L471">        this.oe0050Service = oe0050Service;</span>
+<span class="fc" id="L472">        this.sh0010Service = sh0010Service;</span>
+<span class="fc" id="L473">        this.sl0010Service = sl0010Service;</span>
+<span class="fc" id="L474">        this.sl0020Service = sl0020Service;</span>
+<span class="fc" id="L475">        this.sl0030Service = sl0030Service;</span>
+<span class="fc" id="L476">        this.sl0040Service = sl0040Service;</span>
+<span class="fc" id="L477">        this.pu0010Service = pu0010Service;</span>
+<span class="fc" id="L478">        this.pu0020Service = pu0020Service;</span>
+<span class="fc" id="L479">        this.pu0030Service = pu0030Service;</span>
+<span class="fc" id="L480">        this.pu0040Service = pu0040Service;</span>
+<span class="fc" id="L481">        this.rc0010Service = rc0010Service;</span>
+<span class="fc" id="L482">        this.iv0010Service = iv0010Service;</span>
+<span class="fc" id="L483">        this.iv0020Service = iv0020Service;</span>
+<span class="fc" id="L484">        this.iv0030Service = iv0030Service;</span>
+<span class="fc" id="L485">        this.iv0040Service = iv0040Service;</span>
+<span class="fc" id="L486">        this.iv0050Service = iv0050Service;</span>
+<span class="fc" id="L487">        this.ar0010Service = ar0010Service;</span>
+<span class="fc" id="L488">        this.ar0020Service = ar0020Service;</span>
+<span class="fc" id="L489">        this.ap0010Service = ap0010Service;</span>
+<span class="fc" id="L490">        this.ap0020Service = ap0020Service;</span>
+<span class="fc" id="L491">        this.rp0010Service = rp0010Service;</span>
+<span class="fc" id="L492">        this.rp0020Service = rp0020Service;</span>
+<span class="fc" id="L493">        this.rp0030Service = rp0030Service;</span>
+<span class="fc" id="L494">        this.rp0040Service = rp0040Service;</span>
+<span class="fc" id="L495">        this.rp0050Service = rp0050Service;</span>
+<span class="fc" id="L496">        this.rp0060Service = rp0060Service;</span>
+<span class="fc" id="L497">        this.rp0070Service = rp0070Service;</span>
+<span class="fc" id="L498">        this.rp0080Service = rp0080Service;</span>
+<span class="fc" id="L499">        this.rp0090Service = rp0090Service;</span>
+<span class="fc" id="L500">        this.rp0100Service = rp0100Service;</span>
+<span class="fc" id="L501">        this.rp0110Service = rp0110Service;</span>
+<span class="fc" id="L502">        this.rp0120Service = rp0120Service;</span>
+<span class="fc" id="L503">        this.rp0130Service = rp0130Service;</span>
+<span class="fc" id="L504">        this.rp0140Service = rp0140Service;</span>
+<span class="fc" id="L505">        this.bt0010Service = bt0010Service;</span>
+<span class="fc" id="L506">        this.bt0020Service = bt0020Service;</span>
+<span class="fc" id="L507">        this.bt0030Service = bt0030Service;</span>
+<span class="fc" id="L508">        this.bt0040Service = bt0040Service;</span>
+<span class="fc" id="L509">        this.bt0050Service = bt0050Service;</span>
+<span class="fc" id="L510">        this.bt0060Service = bt0060Service;</span>
+<span class="fc" id="L511">        this.bt0070Service = bt0070Service;</span>
+<span class="fc" id="L512">        this.bt0080Service = bt0080Service;</span>
+<span class="fc" id="L513">        this.bt0090Service = bt0090Service;</span>
+<span class="fc" id="L514">        this.renderer = renderer;</span>
+<span class="fc" id="L515">    }</span>
+
+    @Override
+    public void setRenderer(ScreenRendererInstance renderer) {
+<span class="fc" id="L519">        super.setRenderer(renderer);</span>
+<span class="pc bpc" id="L520" title="1 of 2 branches missed.">        if (dateutService instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L521">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L523" title="1 of 2 branches missed.">        if (chklogService instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L524">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L526" title="1 of 2 branches missed.">        if (ms0010Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L527">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L529" title="1 of 2 branches missed.">        if (ms0020Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L530">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L532" title="1 of 2 branches missed.">        if (ms0030Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L533">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L535" title="1 of 2 branches missed.">        if (ms0040Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L536">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L538" title="1 of 2 branches missed.">        if (ms0050Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L539">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L541" title="1 of 2 branches missed.">        if (ms0060Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L542">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L544" title="1 of 2 branches missed.">        if (ms0070Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L545">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L547" title="1 of 2 branches missed.">        if (ms0080Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L548">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L550" title="1 of 2 branches missed.">        if (ms0090Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L551">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L553" title="1 of 2 branches missed.">        if (ms0100Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L554">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L556" title="1 of 2 branches missed.">        if (ms0110Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L557">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L559" title="1 of 2 branches missed.">        if (ms0120Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L560">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L562" title="1 of 2 branches missed.">        if (oe0010Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L563">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L565" title="1 of 2 branches missed.">        if (oe0020Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L566">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L568" title="1 of 2 branches missed.">        if (oe0030Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L569">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L571" title="1 of 2 branches missed.">        if (oe0040Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L572">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L574" title="1 of 2 branches missed.">        if (oe0050Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L575">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L577" title="1 of 2 branches missed.">        if (sh0010Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L578">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L580" title="1 of 2 branches missed.">        if (sl0010Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L581">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L583" title="1 of 2 branches missed.">        if (sl0020Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L584">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L586" title="1 of 2 branches missed.">        if (sl0030Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L587">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L589" title="1 of 2 branches missed.">        if (sl0040Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L590">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L592" title="1 of 2 branches missed.">        if (pu0010Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L593">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L595" title="1 of 2 branches missed.">        if (pu0020Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L596">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L598" title="1 of 2 branches missed.">        if (pu0030Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L599">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L601" title="1 of 2 branches missed.">        if (pu0040Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L602">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L604" title="1 of 2 branches missed.">        if (rc0010Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L605">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L607" title="1 of 2 branches missed.">        if (iv0010Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L608">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L610" title="1 of 2 branches missed.">        if (iv0020Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L611">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L613" title="1 of 2 branches missed.">        if (iv0030Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L614">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L616" title="1 of 2 branches missed.">        if (iv0040Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L617">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L619" title="1 of 2 branches missed.">        if (iv0050Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L620">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L622" title="1 of 2 branches missed.">        if (ar0010Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L623">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L625" title="1 of 2 branches missed.">        if (ar0020Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L626">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L628" title="1 of 2 branches missed.">        if (ap0010Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L629">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L631" title="1 of 2 branches missed.">        if (ap0020Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L632">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L634" title="1 of 2 branches missed.">        if (rp0010Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L635">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L637" title="1 of 2 branches missed.">        if (rp0020Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L638">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L640" title="1 of 2 branches missed.">        if (rp0030Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L641">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L643" title="1 of 2 branches missed.">        if (rp0040Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L644">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L646" title="1 of 2 branches missed.">        if (rp0050Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L647">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L649" title="1 of 2 branches missed.">        if (rp0060Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L650">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L652" title="1 of 2 branches missed.">        if (rp0070Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L653">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L655" title="1 of 2 branches missed.">        if (rp0080Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L656">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L658" title="1 of 2 branches missed.">        if (rp0090Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L659">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L661" title="1 of 2 branches missed.">        if (rp0100Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L662">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L664" title="1 of 2 branches missed.">        if (rp0110Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L665">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L667" title="1 of 2 branches missed.">        if (rp0120Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L668">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L670" title="1 of 2 branches missed.">        if (rp0130Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L671">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L673" title="1 of 2 branches missed.">        if (rp0140Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L674">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L676" title="1 of 2 branches missed.">        if (bt0010Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L677">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L679" title="1 of 2 branches missed.">        if (bt0020Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L680">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L682" title="1 of 2 branches missed.">        if (bt0030Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L683">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L685" title="1 of 2 branches missed.">        if (bt0040Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L686">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L688" title="1 of 2 branches missed.">        if (bt0050Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L689">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L691" title="1 of 2 branches missed.">        if (bt0060Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L692">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L694" title="1 of 2 branches missed.">        if (bt0070Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L695">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L697" title="1 of 2 branches missed.">        if (bt0080Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L698">            rra.setRenderer(renderer);</span>
+        }
+<span class="pc bpc" id="L700" title="1 of 2 branches missed.">        if (bt0090Service instanceof ScreenRendererAware rra) {</span>
+<span class="fc" id="L701">            rra.setRenderer(renderer);</span>
+        }
+<span class="fc" id="L703">    }</span>
+
+    /**
+     * Program entry point — runs the first COBOL paragraph via runChain.
+     * Base class run() wraps this in StopRun/Abort/Exception handling.
+     */
+    @Override
+    protected void mainProcess() {
+        // Import anchors for types referenced by emitted paragraph bodies:
+        // StopRunSignal, JobAbortException, ParagraphJumpSignal, ProgramExitSignal
+<span class="nc" id="L713">        runChain(this::runMainProgram);</span>
+<span class="nc" id="L714">    }</span>
+
+    /**
+     * Returns COBOL COMPLETION-CODE after run() completes.
+     * Used by Tasklet to propagate exit code into StepExecutionContext.
+     */
+    @Override
+    public int getCompletionCode() {
+<span class="fc" id="L722">        return ws.getCompletionCode();</span>
+    }
+
+    /**
+     * Set COBOL COMPLETION-CODE. Called by base class run() on Abort (255) / Exception (12) paths.
+     */
+    @Override
+    protected void setCompletionCode(int code) {
+<span class="fc" id="L730">        ws.setCompletionCode(code);</span>
+<span class="fc" id="L731">    }</span>
+
+    /**
+     * Returns this program's FileSet (or null if no files declared).
+     * Base class run() uses this for commit/rollback/closeAll lifecycle.
+     */
+    @Override
+    protected AbstractDatasets getFileSet() {
+<span class="fc" id="L739">        return null;</span>
+    }
+
+    /**
+     * COBOL paragraph: MAIN-000
+     */
+    private void runMainProgram() {
+<span class="fc" id="L746">        runChain(this::initializeProgram);</span>
+<span class="fc" id="L747">        runChain(this::startSignOn);</span>
+<span class="fc bfc" id="L748" title="All 2 branches covered.">        if ((ws.getEndFlg() != 1)) {</span>
+<span class="fc bfc" id="L749" title="All 2 branches covered.">            while ((ws.getEndFlg() != 1)) {</span>
+<span class="fc" id="L750">                runChain(this::displayMainMenuAndDispatch);</span>
+            }
+        }
+<span class="fc" id="L753">        runChain(this::displaySignOffMessage);</span>
+<span class="fc" id="L754">        throw new StopRunSignal();</span>
+    }
+
+    /**
+     * COBOL paragraph: INIT-010
+     */
+    private void initializeProgram() {
+<span class="fc" id="L761">        ws.setWkProgid(&quot;MENU00&quot;);</span>
+<span class="fc" id="L762">        ws.setWkTitle(&quot;SAKURA Sales Management System&quot;);</span>
+<span class="fc" id="L763">        ws.setKdFunc(&quot;TODY&quot;);</span>
+<span class="fc" id="L764">        dateut(ws.getKdate());</span>
+<span class="fc" id="L765">        ws.setWkSysymd(ws.getKdDate1());</span>
+<span class="fc" id="L766">    }</span>
+
+    /**
+     * COBOL paragraph: SON-010
+     */
+    private void startSignOn() {
+<span class="fc" id="L772">        ws.setWkLoginTry(0);</span>
+        // fall-through to next paragraph
+<span class="fc" id="L774">        authenticateUser();</span>
+<span class="fc" id="L775">    }</span>
+
+    /**
+     * COBOL paragraph: SON-020
+     */
+    private void authenticateUser() {
+        while (true) {
+<span class="fc" id="L782">            ws.setWkLoginTry(ws.getWkLoginTry() + 1);</span>
+<span class="fc" id="L783">            ws.setKlLogin(&quot; &quot;);</span>
+<span class="fc" id="L784">            ws.setKlPassword(&quot; &quot;);</span>
+<span class="fc" id="L785">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-HEADER&quot;), ws);</span>
+<span class="fc" id="L786">            ws.setWkMsgLine(&quot;Enter login - PF3 to quit&quot;);</span>
+<span class="fc" id="L787">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L788">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-LOGIN&quot;), ws);</span>
+<span class="fc" id="L789">            String scValKlLogin0 = Utility.acceptScreen(&quot;KL-LOGIN&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;KL-LOGIN&quot;)));</span>
+<span class="fc" id="L790">            ws.setKlLogin(scValKlLogin0);</span>
+<span class="fc" id="L791">            String scValKlPassword1 = Utility.acceptScreen(&quot;KL-PASSWORD&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;KL-PASSWORD&quot;)));</span>
+<span class="fc" id="L792">            ws.setKlPassword(scValKlPassword1);</span>
+<span class="fc" id="L793">            broadcastEstsStatus();</span>
+<span class="fc bfc" id="L794" title="All 2 branches covered.">            if (isQuitKeyPressed()) {</span>
+<span class="fc" id="L795">                ws.setString(&quot;END-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L796">                return;</span>
+            }
+<span class="fc" id="L798">            chklog(ws.getKlogin());</span>
+<span class="fc bfc" id="L799" title="All 2 branches covered.">            if (Utility.fieldEquals(ws.getKlStatus(), &quot;00&quot;)) {</span>
+<span class="fc" id="L800">                ws.setWkUserCode(ws.getKlUserCode());</span>
+<span class="fc" id="L801">                ws.setWkUserName(ws.getKlUserName());</span>
+<span class="fc" id="L802">                ws.setWkUserRole(ws.getKlRole());</span>
+<span class="fc" id="L803">                ws.setWkUserAuth(ws.getKlAuth());</span>
+<span class="fc" id="L804">                return;</span>
+            }
+<span class="fc" id="L806">            ws.setWkMsgLine(&quot;Invalid login or password&quot;);</span>
+<span class="fc" id="L807">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc bfc" id="L808" title="All 2 branches covered.">            if (ws.getWkLoginTry() &gt;= 3) {</span>
+<span class="fc" id="L809">                ws.setWkMsgLine(&quot;Too many attempts - exiting&quot;);</span>
+<span class="fc" id="L810">                renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L811">                ws.setString(&quot;END-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L812">                return;</span>
+            }
+<span class="fc" id="L814">        }</span>
+    }
+
+    /**
+     * COBOL paragraph: MLOOP-010
+     */
+    private void displayMainMenuAndDispatch() {
+<span class="fc" id="L821">        ws.setWkChoice(0);</span>
+<span class="fc" id="L822">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-HEADER&quot;), ws);</span>
+<span class="fc" id="L823">        ws.setWkMsgLine(ws.getWkUserName());</span>
+<span class="fc" id="L824">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L825">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MAIN&quot;), ws);</span>
+<span class="fc" id="L826">        String scValWkChoice2 = Utility.acceptScreen(&quot;WK-CHOICE&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;WK-CHOICE&quot;)));</span>
+<span class="fc" id="L827">        ws.setWkChoice(Utility.parseIntOr(scValWkChoice2.trim(), 0));</span>
+<span class="fc" id="L828">        broadcastEstsStatus();</span>
+<span class="fc bfc" id="L829" title="All 2 branches covered.">        if (isQuitKeyPressed()) {</span>
+<span class="fc" id="L830">            ws.setString(&quot;END-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L831">            return;</span>
+        }
+<span class="pc bpc" id="L833" title="5 of 9 branches missed.">        switch (ws.getWkChoice()) {</span>
+        case 0 -&gt; {
+<span class="fc" id="L835">        ws.setString(&quot;END-FLG&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L836">        }</span>
+        case 1 -&gt; {
+<span class="fc" id="L838">        runChain(this::runMasterMenuLoop);</span>
+<span class="fc" id="L839">        }</span>
+        case 2 -&gt; {
+<span class="nc" id="L841">        runChain(this::runOrderMenuLoop);</span>
+<span class="nc" id="L842">        }</span>
+        case 3 -&gt; {
+<span class="nc" id="L844">        runChain(this::runPurchaseMenuLoop);</span>
+<span class="nc" id="L845">        }</span>
+        case 4 -&gt; {
+<span class="nc" id="L847">        runChain(this::runInvoiceMenuLoop);</span>
+<span class="nc" id="L848">        }</span>
+        case 5 -&gt; {
+<span class="fc" id="L850">        runChain(this::runInvoiceMenuLoop);</span>
+<span class="fc" id="L851">        }</span>
+        case 6 -&gt; {
+<span class="nc" id="L853">        runChain(this::runReportMenuLoop);</span>
+<span class="nc" id="L854">        }</span>
+        case 7 -&gt; {
+<span class="nc" id="L856">        runChain(this::runBatchMenuLoop);</span>
+<span class="nc" id="L857">        }</span>
+        default -&gt; {
+<span class="fc" id="L859">        ws.setWkMsgLine(&quot;Invalid selection&quot;);</span>
+<span class="fc" id="L860">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+        }
+<span class="fc" id="L863">    }</span>
+
+    /**
+     * COBOL paragraph: SMST-010
+     */
+    private void runMasterMenuLoop() {
+<span class="fc" id="L869">        runSubmenuLoop(&quot;DS-MENU-MST&quot;, MASTER_PROGRAM_CODES);</span>
+<span class="fc" id="L870">    }</span>
+
+    /**
+     * COBOL paragraph: SORD-010
+     */
+    private void runOrderMenuLoop() {
+<span class="fc" id="L876">        runSubmenuLoop(&quot;DS-MENU-ORD&quot;, ORDER_PROGRAM_CODES);</span>
+<span class="fc" id="L877">    }</span>
+
+    /**
+     * COBOL paragraph: SPUR-010
+     */
+    private void runPurchaseMenuLoop() {
+<span class="fc" id="L883">        runSubmenuLoop(&quot;DS-MENU-PUR&quot;, PURCHASE_PROGRAM_CODES);</span>
+<span class="fc" id="L884">    }</span>
+
+    /**
+     * COBOL paragraph: SINV-010
+     */
+    private void runInvoiceMenuLoop() {
+<span class="fc" id="L890">        runSubmenuLoop(&quot;DS-MENU-INV&quot;, INVOICE_PROGRAM_CODES);</span>
+<span class="fc" id="L891">    }</span>
+
+    /**
+     * COBOL paragraph: SRPT-010
+     */
+    private void runReportMenuLoop() {
+<span class="fc" id="L897">        runSubmenuLoop(&quot;DS-MENU-RPT&quot;, REPORT_PROGRAM_CODES);</span>
+<span class="fc" id="L898">    }</span>
+
+    /**
+     * COBOL paragraph: SBAT-010
+     */
+    private void runBatchMenuLoop() {
+        while (true) {
+<span class="fc bfc" id="L905" title="All 2 branches covered.">            if (!Utility.fieldEquals(Utility.padRight(ws.getWkUserAuth(), 5).substring(4, 5), &quot;1&quot;)) {</span>
+<span class="fc" id="L906">                ws.setWkMsgLine(&quot;Not authorised for batch/closing&quot;);</span>
+<span class="fc" id="L907">                renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L908">                return;</span>
+            }
+<span class="fc" id="L910">            ws.setWkChoice(0);</span>
+<span class="fc" id="L911">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-HEADER&quot;), ws);</span>
+<span class="fc" id="L912">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MENU-BAT&quot;), ws);</span>
+<span class="fc" id="L913">            String scValWkChoice8 = Utility.acceptScreen(&quot;WK-CHOICE&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;WK-CHOICE&quot;)));</span>
+<span class="fc" id="L914">            ws.setWkChoice(Utility.parseIntOr(scValWkChoice8.trim(), 0));</span>
+<span class="fc" id="L915">            broadcastEstsStatus();</span>
+<span class="fc bfc" id="L916" title="All 2 branches covered.">            if (isMenuExitRequested()) {</span>
+<span class="fc" id="L917">                return;</span>
+            }
+<span class="fc" id="L919">            ws.setWkCall(resolveProgramCode(BATCH_PROGRAM_CODES));</span>
+<span class="fc" id="L920">            runChain(this::callSelectedProgram);</span>
+<span class="fc" id="L921">        }</span>
+    }
+
+    /**
+     * COBOL paragraph: CPRG-010
+     */
+    private void callSelectedProgram() {
+<span class="fc bfc" id="L928" title="All 2 branches covered.">        if (Utility.fieldEquals(ws.getWkCall(), &quot; &quot;)) {</span>
+<span class="fc" id="L929">            ws.setWkMsgLine(&quot;Invalid selection&quot;);</span>
+<span class="fc" id="L930">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L931">            return;</span>
+        }
+<span class="fc bfc" id="L933" title="All 60 branches covered.">        switch (ws.getWkCall()) {</span>
+        case &quot;MS0010&quot; -&gt; {
+<span class="fc" id="L935">        ms0010();</span>
+<span class="fc" id="L936">        }</span>
+        case &quot;MS0020&quot; -&gt; {
+<span class="fc" id="L938">        ms0020();</span>
+<span class="fc" id="L939">        }</span>
+        case &quot;MS0030&quot; -&gt; {
+<span class="fc" id="L941">        ms0030();</span>
+<span class="fc" id="L942">        }</span>
+        case &quot;MS0040&quot; -&gt; {
+<span class="fc" id="L944">        ms0040();</span>
+<span class="fc" id="L945">        }</span>
+        case &quot;MS0050&quot; -&gt; {
+<span class="fc" id="L947">        ms0050();</span>
+<span class="fc" id="L948">        }</span>
+        case &quot;MS0060&quot; -&gt; {
+<span class="fc" id="L950">        ms0060();</span>
+<span class="fc" id="L951">        }</span>
+        case &quot;MS0070&quot; -&gt; {
+<span class="fc" id="L953">        ms0070();</span>
+<span class="fc" id="L954">        }</span>
+        case &quot;MS0080&quot; -&gt; {
+<span class="fc" id="L956">        ms0080();</span>
+<span class="fc" id="L957">        }</span>
+        case &quot;MS0090&quot; -&gt; {
+<span class="fc" id="L959">        ms0090();</span>
+<span class="fc" id="L960">        }</span>
+        case &quot;MS0100&quot; -&gt; {
+<span class="fc" id="L962">        ms0100();</span>
+<span class="fc" id="L963">        }</span>
+        case &quot;MS0110&quot; -&gt; {
+<span class="fc" id="L965">        ms0110();</span>
+<span class="fc" id="L966">        }</span>
+        case &quot;MS0120&quot; -&gt; {
+<span class="fc" id="L968">        ms0120();</span>
+<span class="fc" id="L969">        }</span>
+        case &quot;OE0010&quot; -&gt; {
+<span class="fc" id="L971">        oe0010();</span>
+<span class="fc" id="L972">        }</span>
+        case &quot;OE0020&quot; -&gt; {
+<span class="fc" id="L974">        oe0020();</span>
+<span class="fc" id="L975">        }</span>
+        case &quot;OE0030&quot; -&gt; {
+<span class="fc" id="L977">        oe0030();</span>
+<span class="fc" id="L978">        }</span>
+        case &quot;OE0040&quot; -&gt; {
+<span class="fc" id="L980">        oe0040();</span>
+<span class="fc" id="L981">        }</span>
+        case &quot;OE0050&quot; -&gt; {
+<span class="fc" id="L983">        oe0050();</span>
+<span class="fc" id="L984">        }</span>
+        case &quot;SH0010&quot; -&gt; {
+<span class="fc" id="L986">        sh0010();</span>
+<span class="fc" id="L987">        }</span>
+        case &quot;SL0010&quot; -&gt; {
+<span class="fc" id="L989">        sl0010();</span>
+<span class="fc" id="L990">        }</span>
+        case &quot;SL0020&quot; -&gt; {
+<span class="fc" id="L992">        sl0020();</span>
+<span class="fc" id="L993">        }</span>
+        case &quot;SL0030&quot; -&gt; {
+<span class="fc" id="L995">        sl0030();</span>
+<span class="fc" id="L996">        }</span>
+        case &quot;SL0040&quot; -&gt; {
+<span class="fc" id="L998">        sl0040();</span>
+<span class="fc" id="L999">        }</span>
+        case &quot;PU0010&quot; -&gt; {
+<span class="fc" id="L1001">        pu0010();</span>
+<span class="fc" id="L1002">        }</span>
+        case &quot;PU0020&quot; -&gt; {
+<span class="fc" id="L1004">        pu0020();</span>
+<span class="fc" id="L1005">        }</span>
+        case &quot;PU0030&quot; -&gt; {
+<span class="fc" id="L1007">        pu0030();</span>
+<span class="fc" id="L1008">        }</span>
+        case &quot;PU0040&quot; -&gt; {
+<span class="fc" id="L1010">        pu0040();</span>
+<span class="fc" id="L1011">        }</span>
+        case &quot;RC0010&quot; -&gt; {
+<span class="fc" id="L1013">        rc0010();</span>
+<span class="fc" id="L1014">        }</span>
+        case &quot;IV0010&quot; -&gt; {
+<span class="fc" id="L1016">        iv0010();</span>
+<span class="fc" id="L1017">        }</span>
+        case &quot;IV0020&quot; -&gt; {
+<span class="fc" id="L1019">        iv0020();</span>
+<span class="fc" id="L1020">        }</span>
+        case &quot;IV0030&quot; -&gt; {
+<span class="fc" id="L1022">        iv0030();</span>
+<span class="fc" id="L1023">        }</span>
+        case &quot;IV0040&quot; -&gt; {
+<span class="fc" id="L1025">        iv0040();</span>
+<span class="fc" id="L1026">        }</span>
+        case &quot;IV0050&quot; -&gt; {
+<span class="fc" id="L1028">        iv0050();</span>
+<span class="fc" id="L1029">        }</span>
+        case &quot;AR0010&quot; -&gt; {
+<span class="fc" id="L1031">        ar0010();</span>
+<span class="fc" id="L1032">        }</span>
+        case &quot;AR0020&quot; -&gt; {
+<span class="fc" id="L1034">        ar0020();</span>
+<span class="fc" id="L1035">        }</span>
+        case &quot;AP0010&quot; -&gt; {
+<span class="fc" id="L1037">        ap0010();</span>
+<span class="fc" id="L1038">        }</span>
+        case &quot;AP0020&quot; -&gt; {
+<span class="fc" id="L1040">        ap0020();</span>
+<span class="fc" id="L1041">        }</span>
+        case &quot;RP0010&quot; -&gt; {
+<span class="fc" id="L1043">        rp0010();</span>
+<span class="fc" id="L1044">        }</span>
+        case &quot;RP0020&quot; -&gt; {
+<span class="fc" id="L1046">        rp0020();</span>
+<span class="fc" id="L1047">        }</span>
+        case &quot;RP0030&quot; -&gt; {
+<span class="fc" id="L1049">        rp0030();</span>
+<span class="fc" id="L1050">        }</span>
+        case &quot;RP0040&quot; -&gt; {
+<span class="fc" id="L1052">        rp0040();</span>
+<span class="fc" id="L1053">        }</span>
+        case &quot;RP0050&quot; -&gt; {
+<span class="fc" id="L1055">        rp0050();</span>
+<span class="fc" id="L1056">        }</span>
+        case &quot;RP0060&quot; -&gt; {
+<span class="fc" id="L1058">        rp0060();</span>
+<span class="fc" id="L1059">        }</span>
+        case &quot;RP0070&quot; -&gt; {
+<span class="fc" id="L1061">        rp0070();</span>
+<span class="fc" id="L1062">        }</span>
+        case &quot;RP0080&quot; -&gt; {
+<span class="fc" id="L1064">        rp0080();</span>
+<span class="fc" id="L1065">        }</span>
+        case &quot;RP0090&quot; -&gt; {
+<span class="fc" id="L1067">        rp0090();</span>
+<span class="fc" id="L1068">        }</span>
+        case &quot;RP0100&quot; -&gt; {
+<span class="fc" id="L1070">        rp0100();</span>
+<span class="fc" id="L1071">        }</span>
+        case &quot;RP0110&quot; -&gt; {
+<span class="fc" id="L1073">        rp0110();</span>
+<span class="fc" id="L1074">        }</span>
+        case &quot;RP0120&quot; -&gt; {
+<span class="fc" id="L1076">        rp0120();</span>
+<span class="fc" id="L1077">        }</span>
+        case &quot;RP0130&quot; -&gt; {
+<span class="fc" id="L1079">        rp0130();</span>
+<span class="fc" id="L1080">        }</span>
+        case &quot;RP0140&quot; -&gt; {
+<span class="fc" id="L1082">        rp0140();</span>
+<span class="fc" id="L1083">        }</span>
+        case &quot;BT0010&quot; -&gt; {
+<span class="fc" id="L1085">        bt0010();</span>
+<span class="fc" id="L1086">        }</span>
+        case &quot;BT0020&quot; -&gt; {
+<span class="fc" id="L1088">        bt0020();</span>
+<span class="fc" id="L1089">        }</span>
+        case &quot;BT0030&quot; -&gt; {
+<span class="fc" id="L1091">        bt0030();</span>
+<span class="fc" id="L1092">        }</span>
+        case &quot;BT0040&quot; -&gt; {
+<span class="fc" id="L1094">        bt0040();</span>
+<span class="fc" id="L1095">        }</span>
+        case &quot;BT0050&quot; -&gt; {
+<span class="fc" id="L1097">        bt0050();</span>
+<span class="fc" id="L1098">        }</span>
+        case &quot;BT0060&quot; -&gt; {
+<span class="fc" id="L1100">        bt0060();</span>
+<span class="fc" id="L1101">        }</span>
+        case &quot;BT0070&quot; -&gt; {
+<span class="fc" id="L1103">        bt0070();</span>
+<span class="fc" id="L1104">        }</span>
+        case &quot;BT0080&quot; -&gt; {
+<span class="fc" id="L1106">        bt0080();</span>
+<span class="fc" id="L1107">        }</span>
+        case &quot;BT0090&quot; -&gt; {
+<span class="fc" id="L1109">        bt0090();</span>
+<span class="fc" id="L1110">        }</span>
+        default -&gt; {
+<span class="fc" id="L1112">        ws.setWkMsgLine(&quot;Program not available yet&quot;);</span>
+<span class="fc" id="L1113">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+        }
+        }
+<span class="fc" id="L1116">    }</span>
+
+    /**
+     * COBOL paragraph: SOFF-010
+     */
+    private void displaySignOffMessage() {
+<span class="fc" id="L1122">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-HEADER&quot;), ws);</span>
+<span class="fc" id="L1123">        ws.setWkMsgLine(&quot;Signed off - thank you&quot;);</span>
+<span class="fc" id="L1124">        renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-MSG&quot;), ws);</span>
+<span class="fc" id="L1125">    }</span>
+
+    /**
+     * COBOL CALL DATEUT — delegates to injected DateutService.
+     */
+    private void dateut(Object... args) {
+<span class="fc" id="L1131">        DateutLinkParm params = new DateutLinkParm();</span>
+<span class="fc" id="L1132">        params.getKdate().setKdFunc(ws.getKdFunc());</span>
+<span class="fc" id="L1133">        params.getKdate().setKdDate1(ws.getKdDate1());</span>
+<span class="fc" id="L1134">        params.getKdate().setKdDate2(ws.getKdDate2());</span>
+<span class="fc" id="L1135">        params.getKdate().setKdDays(ws.getKdDays());</span>
+<span class="fc" id="L1136">        params.getKdate().setKdWeekday(ws.getKdWeekday());</span>
+<span class="fc" id="L1137">        params.getKdate().setKdStatus(ws.getKdStatus());</span>
+<span class="fc" id="L1138">        dateutService.execute(params);</span>
+<span class="fc" id="L1139">        ws.setKdFunc(params.getKdate().getKdFunc());</span>
+<span class="fc" id="L1140">        ws.setKdDate1(params.getKdate().getKdDate1());</span>
+<span class="fc" id="L1141">        ws.setKdDate2(params.getKdate().getKdDate2());</span>
+<span class="fc" id="L1142">        ws.setKdDays(params.getKdate().getKdDays());</span>
+<span class="fc" id="L1143">        ws.setKdWeekday(params.getKdate().getKdWeekday());</span>
+<span class="fc" id="L1144">        ws.setKdStatus(params.getKdate().getKdStatus());</span>
+<span class="fc" id="L1145">    }</span>
+
+    /**
+     * COBOL CALL CHKLOG — delegates to injected ChklogService.
+     */
+    private void chklog(Object... args) {
+<span class="fc" id="L1151">        ChklogLinkParm params = new ChklogLinkParm();</span>
+<span class="fc" id="L1152">        params.getKlogin().setKlLogin(ws.getKlLogin());</span>
+<span class="fc" id="L1153">        params.getKlogin().setKlPassword(ws.getKlPassword());</span>
+<span class="fc" id="L1154">        params.getKlogin().setKlUserCode(ws.getKlUserCode());</span>
+<span class="fc" id="L1155">        params.getKlogin().setKlUserName(ws.getKlUserName());</span>
+<span class="fc" id="L1156">        params.getKlogin().setKlRole(ws.getKlRole());</span>
+<span class="fc" id="L1157">        params.getKlogin().setKlAuth(ws.getKlAuth());</span>
+<span class="fc" id="L1158">        params.getKlogin().setKlStatus(ws.getKlStatus());</span>
+<span class="fc" id="L1159">        chklogService.execute(params);</span>
+<span class="fc" id="L1160">        ws.setKlLogin(params.getKlogin().getKlLogin());</span>
+<span class="fc" id="L1161">        ws.setKlPassword(params.getKlogin().getKlPassword());</span>
+<span class="fc" id="L1162">        ws.setKlUserCode(params.getKlogin().getKlUserCode());</span>
+<span class="fc" id="L1163">        ws.setKlUserName(params.getKlogin().getKlUserName());</span>
+<span class="fc" id="L1164">        ws.setKlRole(params.getKlogin().getKlRole());</span>
+<span class="fc" id="L1165">        ws.setKlAuth(params.getKlogin().getKlAuth());</span>
+<span class="fc" id="L1166">        ws.setKlStatus(params.getKlogin().getKlStatus());</span>
+<span class="fc" id="L1167">    }</span>
+
+    /**
+     * COBOL CALL MS0010 — runs injected Ms0010Service in-process (no USING params).
+     */
+    private void ms0010(Object... args) {
+<span class="fc" id="L1173">        ms0010Service.execute();</span>
+<span class="fc" id="L1174">    }</span>
+
+    /**
+     * COBOL CALL MS0020 — runs injected Ms0020Service in-process (no USING params).
+     */
+    private void ms0020(Object... args) {
+<span class="fc" id="L1180">        ms0020Service.execute();</span>
+<span class="fc" id="L1181">    }</span>
+
+    /**
+     * COBOL CALL MS0030 — runs injected Ms0030Service in-process (no USING params).
+     */
+    private void ms0030(Object... args) {
+<span class="fc" id="L1187">        ms0030Service.execute();</span>
+<span class="fc" id="L1188">    }</span>
+
+    /**
+     * COBOL CALL MS0040 — runs injected Ms0040Service in-process (no USING params).
+     */
+    private void ms0040(Object... args) {
+<span class="fc" id="L1194">        ms0040Service.execute();</span>
+<span class="fc" id="L1195">    }</span>
+
+    /**
+     * COBOL CALL MS0050 — runs injected Ms0050Service in-process (no USING params).
+     */
+    private void ms0050(Object... args) {
+<span class="fc" id="L1201">        ms0050Service.execute();</span>
+<span class="fc" id="L1202">    }</span>
+
+    /**
+     * COBOL CALL MS0060 — runs injected Ms0060Service in-process (no USING params).
+     */
+    private void ms0060(Object... args) {
+<span class="fc" id="L1208">        ms0060Service.execute();</span>
+<span class="fc" id="L1209">    }</span>
+
+    /**
+     * COBOL CALL MS0070 — runs injected Ms0070Service in-process (no USING params).
+     */
+    private void ms0070(Object... args) {
+<span class="fc" id="L1215">        ms0070Service.execute();</span>
+<span class="fc" id="L1216">    }</span>
+
+    /**
+     * COBOL CALL MS0080 — runs injected Ms0080Service in-process (no USING params).
+     */
+    private void ms0080(Object... args) {
+<span class="fc" id="L1222">        ms0080Service.execute();</span>
+<span class="fc" id="L1223">    }</span>
+
+    /**
+     * COBOL CALL MS0090 — runs injected Ms0090Service in-process (no USING params).
+     */
+    private void ms0090(Object... args) {
+<span class="fc" id="L1229">        ms0090Service.execute();</span>
+<span class="fc" id="L1230">    }</span>
+
+    /**
+     * COBOL CALL MS0100 — runs injected Ms0100Service in-process (no USING params).
+     */
+    private void ms0100(Object... args) {
+<span class="fc" id="L1236">        ms0100Service.execute();</span>
+<span class="fc" id="L1237">    }</span>
+
+    /**
+     * COBOL CALL MS0110 — runs injected Ms0110Service in-process (no USING params).
+     */
+    private void ms0110(Object... args) {
+<span class="fc" id="L1243">        ms0110Service.execute();</span>
+<span class="fc" id="L1244">    }</span>
+
+    /**
+     * COBOL CALL MS0120 — runs injected Ms0120Service in-process (no USING params).
+     */
+    private void ms0120(Object... args) {
+<span class="fc" id="L1250">        ms0120Service.execute();</span>
+<span class="fc" id="L1251">    }</span>
+
+    /**
+     * COBOL CALL OE0010 — runs injected Oe0010Service in-process (no USING params).
+     */
+    private void oe0010(Object... args) {
+<span class="fc" id="L1257">        oe0010Service.execute();</span>
+<span class="fc" id="L1258">    }</span>
+
+    /**
+     * COBOL CALL OE0020 — runs injected Oe0020Service in-process (no USING params).
+     */
+    private void oe0020(Object... args) {
+<span class="fc" id="L1264">        oe0020Service.execute();</span>
+<span class="fc" id="L1265">    }</span>
+
+    /**
+     * COBOL CALL OE0030 — runs injected Oe0030Service in-process (no USING params).
+     */
+    private void oe0030(Object... args) {
+<span class="fc" id="L1271">        oe0030Service.execute();</span>
+<span class="fc" id="L1272">    }</span>
+
+    /**
+     * COBOL CALL OE0040 — runs injected Oe0040Service in-process (no USING params).
+     */
+    private void oe0040(Object... args) {
+<span class="fc" id="L1278">        oe0040Service.execute();</span>
+<span class="fc" id="L1279">    }</span>
+
+    /**
+     * COBOL CALL OE0050 — runs injected Oe0050Service in-process (no USING params).
+     */
+    private void oe0050(Object... args) {
+<span class="fc" id="L1285">        oe0050Service.execute();</span>
+<span class="fc" id="L1286">    }</span>
+
+    /**
+     * COBOL CALL SH0010 — runs injected Sh0010Service in-process (no USING params).
+     */
+    private void sh0010(Object... args) {
+<span class="fc" id="L1292">        sh0010Service.execute();</span>
+<span class="fc" id="L1293">    }</span>
+
+    /**
+     * COBOL CALL SL0010 — runs injected Sl0010Service in-process (no USING params).
+     */
+    private void sl0010(Object... args) {
+<span class="fc" id="L1299">        sl0010Service.execute();</span>
+<span class="fc" id="L1300">    }</span>
+
+    /**
+     * COBOL CALL SL0020 — runs injected Sl0020Service in-process (no USING params).
+     */
+    private void sl0020(Object... args) {
+<span class="fc" id="L1306">        sl0020Service.execute();</span>
+<span class="fc" id="L1307">    }</span>
+
+    /**
+     * COBOL CALL SL0030 — runs injected Sl0030Service in-process (no USING params).
+     */
+    private void sl0030(Object... args) {
+<span class="fc" id="L1313">        sl0030Service.execute();</span>
+<span class="fc" id="L1314">    }</span>
+
+    /**
+     * COBOL CALL SL0040 — runs injected Sl0040Service in-process (no USING params).
+     */
+    private void sl0040(Object... args) {
+<span class="fc" id="L1320">        sl0040Service.execute();</span>
+<span class="fc" id="L1321">    }</span>
+
+    /**
+     * COBOL CALL PU0010 — runs injected Pu0010Service in-process (no USING params).
+     */
+    private void pu0010(Object... args) {
+<span class="fc" id="L1327">        pu0010Service.execute();</span>
+<span class="fc" id="L1328">    }</span>
+
+    /**
+     * COBOL CALL PU0020 — runs injected Pu0020Service in-process (no USING params).
+     */
+    private void pu0020(Object... args) {
+<span class="fc" id="L1334">        pu0020Service.execute();</span>
+<span class="fc" id="L1335">    }</span>
+
+    /**
+     * COBOL CALL PU0030 — runs injected Pu0030Service in-process (no USING params).
+     */
+    private void pu0030(Object... args) {
+<span class="fc" id="L1341">        pu0030Service.execute();</span>
+<span class="fc" id="L1342">    }</span>
+
+    /**
+     * COBOL CALL PU0040 — runs injected Pu0040Service in-process (no USING params).
+     */
+    private void pu0040(Object... args) {
+<span class="fc" id="L1348">        pu0040Service.execute();</span>
+<span class="fc" id="L1349">    }</span>
+
+    /**
+     * COBOL CALL RC0010 — runs injected Rc0010Service in-process (no USING params).
+     */
+    private void rc0010(Object... args) {
+<span class="fc" id="L1355">        rc0010Service.execute();</span>
+<span class="fc" id="L1356">    }</span>
+
+    /**
+     * COBOL CALL IV0010 — runs injected Iv0010Service in-process (no USING params).
+     */
+    private void iv0010(Object... args) {
+<span class="fc" id="L1362">        iv0010Service.execute();</span>
+<span class="fc" id="L1363">    }</span>
+
+    /**
+     * COBOL CALL IV0020 — runs injected Iv0020Service in-process (no USING params).
+     */
+    private void iv0020(Object... args) {
+<span class="fc" id="L1369">        iv0020Service.execute();</span>
+<span class="fc" id="L1370">    }</span>
+
+    /**
+     * COBOL CALL IV0030 — runs injected Iv0030Service in-process (no USING params).
+     */
+    private void iv0030(Object... args) {
+<span class="fc" id="L1376">        iv0030Service.execute();</span>
+<span class="fc" id="L1377">    }</span>
+
+    /**
+     * COBOL CALL IV0040 — runs injected Iv0040Service in-process (no USING params).
+     */
+    private void iv0040(Object... args) {
+<span class="fc" id="L1383">        iv0040Service.execute();</span>
+<span class="fc" id="L1384">    }</span>
+
+    /**
+     * COBOL CALL IV0050 — runs injected Iv0050Service in-process (no USING params).
+     */
+    private void iv0050(Object... args) {
+<span class="fc" id="L1390">        iv0050Service.execute();</span>
+<span class="fc" id="L1391">    }</span>
+
+    /**
+     * COBOL CALL AR0010 — runs injected Ar0010Service in-process (no USING params).
+     */
+    private void ar0010(Object... args) {
+<span class="fc" id="L1397">        ar0010Service.execute();</span>
+<span class="fc" id="L1398">    }</span>
+
+    /**
+     * COBOL CALL AR0020 — runs injected Ar0020Service in-process (no USING params).
+     */
+    private void ar0020(Object... args) {
+<span class="fc" id="L1404">        ar0020Service.execute();</span>
+<span class="fc" id="L1405">    }</span>
+
+    /**
+     * COBOL CALL AP0010 — runs injected Ap0010Service in-process (no USING params).
+     */
+    private void ap0010(Object... args) {
+<span class="fc" id="L1411">        ap0010Service.execute();</span>
+<span class="fc" id="L1412">    }</span>
+
+    /**
+     * COBOL CALL AP0020 — runs injected Ap0020Service in-process (no USING params).
+     */
+    private void ap0020(Object... args) {
+<span class="fc" id="L1418">        ap0020Service.execute();</span>
+<span class="fc" id="L1419">    }</span>
+
+    /**
+     * COBOL CALL RP0010 — runs injected Rp0010Service in-process (no USING params).
+     */
+    private void rp0010(Object... args) {
+<span class="fc" id="L1425">        rp0010Service.execute();</span>
+<span class="fc" id="L1426">    }</span>
+
+    /**
+     * COBOL CALL RP0020 — runs injected Rp0020Service in-process (no USING params).
+     */
+    private void rp0020(Object... args) {
+<span class="fc" id="L1432">        rp0020Service.execute();</span>
+<span class="fc" id="L1433">    }</span>
+
+    /**
+     * COBOL CALL RP0030 — runs injected Rp0030Service in-process (no USING params).
+     */
+    private void rp0030(Object... args) {
+<span class="fc" id="L1439">        rp0030Service.execute();</span>
+<span class="fc" id="L1440">    }</span>
+
+    /**
+     * COBOL CALL RP0040 — runs injected Rp0040Service in-process (no USING params).
+     */
+    private void rp0040(Object... args) {
+<span class="fc" id="L1446">        rp0040Service.execute();</span>
+<span class="fc" id="L1447">    }</span>
+
+    /**
+     * COBOL CALL RP0050 — runs injected Rp0050Service in-process (no USING params).
+     */
+    private void rp0050(Object... args) {
+<span class="fc" id="L1453">        rp0050Service.execute();</span>
+<span class="fc" id="L1454">    }</span>
+
+    /**
+     * COBOL CALL RP0060 — runs injected Rp0060Service in-process (no USING params).
+     */
+    private void rp0060(Object... args) {
+<span class="fc" id="L1460">        rp0060Service.execute();</span>
+<span class="fc" id="L1461">    }</span>
+
+    /**
+     * COBOL CALL RP0070 — runs injected Rp0070Service in-process (no USING params).
+     */
+    private void rp0070(Object... args) {
+<span class="fc" id="L1467">        rp0070Service.execute();</span>
+<span class="fc" id="L1468">    }</span>
+
+    /**
+     * COBOL CALL RP0080 — runs injected Rp0080Service in-process (no USING params).
+     */
+    private void rp0080(Object... args) {
+<span class="fc" id="L1474">        rp0080Service.execute();</span>
+<span class="fc" id="L1475">    }</span>
+
+    /**
+     * COBOL CALL RP0090 — runs injected Rp0090Service in-process (no USING params).
+     */
+    private void rp0090(Object... args) {
+<span class="fc" id="L1481">        rp0090Service.execute();</span>
+<span class="fc" id="L1482">    }</span>
+
+    /**
+     * COBOL CALL RP0100 — runs injected Rp0100Service in-process (no USING params).
+     */
+    private void rp0100(Object... args) {
+<span class="fc" id="L1488">        rp0100Service.execute();</span>
+<span class="fc" id="L1489">    }</span>
+
+    /**
+     * COBOL CALL RP0110 — runs injected Rp0110Service in-process (no USING params).
+     */
+    private void rp0110(Object... args) {
+<span class="fc" id="L1495">        rp0110Service.execute();</span>
+<span class="fc" id="L1496">    }</span>
+
+    /**
+     * COBOL CALL RP0120 — runs injected Rp0120Service in-process (no USING params).
+     */
+    private void rp0120(Object... args) {
+<span class="fc" id="L1502">        rp0120Service.execute();</span>
+<span class="fc" id="L1503">    }</span>
+
+    /**
+     * COBOL CALL RP0130 — runs injected Rp0130Service in-process (no USING params).
+     */
+    private void rp0130(Object... args) {
+<span class="fc" id="L1509">        rp0130Service.execute();</span>
+<span class="fc" id="L1510">    }</span>
+
+    /**
+     * COBOL CALL RP0140 — runs injected Rp0140Service in-process (no USING params).
+     */
+    private void rp0140(Object... args) {
+<span class="fc" id="L1516">        rp0140Service.execute();</span>
+<span class="fc" id="L1517">    }</span>
+
+    /**
+     * COBOL CALL BT0010 — runs injected Bt0010Service in-process (no USING params).
+     */
+    private void bt0010(Object... args) {
+<span class="fc" id="L1523">        bt0010Service.execute();</span>
+<span class="fc" id="L1524">    }</span>
+
+    /**
+     * COBOL CALL BT0020 — runs injected Bt0020Service in-process (no USING params).
+     */
+    private void bt0020(Object... args) {
+<span class="fc" id="L1530">        bt0020Service.execute();</span>
+<span class="fc" id="L1531">    }</span>
+
+    /**
+     * COBOL CALL BT0030 — runs injected Bt0030Service in-process (no USING params).
+     */
+    private void bt0030(Object... args) {
+<span class="fc" id="L1537">        bt0030Service.execute();</span>
+<span class="fc" id="L1538">    }</span>
+
+    /**
+     * COBOL CALL BT0040 — runs injected Bt0040Service in-process (no USING params).
+     */
+    private void bt0040(Object... args) {
+<span class="fc" id="L1544">        bt0040Service.execute();</span>
+<span class="fc" id="L1545">    }</span>
+
+    /**
+     * COBOL CALL BT0050 — runs injected Bt0050Service in-process (no USING params).
+     */
+    private void bt0050(Object... args) {
+<span class="fc" id="L1551">        bt0050Service.execute();</span>
+<span class="fc" id="L1552">    }</span>
+
+    /**
+     * COBOL CALL BT0060 — runs injected Bt0060Service in-process (no USING params).
+     */
+    private void bt0060(Object... args) {
+<span class="fc" id="L1558">        bt0060Service.execute();</span>
+<span class="fc" id="L1559">    }</span>
+
+    /**
+     * COBOL CALL BT0070 — runs injected Bt0070Service in-process (no USING params).
+     */
+    private void bt0070(Object... args) {
+<span class="fc" id="L1565">        bt0070Service.execute();</span>
+<span class="fc" id="L1566">    }</span>
+
+    /**
+     * COBOL CALL BT0080 — runs injected Bt0080Service in-process (no USING params).
+     */
+    private void bt0080(Object... args) {
+<span class="fc" id="L1572">        bt0080Service.execute();</span>
+<span class="fc" id="L1573">    }</span>
+
+    /**
+     * COBOL CALL BT0090 — runs injected Bt0090Service in-process (no USING params).
+     */
+    private void bt0090(Object... args) {
+<span class="fc" id="L1579">        bt0090Service.execute();</span>
+<span class="fc" id="L1580">    }</span>
+    /** Reads CRT STATUS and broadcasts to all ESTS fields — COBOL implicit after each ACCEPT. */
+    private void broadcastEstsStatus() {
+<span class="fc" id="L1583">        Utility.broadcastEndStatus(ws, renderer.readEndStatus(), &quot;ESTS&quot;);</span>
+<span class="fc" id="L1584">    }</span>
+
+    /** True when the terminal signaled PF3 (quit) after the last screen ACCEPT. */
+    private boolean isQuitKeyPressed() {
+<span class="fc" id="L1588">        return Utility.fieldEquals(ws.getEsts(), &quot;03&quot;);</span>
+    }
+
+    /** True when the user pressed PF3 or chose &quot;0&quot; to leave the current submenu. */
+    private boolean isMenuExitRequested() {
+<span class="fc bfc" id="L1593" title="All 4 branches covered.">        return isQuitKeyPressed() || ws.getWkChoice() == 0;</span>
+    }
+
+    /** Maps the current WK-CHOICE to its program code, or blank if out of range. */
+    private String resolveProgramCode(String[] programCodes) {
+<span class="fc" id="L1598">        int choice = ws.getWkChoice();</span>
+<span class="pc bpc" id="L1599" title="1 of 4 branches missed.">        return (choice &gt;= 1 &amp;&amp; choice &lt;= programCodes.length) ? programCodes[choice - 1] : &quot; &quot;;</span>
+    }
+
+    /**
+     * Runs a submenu loop: display the header and submenu screen, accept the user's
+     * numeric choice, translate it to a program code, and invoke the selected program
+     * until the user exits (PF3 or choice 0).
+     */
+    private void runSubmenuLoop(String menuScreenKey, String[] programCodes) {
+        while (true) {
+<span class="fc" id="L1609">            ws.setWkChoice(0);</span>
+<span class="fc" id="L1610">            renderer.displayScreen(ScreenDefs.getScreen(&quot;DS-HEADER&quot;), ws);</span>
+<span class="fc" id="L1611">            renderer.displayScreen(ScreenDefs.getScreen(menuScreenKey), ws);</span>
+<span class="fc" id="L1612">            String scValWkChoice = Utility.acceptScreen(&quot;WK-CHOICE&quot;, () -&gt; renderer.acceptField(ScreenDefs.getInput(&quot;WK-CHOICE&quot;)));</span>
+<span class="fc" id="L1613">            ws.setWkChoice(Utility.parseIntOr(scValWkChoice.trim(), 0));</span>
+<span class="fc" id="L1614">            broadcastEstsStatus();</span>
+<span class="fc bfc" id="L1615" title="All 2 branches covered.">            if (isMenuExitRequested()) {</span>
+<span class="fc" id="L1616">                return;</span>
+            }
+<span class="fc" id="L1618">            ws.setWkCall(resolveProgramCode(programCodes));</span>
+<span class="fc" id="L1619">            runChain(this::callSelectedProgram);</span>
+<span class="fc" id="L1620">        }</span>
+    }
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

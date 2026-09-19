@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : DEPTF
+  FD record name : DP-REC
+  Copybook src   : FDEPT
+-->
+<dataLayout name="DEPTF" scope="file" charset="MS932" recordSize="59">
+  <group name="DP-REC" offset="0" size="59">
+    <group name="DP-REC" offset="0" size="59">
+      <field name="DP-CODE" offset="0" size="4" javaType="int"/>
+      <field name="DP-NAME" offset="4" size="30" javaType="String"/>
+      <field name="DP-PARENT" offset="34" size="4" javaType="int"/>
+      <field name="DP-DEL-FLAG" offset="38" size="1" javaType="int"/>
+      <field name="FILLER-39" offset="39" size="20" javaType="String"/>
+    </group>
+  </group>
+</dataLayout>

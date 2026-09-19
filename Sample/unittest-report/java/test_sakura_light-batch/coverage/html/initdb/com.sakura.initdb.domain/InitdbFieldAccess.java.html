@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InitdbFieldAccess.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">initdb</a> &gt; <a href="index.source.html" class="el_package">com.sakura.initdb.domain</a> &gt; <span class="el_source">InitdbFieldAccess.java</span></div><h1>InitdbFieldAccess.java</h1><pre class="source lang-java linenums">package com.sakura.initdb.domain;
+
+import com.sakura.runtime.record.RuntimeFieldAccess;
+import com.sakura.initdb.domain.WorkingStorage;
+import com.sakura.initdb.runtime.InitdbDatasets;
+import java.math.BigDecimal;
+
+/**
+ * Field accessor for INITDB.
+ * Backend: RuntimeFieldAccess (raw RecordImage byte[]).
+ * Typed methods auto-generated from referenced fields — bodies delegate to the string-key API.
+ */
+public class InitdbFieldAccess extends RuntimeFieldAccess {
+
+<span class="fc" id="L15">    public InitdbFieldAccess(WorkingStorage ws, InitdbDatasets fileSet) {</span>
+<span class="fc bfc" id="L16" title="All 2 branches covered.">        if (ws != null) {</span>
+<span class="fc" id="L17">            register(ws.buffer());</span>
+        }
+<span class="pc bpc" id="L19" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getSyscf() != null) {</span>
+<span class="fc" id="L20">            register(fileSet.getSyscf().buffer());</span>
+        }
+<span class="pc bpc" id="L22" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getNumcf() != null) {</span>
+<span class="fc" id="L23">            register(fileSet.getNumcf().buffer());</span>
+        }
+<span class="pc bpc" id="L25" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getTaxf() != null) {</span>
+<span class="fc" id="L26">            register(fileSet.getTaxf().buffer());</span>
+        }
+<span class="pc bpc" id="L28" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getRegnf() != null) {</span>
+<span class="fc" id="L29">            register(fileSet.getRegnf().buffer());</span>
+        }
+<span class="pc bpc" id="L31" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getDeptf() != null) {</span>
+<span class="fc" id="L32">            register(fileSet.getDeptf().buffer());</span>
+        }
+<span class="pc bpc" id="L34" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getCatgf() != null) {</span>
+<span class="fc" id="L35">            register(fileSet.getCatgf().buffer());</span>
+        }
+<span class="pc bpc" id="L37" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getBankf() != null) {</span>
+<span class="fc" id="L38">            register(fileSet.getBankf().buffer());</span>
+        }
+<span class="pc bpc" id="L40" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getWhsef() != null) {</span>
+<span class="fc" id="L41">            register(fileSet.getWhsef().buffer());</span>
+        }
+<span class="pc bpc" id="L43" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getStaff() != null) {</span>
+<span class="fc" id="L44">            register(fileSet.getStaff().buffer());</span>
+        }
+<span class="pc bpc" id="L46" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getUserf() != null) {</span>
+<span class="fc" id="L47">            register(fileSet.getUserf().buffer());</span>
+        }
+<span class="pc bpc" id="L49" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getCustf() != null) {</span>
+<span class="fc" id="L50">            register(fileSet.getCustf().buffer());</span>
+        }
+<span class="pc bpc" id="L52" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getSuppf() != null) {</span>
+<span class="fc" id="L53">            register(fileSet.getSuppf().buffer());</span>
+        }
+<span class="pc bpc" id="L55" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getProdf() != null) {</span>
+<span class="fc" id="L56">            register(fileSet.getProdf().buffer());</span>
+        }
+<span class="pc bpc" id="L58" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getCprcf() != null) {</span>
+<span class="fc" id="L59">            register(fileSet.getCprcf().buffer());</span>
+        }
+<span class="pc bpc" id="L61" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getStokf() != null) {</span>
+<span class="fc" id="L62">            register(fileSet.getStokf().buffer());</span>
+        }
+<span class="pc bpc" id="L64" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getMsgf() != null) {</span>
+<span class="fc" id="L65">            register(fileSet.getMsgf().buffer());</span>
+        }
+<span class="pc bpc" id="L67" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getOrdhf() != null) {</span>
+<span class="fc" id="L68">            register(fileSet.getOrdhf().buffer());</span>
+        }
+<span class="pc bpc" id="L70" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getOrddf() != null) {</span>
+<span class="fc" id="L71">            register(fileSet.getOrddf().buffer());</span>
+        }
+<span class="pc bpc" id="L73" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getShphf() != null) {</span>
+<span class="fc" id="L74">            register(fileSet.getShphf().buffer());</span>
+        }
+<span class="pc bpc" id="L76" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getShpdf() != null) {</span>
+<span class="fc" id="L77">            register(fileSet.getShpdf().buffer());</span>
+        }
+<span class="pc bpc" id="L79" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getInvhf() != null) {</span>
+<span class="fc" id="L80">            register(fileSet.getInvhf().buffer());</span>
+        }
+<span class="pc bpc" id="L82" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getInvdf() != null) {</span>
+<span class="fc" id="L83">            register(fileSet.getInvdf().buffer());</span>
+        }
+<span class="pc bpc" id="L85" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getPohf() != null) {</span>
+<span class="fc" id="L86">            register(fileSet.getPohf().buffer());</span>
+        }
+<span class="pc bpc" id="L88" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getPodf() != null) {</span>
+<span class="fc" id="L89">            register(fileSet.getPodf().buffer());</span>
+        }
+<span class="pc bpc" id="L91" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getRcvhf() != null) {</span>
+<span class="fc" id="L92">            register(fileSet.getRcvhf().buffer());</span>
+        }
+<span class="pc bpc" id="L94" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getRcvdf() != null) {</span>
+<span class="fc" id="L95">            register(fileSet.getRcvdf().buffer());</span>
+        }
+<span class="pc bpc" id="L97" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getPurhf() != null) {</span>
+<span class="fc" id="L98">            register(fileSet.getPurhf().buffer());</span>
+        }
+<span class="pc bpc" id="L100" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getPurdf() != null) {</span>
+<span class="fc" id="L101">            register(fileSet.getPurdf().buffer());</span>
+        }
+<span class="pc bpc" id="L103" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getArlf() != null) {</span>
+<span class="fc" id="L104">            register(fileSet.getArlf().buffer());</span>
+        }
+<span class="pc bpc" id="L106" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getAplf() != null) {</span>
+<span class="fc" id="L107">            register(fileSet.getAplf().buffer());</span>
+        }
+<span class="pc bpc" id="L109" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getRcptf() != null) {</span>
+<span class="fc" id="L110">            register(fileSet.getRcptf().buffer());</span>
+        }
+<span class="pc bpc" id="L112" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getPayf() != null) {</span>
+<span class="fc" id="L113">            register(fileSet.getPayf().buffer());</span>
+        }
+<span class="pc bpc" id="L115" title="2 of 4 branches missed.">        if (fileSet != null &amp;&amp; fileSet.getSmovf() != null) {</span>
+<span class="fc" id="L116">            register(fileSet.getSmovf().buffer());</span>
+        }
+<span class="fc" id="L118">    }</span>
+
+    /* ── Typed wrappers (delegate → string-key) ─────────────── */
+<span class="fc" id="L121">    public String getBkBranch() { return getString(&quot;BK-BRANCH&quot;); }</span>
+<span class="fc" id="L122">    public void setBkBranch(String value) { setString(&quot;BK-BRANCH&quot;, value); }</span>
+<span class="fc" id="L123">    public int getBkCode() { return getInt(&quot;BK-CODE&quot;); }</span>
+<span class="fc" id="L124">    public void setBkCode(int value) { setInt(&quot;BK-CODE&quot;, value); }</span>
+<span class="fc" id="L125">    public String getBkName() { return getString(&quot;BK-NAME&quot;); }</span>
+<span class="fc" id="L126">    public void setBkName(String value) { setString(&quot;BK-NAME&quot;, value); }</span>
+<span class="fc" id="L127">    public int getCompletionCode() { return getInt(&quot;COMPLETION-CODE&quot;); }</span>
+<span class="fc" id="L128">    public void setCompletionCode(int value) { setInt(&quot;COMPLETION-CODE&quot;, value); }</span>
+<span class="fc" id="L129">    public int getCpCust() { return getInt(&quot;CP-CUST&quot;); }</span>
+<span class="fc" id="L130">    public void setCpCust(int value) { setInt(&quot;CP-CUST&quot;, value); }</span>
+<span class="fc" id="L131">    public int getCpEndDate() { return getInt(&quot;CP-END-DATE&quot;); }</span>
+<span class="fc" id="L132">    public void setCpEndDate(int value) { setInt(&quot;CP-END-DATE&quot;, value); }</span>
+<span class="fc" id="L133">    public BigDecimal getCpPrice() { return getDecimal(&quot;CP-PRICE&quot;); }</span>
+<span class="fc" id="L134">    public void setCpPrice(BigDecimal value) { setDecimal(&quot;CP-PRICE&quot;, value); }</span>
+<span class="fc" id="L135">    public int getCpProd() { return getInt(&quot;CP-PROD&quot;); }</span>
+<span class="fc" id="L136">    public void setCpProd(int value) { setInt(&quot;CP-PROD&quot;, value); }</span>
+<span class="fc" id="L137">    public int getCpStartDate() { return getInt(&quot;CP-START-DATE&quot;); }</span>
+<span class="fc" id="L138">    public void setCpStartDate(int value) { setInt(&quot;CP-START-DATE&quot;, value); }</span>
+<span class="fc" id="L139">    public int getCtCode() { return getInt(&quot;CT-CODE&quot;); }</span>
+<span class="fc" id="L140">    public void setCtCode(int value) { setInt(&quot;CT-CODE&quot;, value); }</span>
+<span class="fc" id="L141">    public int getCtLevel() { return getInt(&quot;CT-LEVEL&quot;); }</span>
+<span class="fc" id="L142">    public void setCtLevel(int value) { setInt(&quot;CT-LEVEL&quot;, value); }</span>
+<span class="fc" id="L143">    public String getCtName() { return getString(&quot;CT-NAME&quot;); }</span>
+<span class="fc" id="L144">    public void setCtName(String value) { setString(&quot;CT-NAME&quot;, value); }</span>
+<span class="fc" id="L145">    public int getCuBankCode() { return getInt(&quot;CU-BANK-CODE&quot;); }</span>
+<span class="fc" id="L146">    public void setCuBankCode(int value) { setInt(&quot;CU-BANK-CODE&quot;, value); }</span>
+<span class="fc" id="L147">    public int getCuCloseDay() { return getInt(&quot;CU-CLOSE-DAY&quot;); }</span>
+<span class="fc" id="L148">    public void setCuCloseDay(int value) { setInt(&quot;CU-CLOSE-DAY&quot;, value); }</span>
+<span class="fc" id="L149">    public int getCuCode() { return getInt(&quot;CU-CODE&quot;); }</span>
+<span class="fc" id="L150">    public void setCuCode(int value) { setInt(&quot;CU-CODE&quot;, value); }</span>
+<span class="fc" id="L151">    public BigDecimal getCuCreditLimit() { return getDecimal(&quot;CU-CREDIT-LIMIT&quot;); }</span>
+<span class="fc" id="L152">    public void setCuCreditLimit(BigDecimal value) { setDecimal(&quot;CU-CREDIT-LIMIT&quot;, value); }</span>
+<span class="fc" id="L153">    public String getCuKana() { return getString(&quot;CU-KANA&quot;); }</span>
+<span class="fc" id="L154">    public void setCuKana(String value) { setString(&quot;CU-KANA&quot;, value); }</span>
+<span class="fc" id="L155">    public String getCuName() { return getString(&quot;CU-NAME&quot;); }</span>
+<span class="fc" id="L156">    public void setCuName(String value) { setString(&quot;CU-NAME&quot;, value); }</span>
+<span class="fc" id="L157">    public int getCuPayMethod() { return getInt(&quot;CU-PAY-METHOD&quot;); }</span>
+<span class="fc" id="L158">    public void setCuPayMethod(int value) { setInt(&quot;CU-PAY-METHOD&quot;, value); }</span>
+<span class="fc" id="L159">    public int getCuPriceRank() { return getInt(&quot;CU-PRICE-RANK&quot;); }</span>
+<span class="fc" id="L160">    public void setCuPriceRank(int value) { setInt(&quot;CU-PRICE-RANK&quot;, value); }</span>
+<span class="fc" id="L161">    public int getCuRegion() { return getInt(&quot;CU-REGION&quot;); }</span>
+<span class="fc" id="L162">    public void setCuRegion(int value) { setInt(&quot;CU-REGION&quot;, value); }</span>
+<span class="fc" id="L163">    public int getCuStaff() { return getInt(&quot;CU-STAFF&quot;); }</span>
+<span class="fc" id="L164">    public void setCuStaff(int value) { setInt(&quot;CU-STAFF&quot;, value); }</span>
+<span class="fc" id="L165">    public int getCuStartDate() { return getInt(&quot;CU-START-DATE&quot;); }</span>
+<span class="fc" id="L166">    public void setCuStartDate(int value) { setInt(&quot;CU-START-DATE&quot;, value); }</span>
+<span class="fc" id="L167">    public int getCuTaxRound() { return getInt(&quot;CU-TAX-ROUND&quot;); }</span>
+<span class="fc" id="L168">    public void setCuTaxRound(int value) { setInt(&quot;CU-TAX-ROUND&quot;, value); }</span>
+<span class="fc" id="L169">    public int getCuTaxType() { return getInt(&quot;CU-TAX-TYPE&quot;); }</span>
+<span class="fc" id="L170">    public void setCuTaxType(int value) { setInt(&quot;CU-TAX-TYPE&quot;, value); }</span>
+<span class="fc" id="L171">    public int getDpCode() { return getInt(&quot;DP-CODE&quot;); }</span>
+<span class="fc" id="L172">    public void setDpCode(int value) { setInt(&quot;DP-CODE&quot;, value); }</span>
+<span class="fc" id="L173">    public String getDpName() { return getString(&quot;DP-NAME&quot;); }</span>
+<span class="fc" id="L174">    public void setDpName(String value) { setString(&quot;DP-NAME&quot;, value); }</span>
+<span class="fc" id="L175">    public String getMgCode() { return getString(&quot;MG-CODE&quot;); }</span>
+<span class="fc" id="L176">    public void setMgCode(String value) { setString(&quot;MG-CODE&quot;, value); }</span>
+<span class="fc" id="L177">    public String getMgText() { return getString(&quot;MG-TEXT&quot;); }</span>
+<span class="fc" id="L178">    public void setMgText(String value) { setString(&quot;MG-TEXT&quot;, value); }</span>
+<span class="fc" id="L179">    public long getNmCurrent() { return getLong(&quot;NM-CURRENT&quot;); }</span>
+<span class="fc" id="L180">    public void setNmCurrent(long value) { setLong(&quot;NM-CURRENT&quot;, value); }</span>
+<span class="fc" id="L181">    public String getNmKey() { return getString(&quot;NM-KEY&quot;); }</span>
+<span class="fc" id="L182">    public void setNmKey(String value) { setString(&quot;NM-KEY&quot;, value); }</span>
+<span class="fc" id="L183">    public String getNmPrefix() { return getString(&quot;NM-PREFIX&quot;); }</span>
+<span class="fc" id="L184">    public void setNmPrefix(String value) { setString(&quot;NM-PREFIX&quot;, value); }</span>
+<span class="fc" id="L185">    public int getNmWidth() { return getInt(&quot;NM-WIDTH&quot;); }</span>
+<span class="fc" id="L186">    public void setNmWidth(int value) { setInt(&quot;NM-WIDTH&quot;, value); }</span>
+<span class="fc" id="L187">    public int getPrCategory() { return getInt(&quot;PR-CATEGORY&quot;); }</span>
+<span class="fc" id="L188">    public void setPrCategory(int value) { setInt(&quot;PR-CATEGORY&quot;, value); }</span>
+<span class="fc" id="L189">    public int getPrCode() { return getInt(&quot;PR-CODE&quot;); }</span>
+<span class="fc" id="L190">    public void setPrCode(int value) { setInt(&quot;PR-CODE&quot;, value); }</span>
+<span class="fc" id="L191">    public int getPrDfltSupp() { return getInt(&quot;PR-DFLT-SUPP&quot;); }</span>
+<span class="fc" id="L192">    public void setPrDfltSupp(int value) { setInt(&quot;PR-DFLT-SUPP&quot;, value); }</span>
+<span class="fc" id="L193">    public int getPrDfltWhse() { return getInt(&quot;PR-DFLT-WHSE&quot;); }</span>
+<span class="fc" id="L194">    public void setPrDfltWhse(int value) { setInt(&quot;PR-DFLT-WHSE&quot;, value); }</span>
+<span class="fc" id="L195">    public BigDecimal getPrLastCost() { return getDecimal(&quot;PR-LAST-COST&quot;); }</span>
+<span class="fc" id="L196">    public void setPrLastCost(BigDecimal value) { setDecimal(&quot;PR-LAST-COST&quot;, value); }</span>
+<span class="fc" id="L197">    public BigDecimal getPrListPrice() { return getDecimal(&quot;PR-LIST-PRICE&quot;); }</span>
+<span class="fc" id="L198">    public void setPrListPrice(BigDecimal value) { setDecimal(&quot;PR-LIST-PRICE&quot;, value); }</span>
+<span class="fc" id="L199">    public String getPrName() { return getString(&quot;PR-NAME&quot;); }</span>
+<span class="fc" id="L200">    public void setPrName(String value) { setString(&quot;PR-NAME&quot;, value); }</span>
+<span class="fc" id="L201">    public BigDecimal getPrRankPrice(int index) { return getDecimal(&quot;PR-RANK-PRICE&quot;, index); }</span>
+<span class="fc" id="L202">    public void setPrRankPrice(int index, BigDecimal value) { setDecimal(&quot;PR-RANK-PRICE&quot;, value, index); }</span>
+<span class="fc" id="L203">    public BigDecimal getPrReorderPoint() { return getDecimal(&quot;PR-REORDER-POINT&quot;); }</span>
+<span class="fc" id="L204">    public void setPrReorderPoint(BigDecimal value) { setDecimal(&quot;PR-REORDER-POINT&quot;, value); }</span>
+<span class="fc" id="L205">    public BigDecimal getPrReorderQty() { return getDecimal(&quot;PR-REORDER-QTY&quot;); }</span>
+<span class="fc" id="L206">    public void setPrReorderQty(BigDecimal value) { setDecimal(&quot;PR-REORDER-QTY&quot;, value); }</span>
+<span class="fc" id="L207">    public BigDecimal getPrSafetyStock() { return getDecimal(&quot;PR-SAFETY-STOCK&quot;); }</span>
+<span class="fc" id="L208">    public void setPrSafetyStock(BigDecimal value) { setDecimal(&quot;PR-SAFETY-STOCK&quot;, value); }</span>
+<span class="fc" id="L209">    public BigDecimal getPrStdCost() { return getDecimal(&quot;PR-STD-COST&quot;); }</span>
+<span class="fc" id="L210">    public void setPrStdCost(BigDecimal value) { setDecimal(&quot;PR-STD-COST&quot;, value); }</span>
+<span class="fc" id="L211">    public int getPrStockMng() { return getInt(&quot;PR-STOCK-MNG&quot;); }</span>
+<span class="fc" id="L212">    public void setPrStockMng(int value) { setInt(&quot;PR-STOCK-MNG&quot;, value); }</span>
+<span class="fc" id="L213">    public int getPrTaxCategory() { return getInt(&quot;PR-TAX-CATEGORY&quot;); }</span>
+<span class="fc" id="L214">    public void setPrTaxCategory(int value) { setInt(&quot;PR-TAX-CATEGORY&quot;, value); }</span>
+<span class="fc" id="L215">    public String getPrUnit() { return getString(&quot;PR-UNIT&quot;); }</span>
+<span class="fc" id="L216">    public void setPrUnit(String value) { setString(&quot;PR-UNIT&quot;, value); }</span>
+<span class="fc" id="L217">    public int getRgCode() { return getInt(&quot;RG-CODE&quot;); }</span>
+<span class="fc" id="L218">    public void setRgCode(int value) { setInt(&quot;RG-CODE&quot;, value); }</span>
+<span class="fc" id="L219">    public String getRgName() { return getString(&quot;RG-NAME&quot;); }</span>
+<span class="fc" id="L220">    public void setRgName(String value) { setString(&quot;RG-NAME&quot;, value); }</span>
+<span class="fc" id="L221">    public int getSfCode() { return getInt(&quot;SF-CODE&quot;); }</span>
+<span class="fc" id="L222">    public void setSfCode(int value) { setInt(&quot;SF-CODE&quot;, value); }</span>
+<span class="fc" id="L223">    public int getSfDept() { return getInt(&quot;SF-DEPT&quot;); }</span>
+<span class="fc" id="L224">    public void setSfDept(int value) { setInt(&quot;SF-DEPT&quot;, value); }</span>
+<span class="fc" id="L225">    public String getSfName() { return getString(&quot;SF-NAME&quot;); }</span>
+<span class="fc" id="L226">    public void setSfName(String value) { setString(&quot;SF-NAME&quot;, value); }</span>
+<span class="fc" id="L227">    public String getSfTitle() { return getString(&quot;SF-TITLE&quot;); }</span>
+<span class="fc" id="L228">    public void setSfTitle(String value) { setString(&quot;SF-TITLE&quot;, value); }</span>
+<span class="fc" id="L229">    public BigDecimal getSkAllocated() { return getDecimal(&quot;SK-ALLOCATED&quot;); }</span>
+<span class="fc" id="L230">    public void setSkAllocated(BigDecimal value) { setDecimal(&quot;SK-ALLOCATED&quot;, value); }</span>
+<span class="fc" id="L231">    public String getSkLocation() { return getString(&quot;SK-LOCATION&quot;); }</span>
+<span class="fc" id="L232">    public void setSkLocation(String value) { setString(&quot;SK-LOCATION&quot;, value); }</span>
+<span class="fc" id="L233">    public BigDecimal getSkOnOrder() { return getDecimal(&quot;SK-ON-ORDER&quot;); }</span>
+<span class="fc" id="L234">    public void setSkOnOrder(BigDecimal value) { setDecimal(&quot;SK-ON-ORDER&quot;, value); }</span>
+<span class="fc" id="L235">    public BigDecimal getSkOnhand() { return getDecimal(&quot;SK-ONHAND&quot;); }</span>
+<span class="fc" id="L236">    public void setSkOnhand(BigDecimal value) { setDecimal(&quot;SK-ONHAND&quot;, value); }</span>
+<span class="fc" id="L237">    public int getSkProd() { return getInt(&quot;SK-PROD&quot;); }</span>
+<span class="fc" id="L238">    public void setSkProd(int value) { setInt(&quot;SK-PROD&quot;, value); }</span>
+<span class="fc" id="L239">    public int getSkWhse() { return getInt(&quot;SK-WHSE&quot;); }</span>
+<span class="fc" id="L240">    public void setSkWhse(int value) { setInt(&quot;SK-WHSE&quot;, value); }</span>
+<span class="fc" id="L241">    public int getSpBankCode() { return getInt(&quot;SP-BANK-CODE&quot;); }</span>
+<span class="fc" id="L242">    public void setSpBankCode(int value) { setInt(&quot;SP-BANK-CODE&quot;, value); }</span>
+<span class="fc" id="L243">    public int getSpCloseDay() { return getInt(&quot;SP-CLOSE-DAY&quot;); }</span>
+<span class="fc" id="L244">    public void setSpCloseDay(int value) { setInt(&quot;SP-CLOSE-DAY&quot;, value); }</span>
+<span class="fc" id="L245">    public int getSpCode() { return getInt(&quot;SP-CODE&quot;); }</span>
+<span class="fc" id="L246">    public void setSpCode(int value) { setInt(&quot;SP-CODE&quot;, value); }</span>
+<span class="fc" id="L247">    public String getSpName() { return getString(&quot;SP-NAME&quot;); }</span>
+<span class="fc" id="L248">    public void setSpName(String value) { setString(&quot;SP-NAME&quot;, value); }</span>
+<span class="fc" id="L249">    public int getSpPayMethod() { return getInt(&quot;SP-PAY-METHOD&quot;); }</span>
+<span class="fc" id="L250">    public void setSpPayMethod(int value) { setInt(&quot;SP-PAY-METHOD&quot;, value); }</span>
+<span class="fc" id="L251">    public int getSpTaxType() { return getInt(&quot;SP-TAX-TYPE&quot;); }</span>
+<span class="fc" id="L252">    public void setSpTaxType(int value) { setInt(&quot;SP-TAX-TYPE&quot;, value); }</span>
+<span class="fc" id="L253">    public String getSyCompanyAddr() { return getString(&quot;SY-COMPANY-ADDR&quot;); }</span>
+<span class="fc" id="L254">    public void setSyCompanyAddr(String value) { setString(&quot;SY-COMPANY-ADDR&quot;, value); }</span>
+<span class="fc" id="L255">    public String getSyCompanyName() { return getString(&quot;SY-COMPANY-NAME&quot;); }</span>
+<span class="fc" id="L256">    public void setSyCompanyName(String value) { setString(&quot;SY-COMPANY-NAME&quot;, value); }</span>
+<span class="fc" id="L257">    public String getSyCompanyTel() { return getString(&quot;SY-COMPANY-TEL&quot;); }</span>
+<span class="fc" id="L258">    public void setSyCompanyTel(String value) { setString(&quot;SY-COMPANY-TEL&quot;, value); }</span>
+<span class="fc" id="L259">    public String getSyCompanyZip() { return getString(&quot;SY-COMPANY-ZIP&quot;); }</span>
+<span class="fc" id="L260">    public void setSyCompanyZip(String value) { setString(&quot;SY-COMPANY-ZIP&quot;, value); }</span>
+<span class="fc" id="L261">    public int getSyCurrYm() { return getInt(&quot;SY-CURR-YM&quot;); }</span>
+<span class="fc" id="L262">    public void setSyCurrYm(int value) { setInt(&quot;SY-CURR-YM&quot;, value); }</span>
+<span class="fc" id="L263">    public int getSyDecRound() { return getInt(&quot;SY-DEC-ROUND&quot;); }</span>
+<span class="fc" id="L264">    public void setSyDecRound(int value) { setInt(&quot;SY-DEC-ROUND&quot;, value); }</span>
+<span class="fc" id="L265">    public int getSyFiscalStart() { return getInt(&quot;SY-FISCAL-START&quot;); }</span>
+<span class="fc" id="L266">    public void setSyFiscalStart(int value) { setInt(&quot;SY-FISCAL-START&quot;, value); }</span>
+<span class="fc" id="L267">    public int getSyKey() { return getInt(&quot;SY-KEY&quot;); }</span>
+<span class="fc" id="L268">    public void setSyKey(int value) { setInt(&quot;SY-KEY&quot;, value); }</span>
+<span class="fc" id="L269">    public int getSyLastDayClose() { return getInt(&quot;SY-LAST-DAY-CLOSE&quot;); }</span>
+<span class="fc" id="L270">    public void setSyLastDayClose(int value) { setInt(&quot;SY-LAST-DAY-CLOSE&quot;, value); }</span>
+<span class="fc" id="L271">    public int getSyLastMonClose() { return getInt(&quot;SY-LAST-MON-CLOSE&quot;); }</span>
+<span class="fc" id="L272">    public void setSyLastMonClose(int value) { setInt(&quot;SY-LAST-MON-CLOSE&quot;, value); }</span>
+<span class="fc" id="L273">    public BigDecimal getSyTaxDfltRate() { return getDecimal(&quot;SY-TAX-DFLT-RATE&quot;); }</span>
+<span class="fc" id="L274">    public void setSyTaxDfltRate(BigDecimal value) { setDecimal(&quot;SY-TAX-DFLT-RATE&quot;, value); }</span>
+<span class="fc" id="L275">    public int getTxCode() { return getInt(&quot;TX-CODE&quot;); }</span>
+<span class="fc" id="L276">    public void setTxCode(int value) { setInt(&quot;TX-CODE&quot;, value); }</span>
+<span class="fc" id="L277">    public String getTxName() { return getString(&quot;TX-NAME&quot;); }</span>
+<span class="fc" id="L278">    public void setTxName(String value) { setString(&quot;TX-NAME&quot;, value); }</span>
+<span class="fc" id="L279">    public BigDecimal getTxRate() { return getDecimal(&quot;TX-RATE&quot;); }</span>
+<span class="fc" id="L280">    public void setTxRate(BigDecimal value) { setDecimal(&quot;TX-RATE&quot;, value); }</span>
+<span class="fc" id="L281">    public int getTxStartDate() { return getInt(&quot;TX-START-DATE&quot;); }</span>
+<span class="fc" id="L282">    public void setTxStartDate(int value) { setInt(&quot;TX-START-DATE&quot;, value); }</span>
+<span class="fc" id="L283">    public int getUsAuthClose() { return getInt(&quot;US-AUTH-CLOSE&quot;); }</span>
+<span class="fc" id="L284">    public void setUsAuthClose(int value) { setInt(&quot;US-AUTH-CLOSE&quot;, value); }</span>
+<span class="fc" id="L285">    public int getUsAuthMaster() { return getInt(&quot;US-AUTH-MASTER&quot;); }</span>
+<span class="fc" id="L286">    public void setUsAuthMaster(int value) { setInt(&quot;US-AUTH-MASTER&quot;, value); }</span>
+<span class="fc" id="L287">    public int getUsAuthOrder() { return getInt(&quot;US-AUTH-ORDER&quot;); }</span>
+<span class="fc" id="L288">    public void setUsAuthOrder(int value) { setInt(&quot;US-AUTH-ORDER&quot;, value); }</span>
+<span class="fc" id="L289">    public int getUsAuthPurch() { return getInt(&quot;US-AUTH-PURCH&quot;); }</span>
+<span class="fc" id="L290">    public void setUsAuthPurch(int value) { setInt(&quot;US-AUTH-PURCH&quot;, value); }</span>
+<span class="fc" id="L291">    public int getUsAuthSales() { return getInt(&quot;US-AUTH-SALES&quot;); }</span>
+<span class="fc" id="L292">    public void setUsAuthSales(int value) { setInt(&quot;US-AUTH-SALES&quot;, value); }</span>
+<span class="fc" id="L293">    public int getUsCode() { return getInt(&quot;US-CODE&quot;); }</span>
+<span class="fc" id="L294">    public void setUsCode(int value) { setInt(&quot;US-CODE&quot;, value); }</span>
+<span class="fc" id="L295">    public String getUsLogin() { return getString(&quot;US-LOGIN&quot;); }</span>
+<span class="fc" id="L296">    public void setUsLogin(String value) { setString(&quot;US-LOGIN&quot;, value); }</span>
+<span class="fc" id="L297">    public String getUsName() { return getString(&quot;US-NAME&quot;); }</span>
+<span class="fc" id="L298">    public void setUsName(String value) { setString(&quot;US-NAME&quot;, value); }</span>
+<span class="fc" id="L299">    public String getUsPassword() { return getString(&quot;US-PASSWORD&quot;); }</span>
+<span class="fc" id="L300">    public void setUsPassword(String value) { setString(&quot;US-PASSWORD&quot;, value); }</span>
+<span class="fc" id="L301">    public int getUsRole() { return getInt(&quot;US-ROLE&quot;); }</span>
+<span class="fc" id="L302">    public void setUsRole(int value) { setInt(&quot;US-ROLE&quot;, value); }</span>
+<span class="fc" id="L303">    public int getWhCode() { return getInt(&quot;WH-CODE&quot;); }</span>
+<span class="fc" id="L304">    public void setWhCode(int value) { setInt(&quot;WH-CODE&quot;, value); }</span>
+<span class="fc" id="L305">    public int getWhManager() { return getInt(&quot;WH-MANAGER&quot;); }</span>
+<span class="fc" id="L306">    public void setWhManager(int value) { setInt(&quot;WH-MANAGER&quot;, value); }</span>
+<span class="fc" id="L307">    public String getWhName() { return getString(&quot;WH-NAME&quot;); }</span>
+<span class="fc" id="L308">    public void setWhName(String value) { setString(&quot;WH-NAME&quot;, value); }</span>
+<span class="fc" id="L309">    public int getWhType() { return getInt(&quot;WH-TYPE&quot;); }</span>
+<span class="fc" id="L310">    public void setWhType(int value) { setInt(&quot;WH-TYPE&quot;, value); }</span>
+<span class="fc" id="L311">    public int getWkI() { return getInt(&quot;WK-I&quot;); }</span>
+<span class="fc" id="L312">    public void setWkI(int value) { setInt(&quot;WK-I&quot;, value); }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

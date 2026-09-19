@@ -1,0 +1,17 @@
+# Oracle profile — activate with --spring.profiles.active=oracle
+# Override placeholders via environment variables before running.
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:oracle:thin:@${ORACLE_HOST:localhost}:${ORACLE_PORT:1521}:${ORACLE_SID:XE}}
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: ${SPRING_DATASOURCE_USERNAME:${ORACLE_USERNAME:system}}
+    password: ${SPRING_DATASOURCE_PASSWORD:${ORACLE_PASSWORD:oracle}}
+    hikari:
+      auto-commit: false  # Match main profile — multi-statement save paragraphs need explicit commit
+      # keep connections warm across
+      # slow user input. A lookup can run minutes into a flow;
+      # default idle-timeout (10min) + DB-side reapers can kill the conn
+      # mid-session. keepalive-time pings every 5min to prevent reaping.
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      keepalive-time: 300000

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : ABORTX_WS
+-->
+<dataLayout name="ABORTX_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="6">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="FSTS" offset="4" size="2" javaType="String" value="00"/>
+  </group>
+  <group name="WK-LINE" offset="0" size="75">
+    <field name="FILLER-0" offset="0" size="6" javaType="String" value="ABEND "/>
+    <field name="WL-PROGID" offset="6" size="6" javaType="String"/>
+    <field name="FILLER-12" offset="12" size="2" javaType="String" value=" F"/>
+    <field name="WL-FILE" offset="14" size="8" javaType="String"/>
+    <field name="FILLER-22" offset="22" size="2" javaType="String" value=" S"/>
+    <field name="WL-FSTS" offset="24" size="2" javaType="String"/>
+    <field name="FILLER-26" offset="26" size="2" javaType="String" value=" M"/>
+    <field name="WL-MSGCODE" offset="28" size="6" javaType="String"/>
+    <field name="FILLER-34" offset="34" size="1" javaType="String" value="SPACE"/>
+    <field name="WL-DETAIL" offset="35" size="40" javaType="String"/>
+  </group>
+</dataLayout>
