@@ -24,7 +24,7 @@ See how ModernizeX transforms legacy COBOL systems into clean Java architecture 
 
 [![ModernizeX product teaser — click to watch](media/teaser-poster.jpg)](https://www.youtube.com/watch?v=93FG-AqhURQ)
 
-*Click the image to watch the teaser on YouTube ([youtu.be/93FG-AqhURQ](https://www.youtube.com/watch?v=93FG-AqhURQ)).*
+*Click the image to watch the teaser on [YouTube](https://www.youtube.com/watch?v=93FG-AqhURQ).*
 
 ---
 
