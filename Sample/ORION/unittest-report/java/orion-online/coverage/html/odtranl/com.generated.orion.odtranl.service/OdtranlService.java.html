@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OdtranlService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ODTRANL Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.odtranl.service</a> &gt; <span class="el_source">OdtranlService.java</span></div><h1>OdtranlService.java</h1><pre class="source lang-java linenums">package com.generated.orion.odtranl.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.common.linkage.OdtranlLinkParm;
+import com.generated.orion.odtranl.accessor.OdtranlFields;
+import com.generated.orion.odtranl.dao.OdtranlDao;
+import com.generated.orion.odtranl.metadata.OdtranlBmsMetadata;
+import com.generated.orion.odtranl.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program ODTRANL. */
+@Service
+<span class="nc" id="L24">public class OdtranlService implements AppProgram {</span>
+<span class="nc" id="L25">    private static final Logger log = LoggerFactory.getLogger(OdtranlService.class);</span>
+
+    private static final int COMMAREA_LENGTH = 692;
+
+    @Autowired private OdtranlDao dao;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L37">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc" id="L38">        ctx.dao = this.dao;</span>
+<span class="nc" id="L39">        executeMainLogic(ctx);</span>
+<span class="nc" id="L40">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L44">        return &quot;ODTRANL&quot;;</span>
+    }
+
+    @Override
+    public String getTransId() {
+<span class="nc" id="L49">        return &quot;OD05&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L54">        return OdtranlBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L59">        OdtranlBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L60">    }</span>
+
+    @Override
+    public FieldMapping getFieldMapping(String mapName) {
+<span class="nc" id="L64">        return OdtranlBmsMetadata.getFieldMapping(mapName);</span>
+    }
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void executeMainLogic(TaskContext ctx) {
+<span class="nc" id="L69">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L70">        ctx.f.setCaErrMsg(&quot; &quot;);</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (ctx.appService.getEibcalen() == 0) {</span>
+<span class="nc" id="L72">            sendInitialScreen(ctx);</span>
+        } else {
+<span class="nc" id="L74">            ctx.f.setOrionCommarea(Utility.groupToString(ctx.appService.getSerializedCommarea()));</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">            if (ctx.f.getCaPgmContext() == 0) {</span>
+<span class="nc" id="L76">                sendInitialScreen(ctx);</span>
+            } else {
+<span class="nc" id="L78">                dispatchInputByAidKey(ctx);</span>
+            }
+        }
+<span class="nc" id="L81">        ctx.appService.returnTransid(</span>
+<span class="nc" id="L82">                ctx.f.getWsTranid(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L83">    }</span>
+
+    /** COBOL paragraph: 1000-SEND-INITIAL */
+    private void sendInitialScreen(TaskContext ctx) {
+<span class="nc" id="L87">        ctx.f.fillLowValues(&quot;MTRANLAO&quot;);</span>
+<span class="nc" id="L88">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L89">        ctx.f.setErrmsgo(&quot;Enter card number and press ENTER.&quot;);</span>
+<span class="nc" id="L90">        ctx.appService.sendMap(</span>
+                &quot;MTRANLA&quot;, ctx.f, ctx.f, /* erase */ true, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L92">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L93">        ctx.f.setCaPgmContext(1);</span>
+<span class="nc" id="L94">    }</span>
+
+    /** COBOL paragraph: 2000-PROCESS-INPUT */
+    private void dispatchInputByAidKey(TaskContext ctx) {
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;3&quot;)) {</span>
+<span class="nc" id="L99">            transferToMenuProgram(ctx);</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;4&quot;)) {</span>
+<span class="nc" id="L101">            sendInitialScreen(ctx);</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;'&quot;)) {</span>
+<span class="nc" id="L103">            listTransactionsForCard(ctx);</span>
+        } else {
+<span class="nc" id="L105">            sendInitialScreen(ctx);</span>
+<span class="nc" id="L106">            ctx.f.setErrmsgo(ctx.f.getWsMsgInvalidKey());</span>
+<span class="nc" id="L107">            sendDataOnlyScreen(ctx);</span>
+        }
+<span class="nc" id="L109">    }</span>
+
+    /** COBOL paragraph: 2100-LIST-AND-SHOW */
+    private void listTransactionsForCard(TaskContext ctx) {
+<span class="nc" id="L113">        ctx.appService.receiveMap(&quot;MTRANLA&quot;, ctx.f);</span>
+<span class="nc" id="L114">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L115" title="All 4 branches missed.">        if (Utility.fieldEquals(ctx.f.getCardnumi(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;CARDNUMI&quot;)) {</span>
+<span class="nc" id="L116">            ctx.f.setErrmsgo(ctx.f.getWsMsgRequired());</span>
+<span class="nc" id="L117">            sendDataOnlyScreen(ctx);</span>
+        } else {
+<span class="nc" id="L119">            ctx.f.setTrCardNum(ctx.f.getCardnumi());</span>
+<span class="nc" id="L120">            ctx.f.setCaCardNum(ctx.f.getCardnumi());</span>
+<span class="nc" id="L121">            ctx.f.fillLowValues(&quot;MTRANLAO&quot;);</span>
+<span class="nc" id="L122">            ctx.f.setCardnumo(ctx.f.getTrCardNum());</span>
+<span class="nc" id="L123">            fetchTransactionList(ctx);</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">            if (ctx.f.getWsRowCnt() &gt; 0) {</span>
+<span class="nc" id="L125">                ctx.f.setErrmsgo(&quot;Transactions listed.&quot;);</span>
+            } else {
+<span class="nc bnc" id="L127" title="All 2 branches missed.">                if (Utility.fieldEquals(ctx.f.getErrmsgo(), &quot; &quot;)</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">                        || ctx.f.isAllLowValues(&quot;ERRMSGO&quot;)) {</span>
+<span class="nc" id="L129">                    ctx.f.setErrmsgo(&quot;No transactions for this card.&quot;);</span>
+                }
+            }
+<span class="nc" id="L132">            sendDataOnlyScreen(ctx);</span>
+        }
+<span class="nc" id="L134">    }</span>
+
+    /** COBOL paragraph: 3000-LIST-TRANS */
+    private void fetchTransactionList(TaskContext ctx) {
+<span class="nc" id="L138">        ctx.f.setWsRowCnt(0);</span>
+<span class="nc" id="L139">        ctx.f.setWsEndFlg(&quot;N&quot;);</span>
+        // DB2 OPEN CURSOR TRANCSR
+<span class="nc" id="L141">        ctx.dao.openTrancsr(ctx.f.getTrCardNum());</span>
+<span class="nc" id="L142">        ctx.f.setSqlcode(0);</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        if (ctx.f.getSqlcode() != 0) {</span>
+<span class="nc" id="L144">            ctx.f.setErrmsgo(&quot;Error opening transaction cursor.&quot;);</span>
+        } else {
+<span class="nc" id="L146">            for (ctx.f.setWsIdx(1);</span>
+<span class="nc bnc" id="L147" title="All 4 branches missed.">                    !(ctx.f.getWsIdx() &gt; 5 || ctx.f.getWsEndFlg().equals(&quot;Y&quot;));</span>
+<span class="nc" id="L148">                    ctx.f.setWsIdx(ctx.f.getWsIdx() + 1)) {</span>
+<span class="nc" id="L149">                fetchNextTransactionRow(ctx);</span>
+            }
+            // DB2 CLOSE CURSOR TRANCSR
+<span class="nc" id="L152">            ctx.dao.closeTrancsr();</span>
+<span class="nc" id="L153">            ctx.f.setSqlcode(0);</span>
+        }
+<span class="nc" id="L155">    }</span>
+
+    /** COBOL paragraph: 3100-FETCH-ROW */
+    private void fetchNextTransactionRow(TaskContext ctx) {
+        // DB2 FETCH TRANCSR
+        {
+<span class="nc" id="L161">            java.util.Map&lt;String, Object&gt; _sqlResult = dao.fetchTrancsr();</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">            if (!_sqlResult.containsKey(&quot;SQLCODE&quot;)) {</span>
+<span class="nc" id="L163">                ctx.f.setTrId(</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">                        (_sqlResult.get(&quot;TR_ID&quot;) == null</span>
+<span class="nc" id="L165">                                ? &quot;&quot;</span>
+<span class="nc" id="L166">                                : String.valueOf(_sqlResult.get(&quot;TR_ID&quot;))));</span>
+<span class="nc" id="L167">                ctx.f.setTrAmt(</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">                        (_sqlResult.get(&quot;TR_AMT&quot;) == null</span>
+<span class="nc" id="L169">                                ? java.math.BigDecimal.ZERO</span>
+<span class="nc" id="L170">                                : new java.math.BigDecimal(</span>
+<span class="nc" id="L171">                                        ((Number) _sqlResult.get(&quot;TR_AMT&quot;)).toString())));</span>
+<span class="nc" id="L172">                ctx.f.setTrTypeCd(</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">                        (_sqlResult.get(&quot;TR_TYPE_CD&quot;) == null</span>
+<span class="nc" id="L174">                                ? &quot;&quot;</span>
+<span class="nc" id="L175">                                : String.valueOf(_sqlResult.get(&quot;TR_TYPE_CD&quot;))));</span>
+<span class="nc" id="L176">                ctx.f.setSqlcode(0);</span>
+            } else {
+<span class="nc" id="L178">                ctx.f.setSqlcode(</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">                        _sqlResult.get(&quot;SQLCODE&quot;) != null</span>
+<span class="nc" id="L180">                                ? (Integer) _sqlResult.get(&quot;SQLCODE&quot;)</span>
+<span class="nc" id="L181">                                : 0);</span>
+            }
+        }
+<span class="nc bnc" id="L184" title="All 3 branches missed.">        switch (ctx.f.getSqlcode()) {</span>
+            case 0 -&gt; {
+<span class="nc" id="L186">                ctx.f.setWsRowCnt(ctx.f.getWsRowCnt() + 1);</span>
+<span class="nc" id="L187">                populateTransactionRow(ctx);</span>
+<span class="nc" id="L188">            }</span>
+            case 100 -&gt; {
+<span class="nc" id="L190">                ctx.f.setString(&quot;WS-END-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L191">            }</span>
+            default -&gt; {
+<span class="nc" id="L193">                ctx.f.setString(&quot;WS-END-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L194">                ctx.f.setErrmsgo(&quot;Error fetching transactions.&quot;);</span>
+            }
+        }
+<span class="nc" id="L197">    }</span>
+
+    /** COBOL paragraph: 3200-MOVE-ROW */
+    private void populateTransactionRow(TaskContext ctx) {
+<span class="nc" id="L201">        ctx.f.setWsEdAmt(ctx.f.getTrAmt());</span>
+<span class="nc bnc" id="L202" title="All 6 branches missed.">        switch (ctx.f.getWsIdx()) {</span>
+            case 1 -&gt; {
+<span class="nc" id="L204">                ctx.f.setTrn1o(ctx.f.getTrId());</span>
+<span class="nc" id="L205">                ctx.f.setAmt1o(ctx.f.getString(&quot;WS-ED-AMT&quot;));</span>
+<span class="nc" id="L206">                ctx.f.setTyp1o(ctx.f.getTrTypeCd());</span>
+<span class="nc" id="L207">            }</span>
+            case 2 -&gt; {
+<span class="nc" id="L209">                ctx.f.setTrn2o(ctx.f.getTrId());</span>
+<span class="nc" id="L210">                ctx.f.setAmt2o(ctx.f.getString(&quot;WS-ED-AMT&quot;));</span>
+<span class="nc" id="L211">                ctx.f.setTyp2o(ctx.f.getTrTypeCd());</span>
+<span class="nc" id="L212">            }</span>
+            case 3 -&gt; {
+<span class="nc" id="L214">                ctx.f.setTrn3o(ctx.f.getTrId());</span>
+<span class="nc" id="L215">                ctx.f.setAmt3o(ctx.f.getString(&quot;WS-ED-AMT&quot;));</span>
+<span class="nc" id="L216">                ctx.f.setTyp3o(ctx.f.getTrTypeCd());</span>
+<span class="nc" id="L217">            }</span>
+            case 4 -&gt; {
+<span class="nc" id="L219">                ctx.f.setTrn4o(ctx.f.getTrId());</span>
+<span class="nc" id="L220">                ctx.f.setAmt4o(ctx.f.getString(&quot;WS-ED-AMT&quot;));</span>
+<span class="nc" id="L221">                ctx.f.setTyp4o(ctx.f.getTrTypeCd());</span>
+<span class="nc" id="L222">            }</span>
+            case 5 -&gt; {
+<span class="nc" id="L224">                ctx.f.setTrn5o(ctx.f.getTrId());</span>
+<span class="nc" id="L225">                ctx.f.setAmt5o(ctx.f.getString(&quot;WS-ED-AMT&quot;));</span>
+<span class="nc" id="L226">                ctx.f.setTyp5o(ctx.f.getTrTypeCd());</span>
+<span class="nc" id="L227">            }</span>
+            default -&gt; {
+                /* CONTINUE */
+            }
+        }
+<span class="nc" id="L232">    }</span>
+
+    /** COBOL paragraph: 7000-XCTL-MENU */
+    private void transferToMenuProgram(TaskContext ctx) {
+<span class="nc" id="L236">        ctx.f.setCaFromProgram(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L237">        ctx.f.setCaFromTranid(ctx.f.getWsTranid());</span>
+<span class="nc" id="L238">        ctx.f.setCaPgmContext(0);</span>
+<span class="nc" id="L239">        ctx.appService.xctl(</span>
+<span class="nc" id="L240">                ctx.f.getWsMenuPgm(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L241">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L242">    }</span>
+
+    /** COBOL paragraph: 8000-POPULATE-HEADER */
+    private void populateScreenHeader(TaskContext ctx) {
+<span class="nc" id="L246">        ctx.f.setTrnnameo(ctx.f.getWsTranid());</span>
+<span class="nc" id="L247">        ctx.f.setPgmnameo(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L248">        ctx.f.setTitleo(ctx.f.getWsHdrTitle());</span>
+<span class="nc" id="L249">        loadCurrentDateTime(ctx);</span>
+<span class="nc" id="L250">        ctx.f.setCurdateo(ctx.f.getWsHdrDate());</span>
+<span class="nc" id="L251">        ctx.f.setCurtimeo(ctx.f.getWsHdrTime());</span>
+<span class="nc" id="L252">    }</span>
+
+    /** COBOL paragraph: 8100-SEND-DATAONLY */
+    private void sendDataOnlyScreen(TaskContext ctx) {
+<span class="nc" id="L256">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L257">        ctx.appService.sendMap(</span>
+                &quot;MTRANLA&quot;, ctx.f, ctx.f, /* erase */ false, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L259">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L260">    }</span>
+
+    /** COBOL paragraph: 8500-GET-DATE-TIME */
+    private void loadCurrentDateTime(TaskContext ctx) {
+<span class="nc" id="L264">        ctx.appService.askTime();</span>
+<span class="nc" id="L265">        com.appruntime.FormatTimeResult _ftResult =</span>
+<span class="nc" id="L266">                ctx.appService.formatTime(null, &quot;YYYYMMDD&quot;, &quot;-&quot;, &quot;:&quot;);</span>
+<span class="nc" id="L267">        ctx.f.setWsHdrDate(_ftResult.getDate());</span>
+<span class="nc" id="L268">        ctx.f.setWsHdrTime(_ftResult.getTime());</span>
+<span class="nc" id="L269">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L270">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OdtranlFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L283">        final OdtranlLinkParm link = new OdtranlLinkParm();</span>
+
+        OdtranlDao dao;
+
+<span class="nc" id="L287">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L288">            this.appService = appService;</span>
+<span class="nc" id="L289">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L290">            this.f = new OdtranlFields(ws);</span>
+<span class="nc" id="L291">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

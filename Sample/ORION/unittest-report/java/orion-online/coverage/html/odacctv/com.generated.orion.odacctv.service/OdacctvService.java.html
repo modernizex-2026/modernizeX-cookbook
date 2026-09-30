@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OdacctvService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ODACCTV Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.odacctv.service</a> &gt; <span class="el_source">OdacctvService.java</span></div><h1>OdacctvService.java</h1><pre class="source lang-java linenums">package com.generated.orion.odacctv.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.common.linkage.OdacctvLinkParm;
+import com.generated.orion.odacctv.accessor.OdacctvFields;
+import com.generated.orion.odacctv.dao.OdacctvDao;
+import com.generated.orion.odacctv.metadata.OdacctvBmsMetadata;
+import com.generated.orion.odacctv.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program ODACCTV. */
+@Service
+<span class="nc" id="L24">public class OdacctvService implements AppProgram {</span>
+<span class="nc" id="L25">    private static final Logger log = LoggerFactory.getLogger(OdacctvService.class);</span>
+
+    /** Length (in bytes) of the ORION-COMMAREA passed on XCTL/RETURN. */
+    private static final int COMMAREA_LENGTH = 692;
+
+    @Autowired private OdacctvDao dao;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L38">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc" id="L39">        ctx.dao = this.dao;</span>
+<span class="nc" id="L40">        executeMainLine(ctx);</span>
+<span class="nc" id="L41">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L45">        return &quot;ODACCTV&quot;;</span>
+    }
+
+    @Override
+    public String getTransId() {
+<span class="nc" id="L50">        return &quot;OD01&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L55">        return OdacctvBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L60">        OdacctvBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L61">    }</span>
+
+    @Override
+    public FieldMapping getFieldMapping(String mapName) {
+<span class="nc" id="L65">        return OdacctvBmsMetadata.getFieldMapping(mapName);</span>
+    }
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void executeMainLine(TaskContext ctx) {
+<span class="nc" id="L70">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L71">        ctx.f.setCaErrMsg(&quot; &quot;);</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        if (ctx.appService.getEibcalen() == 0) {</span>
+<span class="nc" id="L73">            sendInitialScreen(ctx);</span>
+        } else {
+<span class="nc" id="L75">            ctx.f.setOrionCommarea(Utility.groupToString(ctx.appService.getSerializedCommarea()));</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">            if (ctx.f.getCaPgmContext() == 0) {</span>
+<span class="nc" id="L77">                sendInitialScreen(ctx);</span>
+            } else {
+<span class="nc" id="L79">                processUserInput(ctx);</span>
+            }
+        }
+<span class="nc" id="L82">        ctx.appService.returnTransid(</span>
+<span class="nc" id="L83">                ctx.f.getWsTranid(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L84">    }</span>
+
+    /** COBOL paragraph: 1000-SEND-INITIAL */
+    private void sendInitialScreen(TaskContext ctx) {
+<span class="nc" id="L88">        ctx.f.fillLowValues(&quot;MACCTVAO&quot;);</span>
+<span class="nc" id="L89">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L90">        ctx.f.setErrmsgo(&quot;Enter account id and press ENTER.&quot;);</span>
+<span class="nc" id="L91">        ctx.appService.sendMap(</span>
+                &quot;MACCTVA&quot;, ctx.f, ctx.f, /* erase */ true, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L93">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L94">        ctx.f.setCaPgmContext(1);</span>
+<span class="nc" id="L95">    }</span>
+
+    /** COBOL paragraph: 2000-PROCESS-INPUT */
+    private void processUserInput(TaskContext ctx) {
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;3&quot;)) {</span>
+<span class="nc" id="L100">            transferToMenuProgram(ctx);</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;4&quot;)) {</span>
+<span class="nc" id="L102">            sendInitialScreen(ctx);</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;'&quot;)) {</span>
+<span class="nc" id="L104">            readAndDisplayAccount(ctx);</span>
+        } else {
+<span class="nc" id="L106">            sendInitialScreen(ctx);</span>
+<span class="nc" id="L107">            ctx.f.setErrmsgo(ctx.f.getWsMsgInvalidKey());</span>
+<span class="nc" id="L108">            sendDataOnlyScreen(ctx);</span>
+        }
+<span class="nc" id="L110">    }</span>
+
+    /** COBOL paragraph: 2100-READ-AND-SHOW */
+    private void readAndDisplayAccount(TaskContext ctx) {
+<span class="nc" id="L114">        ctx.appService.receiveMap(&quot;MACCTVA&quot;, ctx.f);</span>
+<span class="nc" id="L115">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L116" title="All 4 branches missed.">        if (Utility.fieldEquals(ctx.f.getAcctidi(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;ACCTIDI&quot;)) {</span>
+<span class="nc" id="L117">            ctx.f.setErrmsgo(ctx.f.getWsMsgRequired());</span>
+<span class="nc" id="L118">            sendDataOnlyScreen(ctx);</span>
+        } else {
+<span class="nc bnc" id="L120" title="All 2 branches missed.">            if (Utility.isNumeric(ctx.f.getRawString(&quot;ACCTIDI&quot;))) {</span>
+<span class="nc" id="L121">                ctx.f.setAcId(Utility.parseNumeric(ctx.f.getAcctidi()).longValue());</span>
+<span class="nc" id="L122">                ctx.f.setCaAcctId(ctx.f.getAcId());</span>
+<span class="nc" id="L123">                loadAccountRecord(ctx);</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">                if (ctx.f.getWsFoundFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L125">                    populateAccountDetail(ctx);</span>
+<span class="nc" id="L126">                    ctx.f.setErrmsgo(&quot;Account displayed.&quot;);</span>
+<span class="nc" id="L127">                    sendDataOnlyScreen(ctx);</span>
+                } else {
+<span class="nc" id="L129">                    ctx.f.setErrmsgo(ctx.f.getWsMsgNotfnd());</span>
+<span class="nc" id="L130">                    sendDataOnlyScreen(ctx);</span>
+                }
+            } else {
+<span class="nc" id="L133">                ctx.f.setErrmsgo(&quot;Account id must be numeric.&quot;);</span>
+<span class="nc" id="L134">                sendDataOnlyScreen(ctx);</span>
+            }
+        }
+<span class="nc" id="L137">    }</span>
+
+    /** COBOL paragraph: 3000-READ-ACCT */
+    private void loadAccountRecord(TaskContext ctx) {
+<span class="nc" id="L141">        ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+        // DB2 SELECT INTO — ORION.ACCT
+        {
+<span class="nc" id="L144">            java.util.Map&lt;String, Object&gt; _sqlResult = dao.selectOrionAcct(ctx.f.getAcId());</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">            if (!_sqlResult.containsKey(&quot;SQLCODE&quot;)) {</span>
+<span class="nc" id="L146">                ctx.f.setAcActiveStatus(</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">                        (_sqlResult.get(&quot;AC_ACTIVE_STATUS&quot;) == null</span>
+<span class="nc" id="L148">                                ? &quot;&quot;</span>
+<span class="nc" id="L149">                                : String.valueOf(_sqlResult.get(&quot;AC_ACTIVE_STATUS&quot;))));</span>
+<span class="nc" id="L150">                ctx.f.setAcCurrBal(</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">                        (_sqlResult.get(&quot;AC_CURR_BAL&quot;) == null</span>
+<span class="nc" id="L152">                                ? java.math.BigDecimal.ZERO</span>
+<span class="nc" id="L153">                                : new java.math.BigDecimal(</span>
+<span class="nc" id="L154">                                        ((Number) _sqlResult.get(&quot;AC_CURR_BAL&quot;)).toString())));</span>
+<span class="nc" id="L155">                ctx.f.setAcCreditLimit(</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">                        (_sqlResult.get(&quot;AC_CREDIT_LIMIT&quot;) == null</span>
+<span class="nc" id="L157">                                ? java.math.BigDecimal.ZERO</span>
+<span class="nc" id="L158">                                : new java.math.BigDecimal(</span>
+<span class="nc" id="L159">                                        ((Number) _sqlResult.get(&quot;AC_CREDIT_LIMIT&quot;)).toString())));</span>
+<span class="nc" id="L160">                ctx.f.setAcCashLimit(</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">                        (_sqlResult.get(&quot;AC_CASH_LIMIT&quot;) == null</span>
+<span class="nc" id="L162">                                ? java.math.BigDecimal.ZERO</span>
+<span class="nc" id="L163">                                : new java.math.BigDecimal(</span>
+<span class="nc" id="L164">                                        ((Number) _sqlResult.get(&quot;AC_CASH_LIMIT&quot;)).toString())));</span>
+<span class="nc" id="L165">                ctx.f.setAcOpenDate(</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">                        (_sqlResult.get(&quot;AC_OPEN_DATE&quot;) == null</span>
+<span class="nc" id="L167">                                ? &quot;&quot;</span>
+<span class="nc" id="L168">                                : String.valueOf(_sqlResult.get(&quot;AC_OPEN_DATE&quot;))));</span>
+<span class="nc" id="L169">                ctx.f.setAcExpiryDate(</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">                        (_sqlResult.get(&quot;AC_EXPIRY_DATE&quot;) == null</span>
+<span class="nc" id="L171">                                ? &quot;&quot;</span>
+<span class="nc" id="L172">                                : String.valueOf(_sqlResult.get(&quot;AC_EXPIRY_DATE&quot;))));</span>
+<span class="nc" id="L173">                ctx.f.setAcGroupId(</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">                        (_sqlResult.get(&quot;AC_GROUP_ID&quot;) == null</span>
+<span class="nc" id="L175">                                ? &quot;&quot;</span>
+<span class="nc" id="L176">                                : String.valueOf(_sqlResult.get(&quot;AC_GROUP_ID&quot;))));</span>
+<span class="nc" id="L177">                ctx.f.setSqlcode(0);</span>
+            } else {
+<span class="nc" id="L179">                ctx.f.setSqlcode(</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">                        _sqlResult.get(&quot;SQLCODE&quot;) != null</span>
+<span class="nc" id="L181">                                ? (Integer) _sqlResult.get(&quot;SQLCODE&quot;)</span>
+<span class="nc" id="L182">                                : 0);</span>
+            }
+        }
+<span class="nc bnc" id="L185" title="All 3 branches missed.">        switch (ctx.f.getSqlcode()) {</span>
+            case 0 -&gt; {
+<span class="nc" id="L187">                ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L188">            }</span>
+            case 100 -&gt; {
+<span class="nc" id="L190">                ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L191">            }</span>
+            default -&gt; {
+<span class="nc" id="L193">                ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L194">                ctx.f.setErrmsgo(&quot;Error reading account table.&quot;);</span>
+            }
+        }
+<span class="nc" id="L197">    }</span>
+
+    /** COBOL paragraph: 4000-POPULATE-DETAIL */
+    private void populateAccountDetail(TaskContext ctx) {
+<span class="nc" id="L201">        ctx.f.setAcctido(String.format(&quot;%011d&quot;, ctx.f.getAcId()));</span>
+<span class="nc" id="L202">        ctx.f.setAcstato(ctx.f.getAcActiveStatus());</span>
+<span class="nc" id="L203">        ctx.f.setWsEdBal(ctx.f.getAcCurrBal());</span>
+<span class="nc" id="L204">        ctx.f.setAcbalo(ctx.f.getString(&quot;WS-ED-BAL&quot;));</span>
+<span class="nc" id="L205">        ctx.f.setWsEdAmt(ctx.f.getAcCreditLimit());</span>
+<span class="nc" id="L206">        ctx.f.setAccrlimo(ctx.f.getString(&quot;WS-ED-AMT&quot;));</span>
+<span class="nc" id="L207">        ctx.f.setWsEdAmt(ctx.f.getAcCashLimit());</span>
+<span class="nc" id="L208">        ctx.f.setAccslimo(ctx.f.getString(&quot;WS-ED-AMT&quot;));</span>
+<span class="nc" id="L209">        ctx.f.setAcopeno(ctx.f.getAcOpenDate());</span>
+<span class="nc" id="L210">        ctx.f.setAcexpo(ctx.f.getAcExpiryDate());</span>
+<span class="nc" id="L211">        ctx.f.setAcgrpo(ctx.f.getAcGroupId());</span>
+<span class="nc" id="L212">    }</span>
+
+    /** COBOL paragraph: 7000-XCTL-MENU */
+    private void transferToMenuProgram(TaskContext ctx) {
+<span class="nc" id="L216">        ctx.f.setCaFromProgram(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L217">        ctx.f.setCaFromTranid(ctx.f.getWsTranid());</span>
+<span class="nc" id="L218">        ctx.f.setCaPgmContext(0);</span>
+<span class="nc" id="L219">        ctx.appService.xctl(</span>
+<span class="nc" id="L220">                ctx.f.getWsMenuPgm(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L221">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L222">    }</span>
+
+    /** COBOL paragraph: 8000-POPULATE-HEADER */
+    private void populateScreenHeader(TaskContext ctx) {
+<span class="nc" id="L226">        ctx.f.setTrnnameo(ctx.f.getWsTranid());</span>
+<span class="nc" id="L227">        ctx.f.setPgmnameo(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L228">        ctx.f.setTitleo(ctx.f.getWsHdrTitle());</span>
+<span class="nc" id="L229">        populateCurrentDateTime(ctx);</span>
+<span class="nc" id="L230">        ctx.f.setCurdateo(ctx.f.getWsHdrDate());</span>
+<span class="nc" id="L231">        ctx.f.setCurtimeo(ctx.f.getWsHdrTime());</span>
+<span class="nc" id="L232">    }</span>
+
+    /** COBOL paragraph: 8100-SEND-DATAONLY */
+    private void sendDataOnlyScreen(TaskContext ctx) {
+<span class="nc" id="L236">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L237">        ctx.appService.sendMap(</span>
+                &quot;MACCTVA&quot;, ctx.f, ctx.f, /* erase */ false, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L239">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L240">    }</span>
+
+    /** COBOL paragraph: 8500-GET-DATE-TIME */
+    private void populateCurrentDateTime(TaskContext ctx) {
+<span class="nc" id="L244">        ctx.appService.askTime();</span>
+<span class="nc" id="L245">        com.appruntime.FormatTimeResult _ftResult =</span>
+<span class="nc" id="L246">                ctx.appService.formatTime(null, &quot;YYYYMMDD&quot;, &quot;-&quot;, &quot;:&quot;);</span>
+<span class="nc" id="L247">        ctx.f.setWsHdrDate(_ftResult.getDate());</span>
+<span class="nc" id="L248">        ctx.f.setWsHdrTime(_ftResult.getTime());</span>
+<span class="nc" id="L249">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L250">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OdacctvFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L263">        final OdacctvLinkParm link = new OdacctvLinkParm();</span>
+
+        OdacctvDao dao;
+
+<span class="nc" id="L267">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L268">            this.appService = appService;</span>
+<span class="nc" id="L269">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L270">            this.f = new OdacctvFields(ws);</span>
+<span class="nc" id="L271">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

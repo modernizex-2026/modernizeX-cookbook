@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : OCUTIL_WS
+-->
+<dataLayout name="OCUTIL_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="8">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="SQLCODE" offset="4" size="4" javaType="int" value="0" usage="BINARY"/>
+  </group>
+  <group name="WS-PROGRAM-VARS" offset="0" size="30">
+    <field name="WS-PGMNAME" offset="0" size="8" javaType="String" value="OCUTIL"/>
+    <field name="WS-TRANID" offset="8" size="4" javaType="String" value="ORUT"/>
+    <field name="WS-MENU-PGM" offset="12" size="8" javaType="String" value="OCADMEN"/>
+    <field name="WS-LINK-PGM" offset="20" size="8" javaType="String" value="SPACES"/>
+    <field name="WS-OPTION" offset="28" size="2" javaType="int" value="ZEROS"/>
+  </group>
+  <group name="WS-SUB-NAMES" offset="0" size="56">
+    <field name="WS-P-XREF" offset="0" size="8" javaType="String" value="OUXREF"/>
+    <field name="WS-P-STMB" offset="8" size="8" javaType="String" value="OUSTMB"/>
+    <field name="WS-P-FLAG" offset="16" size="8" javaType="String" value="OUFLAG"/>
+    <field name="WS-P-IMP" offset="24" size="8" javaType="String" value="OUIMP"/>
+    <field name="WS-P-ARCH" offset="32" size="8" javaType="String" value="OUARCH"/>
+    <field name="WS-P-PURG" offset="40" size="8" javaType="String" value="OUPURG"/>
+    <field name="WS-P-BKP" offset="48" size="8" javaType="String" value="OUBKP"/>
+  </group>
+  <group name="WS-REQ" offset="0" size="27">
+    <field name="WS-REQ-MODE" offset="0" size="4" javaType="String" value="SPACES"/>
+    <field name="WS-REQ-DATE" offset="4" size="10" javaType="String" value="SPACES"/>
+    <field name="WS-MAX-NUM" offset="14" size="7" javaType="int" value="ZEROS"/>
+    <field name="WS-CYC-NUM" offset="21" size="6" javaType="int" value="ZEROS"/>
+  </group>
+  <group name="WS-WORK-FLAGS" offset="0" size="2">
+    <field name="WS-VALID-SW" offset="0" size="1" javaType="String" value="Y"/>
+    <field name="WS-LINK-BAD" offset="1" size="1" javaType="String" value="N"/>
+  </group>
+  <group name="WS-NUMCHK" offset="0" size="40">
+    <field name="WS-NC-IN" offset="0" size="16" javaType="String" value="SPACES"/>
+    <field name="WS-NC-LEN" offset="16" size="2" javaType="int" value="ZEROS"/>
+    <field name="WS-NC-POS" offset="18" size="2" javaType="int" value="ZEROS"/>
+    <field name="WS-NC-CHAR" offset="20" size="1" javaType="String" value="SPACES"/>
+    <field name="WS-NC-DIGIT" offset="21" size="1" javaType="int" value="ZEROS"/>
+    <field name="WS-NC-DIGITS" offset="22" size="2" javaType="int" value="ZEROS"/>
+    <field name="WS-NC-VALUE" offset="24" size="16" javaType="long" value="ZEROS"/>
+  </group>
+  <group name="WS-EDITS" offset="0" size="27">
+    <field name="WS-E9" offset="0" size="11" javaType="int" editFormat="ZERO_SUPPRESS" editPicture="ZZZ,ZZZ,ZZ9" integerDigits="9" insertCommas="true" hasTrailingNine="true"/>
+    <field name="WS-EA" offset="11" size="16" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" editPicture="-,---,---,--9.99" integerDigits="10" insertCommas="true" hasTrailingNine="true"/>
+  </group>
+  <group name="WS-FMT" offset="0" size="114">
+    <field name="WS-L1" offset="0" size="11" javaType="String" value="SPACES"/>
+    <field name="WS-V1" offset="11" size="16" javaType="String" value="SPACES"/>
+    <field name="WS-L2" offset="27" size="11" javaType="String" value="SPACES"/>
+    <field name="WS-V2" offset="38" size="16" javaType="String" value="SPACES"/>
+    <field name="WS-LINE" offset="54" size="60" javaType="String" value="SPACES"/>
+  </group>
+  <group name="WS-CICS-RESP" offset="0" size="8">
+    <field name="WS-RESP-CD" offset="0" size="4" javaType="int" signed="true" value="ZEROS" usage="BINARY"/>
+    <field name="WS-REAS-CD" offset="4" size="4" javaType="int" signed="true" value="ZEROS" usage="BINARY"/>
+  </group>
+  <group name="WS-SWITCHES" offset="0" size="3">
+    <field name="WS-ERR-FLG" offset="0" size="1" javaType="String" value="N"/>
+    <field name="WS-END-FLG" offset="1" size="1" javaType="String" value="N"/>
+    <field name="WS-FOUND-FLG" offset="2" size="1" javaType="String" value="N"/>
+  </group>
+  <group name="WS-FILE-NAMES" offset="0" size="96">
+    <field name="WS-ACCTFILE" offset="0" size="8" javaType="String" value="ACCTFILE"/>
+    <field name="WS-CARDFILE" offset="8" size="8" javaType="String" value="CARDFILE"/>
+    <field name="WS-CUSTFILE" offset="16" size="8" javaType="String" value="CUSTFILE"/>
+    <field name="WS-XREFFILE" offset="24" size="8" javaType="String" value="XREFFILE"/>
+    <field name="WS-TRANFILE" offset="32" size="8" javaType="String" value="TRANFILE"/>
+    <field name="WS-TTYPFILE" offset="40" size="8" javaType="String" value="TTYPFILE"/>
+    <field name="WS-TCATFILE" offset="48" size="8" javaType="String" value="TCATFILE"/>
+    <field name="WS-DGRPFILE" offset="56" size="8" javaType="String" value="DGRPFILE"/>
+    <field name="WS-USRSEC" offset="64" size="8" javaType="String" value="USRSEC  "/>
+    <field name="WS-BILLFILE" offset="72" size="8" javaType="String" value="BILLFILE"/>
+    <field name="WS-STMTFILE" offset="80" size="8" javaType="String" value="STMTFILE"/>
+    <field name="WS-CTRLFILE" offset="88" size="8" javaType="String" value="CTRLFILE"/>
+  </group>
+  <group name="WS-WORK" offset="0" size="26">
+    <field name="WS-CNT" offset="0" size="7" javaType="int" value="ZEROS"/>
+    <field name="WS-IDX" offset="7" size="4" javaType="int" value="ZEROS"/>
+    <field name="WS-AMT" offset="11" size="15" javaType="BigDecimal" signed="true" scale="2" value="ZEROS"/>
+  </group>
+  <group name="WS-EDIT" offset="0" size="43">
+    <field name="WS-ED-AMT" offset="0" size="16" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" editPicture="-,---,---,--9.99" integerDigits="10" insertCommas="true" hasTrailingNine="true"/>
+    <field name="WS-ED-BAL" offset="16" size="16" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" editPicture="-,---,---,--9.99" integerDigits="10" insertCommas="true" hasTrailingNine="true"/>
+    <field name="WS-ED-ID" offset="32" size="11" javaType="long" editFormat="ZERO_SUPPRESS" editPicture="ZZZZZZZZZZ9" integerDigits="11" hasTrailingNine="true"/>
+  </group>
+  <group name="WS-MESSAGES" offset="0" size="246">
+    <field name="WS-MSG-CODE" offset="0" size="6" javaType="String" value="SPACES"/>
+    <field name="WS-MSG-TEXT" offset="6" size="80" javaType="String" value="SPACES"/>
+    <field name="WS-MSG-THANKYOU" offset="86" size="40" javaType="String" value="Thank you for using ORION-CCMS."/>
+    <field name="WS-MSG-INVALID-KEY" offset="126" size="40" javaType="String" value="Invalid key pressed. Please try again."/>
+    <field name="WS-MSG-NOTFND" offset="166" size="40" javaType="String" value="Record not found."/>
+    <field name="WS-MSG-REQUIRED" offset="206" size="40" javaType="String" value="Please enter all required fields."/>
+  </group>
+  <group name="WS-HEADER" offset="0" size="70">
+    <field name="WS-HDR-TITLE" offset="0" size="40" javaType="String" value="ORION CREDIT CARD MANAGEMENT SYSTEM"/>
+    <field name="WS-HDR-TRANID" offset="40" size="4" javaType="String" value="SPACES"/>
+    <field name="WS-HDR-PGMNAME" offset="44" size="8" javaType="String" value="SPACES"/>
+    <field name="WS-HDR-DATE" offset="52" size="10" javaType="String" value="SPACES"/>
+    <field name="WS-HDR-TIME" offset="62" size="8" javaType="String" value="SPACES"/>
+  </group>
+  <group name="WS-CURRENT-DATE-TIME" offset="0" size="14">
+    <group name="WS-CDT-DATE" offset="0" size="8">
+      <field name="WS-CDT-YYYY" offset="0" size="4" javaType="int"/>
+      <field name="WS-CDT-MM" offset="4" size="2" javaType="int"/>
+      <field name="WS-CDT-DD" offset="6" size="2" javaType="int"/>
+    </group>
+    <group name="WS-CDT-TIME" offset="8" size="6">
+      <field name="WS-CDT-HH" offset="8" size="2" javaType="int"/>
+      <field name="WS-CDT-MI" offset="10" size="2" javaType="int"/>
+      <field name="WS-CDT-SS" offset="12" size="2" javaType="int"/>
+    </group>
+  </group>
+  <group name="ORION-COMMAREA" offset="0" size="692">
+    <group name="CA-GENERAL" offset="0" size="47">
+      <field name="CA-FROM-PROGRAM" offset="0" size="8" javaType="String"/>
+      <field name="CA-TO-PROGRAM" offset="8" size="8" javaType="String"/>
+      <field name="CA-FROM-TRANID" offset="16" size="4" javaType="String"/>
+      <field name="CA-TO-TRANID" offset="20" size="4" javaType="String"/>
+      <field name="CA-USER-ID" offset="24" size="8" javaType="String"/>
+      <field name="CA-USER-TYPE" offset="32" size="1" javaType="String"/>
+      <field name="CA-PGM-CONTEXT" offset="33" size="1" javaType="int"/>
+      <field name="CA-LAST-MAP" offset="34" size="7" javaType="String"/>
+      <field name="CA-LAST-MAPSET" offset="41" size="6" javaType="String"/>
+    </group>
+    <group name="CA-SELECTED" offset="47" size="52">
+      <field name="CA-ACCT-ID" offset="47" size="11" javaType="long"/>
+      <field name="CA-CARD-NUM" offset="58" size="16" javaType="String"/>
+      <field name="CA-CUST-ID" offset="74" size="9" javaType="int"/>
+      <field name="CA-TRAN-ID" offset="83" size="16" javaType="String"/>
+    </group>
+    <group name="CA-ERROR" offset="99" size="81">
+      <field name="CA-ERR-FLG" offset="99" size="1" javaType="String"/>
+      <field name="CA-ERR-MSG" offset="100" size="80" javaType="String"/>
+    </group>
+    <field name="CA-WORK-AREA" offset="180" size="512" javaType="String"/>
+  </group>
+  <group name="KUX-PARM" offset="0" size="145">
+    <group name="KUX-REQUEST" offset="0" size="27">
+      <field name="KUX-MODE" offset="0" size="4" javaType="String"/>
+      <field name="KUX-MAX" offset="4" size="7" javaType="int"/>
+      <field name="KUX-START-CARD" offset="11" size="16" javaType="String"/>
+    </group>
+    <group name="KUX-RESULT" offset="27" size="118">
+      <field name="KUX-STATUS" offset="27" size="2" javaType="String"/>
+      <field name="KUX-MSG" offset="29" size="50" javaType="String"/>
+      <field name="KUX-READ" offset="79" size="7" javaType="int"/>
+      <field name="KUX-WRITTEN" offset="86" size="7" javaType="int"/>
+      <field name="KUX-UPDATED" offset="93" size="7" javaType="int"/>
+      <field name="KUX-SKIP-ACCT" offset="100" size="7" javaType="int"/>
+      <field name="KUX-SKIP-XREF" offset="107" size="7" javaType="int"/>
+      <field name="KUX-SKIP-CUST" offset="114" size="7" javaType="int"/>
+      <field name="KUX-ERRORS" offset="121" size="7" javaType="int"/>
+      <field name="KUX-NEXT-CARD" offset="128" size="16" javaType="String"/>
+      <field name="KUX-MORE" offset="144" size="1" javaType="String"/>
+    </group>
+  </group>
+  <group name="KSM-PARM" offset="0" size="156">
+    <group name="KSM-REQUEST" offset="0" size="34">
+      <field name="KSM-CYCLE" offset="0" size="6" javaType="int"/>
+      <field name="KSM-DUE-DATE" offset="6" size="10" javaType="String"/>
+      <field name="KSM-START-ACCT" offset="16" size="11" javaType="long"/>
+      <field name="KSM-MAX" offset="27" size="7" javaType="int"/>
+    </group>
+    <group name="KSM-RESULT" offset="34" size="122">
+      <field name="KSM-STATUS" offset="34" size="2" javaType="String"/>
+      <field name="KSM-MSG" offset="36" size="50" javaType="String"/>
+      <field name="KSM-ACCT-READ" offset="86" size="7" javaType="int"/>
+      <field name="KSM-STMT-WRITTEN" offset="93" size="7" javaType="int"/>
+      <field name="KSM-NO-TRAN" offset="100" size="7" javaType="int"/>
+      <field name="KSM-ERRORS" offset="107" size="7" javaType="int"/>
+      <field name="KSM-TOT-CREDIT" offset="114" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KSM-TOT-DEBIT" offset="129" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KSM-NEXT-ACCT" offset="144" size="11" javaType="long"/>
+      <field name="KSM-MORE" offset="155" size="1" javaType="String"/>
+    </group>
+  </group>
+  <group name="KFL-PARM" offset="0" size="189">
+    <group name="KFL-REQUEST" offset="0" size="32">
+      <field name="KFL-MODE" offset="0" size="4" javaType="String"/>
+      <field name="KFL-CUTOFF" offset="4" size="10" javaType="String"/>
+      <field name="KFL-START-ACCT" offset="14" size="11" javaType="long"/>
+      <field name="KFL-MAX" offset="25" size="7" javaType="int"/>
+    </group>
+    <group name="KFL-RESULT" offset="32" size="157">
+      <field name="KFL-STATUS" offset="32" size="2" javaType="String"/>
+      <field name="KFL-MSG" offset="34" size="50" javaType="String"/>
+      <field name="KFL-READ" offset="84" size="7" javaType="int"/>
+      <field name="KFL-SKIPPED" offset="91" size="7" javaType="int"/>
+      <field name="KFL-CURRENT" offset="98" size="7" javaType="int"/>
+      <field name="KFL-DELQ" offset="105" size="7" javaType="int"/>
+      <field name="KFL-B30" offset="112" size="7" javaType="int"/>
+      <field name="KFL-B60" offset="119" size="7" javaType="int"/>
+      <field name="KFL-B90" offset="126" size="7" javaType="int"/>
+      <field name="KFL-EXPIRED" offset="133" size="7" javaType="int"/>
+      <field name="KFL-ERRORS" offset="140" size="7" javaType="int"/>
+      <field name="KFL-DELQ-BAL" offset="147" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KFL-SHORTFALL" offset="162" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KFL-NEXT-ACCT" offset="177" size="11" javaType="long"/>
+      <field name="KFL-MORE" offset="188" size="1" javaType="String"/>
+    </group>
+  </group>
+  <group name="KIM-PARM" offset="0" size="153">
+    <group name="KIM-REQUEST" offset="0" size="15">
+      <field name="KIM-START-KEY" offset="0" size="8" javaType="String"/>
+      <field name="KIM-MAX" offset="8" size="7" javaType="int"/>
+    </group>
+    <group name="KIM-RESULT" offset="15" size="138">
+      <field name="KIM-STATUS" offset="15" size="2" javaType="String"/>
+      <field name="KIM-MSG" offset="17" size="50" javaType="String"/>
+      <field name="KIM-READ" offset="67" size="7" javaType="int"/>
+      <field name="KIM-ADDED" offset="74" size="7" javaType="int"/>
+      <field name="KIM-UPDATED" offset="81" size="7" javaType="int"/>
+      <field name="KIM-ACCEPTED" offset="88" size="7" javaType="int"/>
+      <field name="KIM-REJECTED" offset="95" size="7" javaType="int"/>
+      <field name="KIM-SKIPPED" offset="102" size="7" javaType="int"/>
+      <field name="KIM-ERRORS" offset="109" size="7" javaType="int"/>
+      <field name="KIM-LAST-REASON" offset="116" size="20" javaType="String"/>
+      <field name="KIM-LAST-KEY" offset="136" size="8" javaType="String"/>
+      <field name="KIM-NEXT-KEY" offset="144" size="8" javaType="String"/>
+      <field name="KIM-MORE" offset="152" size="1" javaType="String"/>
+    </group>
+  </group>
+  <group name="KAR-PARM" offset="0" size="152">
+    <group name="KAR-REQUEST" offset="0" size="33">
+      <field name="KAR-CUTOFF" offset="0" size="10" javaType="String"/>
+      <field name="KAR-START-TRAN" offset="10" size="16" javaType="String"/>
+      <field name="KAR-MAX" offset="26" size="7" javaType="int"/>
+    </group>
+    <group name="KAR-RESULT" offset="33" size="119">
+      <field name="KAR-STATUS" offset="33" size="2" javaType="String"/>
+      <field name="KAR-MSG" offset="35" size="50" javaType="String"/>
+      <field name="KAR-READ" offset="85" size="7" javaType="int"/>
+      <field name="KAR-ARCHIVED" offset="92" size="7" javaType="int"/>
+      <field name="KAR-DELETED" offset="99" size="7" javaType="int"/>
+      <field name="KAR-KEPT" offset="106" size="7" javaType="int"/>
+      <field name="KAR-ERRORS" offset="113" size="7" javaType="int"/>
+      <field name="KAR-ARCH-AMT" offset="120" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KAR-NEXT-TRAN" offset="135" size="16" javaType="String"/>
+      <field name="KAR-MORE" offset="151" size="1" javaType="String"/>
+    </group>
+  </group>
+  <group name="KPG-PARM" offset="0" size="160">
+    <group name="KPG-REQUEST" offset="0" size="33">
+      <field name="KPG-CUTOFF" offset="0" size="10" javaType="String"/>
+      <field name="KPG-START-TRAN" offset="10" size="16" javaType="String"/>
+      <field name="KPG-MAX" offset="26" size="7" javaType="int"/>
+    </group>
+    <group name="KPG-RESULT" offset="33" size="127">
+      <field name="KPG-STATUS" offset="33" size="2" javaType="String"/>
+      <field name="KPG-MSG" offset="35" size="50" javaType="String"/>
+      <field name="KPG-READ" offset="85" size="7" javaType="int"/>
+      <field name="KPG-PURGED" offset="92" size="7" javaType="int"/>
+      <field name="KPG-KEPT" offset="99" size="7" javaType="int"/>
+      <field name="KPG-ERRORS" offset="106" size="7" javaType="int"/>
+      <field name="KPG-PURGE-AMT" offset="113" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KPG-KEEP-AMT" offset="128" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KPG-NEXT-TRAN" offset="143" size="16" javaType="String"/>
+      <field name="KPG-MORE" offset="159" size="1" javaType="String"/>
+    </group>
+  </group>
+  <group name="KBK-PARM" offset="0" size="158">
+    <group name="KBK-REQUEST" offset="0" size="23">
+      <field name="KBK-START-KEY" offset="0" size="16" javaType="String"/>
+      <field name="KBK-MAX" offset="16" size="7" javaType="int"/>
+    </group>
+    <group name="KBK-RESULT" offset="23" size="135">
+      <field name="KBK-STATUS" offset="23" size="2" javaType="String"/>
+      <field name="KBK-MSG" offset="25" size="50" javaType="String"/>
+      <field name="KBK-READ" offset="75" size="7" javaType="int"/>
+      <field name="KBK-WRITTEN" offset="82" size="7" javaType="int"/>
+      <field name="KBK-ERRORS" offset="89" size="7" javaType="int"/>
+      <field name="KBK-TOT-AMT" offset="96" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KBK-CREDIT-AMT" offset="111" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KBK-DEBIT-AMT" offset="126" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KBK-NEXT-KEY" offset="141" size="16" javaType="String"/>
+      <field name="KBK-MORE" offset="157" size="1" javaType="String"/>
+    </group>
+  </group>
+  <group name="MUTILAI" offset="0" size="532">
+    <field name="FILLER-0" offset="0" size="12" javaType="String"/>
+    <field name="TRNNAMEL" offset="12" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="TRNNAMEF" offset="14" size="1" javaType="String"/>
+    <field name="TRNNAMEA" offset="14" size="1" javaType="String" redefines="TRNNAMEF"/>
+    <field name="TRNNAMEI" offset="15" size="4" javaType="String"/>
+    <field name="TITLEL" offset="19" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="TITLEF" offset="21" size="1" javaType="String"/>
+    <field name="TITLEA" offset="21" size="1" javaType="String" redefines="TITLEF"/>
+    <field name="TITLEI" offset="22" size="40" javaType="String"/>
+    <field name="CURDATEL" offset="62" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="CURDATEF" offset="64" size="1" javaType="String"/>
+    <field name="CURDATEA" offset="64" size="1" javaType="String" redefines="CURDATEF"/>
+    <field name="CURDATEI" offset="65" size="10" javaType="String"/>
+    <field name="PGMNAMEL" offset="75" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="PGMNAMEF" offset="77" size="1" javaType="String"/>
+    <field name="PGMNAMEA" offset="77" size="1" javaType="String" redefines="PGMNAMEF"/>
+    <field name="PGMNAMEI" offset="78" size="8" javaType="String"/>
+    <field name="CURTIMEL" offset="86" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="CURTIMEF" offset="88" size="1" javaType="String"/>
+    <field name="CURTIMEA" offset="88" size="1" javaType="String" redefines="CURTIMEF"/>
+    <field name="CURTIMEI" offset="89" size="8" javaType="String"/>
+    <field name="UTOPTL" offset="97" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="UTOPTF" offset="99" size="1" javaType="String"/>
+    <field name="UTOPTA" offset="99" size="1" javaType="String" redefines="UTOPTF"/>
+    <field name="UTOPTI" offset="100" size="2" javaType="String"/>
+    <field name="UTMODEL" offset="102" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="UTMODEF" offset="104" size="1" javaType="String"/>
+    <field name="UTMODEA" offset="104" size="1" javaType="String" redefines="UTMODEF"/>
+    <field name="UTMODEI" offset="105" size="4" javaType="String"/>
+    <field name="UTDATEL" offset="109" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="UTDATEF" offset="111" size="1" javaType="String"/>
+    <field name="UTDATEA" offset="111" size="1" javaType="String" redefines="UTDATEF"/>
+    <field name="UTDATEI" offset="112" size="10" javaType="String"/>
+    <field name="UTCYCL" offset="122" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="UTCYCF" offset="124" size="1" javaType="String"/>
+    <field name="UTCYCA" offset="124" size="1" javaType="String" redefines="UTCYCF"/>
+    <field name="UTCYCI" offset="125" size="6" javaType="String"/>
+    <field name="UTNUML" offset="131" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="UTNUMF" offset="133" size="1" javaType="String"/>
+    <field name="UTNUMA" offset="133" size="1" javaType="String" redefines="UTNUMF"/>
+    <field name="UTNUMI" offset="134" size="7" javaType="String"/>
+    <field name="RSTATL" offset="141" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="RSTATF" offset="143" size="1" javaType="String"/>
+    <field name="RSTATA" offset="143" size="1" javaType="String" redefines="RSTATF"/>
+    <field name="RSTATI" offset="144" size="2" javaType="String"/>
+    <field name="RMSGL" offset="146" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="RMSGF" offset="148" size="1" javaType="String"/>
+    <field name="RMSGA" offset="148" size="1" javaType="String" redefines="RMSGF"/>
+    <field name="RMSGI" offset="149" size="50" javaType="String"/>
+    <field name="RLINE1L" offset="199" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="RLINE1F" offset="201" size="1" javaType="String"/>
+    <field name="RLINE1A" offset="201" size="1" javaType="String" redefines="RLINE1F"/>
+    <field name="RLINE1I" offset="202" size="60" javaType="String"/>
+    <field name="RLINE2L" offset="262" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="RLINE2F" offset="264" size="1" javaType="String"/>
+    <field name="RLINE2A" offset="264" size="1" javaType="String" redefines="RLINE2F"/>
+    <field name="RLINE2I" offset="265" size="60" javaType="String"/>
+    <field name="RLINE3L" offset="325" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="RLINE3F" offset="327" size="1" javaType="String"/>
+    <field name="RLINE3A" offset="327" size="1" javaType="String" redefines="RLINE3F"/>
+    <field name="RLINE3I" offset="328" size="60" javaType="String"/>
+    <field name="RLINE4L" offset="388" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="RLINE4F" offset="390" size="1" javaType="String"/>
+    <field name="RLINE4A" offset="390" size="1" javaType="String" redefines="RLINE4F"/>
+    <field name="RLINE4I" offset="391" size="60" javaType="String"/>
+    <field name="ERRMSGL" offset="451" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ERRMSGF" offset="453" size="1" javaType="String"/>
+    <field name="ERRMSGA" offset="453" size="1" javaType="String" redefines="ERRMSGF"/>
+    <field name="ERRMSGI" offset="454" size="78" javaType="String"/>
+  </group>
+  <group name="MUTILAO" offset="0" size="532" redefines="MUTILAI">
+    <field name="FILLER-0" offset="0" size="12" javaType="String"/>
+    <field name="FILLER-12" offset="12" size="3" javaType="String"/>
+    <field name="TRNNAMEO" offset="15" size="4" javaType="String"/>
+    <field name="FILLER-19" offset="19" size="3" javaType="String"/>
+    <field name="TITLEO" offset="22" size="40" javaType="String"/>
+    <field name="FILLER-62" offset="62" size="3" javaType="String"/>
+    <field name="CURDATEO" offset="65" size="10" javaType="String"/>
+    <field name="FILLER-75" offset="75" size="3" javaType="String"/>
+    <field name="PGMNAMEO" offset="78" size="8" javaType="String"/>
+    <field name="FILLER-86" offset="86" size="3" javaType="String"/>
+    <field name="CURTIMEO" offset="89" size="8" javaType="String"/>
+    <field name="FILLER-97" offset="97" size="3" javaType="String"/>
+    <field name="UTOPTO" offset="100" size="2" javaType="String"/>
+    <field name="FILLER-102" offset="102" size="3" javaType="String"/>
+    <field name="UTMODEO" offset="105" size="4" javaType="String"/>
+    <field name="FILLER-109" offset="109" size="3" javaType="String"/>
+    <field name="UTDATEO" offset="112" size="10" javaType="String"/>
+    <field name="FILLER-122" offset="122" size="3" javaType="String"/>
+    <field name="UTCYCO" offset="125" size="6" javaType="String"/>
+    <field name="FILLER-131" offset="131" size="3" javaType="String"/>
+    <field name="UTNUMO" offset="134" size="7" javaType="String"/>
+    <field name="FILLER-141" offset="141" size="3" javaType="String"/>
+    <field name="RSTATO" offset="144" size="2" javaType="String"/>
+    <field name="FILLER-146" offset="146" size="3" javaType="String"/>
+    <field name="RMSGO" offset="149" size="50" javaType="String"/>
+    <field name="FILLER-199" offset="199" size="3" javaType="String"/>
+    <field name="RLINE1O" offset="202" size="60" javaType="String"/>
+    <field name="FILLER-262" offset="262" size="3" javaType="String"/>
+    <field name="RLINE2O" offset="265" size="60" javaType="String"/>
+    <field name="FILLER-325" offset="325" size="3" javaType="String"/>
+    <field name="RLINE3O" offset="328" size="60" javaType="String"/>
+    <field name="FILLER-388" offset="388" size="3" javaType="String"/>
+    <field name="RLINE4O" offset="391" size="60" javaType="String"/>
+    <field name="FILLER-451" offset="451" size="3" javaType="String"/>
+    <field name="ERRMSGO" offset="454" size="78" javaType="String"/>
+  </group>
+</dataLayout>

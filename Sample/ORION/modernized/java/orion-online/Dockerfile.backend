@@ -1,0 +1,13 @@
+# Backend — build TRONG Docker (multi-stage): stage build chạy mvn trên reactor (root pom + backend/),
+# stage run chỉ JRE + jar. Không cần mvn/jar prebuilt ngoài host — docker compose up --build là đủ.
+FROM maven:3.9-eclipse-temurin-21 AS build
+WORKDIR /src
+COPY pom.xml ./
+COPY back-end ./back-end
+RUN mvn -q -pl back-end/orion-web -am package -DskipTests
+
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=build /src/backend/orion-web/target/orion-web-1.0.0-SNAPSHOT.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","--add-opens","java.base/java.lang=ALL-UNNAMED","--add-opens","java.base/java.util=ALL-UNNAMED","--add-opens","java.base/java.math=ALL-UNNAMED","-jar","app.jar"]

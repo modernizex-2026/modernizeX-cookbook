@@ -1,0 +1,13 @@
+# Redis-session overlay — session ra Redis (stateless scale-out, rolling deploy không rớt phiên).
+# Dùng: docker compose -f docker-compose.yml -f docker-compose.redis.yml up --build
+# (không có overlay này app chạy session in-memory như mặc định — turn-key không cần Redis)
+services:
+  redis:
+    image: redis:7-alpine
+    healthcheck: { test: ["CMD", "redis-cli", "ping"], interval: 3s, retries: 20 }
+  backend:
+    environment:
+      SPRING_PROFILES_ACTIVE: redis
+      REDIS_HOST: redis
+    depends_on:
+      redis: { condition: service_healthy }

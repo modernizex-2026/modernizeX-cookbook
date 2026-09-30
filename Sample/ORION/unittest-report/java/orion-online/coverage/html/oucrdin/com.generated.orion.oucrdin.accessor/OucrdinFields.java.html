@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OucrdinFields.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUCRDIN Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.oucrdin.accessor</a> &gt; <span class="el_source">OucrdinFields.java</span></div><h1>OucrdinFields.java</h1><pre class="source lang-java linenums">package com.generated.orion.oucrdin.accessor;
+
+import com.generated.orion.common.infrastructure.layout.DynamicFieldAccessor;
+import com.generated.orion.oucrdin.model.WorkingStorage;
+import java.math.BigDecimal;
+
+/**
+ * Field accessor for OUCRDIN.
+ * Backend: DynamicFieldAccessor (raw RecordBuffer byte[]).
+ * Typed methods auto-generated from referenced fields — bodies delegate to the string-key API.
+ */
+public class OucrdinFields extends DynamicFieldAccessor {
+
+<span class="fc" id="L14">    public OucrdinFields(WorkingStorage ws) {</span>
+<span class="pc bpc" id="L15" title="1 of 2 branches missed.">        if (ws != null) {</span>
+<span class="fc" id="L16">            register(ws.buffer());</span>
+        }
+<span class="fc" id="L18">    }</span>
+
+    /* ── Typed wrappers (delegate → string-key) ─────────────── */
+<span class="nc" id="L21">    public String getCardRec() { return groupToString(&quot;CARD-REC&quot;); }</span>
+<span class="nc" id="L22">    public void setCardRec(String value) { setGroup(&quot;CARD-REC&quot;, value); }</span>
+<span class="fc" id="L23">    public long getCdAcctId() { return getLong(&quot;CD-ACCT-ID&quot;); }</span>
+<span class="fc" id="L24">    public void setCdAcctId(long value) { setLong(&quot;CD-ACCT-ID&quot;, value); }</span>
+<span class="fc" id="L25">    public String getCdActiveStatus() { return getString(&quot;CD-ACTIVE-STATUS&quot;); }</span>
+<span class="fc" id="L26">    public void setCdActiveStatus(String value) { setString(&quot;CD-ACTIVE-STATUS&quot;, value); }</span>
+<span class="nc" id="L27">    public String getCdCvv() { return getString(&quot;CD-CVV&quot;); }</span>
+<span class="nc" id="L28">    public void setCdCvv(String value) { setString(&quot;CD-CVV&quot;, value); }</span>
+<span class="fc" id="L29">    public String getCdEmbossedName() { return getString(&quot;CD-EMBOSSED-NAME&quot;); }</span>
+<span class="fc" id="L30">    public void setCdEmbossedName(String value) { setString(&quot;CD-EMBOSSED-NAME&quot;, value); }</span>
+<span class="fc" id="L31">    public String getCdExpiryDate() { return getString(&quot;CD-EXPIRY-DATE&quot;); }</span>
+<span class="fc" id="L32">    public void setCdExpiryDate(String value) { setString(&quot;CD-EXPIRY-DATE&quot;, value); }</span>
+<span class="fc" id="L33">    public String getCdNum() { return getString(&quot;CD-NUM&quot;); }</span>
+<span class="fc" id="L34">    public void setCdNum(String value) { setString(&quot;CD-NUM&quot;, value); }</span>
+<span class="nc" id="L35">    public int getCompletionCode() { return getInt(&quot;COMPLETION-CODE&quot;); }</span>
+<span class="nc" id="L36">    public void setCompletionCode(int value) { setInt(&quot;COMPLETION-CODE&quot;, value); }</span>
+<span class="nc" id="L37">    public String getFiller() { return getString(&quot;FILLER&quot;); }</span>
+<span class="nc" id="L38">    public void setFiller(String value) { setString(&quot;FILLER&quot;, value); }</span>
+<span class="fc" id="L39">    public int getKciActiveCnt() { return getInt(&quot;KCI-ACTIVE-CNT&quot;); }</span>
+<span class="fc" id="L40">    public void setKciActiveCnt(int value) { setInt(&quot;KCI-ACTIVE-CNT&quot;, value); }</span>
+<span class="fc" id="L41">    public String getKciFilter() { return getString(&quot;KCI-FILTER&quot;); }</span>
+<span class="fc" id="L42">    public void setKciFilter(String value) { setString(&quot;KCI-FILTER&quot;, value); }</span>
+<span class="fc" id="L43">    public int getKciInactiveCnt() { return getInt(&quot;KCI-INACTIVE-CNT&quot;); }</span>
+<span class="fc" id="L44">    public void setKciInactiveCnt(int value) { setInt(&quot;KCI-INACTIVE-CNT&quot;, value); }</span>
+<span class="fc" id="L45">    public String getKciMoreSw() { return getString(&quot;KCI-MORE-SW&quot;); }</span>
+<span class="nc" id="L46">    public void setKciMoreSw(String value) { setString(&quot;KCI-MORE-SW&quot;, value); }</span>
+<span class="fc" id="L47">    public String getKciNextKey() { return getString(&quot;KCI-NEXT-KEY&quot;); }</span>
+<span class="fc" id="L48">    public void setKciNextKey(String value) { setString(&quot;KCI-NEXT-KEY&quot;, value); }</span>
+<span class="fc" id="L49">    public long getKciRAcct(int index) { return getLong(&quot;KCI-R-ACCT&quot;, index); }</span>
+<span class="fc" id="L50">    public void setKciRAcct(int index, long value) { setLong(&quot;KCI-R-ACCT&quot;, value, index); }</span>
+<span class="nc" id="L51">    public String getKciRExpiry(int index) { return getString(&quot;KCI-R-EXPIRY&quot;, index); }</span>
+<span class="fc" id="L52">    public void setKciRExpiry(int index, String value) { setString(&quot;KCI-R-EXPIRY&quot;, value, index); }</span>
+<span class="fc" id="L53">    public String getKciRName(int index) { return getString(&quot;KCI-R-NAME&quot;, index); }</span>
+<span class="fc" id="L54">    public void setKciRName(int index, String value) { setString(&quot;KCI-R-NAME&quot;, value, index); }</span>
+<span class="fc" id="L55">    public String getKciRNum(int index) { return getString(&quot;KCI-R-NUM&quot;, index); }</span>
+<span class="fc" id="L56">    public void setKciRNum(int index, String value) { setString(&quot;KCI-R-NUM&quot;, value, index); }</span>
+<span class="fc" id="L57">    public String getKciRStatus(int index) { return getString(&quot;KCI-R-STATUS&quot;, index); }</span>
+<span class="fc" id="L58">    public void setKciRStatus(int index, String value) { setString(&quot;KCI-R-STATUS&quot;, value, index); }</span>
+<span class="fc" id="L59">    public String getKciReturnCd() { return getString(&quot;KCI-RETURN-CD&quot;); }</span>
+<span class="nc" id="L60">    public void setKciReturnCd(String value) { setString(&quot;KCI-RETURN-CD&quot;, value); }</span>
+<span class="nc" id="L61">    public String getKciRow(int index) { return groupToString(&quot;KCI-ROW&quot;, index); }</span>
+<span class="nc" id="L62">    public void setKciRow(int index, String value) { setGroup(&quot;KCI-ROW&quot;, value, index); }</span>
+<span class="nc" id="L63">    public String getKciRow() { return groupToString(&quot;KCI-ROW&quot;); }</span>
+<span class="nc" id="L64">    public void setKciRow(String value) { setGroup(&quot;KCI-ROW&quot;, value); }</span>
+<span class="fc" id="L65">    public int getKciRowCount() { return getInt(&quot;KCI-ROW-COUNT&quot;); }</span>
+<span class="fc" id="L66">    public void setKciRowCount(int value) { setInt(&quot;KCI-ROW-COUNT&quot;, value); }</span>
+<span class="fc" id="L67">    public int getKciScanCount() { return getInt(&quot;KCI-SCAN-COUNT&quot;); }</span>
+<span class="fc" id="L68">    public void setKciScanCount(int value) { setInt(&quot;KCI-SCAN-COUNT&quot;, value); }</span>
+<span class="fc" id="L69">    public String getKciStartKey() { return getString(&quot;KCI-START-KEY&quot;); }</span>
+<span class="fc" id="L70">    public void setKciStartKey(String value) { setString(&quot;KCI-START-KEY&quot;, value); }</span>
+<span class="fc" id="L71">    public String getKciWantKpi() { return getString(&quot;KCI-WANT-KPI&quot;); }</span>
+<span class="fc" id="L72">    public void setKciWantKpi(String value) { setString(&quot;KCI-WANT-KPI&quot;, value); }</span>
+<span class="fc" id="L73">    public String getKcrdinArea() { return groupToString(&quot;KCRDIN-AREA&quot;); }</span>
+<span class="nc" id="L74">    public void setKcrdinArea(String value) { setGroup(&quot;KCRDIN-AREA&quot;, value); }</span>
+<span class="nc" id="L75">    public int getSqlcode() { return getInt(&quot;SQLCODE&quot;); }</span>
+<span class="nc" id="L76">    public void setSqlcode(int value) { setInt(&quot;SQLCODE&quot;, value); }</span>
+<span class="nc" id="L77">    public int getWeDd() { return getInt(&quot;WE-DD&quot;); }</span>
+<span class="fc" id="L78">    public void setWeDd(int value) { setInt(&quot;WE-DD&quot;, value); }</span>
+<span class="nc" id="L79">    public int getWeMm() { return getInt(&quot;WE-MM&quot;); }</span>
+<span class="fc" id="L80">    public void setWeMm(int value) { setInt(&quot;WE-MM&quot;, value); }</span>
+<span class="nc" id="L81">    public int getWeYyyy() { return getInt(&quot;WE-YYYY&quot;); }</span>
+<span class="fc" id="L82">    public void setWeYyyy(int value) { setInt(&quot;WE-YYYY&quot;, value); }</span>
+<span class="nc" id="L83">    public String getWsAcctfile() { return getString(&quot;WS-ACCTFILE&quot;); }</span>
+<span class="nc" id="L84">    public void setWsAcctfile(String value) { setString(&quot;WS-ACCTFILE&quot;, value); }</span>
+<span class="nc" id="L85">    public BigDecimal getWsAmt() { return getDecimal(&quot;WS-AMT&quot;); }</span>
+<span class="nc" id="L86">    public void setWsAmt(BigDecimal value) { setDecimal(&quot;WS-AMT&quot;, value); }</span>
+<span class="nc" id="L87">    public String getWsBillfile() { return getString(&quot;WS-BILLFILE&quot;); }</span>
+<span class="nc" id="L88">    public void setWsBillfile(String value) { setString(&quot;WS-BILLFILE&quot;, value); }</span>
+<span class="fc" id="L89">    public String getWsBrEndSw() { return getString(&quot;WS-BR-END-SW&quot;); }</span>
+<span class="nc" id="L90">    public void setWsBrEndSw(String value) { setString(&quot;WS-BR-END-SW&quot;, value); }</span>
+<span class="fc" id="L91">    public String getWsBrStartedSw() { return getString(&quot;WS-BR-STARTED-SW&quot;); }</span>
+<span class="nc" id="L92">    public void setWsBrStartedSw(String value) { setString(&quot;WS-BR-STARTED-SW&quot;, value); }</span>
+<span class="nc" id="L93">    public String getWsBrowseFlags() { return groupToString(&quot;WS-BROWSE-FLAGS&quot;); }</span>
+<span class="nc" id="L94">    public void setWsBrowseFlags(String value) { setGroup(&quot;WS-BROWSE-FLAGS&quot;, value); }</span>
+<span class="fc" id="L95">    public String getWsBrowseKey() { return getString(&quot;WS-BROWSE-KEY&quot;); }</span>
+<span class="fc" id="L96">    public void setWsBrowseKey(String value) { setString(&quot;WS-BROWSE-KEY&quot;, value); }</span>
+<span class="fc" id="L97">    public String getWsCardfile() { return getString(&quot;WS-CARDFILE&quot;); }</span>
+<span class="nc" id="L98">    public void setWsCardfile(String value) { setString(&quot;WS-CARDFILE&quot;, value); }</span>
+<span class="fc" id="L99">    public String getWsCdt() { return getString(&quot;WS-CDT&quot;); }</span>
+<span class="fc" id="L100">    public void setWsCdt(String value) { setString(&quot;WS-CDT&quot;, value); }</span>
+<span class="nc" id="L101">    public String getWsCicsResp() { return groupToString(&quot;WS-CICS-RESP&quot;); }</span>
+<span class="nc" id="L102">    public void setWsCicsResp(String value) { setGroup(&quot;WS-CICS-RESP&quot;, value); }</span>
+<span class="nc" id="L103">    public int getWsCnt() { return getInt(&quot;WS-CNT&quot;); }</span>
+<span class="nc" id="L104">    public void setWsCnt(int value) { setInt(&quot;WS-CNT&quot;, value); }</span>
+<span class="nc" id="L105">    public String getWsCtrlfile() { return getString(&quot;WS-CTRLFILE&quot;); }</span>
+<span class="nc" id="L106">    public void setWsCtrlfile(String value) { setString(&quot;WS-CTRLFILE&quot;, value); }</span>
+<span class="nc" id="L107">    public String getWsCustfile() { return getString(&quot;WS-CUSTFILE&quot;); }</span>
+<span class="nc" id="L108">    public void setWsCustfile(String value) { setString(&quot;WS-CUSTFILE&quot;, value); }</span>
+<span class="fc" id="L109">    public int getWsCutInt() { return getInt(&quot;WS-CUT-INT&quot;); }</span>
+<span class="fc" id="L110">    public void setWsCutInt(int value) { setInt(&quot;WS-CUT-INT&quot;, value); }</span>
+<span class="nc" id="L111">    public String getWsDateWork() { return groupToString(&quot;WS-DATE-WORK&quot;); }</span>
+<span class="nc" id="L112">    public void setWsDateWork(String value) { setGroup(&quot;WS-DATE-WORK&quot;, value); }</span>
+<span class="nc" id="L113">    public String getWsDgrpfile() { return getString(&quot;WS-DGRPFILE&quot;); }</span>
+<span class="nc" id="L114">    public void setWsDgrpfile(String value) { setString(&quot;WS-DGRPFILE&quot;, value); }</span>
+<span class="nc" id="L115">    public BigDecimal getWsEdAmt() { return getDecimal(&quot;WS-ED-AMT&quot;); }</span>
+<span class="nc" id="L116">    public void setWsEdAmt(BigDecimal value) { setDecimal(&quot;WS-ED-AMT&quot;, value); }</span>
+<span class="nc" id="L117">    public BigDecimal getWsEdBal() { return getDecimal(&quot;WS-ED-BAL&quot;); }</span>
+<span class="nc" id="L118">    public void setWsEdBal(BigDecimal value) { setDecimal(&quot;WS-ED-BAL&quot;, value); }</span>
+<span class="nc" id="L119">    public long getWsEdId() { return getLong(&quot;WS-ED-ID&quot;); }</span>
+<span class="nc" id="L120">    public void setWsEdId(long value) { setLong(&quot;WS-ED-ID&quot;, value); }</span>
+<span class="nc" id="L121">    public String getWsEdit() { return groupToString(&quot;WS-EDIT&quot;); }</span>
+<span class="nc" id="L122">    public void setWsEdit(String value) { setGroup(&quot;WS-EDIT&quot;, value); }</span>
+<span class="nc" id="L123">    public String getWsEndFlg() { return getString(&quot;WS-END-FLG&quot;); }</span>
+<span class="nc" id="L124">    public void setWsEndFlg(String value) { setString(&quot;WS-END-FLG&quot;, value); }</span>
+<span class="nc" id="L125">    public String getWsErrFlg() { return getString(&quot;WS-ERR-FLG&quot;); }</span>
+<span class="nc" id="L126">    public void setWsErrFlg(String value) { setString(&quot;WS-ERR-FLG&quot;, value); }</span>
+<span class="fc" id="L127">    public int getWsExpInt() { return getInt(&quot;WS-EXP-INT&quot;); }</span>
+<span class="fc" id="L128">    public void setWsExpInt(int value) { setInt(&quot;WS-EXP-INT&quot;, value); }</span>
+<span class="fc" id="L129">    public int getWsExpN() { return getInt(&quot;WS-EXP-N&quot;); }</span>
+<span class="nc" id="L130">    public void setWsExpN(int value) { setInt(&quot;WS-EXP-N&quot;, value); }</span>
+<span class="nc" id="L131">    public String getWsExpParts() { return groupToString(&quot;WS-EXP-PARTS&quot;); }</span>
+<span class="nc" id="L132">    public void setWsExpParts(String value) { setGroup(&quot;WS-EXP-PARTS&quot;, value); }</span>
+<span class="fc" id="L133">    public String getWsExpValidSw() { return getString(&quot;WS-EXP-VALID-SW&quot;); }</span>
+<span class="nc" id="L134">    public void setWsExpValidSw(String value) { setString(&quot;WS-EXP-VALID-SW&quot;, value); }</span>
+<span class="nc" id="L135">    public String getWsFileNames() { return groupToString(&quot;WS-FILE-NAMES&quot;); }</span>
+<span class="nc" id="L136">    public void setWsFileNames(String value) { setGroup(&quot;WS-FILE-NAMES&quot;, value); }</span>
+<span class="nc" id="L137">    public String getWsFoundFlg() { return getString(&quot;WS-FOUND-FLG&quot;); }</span>
+<span class="nc" id="L138">    public void setWsFoundFlg(String value) { setString(&quot;WS-FOUND-FLG&quot;, value); }</span>
+<span class="nc" id="L139">    public int getWsIdx() { return getInt(&quot;WS-IDX&quot;); }</span>
+<span class="nc" id="L140">    public void setWsIdx(int value) { setInt(&quot;WS-IDX&quot;, value); }</span>
+<span class="nc" id="L141">    public String getWsKeys() { return groupToString(&quot;WS-KEYS&quot;); }</span>
+<span class="nc" id="L142">    public void setWsKeys(String value) { setGroup(&quot;WS-KEYS&quot;, value); }</span>
+<span class="fc" id="L143">    public String getWsLastMatch() { return getString(&quot;WS-LAST-MATCH&quot;); }</span>
+<span class="fc" id="L144">    public void setWsLastMatch(String value) { setString(&quot;WS-LAST-MATCH&quot;, value); }</span>
+<span class="fc" id="L145">    public String getWsMatchSw() { return getString(&quot;WS-MATCH-SW&quot;); }</span>
+<span class="nc" id="L146">    public void setWsMatchSw(String value) { setString(&quot;WS-MATCH-SW&quot;, value); }</span>
+<span class="fc" id="L147">    public int getWsMaxRows() { return getInt(&quot;WS-MAX-ROWS&quot;); }</span>
+<span class="nc" id="L148">    public void setWsMaxRows(int value) { setInt(&quot;WS-MAX-ROWS&quot;, value); }</span>
+<span class="nc" id="L149">    public String getWsPgmname() { return getString(&quot;WS-PGMNAME&quot;); }</span>
+<span class="nc" id="L150">    public void setWsPgmname(String value) { setString(&quot;WS-PGMNAME&quot;, value); }</span>
+<span class="nc" id="L151">    public String getWsProgramVars() { return groupToString(&quot;WS-PROGRAM-VARS&quot;); }</span>
+<span class="nc" id="L152">    public void setWsProgramVars(String value) { setGroup(&quot;WS-PROGRAM-VARS&quot;, value); }</span>
+<span class="fc" id="L153">    public String getWsReadSw() { return getString(&quot;WS-READ-SW&quot;); }</span>
+<span class="nc" id="L154">    public void setWsReadSw(String value) { setString(&quot;WS-READ-SW&quot;, value); }</span>
+<span class="nc" id="L155">    public int getWsReasCd() { return getInt(&quot;WS-REAS-CD&quot;); }</span>
+<span class="nc" id="L156">    public void setWsReasCd(int value) { setInt(&quot;WS-REAS-CD&quot;, value); }</span>
+<span class="fc" id="L157">    public int getWsRespCd() { return getInt(&quot;WS-RESP-CD&quot;); }</span>
+<span class="fc" id="L158">    public void setWsRespCd(int value) { setInt(&quot;WS-RESP-CD&quot;, value); }</span>
+<span class="nc" id="L159">    public String getWsStmtfile() { return getString(&quot;WS-STMTFILE&quot;); }</span>
+<span class="nc" id="L160">    public void setWsStmtfile(String value) { setString(&quot;WS-STMTFILE&quot;, value); }</span>
+<span class="nc" id="L161">    public String getWsSwitches() { return groupToString(&quot;WS-SWITCHES&quot;); }</span>
+<span class="nc" id="L162">    public void setWsSwitches(String value) { setGroup(&quot;WS-SWITCHES&quot;, value); }</span>
+<span class="nc" id="L163">    public String getWsTcatfile() { return getString(&quot;WS-TCATFILE&quot;); }</span>
+<span class="nc" id="L164">    public void setWsTcatfile(String value) { setString(&quot;WS-TCATFILE&quot;, value); }</span>
+<span class="fc" id="L165">    public int getWsTodayInt() { return getInt(&quot;WS-TODAY-INT&quot;); }</span>
+<span class="fc" id="L166">    public void setWsTodayInt(int value) { setInt(&quot;WS-TODAY-INT&quot;, value); }</span>
+<span class="fc" id="L167">    public int getWsTodayN() { return getInt(&quot;WS-TODAY-N&quot;); }</span>
+<span class="fc" id="L168">    public void setWsTodayN(int value) { setInt(&quot;WS-TODAY-N&quot;, value); }</span>
+<span class="nc" id="L169">    public String getWsTranfile() { return getString(&quot;WS-TRANFILE&quot;); }</span>
+<span class="nc" id="L170">    public void setWsTranfile(String value) { setString(&quot;WS-TRANFILE&quot;, value); }</span>
+<span class="nc" id="L171">    public String getWsTtypfile() { return getString(&quot;WS-TTYPFILE&quot;); }</span>
+<span class="nc" id="L172">    public void setWsTtypfile(String value) { setString(&quot;WS-TTYPFILE&quot;, value); }</span>
+<span class="nc" id="L173">    public String getWsUsrsec() { return getString(&quot;WS-USRSEC&quot;); }</span>
+<span class="nc" id="L174">    public void setWsUsrsec(String value) { setString(&quot;WS-USRSEC&quot;, value); }</span>
+<span class="nc" id="L175">    public String getWsWork() { return groupToString(&quot;WS-WORK&quot;); }</span>
+<span class="nc" id="L176">    public void setWsWork(String value) { setGroup(&quot;WS-WORK&quot;, value); }</span>
+<span class="nc" id="L177">    public String getWsXreffile() { return getString(&quot;WS-XREFFILE&quot;); }</span>
+<span class="nc" id="L178">    public void setWsXreffile(String value) { setString(&quot;WS-XREFFILE&quot;, value); }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

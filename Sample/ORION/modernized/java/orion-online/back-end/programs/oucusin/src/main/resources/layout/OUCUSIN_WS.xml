@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : OUCUSIN_WS
+-->
+<dataLayout name="OUCUSIN_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="8">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="SQLCODE" offset="4" size="4" javaType="int" value="0" usage="BINARY"/>
+  </group>
+  <group name="WS-PROGRAM-VARS" offset="0" size="8">
+    <field name="WS-PGMNAME" offset="0" size="8" javaType="String" value="OUCUSIN"/>
+  </group>
+  <group name="WS-WORK-FIELDS" offset="0" size="46">
+    <field name="WS-MAX-ROWS" offset="0" size="2" javaType="int" value="13"/>
+    <field name="WS-LAST-KEY" offset="2" size="9" javaType="int" value="ZEROS"/>
+    <field name="WS-I" offset="11" size="2" javaType="int" value="ZEROS"/>
+    <field name="WS-ZIPLEN" offset="13" size="2" javaType="int" value="ZEROS"/>
+    <field name="WS-NAME" offset="15" size="30" javaType="String" value="SPACES"/>
+    <field name="WS-MATCH-SW" offset="45" size="1" javaType="String" value="N"/>
+  </group>
+  <group name="WS-CICS-RESP" offset="0" size="8">
+    <field name="WS-RESP-CD" offset="0" size="4" javaType="int" signed="true" value="ZEROS" usage="BINARY"/>
+    <field name="WS-REAS-CD" offset="4" size="4" javaType="int" signed="true" value="ZEROS" usage="BINARY"/>
+  </group>
+  <group name="WS-SWITCHES" offset="0" size="3">
+    <field name="WS-ERR-FLG" offset="0" size="1" javaType="String" value="N"/>
+    <field name="WS-END-FLG" offset="1" size="1" javaType="String" value="N"/>
+    <field name="WS-FOUND-FLG" offset="2" size="1" javaType="String" value="N"/>
+  </group>
+  <group name="WS-FILE-NAMES" offset="0" size="96">
+    <field name="WS-ACCTFILE" offset="0" size="8" javaType="String" value="ACCTFILE"/>
+    <field name="WS-CARDFILE" offset="8" size="8" javaType="String" value="CARDFILE"/>
+    <field name="WS-CUSTFILE" offset="16" size="8" javaType="String" value="CUSTFILE"/>
+    <field name="WS-XREFFILE" offset="24" size="8" javaType="String" value="XREFFILE"/>
+    <field name="WS-TRANFILE" offset="32" size="8" javaType="String" value="TRANFILE"/>
+    <field name="WS-TTYPFILE" offset="40" size="8" javaType="String" value="TTYPFILE"/>
+    <field name="WS-TCATFILE" offset="48" size="8" javaType="String" value="TCATFILE"/>
+    <field name="WS-DGRPFILE" offset="56" size="8" javaType="String" value="DGRPFILE"/>
+    <field name="WS-USRSEC" offset="64" size="8" javaType="String" value="USRSEC  "/>
+    <field name="WS-BILLFILE" offset="72" size="8" javaType="String" value="BILLFILE"/>
+    <field name="WS-STMTFILE" offset="80" size="8" javaType="String" value="STMTFILE"/>
+    <field name="WS-CTRLFILE" offset="88" size="8" javaType="String" value="CTRLFILE"/>
+  </group>
+  <group name="WS-WORK" offset="0" size="26">
+    <field name="WS-CNT" offset="0" size="7" javaType="int" value="ZEROS"/>
+    <field name="WS-IDX" offset="7" size="4" javaType="int" value="ZEROS"/>
+    <field name="WS-AMT" offset="11" size="15" javaType="BigDecimal" signed="true" scale="2" value="ZEROS"/>
+  </group>
+  <group name="WS-EDIT" offset="0" size="43">
+    <field name="WS-ED-AMT" offset="0" size="16" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" editPicture="-,---,---,--9.99" integerDigits="10" insertCommas="true" hasTrailingNine="true"/>
+    <field name="WS-ED-BAL" offset="16" size="16" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" editPicture="-,---,---,--9.99" integerDigits="10" insertCommas="true" hasTrailingNine="true"/>
+    <field name="WS-ED-ID" offset="32" size="11" javaType="long" editFormat="ZERO_SUPPRESS" editPicture="ZZZZZZZZZZ9" integerDigits="11" hasTrailingNine="true"/>
+  </group>
+  <group name="CUST-REC" offset="0" size="372">
+    <field name="CU-ID" offset="0" size="9" javaType="int"/>
+    <field name="CU-FIRST-NAME" offset="9" size="25" javaType="String"/>
+    <field name="CU-MIDDLE-NAME" offset="34" size="25" javaType="String"/>
+    <field name="CU-LAST-NAME" offset="59" size="25" javaType="String"/>
+    <field name="CU-ADDR-LINE-1" offset="84" size="50" javaType="String"/>
+    <field name="CU-ADDR-LINE-2" offset="134" size="50" javaType="String"/>
+    <field name="CU-ADDR-CITY" offset="184" size="50" javaType="String"/>
+    <field name="CU-ADDR-STATE" offset="234" size="2" javaType="String"/>
+    <field name="CU-ADDR-COUNTRY" offset="236" size="3" javaType="String"/>
+    <field name="CU-ADDR-ZIP" offset="239" size="10" javaType="String"/>
+    <field name="CU-PHONE-1" offset="249" size="15" javaType="String"/>
+    <field name="CU-PHONE-2" offset="264" size="15" javaType="String"/>
+    <field name="CU-SSN" offset="279" size="9" javaType="int"/>
+    <field name="CU-GOVT-ID" offset="288" size="20" javaType="String"/>
+    <field name="CU-DOB" offset="308" size="10" javaType="String"/>
+    <field name="CU-FICO-SCORE" offset="318" size="3" javaType="int"/>
+    <field name="FILLER-321" offset="321" size="51" javaType="String"/>
+  </group>
+  <group name="KCUSIN-AREA" offset="0" size="795">
+    <group name="KUI-REQUEST" offset="0" size="46">
+      <field name="KUI-FILTER" offset="0" size="1" javaType="String"/>
+      <field name="KUI-ID-FROM" offset="1" size="9" javaType="int"/>
+      <field name="KUI-ID-TO" offset="10" size="9" javaType="int"/>
+      <field name="KUI-FICO-FROM" offset="19" size="3" javaType="int"/>
+      <field name="KUI-FICO-TO" offset="22" size="3" javaType="int"/>
+      <field name="KUI-STATE" offset="25" size="2" javaType="String"/>
+      <field name="KUI-ZIP" offset="27" size="10" javaType="String"/>
+      <field name="KUI-START-KEY" offset="37" size="9" javaType="int"/>
+    </group>
+    <group name="KUI-RESPONSE" offset="46" size="47">
+      <field name="KUI-RETURN-CD" offset="46" size="1" javaType="String"/>
+      <field name="KUI-ROW-COUNT" offset="47" size="2" javaType="int"/>
+      <field name="KUI-MORE-SW" offset="49" size="1" javaType="String"/>
+      <field name="KUI-NEXT-KEY" offset="50" size="9" javaType="int"/>
+      <field name="KUI-SCAN-COUNT" offset="59" size="7" javaType="int"/>
+      <field name="KUI-MATCH-COUNT" offset="66" size="7" javaType="int"/>
+      <field name="KUI-FICO-TOT" offset="73" size="11" javaType="long"/>
+      <field name="KUI-FICO-AVG" offset="84" size="3" javaType="int"/>
+      <field name="KUI-FICO-MIN" offset="87" size="3" javaType="int"/>
+      <field name="KUI-FICO-MAX" offset="90" size="3" javaType="int"/>
+    </group>
+    <group name="KUI-ROWS" offset="93" size="702">
+      <group name="KUI-ROW" offset="93" size="702" occurs="13" elementSize="54">
+        <field name="KUR-ID" offset="93" size="9" javaType="int"/>
+        <field name="KUR-NAME" offset="102" size="30" javaType="String"/>
+        <field name="KUR-STATE" offset="132" size="2" javaType="String"/>
+        <field name="KUR-ZIP" offset="134" size="10" javaType="String"/>
+        <field name="KUR-FICO" offset="144" size="3" javaType="int"/>
+      </group>
+    </group>
+  </group>
+</dataLayout>

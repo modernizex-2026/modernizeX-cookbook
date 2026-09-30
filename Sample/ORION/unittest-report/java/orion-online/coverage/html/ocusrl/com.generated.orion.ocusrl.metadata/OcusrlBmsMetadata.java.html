@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OcusrlBmsMetadata.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCUSRL Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ocusrl.metadata</a> &gt; <span class="el_source">OcusrlBmsMetadata.java</span></div><h1>OcusrlBmsMetadata.java</h1><pre class="source lang-java linenums">package com.generated.orion.ocusrl.metadata;
+
+import com.appruntime.AppRunner;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import java.util.*;
+
+/**
+ * BMS screen metadata for OCUSRL.
+ * Contains button definitions, FSET fields, and field mappings.
+ */
+<span class="nc" id="L12">public class OcusrlBmsMetadata {</span>
+
+    public static List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L15">        return List.of(</span>
+            new ScreenResponse.ButtonDef(&quot;ENTER&quot;, &quot;ENTER=PROCESS&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF3&quot;, &quot;PF3=BACK&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF4&quot;, &quot;PF4=CLEAR&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF7&quot;, &quot;PF7&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF8&quot;, &quot;PF8&quot;, &quot;&quot;)
+        );
+    }
+
+    public static void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L25">    }</span>
+
+    /** Danh sách BMS map của program (cho smoke test / tooling). */
+    public static List&lt;String&gt; getMapNames() {
+<span class="nc" id="L29">        return List.of(&quot;MUSRLA&quot;);</span>
+    }
+
+    /** Classpath resource của WORKING-STORAGE layout (FieldStore đọc lúc runtime). */
+    public static String getLayoutResource() {
+<span class="nc" id="L34">        return &quot;layout/OCUSRL_WS.xml&quot;;</span>
+    }
+
+    public static FieldMapping getFieldMapping(String mapName) {
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if (&quot;MUSRLA&quot;.equalsIgnoreCase(mapName)) {</span>
+<span class="nc" id="L39">            return FieldMapping.builder()</span>
+<span class="nc" id="L40">                .addDataIn(&quot;USR4&quot;, &quot;usr4i&quot;)</span>
+<span class="nc" id="L41">                .addDataIn(&quot;UNM4&quot;, &quot;unm4i&quot;)</span>
+<span class="nc" id="L42">                .addDataIn(&quot;UTY1&quot;, &quot;uty1i&quot;)</span>
+<span class="nc" id="L43">                .addDataIn(&quot;TRNNAME&quot;, &quot;trnnamei&quot;)</span>
+<span class="nc" id="L44">                .addDataIn(&quot;ERRMSG&quot;, &quot;errmsgi&quot;)</span>
+<span class="nc" id="L45">                .addDataIn(&quot;CURTIME&quot;, &quot;curtimei&quot;)</span>
+<span class="nc" id="L46">                .addDataIn(&quot;USR3&quot;, &quot;usr3i&quot;)</span>
+<span class="nc" id="L47">                .addDataIn(&quot;UNM3&quot;, &quot;unm3i&quot;)</span>
+<span class="nc" id="L48">                .addDataIn(&quot;USR2&quot;, &quot;usr2i&quot;)</span>
+<span class="nc" id="L49">                .addDataIn(&quot;UNM2&quot;, &quot;unm2i&quot;)</span>
+<span class="nc" id="L50">                .addDataIn(&quot;TITLE&quot;, &quot;titlei&quot;)</span>
+<span class="nc" id="L51">                .addDataIn(&quot;USR1&quot;, &quot;usr1i&quot;)</span>
+<span class="nc" id="L52">                .addDataIn(&quot;UNM1&quot;, &quot;unm1i&quot;)</span>
+<span class="nc" id="L53">                .addDataIn(&quot;PGMNAME&quot;, &quot;pgmnamei&quot;)</span>
+<span class="nc" id="L54">                .addDataIn(&quot;UTY4&quot;, &quot;uty4i&quot;)</span>
+<span class="nc" id="L55">                .addDataIn(&quot;CURDATE&quot;, &quot;curdatei&quot;)</span>
+<span class="nc" id="L56">                .addDataIn(&quot;UTY3&quot;, &quot;uty3i&quot;)</span>
+<span class="nc" id="L57">                .addDataIn(&quot;UTY2&quot;, &quot;uty2i&quot;)</span>
+<span class="nc" id="L58">                .addDataOut(&quot;USR4&quot;, &quot;usr4o&quot;)</span>
+<span class="nc" id="L59">                .addDataOut(&quot;UNM4&quot;, &quot;unm4o&quot;)</span>
+<span class="nc" id="L60">                .addDataOut(&quot;UTY1&quot;, &quot;uty1o&quot;)</span>
+<span class="nc" id="L61">                .addDataOut(&quot;TRNNAME&quot;, &quot;trnnameo&quot;)</span>
+<span class="nc" id="L62">                .addDataOut(&quot;ERRMSG&quot;, &quot;errmsgo&quot;)</span>
+<span class="nc" id="L63">                .addDataOut(&quot;CURTIME&quot;, &quot;curtimeo&quot;)</span>
+<span class="nc" id="L64">                .addDataOut(&quot;USR3&quot;, &quot;usr3o&quot;)</span>
+<span class="nc" id="L65">                .addDataOut(&quot;UNM3&quot;, &quot;unm3o&quot;)</span>
+<span class="nc" id="L66">                .addDataOut(&quot;USR2&quot;, &quot;usr2o&quot;)</span>
+<span class="nc" id="L67">                .addDataOut(&quot;UNM2&quot;, &quot;unm2o&quot;)</span>
+<span class="nc" id="L68">                .addDataOut(&quot;TITLE&quot;, &quot;titleo&quot;)</span>
+<span class="nc" id="L69">                .addDataOut(&quot;USR1&quot;, &quot;usr1o&quot;)</span>
+<span class="nc" id="L70">                .addDataOut(&quot;UNM1&quot;, &quot;unm1o&quot;)</span>
+<span class="nc" id="L71">                .addDataOut(&quot;PGMNAME&quot;, &quot;pgmnameo&quot;)</span>
+<span class="nc" id="L72">                .addDataOut(&quot;UTY4&quot;, &quot;uty4o&quot;)</span>
+<span class="nc" id="L73">                .addDataOut(&quot;CURDATE&quot;, &quot;curdateo&quot;)</span>
+<span class="nc" id="L74">                .addDataOut(&quot;UTY3&quot;, &quot;uty3o&quot;)</span>
+<span class="nc" id="L75">                .addDataOut(&quot;UTY2&quot;, &quot;uty2o&quot;)</span>
+<span class="nc" id="L76">                .addAttr(&quot;USR4&quot;, &quot;usr4a&quot;)</span>
+<span class="nc" id="L77">                .addAttr(&quot;UNM4&quot;, &quot;unm4a&quot;)</span>
+<span class="nc" id="L78">                .addAttr(&quot;UTY1&quot;, &quot;uty1a&quot;)</span>
+<span class="nc" id="L79">                .addAttr(&quot;TRNNAME&quot;, &quot;trnnamea&quot;)</span>
+<span class="nc" id="L80">                .addAttr(&quot;ERRMSG&quot;, &quot;errmsga&quot;)</span>
+<span class="nc" id="L81">                .addAttr(&quot;CURTIME&quot;, &quot;curtimea&quot;)</span>
+<span class="nc" id="L82">                .addAttr(&quot;USR3&quot;, &quot;usr3a&quot;)</span>
+<span class="nc" id="L83">                .addAttr(&quot;UNM3&quot;, &quot;unm3a&quot;)</span>
+<span class="nc" id="L84">                .addAttr(&quot;USR2&quot;, &quot;usr2a&quot;)</span>
+<span class="nc" id="L85">                .addAttr(&quot;UNM2&quot;, &quot;unm2a&quot;)</span>
+<span class="nc" id="L86">                .addAttr(&quot;TITLE&quot;, &quot;titlea&quot;)</span>
+<span class="nc" id="L87">                .addAttr(&quot;USR1&quot;, &quot;usr1a&quot;)</span>
+<span class="nc" id="L88">                .addAttr(&quot;UNM1&quot;, &quot;unm1a&quot;)</span>
+<span class="nc" id="L89">                .addAttr(&quot;PGMNAME&quot;, &quot;pgmnamea&quot;)</span>
+<span class="nc" id="L90">                .addAttr(&quot;UTY4&quot;, &quot;uty4a&quot;)</span>
+<span class="nc" id="L91">                .addAttr(&quot;CURDATE&quot;, &quot;curdatea&quot;)</span>
+<span class="nc" id="L92">                .addAttr(&quot;UTY3&quot;, &quot;uty3a&quot;)</span>
+<span class="nc" id="L93">                .addAttr(&quot;UTY2&quot;, &quot;uty2a&quot;)</span>
+<span class="nc" id="L94">                .addLength(&quot;USR4&quot;, &quot;usr4l&quot;)</span>
+<span class="nc" id="L95">                .addLength(&quot;UNM4&quot;, &quot;unm4l&quot;)</span>
+<span class="nc" id="L96">                .addLength(&quot;UTY1&quot;, &quot;uty1l&quot;)</span>
+<span class="nc" id="L97">                .addLength(&quot;TRNNAME&quot;, &quot;trnnamel&quot;)</span>
+<span class="nc" id="L98">                .addLength(&quot;ERRMSG&quot;, &quot;errmsgl&quot;)</span>
+<span class="nc" id="L99">                .addLength(&quot;CURTIME&quot;, &quot;curtimel&quot;)</span>
+<span class="nc" id="L100">                .addLength(&quot;USR3&quot;, &quot;usr3l&quot;)</span>
+<span class="nc" id="L101">                .addLength(&quot;UNM3&quot;, &quot;unm3l&quot;)</span>
+<span class="nc" id="L102">                .addLength(&quot;USR2&quot;, &quot;usr2l&quot;)</span>
+<span class="nc" id="L103">                .addLength(&quot;UNM2&quot;, &quot;unm2l&quot;)</span>
+<span class="nc" id="L104">                .addLength(&quot;TITLE&quot;, &quot;titlel&quot;)</span>
+<span class="nc" id="L105">                .addLength(&quot;USR1&quot;, &quot;usr1l&quot;)</span>
+<span class="nc" id="L106">                .addLength(&quot;UNM1&quot;, &quot;unm1l&quot;)</span>
+<span class="nc" id="L107">                .addLength(&quot;PGMNAME&quot;, &quot;pgmnamel&quot;)</span>
+<span class="nc" id="L108">                .addLength(&quot;UTY4&quot;, &quot;uty4l&quot;)</span>
+<span class="nc" id="L109">                .addLength(&quot;CURDATE&quot;, &quot;curdatel&quot;)</span>
+<span class="nc" id="L110">                .addLength(&quot;UTY3&quot;, &quot;uty3l&quot;)</span>
+<span class="nc" id="L111">                .addLength(&quot;UTY2&quot;, &quot;uty2l&quot;)</span>
+<span class="nc" id="L112">                .build();</span>
+        }
+<span class="nc" id="L114">        return FieldMapping.empty();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

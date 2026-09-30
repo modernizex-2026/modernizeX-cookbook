@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OuflagService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUFLAG Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ouflag.service</a> &gt; <span class="el_source">OuflagService.java</span></div><h1>OuflagService.java</h1><pre class="source lang-java linenums">package com.generated.orion.ouflag.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.ouflag.accessor.OuflagFields;
+import com.generated.orion.ouflag.metadata.OuflagBmsMetadata;
+import com.generated.orion.ouflag.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OUFLAG. */
+@Service
+<span class="nc" id="L20">public class OuflagService implements AppProgram {</span>
+<span class="nc" id="L21">    private static final Logger log = LoggerFactory.getLogger(OuflagService.class);</span>
+
+    /** Scale factor to convert a balance/credit-limit ratio into a percentage. */
+<span class="nc" id="L24">    private static final java.math.BigDecimal UTILIZATION_PERCENT_SCALE =</span>
+<span class="nc" id="L25">            java.math.BigDecimal.valueOf(100);</span>
+
+    /** Utilization threshold representing 100% of credit limit. */
+<span class="nc" id="L28">    private static final java.math.BigDecimal UTILIZATION_FULL_PCT =</span>
+            new java.math.BigDecimal(&quot;100.00&quot;);
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L37">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc bnc" id="L38" title="All 4 branches missed.">        if (ctx.appService.getEibcalen() &gt; 0 &amp;&amp; ctx.appService.getCommarea() != null) {</span>
+<span class="nc" id="L39">            Object _commarea = ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">            if (_commarea instanceof Object[]) {</span>
+<span class="nc" id="L41">                Object[] _params = (Object[]) _commarea;</span>
+<span class="nc bnc" id="L42" title="All 4 branches missed.">                if (_params.length &gt; 0 &amp;&amp; _params[0] instanceof byte[]) {</span>
+<span class="nc" id="L43">                    ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _params[0]);</span>
+<span class="nc bnc" id="L44" title="All 4 branches missed.">                } else if (_params.length &gt; 0 &amp;&amp; _params[0] != null) {</span>
+<span class="nc" id="L45">                    ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_params[0]));</span>
+                }
+<span class="nc bnc" id="L47" title="All 2 branches missed.">            } else if (_commarea instanceof byte[]) {</span>
+<span class="nc" id="L48">                ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _commarea);</span>
+            } else {
+<span class="nc" id="L50">                ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_commarea));</span>
+            }
+        }
+        try {
+<span class="nc" id="L54">            runMainProcess(ctx);</span>
+        } finally {
+<span class="nc bnc" id="L56" title="All 2 branches missed.">            if (ctx.appService.getEibcalen() &gt; 0) {</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">                if (ctx.appService.getCommarea() instanceof Object[]) {</span>
+<span class="nc" id="L58">                    Object[] _params = (Object[]) ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">                    if (_params.length &gt; 0) {</span>
+<span class="nc" id="L60">                        _params[0] =</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">                                _params[0] instanceof byte[]</span>
+<span class="nc" id="L62">                                        ? (Object) ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;)</span>
+<span class="nc" id="L63">                                        : (Object) ctx.f.groupToString(&quot;ORION-COMMAREA&quot;);</span>
+                    }
+<span class="nc" id="L65">                } else {</span>
+<span class="nc" id="L66">                    ctx.appService.setCommarea(ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;));</span>
+                }
+            }
+        }
+<span class="nc" id="L70">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L74">        return &quot;OUFLAG&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L79">        return OuflagBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L84">        OuflagBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L85">    }</span>
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainProcess(TaskContext ctx) {
+<span class="nc" id="L89">        ctx.f.aliasGroup(&quot;KFL-PARM&quot;, &quot;CA-WORK-AREA&quot;);</span>
+<span class="nc" id="L90">        initializeFlaggingRun(ctx);</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        if (!Utility.fieldEquals(ctx.f.getKflStatus(), &quot;99&quot;)) {</span>
+<span class="nc" id="L92">            positionAccountBrowse(ctx);</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">            if (ctx.f.getWsBrowseSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">                while (!(ctx.f.getWsEofSw().equals(&quot;Y&quot;)</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">                        || Utility.fieldEquals(ctx.f.getWsCapped(), &quot;Y&quot;))) {</span>
+<span class="nc" id="L96">                    scanAccountLoop(ctx);</span>
+                }
+<span class="nc" id="L98">                peekNextAccount(ctx);</span>
+<span class="nc" id="L99">                endAccountBrowse(ctx);</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">                if (ctx.f.getWsDoExpy().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L101">                    deactivateExpiredAccounts(ctx);</span>
+                }
+            }
+        }
+<span class="nc" id="L105">        setCompletionStatus(ctx);</span>
+<span class="nc" id="L106">        return;</span>
+    }
+
+    /** COBOL paragraph: 1000-INIT */
+    private void initializeFlaggingRun(TaskContext ctx) {
+<span class="nc" id="L111">        ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L112">        ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L113">        ctx.f.setWsCapped(&quot;N&quot;);</span>
+<span class="nc" id="L114">        ctx.f.setWsDoDelq(&quot;N&quot;);</span>
+<span class="nc" id="L115">        ctx.f.setWsDoExpy(&quot;N&quot;);</span>
+<span class="nc" id="L116">        ctx.f.setWsExpCnt(0);</span>
+<span class="nc" id="L117">        ctx.f.setKflStatus(&quot;00&quot;);</span>
+<span class="nc" id="L118">        ctx.f.setKflMsg(&quot; &quot;);</span>
+<span class="nc" id="L119">        ctx.f.setKflRead(0);</span>
+<span class="nc" id="L120">        ctx.f.setKflSkipped(0);</span>
+<span class="nc" id="L121">        ctx.f.setKflCurrent(0);</span>
+<span class="nc" id="L122">        ctx.f.setKflDelq(0);</span>
+<span class="nc" id="L123">        ctx.f.setKflB30(0);</span>
+<span class="nc" id="L124">        ctx.f.setKflB60(0);</span>
+<span class="nc" id="L125">        ctx.f.setKflB90(0);</span>
+<span class="nc" id="L126">        ctx.f.setKflExpired(0);</span>
+<span class="nc" id="L127">        ctx.f.setKflErrors(0);</span>
+<span class="nc" id="L128">        ctx.f.setKflDelqBal(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L129">        ctx.f.setKflShortfall(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L130">        ctx.f.setKflNextAcct(0);</span>
+<span class="nc" id="L131">        ctx.f.setKflMore(&quot;N&quot;);</span>
+<span class="nc" id="L132">        ctx.f.setWsMax(ctx.f.getKflMax());</span>
+<span class="nc bnc" id="L133" title="All 4 branches missed.">        switch (Utility.rtrim(ctx.f.getKflMode())) {</span>
+            case &quot;BOTH&quot; -&gt; {
+<span class="nc" id="L135">                ctx.f.setString(&quot;WS-DO-DELQ&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L136">                ctx.f.setString(&quot;WS-DO-EXPY&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L137">            }</span>
+            case &quot;DELQ&quot; -&gt; {
+<span class="nc" id="L139">                ctx.f.setString(&quot;WS-DO-DELQ&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L140">            }</span>
+            case &quot;EXPY&quot; -&gt; {
+<span class="nc" id="L142">                ctx.f.setString(&quot;WS-DO-EXPY&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L143">            }</span>
+            default -&gt; {
+<span class="nc" id="L145">                ctx.f.setKflStatus(&quot;99&quot;);</span>
+<span class="nc" id="L146">                ctx.f.setKflMsg(&quot;INVALID MODE - BOTH / DELQ / EXPY&quot;);</span>
+            }
+        }
+<span class="nc bnc" id="L149" title="All 4 branches missed.">        if (!Utility.fieldEquals(ctx.f.getKflStatus(), &quot;99&quot;) &amp;&amp; ctx.f.getWsDoExpy().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">            if (Utility.fieldEquals(ctx.f.getKflCutoff(), &quot; &quot;)</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">                    || ctx.f.isAllLowValues(&quot;KFL-CUTOFF&quot;)) {</span>
+<span class="nc" id="L152">                ctx.f.setKflStatus(&quot;99&quot;);</span>
+<span class="nc" id="L153">                ctx.f.setKflMsg(&quot;EXPIRY CUTOFF DATE REQUIRED&quot;);</span>
+            }
+        }
+<span class="nc" id="L156">    }</span>
+
+    /** COBOL paragraph: 2000-POSITION */
+    private void positionAccountBrowse(TaskContext ctx) {
+<span class="nc" id="L160">        ctx.f.setAcId(ctx.f.getKflStartAcct());</span>
+<span class="nc" id="L161">        ctx.appService.startBrowse(ctx.f.getWsAcctfile(), String.valueOf(ctx.f.getAcId()), 0);</span>
+<span class="nc" id="L162">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L164">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L166">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L168">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L170">            ctx.f.setKflStatus(&quot;99&quot;);</span>
+<span class="nc" id="L171">            ctx.f.setKflMsg(&quot;ACCTFILE STARTBR FAILED&quot;);</span>
+        }
+<span class="nc" id="L173">    }</span>
+
+    /** COBOL paragraph: 3000-SCAN-LOOP */
+    private void scanAccountLoop(TaskContext ctx) {
+<span class="nc" id="L177">        readNextAccount(ctx);</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">        if (!ctx.f.getWsEofSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L179">            evaluateAccount(ctx);</span>
+<span class="nc bnc" id="L180" title="All 4 branches missed.">            if (ctx.f.getWsMax() &gt; 0 &amp;&amp; ctx.f.getKflRead() &gt;= ctx.f.getWsMax()) {</span>
+<span class="nc" id="L181">                ctx.f.setWsCapped(&quot;Y&quot;);</span>
+            }
+        }
+<span class="nc" id="L184">    }</span>
+
+    /** COBOL paragraph: 3100-READ-ACCT */
+    private void readNextAccount(TaskContext ctx) {
+<span class="nc" id="L188">        ctx.appService.readNext(ctx.f.getWsAcctfile(), ctx.f);</span>
+<span class="nc" id="L189">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+            /* CONTINUE */
+<span class="nc bnc" id="L192" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L193">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L195">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L196">            ctx.f.setKflErrors(ctx.f.getKflErrors() + 1);</span>
+<span class="nc" id="L197">            ctx.f.setKflMsg(&quot;ACCTFILE READNEXT FAILED&quot;);</span>
+        }
+<span class="nc" id="L199">    }</span>
+
+    /** COBOL paragraph: 3200-EVAL-ACCT */
+    private void evaluateAccount(TaskContext ctx) {
+<span class="nc" id="L203">        ctx.f.setKflRead(ctx.f.getKflRead() + 1);</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getAcActiveStatus(), &quot;N&quot;)) {</span>
+<span class="nc" id="L205">            ctx.f.setKflSkipped(ctx.f.getKflSkipped() + 1);</span>
+<span class="nc" id="L206">            return;</span>
+        }
+<span class="nc bnc" id="L208" title="All 2 branches missed.">        if (ctx.f.getWsDoDelq().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L209">            evaluateDelinquency(ctx);</span>
+        }
+<span class="nc bnc" id="L211" title="All 2 branches missed.">        if (ctx.f.getWsDoExpy().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L212">            checkAccountExpiry(ctx);</span>
+        }
+<span class="nc" id="L214">    }</span>
+
+    /** COBOL paragraph: 3300-EVAL-DELQ */
+    private void evaluateDelinquency(TaskContext ctx) {
+<span class="nc bnc" id="L218" title="All 2 branches missed.">        if ((ctx.f.getAcCurrBal().signum() &lt;= 0)) {</span>
+<span class="nc" id="L219">            ctx.f.setKflCurrent(ctx.f.getKflCurrent() + 1);</span>
+<span class="nc" id="L220">            return;</span>
+        }
+<span class="nc" id="L222">        ctx.f.setWsMinDue(ctx.f.getAcCurrBal().multiply(ctx.f.getWsMinDuePct()));</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">        if ((ctx.f.getWsMinDue().compareTo(ctx.f.getWsMinDueFloor()) &lt; 0)) {</span>
+<span class="nc" id="L224">            ctx.f.setWsMinDue(ctx.f.getWsMinDueFloor());</span>
+        }
+<span class="nc bnc" id="L226" title="All 2 branches missed.">        if ((ctx.f.getAcCycCredit().compareTo(ctx.f.getWsMinDue()) &gt;= 0)) {</span>
+<span class="nc" id="L227">            ctx.f.setKflCurrent(ctx.f.getKflCurrent() + 1);</span>
+        } else {
+<span class="nc" id="L229">            flagDelinquentAccount(ctx);</span>
+        }
+<span class="nc" id="L231">    }</span>
+
+    /** COBOL paragraph: 3310-FLAG-DELQ */
+    private void flagDelinquentAccount(TaskContext ctx) {
+<span class="nc" id="L235">        ctx.f.setKflDelq(ctx.f.getKflDelq() + 1);</span>
+<span class="nc" id="L236">        ctx.f.setWsShortfall(ctx.f.getWsMinDue().subtract(ctx.f.getAcCycCredit()));</span>
+<span class="nc bnc" id="L237" title="All 2 branches missed.">        if ((ctx.f.getWsShortfall().signum() &lt; 0)) {</span>
+<span class="nc" id="L238">            ctx.f.setWsShortfall(java.math.BigDecimal.valueOf(0));</span>
+        }
+<span class="nc bnc" id="L240" title="All 2 branches missed.">        if ((ctx.f.getAcCreditLimit().signum() &gt; 0)) {</span>
+<span class="nc" id="L241">            ctx.f.setWsUtil(</span>
+                    ctx.f
+<span class="nc" id="L243">                            .getAcCurrBal()</span>
+<span class="nc" id="L244">                            .divide(ctx.f.getAcCreditLimit(), 12, java.math.RoundingMode.HALF_UP)</span>
+<span class="nc" id="L245">                            .multiply(UTILIZATION_PERCENT_SCALE));</span>
+        } else {
+<span class="nc" id="L247">            ctx.f.setWsUtil(new java.math.BigDecimal(&quot;999.99&quot;));</span>
+        }
+<span class="nc bnc" id="L249" title="All 2 branches missed.">        if ((ctx.f.getWsUtil().compareTo(UTILIZATION_FULL_PCT) &gt;= 0)) {</span>
+<span class="nc" id="L250">            ctx.f.setKflB90(ctx.f.getKflB90() + 1);</span>
+<span class="nc bnc" id="L251" title="All 2 branches missed.">        } else if ((ctx.f.getWsUtil().compareTo(new java.math.BigDecimal(&quot;90.00&quot;)) &gt;= 0)) {</span>
+<span class="nc" id="L252">            ctx.f.setKflB60(ctx.f.getKflB60() + 1);</span>
+        } else {
+<span class="nc" id="L254">            ctx.f.setKflB30(ctx.f.getKflB30() + 1);</span>
+        }
+<span class="nc" id="L256">        ctx.f.setKflDelqBal(ctx.f.getKflDelqBal().add(ctx.f.getAcCurrBal()));</span>
+<span class="nc" id="L257">        ctx.f.setKflShortfall(ctx.f.getKflShortfall().add(ctx.f.getWsShortfall()));</span>
+<span class="nc" id="L258">    }</span>
+
+    /** COBOL paragraph: 3400-CHECK-EXPIRY */
+    private void checkAccountExpiry(TaskContext ctx) {
+<span class="nc bnc" id="L262" title="All 2 branches missed.">        if (!Utility.fieldEquals(ctx.f.getAcExpiryDate(), &quot; &quot;)</span>
+<span class="nc bnc" id="L263" title="All 2 branches missed.">                &amp;&amp; !ctx.f.isAllLowValues(&quot;AC-EXPIRY-DATE&quot;)</span>
+<span class="nc bnc" id="L264" title="All 2 branches missed.">                &amp;&amp; (ctx.f.getAcExpiryDate().compareTo(ctx.f.getKflCutoff()) &lt; 0)) {</span>
+<span class="nc bnc" id="L265" title="All 2 branches missed.">            if (ctx.f.getWsExpCnt() &lt; ctx.f.getWsMaxExp()) {</span>
+<span class="nc" id="L266">                ctx.f.setWsExpCnt(ctx.f.getWsExpCnt() + 1);</span>
+<span class="nc" id="L267">                ctx.f.setWsExpId(ctx.f.getWsExpCnt(), ctx.f.getAcId());</span>
+<span class="nc bnc" id="L268" title="All 2 branches missed.">                if (ctx.f.getWsExpCnt() &gt;= ctx.f.getWsMaxExp()) {</span>
+<span class="nc" id="L269">                    ctx.f.setWsCapped(&quot;Y&quot;);</span>
+                }
+            }
+        }
+<span class="nc" id="L273">    }</span>
+
+    /** COBOL paragraph: 4000-PEEK-NEXT */
+    private void peekNextAccount(TaskContext ctx) {
+<span class="nc bnc" id="L277" title="All 2 branches missed.">        if (ctx.f.getWsEofSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L278">            ctx.f.setKflMore(&quot;N&quot;);</span>
+<span class="nc" id="L279">            return;</span>
+        }
+<span class="nc" id="L281">        ctx.appService.readNext(ctx.f.getWsAcctfile(), ctx.f);</span>
+<span class="nc" id="L282">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L283" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L284">            ctx.f.setKflMore(&quot;Y&quot;);</span>
+<span class="nc" id="L285">            ctx.f.setKflNextAcct(ctx.f.getAcId());</span>
+<span class="nc bnc" id="L286" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L287">            ctx.f.setKflMore(&quot;N&quot;);</span>
+        } else {
+<span class="nc" id="L289">            ctx.f.setKflMore(&quot;N&quot;);</span>
+<span class="nc" id="L290">            ctx.f.setKflErrors(ctx.f.getKflErrors() + 1);</span>
+        }
+<span class="nc" id="L292">    }</span>
+
+    /** COBOL paragraph: 5000-END-BROWSE */
+    private void endAccountBrowse(TaskContext ctx) {
+<span class="nc" id="L296">        ctx.appService.endBrowse(ctx.f.getWsAcctfile());</span>
+<span class="nc" id="L297">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L298">    }</span>
+
+    /** COBOL paragraph: 5500-DEACTIVATE-EXPIRED */
+    private void deactivateExpiredAccounts(TaskContext ctx) {
+<span class="nc" id="L302">        for (ctx.f.setWsEx(1);</span>
+<span class="nc bnc" id="L303" title="All 2 branches missed.">                ctx.f.getWsEx() &lt;= ctx.f.getWsExpCnt();</span>
+<span class="nc" id="L304">                ctx.f.setWsEx(ctx.f.getWsEx() + 1)) {</span>
+<span class="nc" id="L305">            deactivateAccount(ctx);</span>
+        }
+<span class="nc" id="L307">    }</span>
+
+    /** COBOL paragraph: 5600-DEACTIVATE-ONE */
+    private void deactivateAccount(TaskContext ctx) {
+<span class="nc" id="L311">        ctx.f.setAcId(ctx.f.getWsExpId(ctx.f.getWsEx()));</span>
+<span class="nc" id="L312">        ctx.appService.readFileForUpdate(</span>
+<span class="nc" id="L313">                ctx.f.getWsAcctfile(), ctx.f, String.valueOf(ctx.f.getAcId()), 0);</span>
+<span class="nc" id="L314">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L315" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() != 0) {</span>
+<span class="nc" id="L316">            ctx.f.setKflErrors(ctx.f.getKflErrors() + 1);</span>
+<span class="nc" id="L317">            return;</span>
+        }
+<span class="nc bnc" id="L319" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getAcActiveStatus(), &quot;N&quot;)) {</span>
+            /* EXEC CICS UNLOCK — file unlock */ ;
+<span class="nc" id="L321">            return;</span>
+        }
+<span class="nc" id="L323">        ctx.f.setAcActiveStatus(&quot;N&quot;);</span>
+<span class="nc" id="L324">        ctx.appService.rewriteFile(ctx.f.getWsAcctfile(), ctx.f);</span>
+<span class="nc" id="L325">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L326" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L327">            ctx.f.setKflExpired(ctx.f.getKflExpired() + 1);</span>
+        } else {
+<span class="nc" id="L329">            ctx.f.setKflErrors(ctx.f.getKflErrors() + 1);</span>
+        }
+<span class="nc" id="L331">    }</span>
+
+    /** COBOL paragraph: 6000-SET-STATUS */
+    private void setCompletionStatus(TaskContext ctx) {
+<span class="nc bnc" id="L335" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getKflStatus(), &quot;99&quot;)) {</span>
+<span class="nc" id="L336">            return;</span>
+        }
+<span class="nc bnc" id="L338" title="All 2 branches missed.">        if (ctx.f.getKflRead() == 0) {</span>
+<span class="nc" id="L339">            ctx.f.setKflStatus(&quot;10&quot;);</span>
+<span class="nc" id="L340">            ctx.f.setKflMsg(&quot;NO ACCOUNTS PROCESSED&quot;);</span>
+        } else {
+<span class="nc" id="L342">            ctx.f.setKflStatus(&quot;00&quot;);</span>
+<span class="nc" id="L343">            ctx.f.setKflMsg(&quot;ACCOUNT FLAGGING COMPLETE&quot;);</span>
+        }
+<span class="nc" id="L345">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OuflagFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L358">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L359">            this.appService = appService;</span>
+<span class="nc" id="L360">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L361">            this.f = new OuflagFields(ws);</span>
+<span class="nc" id="L362">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

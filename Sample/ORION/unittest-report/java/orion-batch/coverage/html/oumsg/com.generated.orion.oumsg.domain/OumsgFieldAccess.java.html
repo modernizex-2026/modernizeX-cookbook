@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OumsgFieldAccess.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">oumsg</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.oumsg.domain</a> &gt; <span class="el_source">OumsgFieldAccess.java</span></div><h1>OumsgFieldAccess.java</h1><pre class="source lang-java linenums">package com.generated.orion.oumsg.domain;
+
+import com.generated.orion.runtime.record.RuntimeFieldAccess;
+import com.generated.orion.oumsg.domain.WorkingStorage;
+
+/**
+ * Field accessor for OUMSG.
+ * Backend: RuntimeFieldAccess (raw RecordImage byte[]).
+ * Typed methods auto-generated from referenced fields — bodies delegate to the string-key API.
+ */
+public class OumsgFieldAccess extends RuntimeFieldAccess {
+
+<span class="fc" id="L13">    public OumsgFieldAccess(WorkingStorage ws) {</span>
+<span class="pc bpc" id="L14" title="1 of 2 branches missed.">        if (ws != null) {</span>
+<span class="fc" id="L15">            register(ws.buffer());</span>
+        }
+<span class="fc" id="L17">    }</span>
+
+    /* ── Typed wrappers (delegate → string-key) ─────────────── */
+<span class="fc" id="L20">    public int getCompletionCode() { return getInt(&quot;COMPLETION-CODE&quot;); }</span>
+<span class="nc" id="L21">    public void setCompletionCode(int value) { setInt(&quot;COMPLETION-CODE&quot;, value); }</span>
+<span class="fc" id="L22">    public String getKmCode() { return getString(&quot;KM-CODE&quot;); }</span>
+<span class="fc" id="L23">    public void setKmCode(String value) { setString(&quot;KM-CODE&quot;, value); }</span>
+<span class="fc" id="L24">    public String getKmStatus() { return getString(&quot;KM-STATUS&quot;); }</span>
+<span class="fc" id="L25">    public void setKmStatus(String value) { setString(&quot;KM-STATUS&quot;, value); }</span>
+<span class="fc" id="L26">    public String getKmText() { return getString(&quot;KM-TEXT&quot;); }</span>
+<span class="fc" id="L27">    public void setKmText(String value) { setString(&quot;KM-TEXT&quot;, value); }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

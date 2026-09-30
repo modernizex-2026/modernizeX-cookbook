@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OcbillpService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCBILLP Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ocbillp.service</a> &gt; <span class="el_source">OcbillpService.java</span></div><h1>OcbillpService.java</h1><pre class="source lang-java linenums">package com.generated.orion.ocbillp.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.common.linkage.OcbillpLinkParm;
+import com.generated.orion.ocbillp.accessor.OcbillpFields;
+import com.generated.orion.ocbillp.metadata.OcbillpBmsMetadata;
+import com.generated.orion.ocbillp.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OCBILLP. */
+@Service
+<span class="nc" id="L22">public class OcbillpService implements AppProgram {</span>
+<span class="nc" id="L23">    private static final Logger log = LoggerFactory.getLogger(OcbillpService.class);</span>
+
+    private static final int COMMAREA_LENGTH = 692;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L33">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc" id="L34">        runMainProgram(ctx);</span>
+<span class="nc" id="L35">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L39">        return &quot;OCBILLP&quot;;</span>
+    }
+
+    @Override
+    public String getTransId() {
+<span class="nc" id="L44">        return &quot;ORBP&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L49">        return OcbillpBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L54">        OcbillpBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L55">    }</span>
+
+    @Override
+    public FieldMapping getFieldMapping(String mapName) {
+<span class="nc" id="L59">        return OcbillpBmsMetadata.getFieldMapping(mapName);</span>
+    }
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainProgram(TaskContext ctx) {
+<span class="nc" id="L64">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (ctx.appService.getEibcalen() == 0) {</span>
+<span class="nc" id="L66">            ctx.f.setOrionCommarea(&quot;&quot;);</span>
+<span class="nc" id="L67">            sendInitialScreen(ctx);</span>
+        } else {
+<span class="nc" id="L69">            ctx.f.setOrionCommarea(Utility.groupToString(ctx.appService.getSerializedCommarea()));</span>
+<span class="nc" id="L70">            ctx.f.copyBytes(&quot;WS-STATE-AREA&quot;, &quot;CA-WORK-AREA&quot;);</span>
+<span class="nc" id="L71">            ctx.f.setCaErrMsg(&quot; &quot;);</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (ctx.f.getCaPgmContext() == 0) {</span>
+<span class="nc" id="L73">                sendInitialScreen(ctx);</span>
+            } else {
+<span class="nc" id="L75">                dispatchUserInput(ctx);</span>
+            }
+        }
+<span class="nc" id="L78">        returnToCaller(ctx);</span>
+<span class="nc" id="L79">    }</span>
+
+    /** COBOL paragraph: 1000-SEND-INITIAL */
+    private void sendInitialScreen(TaskContext ctx) {
+<span class="nc" id="L83">        ctx.f.fillLowValues(&quot;MBILLPAO&quot;);</span>
+<span class="nc" id="L84">        ctx.f.setString(&quot;WS-STAGE&quot;, &quot;0&quot;);</span>
+<span class="nc" id="L85">        ctx.f.setWsSvAcctId(0);</span>
+<span class="nc" id="L86">        ctx.f.setWsSvBal(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L87">        populateHeaderFields(ctx);</span>
+<span class="nc" id="L88">        ctx.f.setErrmsgo(&quot;Enter account id and press ENTER.&quot;);</span>
+<span class="nc" id="L89">        ctx.appService.sendMap(</span>
+                &quot;MBILLPA&quot;, ctx.f, ctx.f, /* erase */ true, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L91">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L92">        ctx.f.setCaPgmContext(1);</span>
+<span class="nc" id="L93">    }</span>
+
+    /** COBOL paragraph: 2000-PROCESS-INPUT */
+    private void dispatchUserInput(TaskContext ctx) {
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;3&quot;)) {</span>
+<span class="nc" id="L98">            transferToMenuProgram(ctx);</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;4&quot;)) {</span>
+<span class="nc" id="L100">            sendInitialScreen(ctx);</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;'&quot;)) {</span>
+<span class="nc" id="L102">            handleEnterKey(ctx);</span>
+        } else {
+<span class="nc" id="L104">            sendInitialScreen(ctx);</span>
+<span class="nc" id="L105">            ctx.f.setErrmsgo(ctx.f.getWsMsgInvalidKey());</span>
+<span class="nc" id="L106">            sendDataOnlyScreen(ctx);</span>
+        }
+<span class="nc" id="L108">    }</span>
+
+    /** COBOL paragraph: 2100-HANDLE-ENTER */
+    private void handleEnterKey(TaskContext ctx) {
+<span class="nc" id="L112">        receiveScreenInput(ctx);</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">        if (ctx.f.getWsStage().equals(&quot;0&quot;)) {</span>
+<span class="nc" id="L114">            processAccountLookup(ctx);</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        } else if (ctx.f.getWsStage().equals(&quot;1&quot;)) {</span>
+<span class="nc" id="L116">            processPaymentRequest(ctx);</span>
+        } else {
+<span class="nc" id="L118">            sendInitialScreen(ctx);</span>
+        }
+<span class="nc" id="L120">    }</span>
+
+    /** COBOL paragraph: 2110-RECEIVE-MAP */
+    private void receiveScreenInput(TaskContext ctx) {
+<span class="nc" id="L124">        ctx.appService.receiveMap(&quot;MBILLPA&quot;, ctx.f);</span>
+<span class="nc" id="L125">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L126">    }</span>
+
+    /** COBOL paragraph: 2200-PROCESS-ACCT */
+    private void processAccountLookup(TaskContext ctx) {
+<span class="nc bnc" id="L130" title="All 4 branches missed.">        if (Utility.fieldEquals(ctx.f.getAcctidi(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;ACCTIDI&quot;)) {</span>
+<span class="nc" id="L131">            ctx.f.setErrmsgo(ctx.f.getWsMsgRequired());</span>
+<span class="nc" id="L132">            sendDataOnlyScreen(ctx);</span>
+        } else {
+<span class="nc" id="L134">            ctx.f.setAcId(Utility.parseNumeric(ctx.f.getAcctidi()).longValue());</span>
+<span class="nc" id="L135">            ctx.f.setCaAcctId(ctx.f.getAcId());</span>
+<span class="nc" id="L136">            readAccountRecord(ctx);</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">            if (ctx.f.getWsFoundFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L138">                showAccountBalance(ctx);</span>
+            } else {
+<span class="nc" id="L140">                ctx.f.setErrmsgo(ctx.f.getWsMsgNotfnd());</span>
+<span class="nc" id="L141">                sendDataOnlyScreen(ctx);</span>
+            }
+        }
+<span class="nc" id="L144">    }</span>
+
+    /** COBOL paragraph: 2210-SHOW-BALANCE */
+    private void showAccountBalance(TaskContext ctx) {
+<span class="nc" id="L148">        ctx.f.setWsSvAcctId(ctx.f.getAcId());</span>
+<span class="nc" id="L149">        ctx.f.setWsSvBal(ctx.f.getAcCurrBal());</span>
+<span class="nc" id="L150">        ctx.f.setString(&quot;WS-STAGE&quot;, &quot;1&quot;);</span>
+<span class="nc" id="L151">        populatePayScreenFields(ctx);</span>
+<span class="nc" id="L152">        ctx.f.setErrmsgo(&quot;Enter amount, set confirm to Y, press ENTER.&quot;);</span>
+<span class="nc" id="L153">        sendDataOnlyScreen(ctx);</span>
+<span class="nc" id="L154">    }</span>
+
+    /** COBOL paragraph: 2300-PROCESS-PAY */
+    private void processPaymentRequest(TaskContext ctx) {
+<span class="nc" id="L158">        validatePaymentAmount(ctx);</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">        if (ctx.f.getWsValidFlg().equals(&quot;N&quot;)) {</span>
+<span class="nc" id="L160">            redisplayPayScreen(ctx, null);</span>
+<span class="nc" id="L161">            return;</span>
+        }
+<span class="nc bnc" id="L163" title="All 2 branches missed.">        if (ctx.f.getWsPayAmt().signum() &lt;= 0) {</span>
+<span class="nc" id="L164">            redisplayPayScreen(ctx, &quot;Amount must be greater than zero.&quot;);</span>
+<span class="nc" id="L165">            return;</span>
+        }
+<span class="nc bnc" id="L167" title="All 2 branches missed.">        if (ctx.f.getWsPayAmt().compareTo(ctx.f.getWsSvBal()) &gt; 0) {</span>
+<span class="nc" id="L168">            redisplayPayScreen(ctx, &quot;Amount exceeds current balance.&quot;);</span>
+<span class="nc" id="L169">            return;</span>
+        }
+<span class="nc" id="L171">        checkPaymentConfirmation(ctx);</span>
+<span class="nc" id="L172">    }</span>
+
+    /** Repopulate and redisplay the pay screen, optionally after a validation error. */
+    private void redisplayPayScreen(TaskContext ctx, String errorMessage) {
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        if (errorMessage != null) {</span>
+<span class="nc" id="L177">            ctx.f.setErrmsgo(errorMessage);</span>
+        }
+<span class="nc" id="L179">        populatePayScreenFields(ctx);</span>
+<span class="nc" id="L180">        sendDataOnlyScreen(ctx);</span>
+<span class="nc" id="L181">    }</span>
+
+    /** COBOL paragraph: 2310-VALIDATE-AMOUNT */
+    private void validatePaymentAmount(TaskContext ctx) {
+<span class="nc" id="L185">        ctx.f.setWsAmtIn(ctx.f.getBlamti());</span>
+<span class="nc" id="L186">        ctx.f.setWsDotCnt(0);</span>
+<span class="nc" id="L187">        ctx.f.setWsDigCnt(0);</span>
+<span class="nc" id="L188">        ctx.f.setString(&quot;WS-VALID-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L189" title="All 4 branches missed.">        if (Utility.fieldEquals(ctx.f.getWsAmtIn(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;WS-AMT-IN&quot;)) {</span>
+<span class="nc" id="L190">            ctx.f.setString(&quot;WS-VALID-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L191">            ctx.f.setErrmsgo(&quot;Please enter a payment amount.&quot;);</span>
+<span class="nc" id="L192">            return;</span>
+        }
+<span class="nc bnc" id="L194" title="All 2 branches missed.">        for (ctx.f.setWsI(1); ctx.f.getWsI() &lt;= 12; ctx.f.setWsI(ctx.f.getWsI() + 1)) {</span>
+<span class="nc" id="L195">            ctx.f.setWsCh(</span>
+<span class="nc" id="L196">                    Utility.padRight(String.valueOf(ctx.f.getWsAmtIn()), 256)</span>
+<span class="nc" id="L197">                            .substring(ctx.f.getWsI() - 1, ctx.f.getWsI() - 1 + 1));</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">            if (Utility.fieldEquals(ctx.f.getWsCh(), &quot; &quot;)) {</span>
+                /* CONTINUE */
+<span class="nc bnc" id="L200" title="All 2 branches missed.">            } else if (Utility.fieldEquals(ctx.f.getWsCh(), &quot;.&quot;)) {</span>
+<span class="nc" id="L201">                ctx.f.setWsDotCnt(ctx.f.getWsDotCnt() + 1);</span>
+<span class="nc bnc" id="L202" title="All 4 branches missed.">            } else if (ctx.f.getWsCh().compareTo(&quot;0&quot;) &gt;= 0 &amp;&amp; ctx.f.getWsCh().compareTo(&quot;9&quot;) &lt;= 0) {</span>
+<span class="nc" id="L203">                ctx.f.setWsDigCnt(ctx.f.getWsDigCnt() + 1);</span>
+            } else {
+<span class="nc" id="L205">                ctx.f.setString(&quot;WS-VALID-FLG&quot;, &quot;N&quot;);</span>
+            }
+        }
+<span class="nc bnc" id="L208" title="All 2 branches missed.">        if (ctx.f.getWsDotCnt() &gt; 1) {</span>
+<span class="nc" id="L209">            ctx.f.setString(&quot;WS-VALID-FLG&quot;, &quot;N&quot;);</span>
+        }
+<span class="nc bnc" id="L211" title="All 2 branches missed.">        if (ctx.f.getWsDigCnt() == 0) {</span>
+<span class="nc" id="L212">            ctx.f.setString(&quot;WS-VALID-FLG&quot;, &quot;N&quot;);</span>
+        }
+<span class="nc bnc" id="L214" title="All 2 branches missed.">        if (ctx.f.getWsValidFlg().equals(&quot;N&quot;)) {</span>
+<span class="nc" id="L215">            ctx.f.setErrmsgo(&quot;Amount is not a valid number.&quot;);</span>
+<span class="nc" id="L216">            return;</span>
+        }
+<span class="nc" id="L218">        ctx.f.setWsPayAmt(Utility.parseNumeric(String.valueOf(ctx.f.getWsAmtIn())));</span>
+<span class="nc" id="L219">    }</span>
+
+    /** COBOL paragraph: 2320-CHECK-CONFIRM */
+    private void checkPaymentConfirmation(TaskContext ctx) {
+<span class="nc bnc" id="L223" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getBlconfi(), &quot;Y&quot;)</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">                || Utility.fieldEquals(ctx.f.getBlconfi(), &quot;y&quot;)) {</span>
+<span class="nc" id="L225">            postPayment(ctx);</span>
+        } else {
+<span class="nc" id="L227">            redisplayPayScreen(ctx, &quot;Set confirm to Y to post this payment.&quot;);</span>
+        }
+<span class="nc" id="L229">    }</span>
+
+    /** COBOL paragraph: 2400-POST-PAYMENT */
+    private void postPayment(TaskContext ctx) {
+<span class="nc" id="L233">        getNextBillId(ctx);</span>
+<span class="nc bnc" id="L234" title="All 2 branches missed.">        if (reportPaymentErrorAndExit(ctx)) {</span>
+<span class="nc" id="L235">            return;</span>
+        }
+<span class="nc" id="L237">        buildConfirmationNumber(ctx);</span>
+<span class="nc" id="L238">        writeBillRecord(ctx);</span>
+<span class="nc bnc" id="L239" title="All 2 branches missed.">        if (reportPaymentErrorAndExit(ctx)) {</span>
+<span class="nc" id="L240">            return;</span>
+        }
+<span class="nc" id="L242">        updateAccountBalance(ctx);</span>
+<span class="nc bnc" id="L243" title="All 2 branches missed.">        if (reportPaymentErrorAndExit(ctx)) {</span>
+<span class="nc" id="L244">            return;</span>
+        }
+<span class="nc" id="L246">        showPaymentConfirmation(ctx);</span>
+<span class="nc" id="L247">    }</span>
+
+    /**
+     * Redisplay the pay screen when a payment step failed. Returns true when the caller should stop
+     * processing (WS-ERR-FLG is set).
+     */
+    private boolean reportPaymentErrorAndExit(TaskContext ctx) {
+<span class="nc bnc" id="L254" title="All 2 branches missed.">        if (!ctx.f.getWsErrFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L255">            return false;</span>
+        }
+<span class="nc" id="L257">        populatePayScreenFields(ctx);</span>
+<span class="nc" id="L258">        sendDataOnlyScreen(ctx);</span>
+<span class="nc" id="L259">        return true;</span>
+    }
+
+    /** COBOL paragraph: 3000-READ-ACCT */
+    private void readAccountRecord(TaskContext ctx) {
+<span class="nc" id="L264">        ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L265">        ctx.appService.readFile(ctx.f.getWsAcctfile(), ctx.f, String.valueOf(ctx.f.getAcId()), 0);</span>
+<span class="nc" id="L266">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L267" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L268">            ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L269" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L270">            ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+        } else {
+<span class="nc" id="L272">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L273">            ctx.f.setErrmsgo(&quot;Error reading account file.&quot;);</span>
+        }
+<span class="nc" id="L275">    }</span>
+
+    /** COBOL paragraph: 3100-GET-NEXT-BILLID */
+    private void getNextBillId(TaskContext ctx) {
+<span class="nc" id="L279">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L280">        ctx.f.setCtKey(&quot;BILLID  &quot;);</span>
+<span class="nc" id="L281">        ctx.appService.readFileForUpdate(</span>
+<span class="nc" id="L282">                ctx.f.getWsCtrlfile(), ctx.f, String.valueOf(ctx.f.getCtKey()), 0);</span>
+<span class="nc" id="L283">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L285">            ctx.f.setCtLastValue(ctx.f.getCtLastValue() + 1);</span>
+<span class="nc" id="L286">            ctx.f.setBlId(ctx.f.getCtLastValue());</span>
+<span class="nc" id="L287">            ctx.f.setWsId11(ctx.f.getCtLastValue());</span>
+<span class="nc" id="L288">            rewriteControlRecord(ctx);</span>
+<span class="nc bnc" id="L289" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L290">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L291">            ctx.f.setErrmsgo(&quot;Control record BILLID missing.&quot;);</span>
+        } else {
+<span class="nc" id="L293">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L294">            ctx.f.setErrmsgo(&quot;Error reading control file.&quot;);</span>
+        }
+<span class="nc" id="L296">    }</span>
+
+    /** COBOL paragraph: 3110-REWRITE-CTRL */
+    private void rewriteControlRecord(TaskContext ctx) {
+<span class="nc" id="L300">        ctx.appService.rewriteFile(ctx.f.getWsCtrlfile(), ctx.f);</span>
+<span class="nc" id="L301">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L302" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() != 0) {</span>
+<span class="nc" id="L303">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L304">            ctx.f.setErrmsgo(&quot;Error updating control file.&quot;);</span>
+        }
+<span class="nc" id="L306">    }</span>
+
+    /** COBOL paragraph: 3200-WRITE-BILL */
+    private void writeBillRecord(TaskContext ctx) {
+<span class="nc" id="L310">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L311">        ctx.f.setBlAcctId(ctx.f.getWsSvAcctId());</span>
+<span class="nc" id="L312">        ctx.f.setBlAmount(ctx.f.getWsPayAmt());</span>
+<span class="nc" id="L313">        ctx.f.setBlPayDate(ctx.f.getWsHdrDate());</span>
+<span class="nc" id="L314">        ctx.f.setBlConfirmNum(ctx.f.getWsConfirmNum());</span>
+<span class="nc" id="L315">        ctx.f.setBlStatus(&quot;P&quot;);</span>
+<span class="nc" id="L316">        ctx.appService.writeFile(ctx.f.getWsBillfile(), ctx.f, String.valueOf(ctx.f.getBlId()), 0);</span>
+<span class="nc" id="L317">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L318" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+            /* CONTINUE */
+<span class="nc bnc" id="L320" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 14) {</span>
+<span class="nc" id="L321">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L322">            ctx.f.setErrmsgo(&quot;Duplicate bill id generated.&quot;);</span>
+        } else {
+<span class="nc" id="L324">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L325">            ctx.f.setErrmsgo(&quot;Error writing bill file.&quot;);</span>
+        }
+<span class="nc" id="L327">    }</span>
+
+    /** COBOL paragraph: 3300-UPDATE-ACCT-BAL */
+    private void updateAccountBalance(TaskContext ctx) {
+<span class="nc" id="L331">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L332">        ctx.f.setAcId(ctx.f.getWsSvAcctId());</span>
+<span class="nc" id="L333">        ctx.appService.readFileForUpdate(</span>
+<span class="nc" id="L334">                ctx.f.getWsAcctfile(), ctx.f, String.valueOf(ctx.f.getAcId()), 0);</span>
+<span class="nc" id="L335">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L336" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L337">            ctx.f.setAcCurrBal(ctx.f.getAcCurrBal().subtract(ctx.f.getWsPayAmt()));</span>
+<span class="nc" id="L338">            ctx.f.setAcCycCredit(ctx.f.getAcCycCredit().add(ctx.f.getWsPayAmt()));</span>
+<span class="nc" id="L339">            ctx.f.setWsNewBal(ctx.f.getAcCurrBal());</span>
+<span class="nc" id="L340">            rewriteAccountRecord(ctx);</span>
+<span class="nc bnc" id="L341" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L342">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L343">            ctx.f.setErrmsgo(&quot;Account not found on update.&quot;);</span>
+        } else {
+<span class="nc" id="L345">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L346">            ctx.f.setErrmsgo(&quot;Error reading account for update.&quot;);</span>
+        }
+<span class="nc" id="L348">    }</span>
+
+    /** COBOL paragraph: 3310-REWRITE-ACCT */
+    private void rewriteAccountRecord(TaskContext ctx) {
+<span class="nc" id="L352">        ctx.appService.rewriteFile(ctx.f.getWsAcctfile(), ctx.f);</span>
+<span class="nc" id="L353">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L354" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() != 0) {</span>
+<span class="nc" id="L355">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L356">            ctx.f.setErrmsgo(&quot;Error updating account balance.&quot;);</span>
+        }
+<span class="nc" id="L358">    }</span>
+
+    /** COBOL paragraph: 4000-POPULATE-PAY-SCREEN */
+    private void populatePayScreenFields(TaskContext ctx) {
+<span class="nc" id="L362">        ctx.f.setAcctido(String.format(&quot;%011d&quot;, ctx.f.getWsSvAcctId()));</span>
+<span class="nc" id="L363">        ctx.f.setWsEdBal(ctx.f.getWsSvBal());</span>
+<span class="nc" id="L364">        ctx.f.setBlbalo(ctx.f.getString(&quot;WS-ED-BAL&quot;));</span>
+<span class="nc" id="L365">    }</span>
+
+    /** COBOL paragraph: 4100-BUILD-CONFIRM */
+    private void buildConfirmationNumber(TaskContext ctx) {
+<span class="nc" id="L369">        ctx.f.setWsConfirmNum(&quot; &quot;);</span>
+        {
+<span class="nc" id="L371">            StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L372">            sb.append(String.valueOf(&quot;ORB&quot;));</span>
+<span class="nc" id="L373">            sb.append(String.valueOf(ctx.f.getWsId11()));</span>
+<span class="nc" id="L374">            sb.append(String.valueOf(&quot;00&quot;));</span>
+<span class="nc" id="L375">            ctx.f.setWsConfirmNum(sb.toString());</span>
+        }
+<span class="nc" id="L377">    }</span>
+
+    /** COBOL paragraph: 4200-SHOW-CONFIRMATION */
+    private void showPaymentConfirmation(TaskContext ctx) {
+<span class="nc" id="L381">        ctx.f.setWsSvBal(ctx.f.getWsNewBal());</span>
+<span class="nc" id="L382">        ctx.f.setWsEdBal(ctx.f.getWsNewBal());</span>
+<span class="nc" id="L383">        ctx.f.setBlbalo(ctx.f.getString(&quot;WS-ED-BAL&quot;));</span>
+<span class="nc" id="L384">        ctx.f.setBlamto(&quot; &quot;);</span>
+<span class="nc" id="L385">        ctx.f.setBlconfo(&quot; &quot;);</span>
+<span class="nc" id="L386">        ctx.f.setErrmsgo(&quot; &quot;);</span>
+        {
+<span class="nc" id="L388">            StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L389">            sb.append(String.valueOf(&quot;Payment posted. Confirmation: &quot;));</span>
+<span class="nc" id="L390">            sb.append(String.valueOf(ctx.f.getWsConfirmNum()));</span>
+<span class="nc" id="L391">            ctx.f.setErrmsgo(sb.toString());</span>
+        }
+<span class="nc" id="L393">        ctx.f.setString(&quot;WS-STAGE&quot;, &quot;0&quot;);</span>
+<span class="nc" id="L394">        ctx.f.setWsSvAcctId(0);</span>
+<span class="nc" id="L395">        ctx.f.setWsSvBal(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L396">        sendDataOnlyScreen(ctx);</span>
+<span class="nc" id="L397">    }</span>
+
+    /** COBOL paragraph: 7000-XCTL-MENU */
+    private void transferToMenuProgram(TaskContext ctx) {
+<span class="nc" id="L401">        ctx.f.setCaFromProgram(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L402">        ctx.f.setCaFromTranid(ctx.f.getWsTranid());</span>
+<span class="nc" id="L403">        ctx.f.setCaPgmContext(0);</span>
+<span class="nc" id="L404">        ctx.f.copyBytes(&quot;CA-WORK-AREA&quot;, &quot;WS-STATE-AREA&quot;);</span>
+<span class="nc" id="L405">        ctx.appService.xctl(</span>
+<span class="nc" id="L406">                ctx.f.getWsMenuPgm(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L407">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L408">    }</span>
+
+    /** COBOL paragraph: 8000-POPULATE-HEADER */
+    private void populateHeaderFields(TaskContext ctx) {
+<span class="nc" id="L412">        ctx.f.setTrnnameo(ctx.f.getWsTranid());</span>
+<span class="nc" id="L413">        ctx.f.setPgmnameo(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L414">        ctx.f.setTitleo(ctx.f.getWsHdrTitle());</span>
+<span class="nc" id="L415">        loadCurrentDateTime(ctx);</span>
+<span class="nc" id="L416">        ctx.f.setCurdateo(ctx.f.getWsHdrDate());</span>
+<span class="nc" id="L417">        ctx.f.setCurtimeo(ctx.f.getWsHdrTime());</span>
+<span class="nc" id="L418">    }</span>
+
+    /** COBOL paragraph: 8100-SEND-DATAONLY */
+    private void sendDataOnlyScreen(TaskContext ctx) {
+<span class="nc" id="L422">        populateHeaderFields(ctx);</span>
+<span class="nc" id="L423">        ctx.appService.sendMap(</span>
+                &quot;MBILLPA&quot;, ctx.f, ctx.f, /* erase */ false, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L425">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L426">    }</span>
+
+    /** COBOL paragraph: 8500-GET-DATE-TIME */
+    private void loadCurrentDateTime(TaskContext ctx) {
+<span class="nc" id="L430">        ctx.appService.askTime();</span>
+<span class="nc" id="L431">        com.appruntime.FormatTimeResult _ftResult =</span>
+<span class="nc" id="L432">                ctx.appService.formatTime(null, &quot;YYYYMMDD&quot;, &quot;-&quot;, &quot;:&quot;);</span>
+<span class="nc" id="L433">        ctx.f.setWsHdrDate(_ftResult.getDate());</span>
+<span class="nc" id="L434">        ctx.f.setWsHdrTime(_ftResult.getTime());</span>
+<span class="nc" id="L435">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L436">    }</span>
+
+    /** COBOL paragraph: 9000-RETURN */
+    private void returnToCaller(TaskContext ctx) {
+<span class="nc" id="L440">        ctx.f.copyBytes(&quot;CA-WORK-AREA&quot;, &quot;WS-STATE-AREA&quot;);</span>
+<span class="nc" id="L441">        ctx.appService.returnTransid(</span>
+<span class="nc" id="L442">                ctx.f.getWsTranid(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L443">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OcbillpFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L456">        final OcbillpLinkParm link = new OcbillpLinkParm();</span>
+
+<span class="nc" id="L458">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L459">            this.appService = appService;</span>
+<span class="nc" id="L460">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L461">            this.f = new OcbillpFields(ws);</span>
+<span class="nc" id="L462">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

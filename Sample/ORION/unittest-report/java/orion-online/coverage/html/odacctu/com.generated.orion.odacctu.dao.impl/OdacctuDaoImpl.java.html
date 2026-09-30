@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OdacctuDaoImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ODACCTU Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.odacctu.dao.impl</a> &gt; <span class="el_source">OdacctuDaoImpl.java</span></div><h1>OdacctuDaoImpl.java</h1><pre class="source lang-java linenums">package com.generated.orion.odacctu.dao.impl;
+
+import com.generated.orion.odacctu.dao.OdacctuDao;
+import com.generated.orion.odacctu.support.SqlStatements;
+import java.lang.Object;
+import java.lang.Override;
+import java.lang.String;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+/**
+ * JdbcTemplate implementation for ODACCTU DAO.
+ * ← EXEC SQL — uses JdbcTemplate with SqlStatements constants.
+ */
+@Repository
+<span class="nc" id="L22">public class OdacctuDaoImpl implements OdacctuDao {</span>
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    /**
+     * ← SQL_001: SELECT AC_ACTIVE_STATUS, AC_CREDIT_LIMIT, AC_CASH_LIMIT, AC_EXPIRY_DATE, AC_GROU...
+     */
+    @Override
+    public Map&lt;String, Object&gt; selectOrionAcct(Object... params) {
+        try {
+<span class="nc" id="L32">            return jdbcTemplate.queryForMap(SqlStatements.SQL_001, params);</span>
+<span class="nc" id="L33">        } catch (EmptyResultDataAccessException ex) {</span>
+<span class="nc" id="L34">            Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L35">            result.put(&quot;SQLCODE&quot;, 100);</span>
+<span class="nc" id="L36">            return result;</span>
+        }
+    }
+
+    /**
+     * ← SQL_002: UPDATE ORION.ACCT SET AC_ACTIVE_STATUS = ?, AC_CREDIT_LIMIT  = ?, AC_CASH_LIMIT ...
+     */
+    @Override
+    public Map&lt;String, Object&gt; updateOrionAcct(Object... params) {
+        try {
+<span class="nc" id="L46">            int affected = jdbcTemplate.update(SqlStatements.SQL_002, params);</span>
+<span class="nc" id="L47">            Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            result.put(&quot;SQLCODE&quot;, affected == 0 ? 100 : 0);</span>
+<span class="nc" id="L49">            result.put(&quot;AFFECTED_ROWS&quot;, affected);</span>
+<span class="nc" id="L50">            return result;</span>
+<span class="nc" id="L51">        } catch (DataAccessException ex) {</span>
+<span class="nc" id="L52">            return sqlErrorResult(sqlCodeFor(ex));</span>
+        }
+    }
+
+    /**
+     * DB2 SQLCODE from standard SQLSTATE of the root SQLException.
+     * 23505→-803 unique · 23502→-407 not-null · 23503→-530 FK ·
+     * 23513/23514→-545 check · else -904 (generic error).
+     */
+    private static int sqlCodeFor(DataAccessException ex) {
+<span class="nc" id="L62">        Throwable c = ex.getMostSpecificCause();</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        String state = c instanceof SQLException ? ((SQLException) c).getSQLState() : null;</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (state == null) {</span>
+<span class="nc" id="L65">            return -904;</span>
+        }
+<span class="nc bnc" id="L67" title="All 5 branches missed.">        switch (state) {</span>
+<span class="nc" id="L68">            case &quot;23505&quot;: return -803;</span>
+<span class="nc" id="L69">            case &quot;23502&quot;: return -407;</span>
+<span class="nc" id="L70">            case &quot;23503&quot;: return -530;</span>
+            case &quot;23513&quot;:
+<span class="nc" id="L72">            case &quot;23514&quot;: return -545;</span>
+<span class="nc" id="L73">            default: return -904;</span>
+        }
+    }
+
+    /**
+     * DB2-style error result — SQLCODE set, no rows affected.
+     */
+    private static Map&lt;String, Object&gt; sqlErrorResult(int sqlcode) {
+<span class="nc" id="L81">        Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L82">        result.put(&quot;SQLCODE&quot;, sqlcode);</span>
+<span class="nc" id="L83">        result.put(&quot;AFFECTED_ROWS&quot;, 0);</span>
+<span class="nc" id="L84">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

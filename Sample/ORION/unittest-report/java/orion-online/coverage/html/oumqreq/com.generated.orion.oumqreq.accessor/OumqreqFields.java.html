@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OumqreqFields.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUMQREQ Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.oumqreq.accessor</a> &gt; <span class="el_source">OumqreqFields.java</span></div><h1>OumqreqFields.java</h1><pre class="source lang-java linenums">package com.generated.orion.oumqreq.accessor;
+
+import com.generated.orion.common.infrastructure.layout.DynamicFieldAccessor;
+import com.generated.orion.oumqreq.model.WorkingStorage;
+import java.math.BigDecimal;
+
+/**
+ * Field accessor for OUMQREQ.
+ * Backend: DynamicFieldAccessor (raw RecordBuffer byte[]).
+ * Typed methods auto-generated from referenced fields — bodies delegate to the string-key API.
+ */
+public class OumqreqFields extends DynamicFieldAccessor {
+
+<span class="fc" id="L14">    public OumqreqFields(WorkingStorage ws) {</span>
+<span class="pc bpc" id="L15" title="1 of 2 branches missed.">        if (ws != null) {</span>
+<span class="fc" id="L16">            register(ws.buffer());</span>
+        }
+<span class="fc" id="L18">    }</span>
+
+    /* ── Typed wrappers (delegate → string-key) ─────────────── */
+<span class="fc" id="L21">    public String getAcActiveStatus() { return getString(&quot;AC-ACTIVE-STATUS&quot;); }</span>
+<span class="fc" id="L22">    public void setAcActiveStatus(String value) { setString(&quot;AC-ACTIVE-STATUS&quot;, value); }</span>
+<span class="nc" id="L23">    public String getAcAddrZip() { return getString(&quot;AC-ADDR-ZIP&quot;); }</span>
+<span class="nc" id="L24">    public void setAcAddrZip(String value) { setString(&quot;AC-ADDR-ZIP&quot;, value); }</span>
+<span class="nc" id="L25">    public BigDecimal getAcCashLimit() { return getDecimal(&quot;AC-CASH-LIMIT&quot;); }</span>
+<span class="nc" id="L26">    public void setAcCashLimit(BigDecimal value) { setDecimal(&quot;AC-CASH-LIMIT&quot;, value); }</span>
+<span class="fc" id="L27">    public BigDecimal getAcCreditLimit() { return getDecimal(&quot;AC-CREDIT-LIMIT&quot;); }</span>
+<span class="fc" id="L28">    public void setAcCreditLimit(BigDecimal value) { setDecimal(&quot;AC-CREDIT-LIMIT&quot;, value); }</span>
+<span class="fc" id="L29">    public BigDecimal getAcCurrBal() { return getDecimal(&quot;AC-CURR-BAL&quot;); }</span>
+<span class="fc" id="L30">    public void setAcCurrBal(BigDecimal value) { setDecimal(&quot;AC-CURR-BAL&quot;, value); }</span>
+<span class="nc" id="L31">    public BigDecimal getAcCycCredit() { return getDecimal(&quot;AC-CYC-CREDIT&quot;); }</span>
+<span class="nc" id="L32">    public void setAcCycCredit(BigDecimal value) { setDecimal(&quot;AC-CYC-CREDIT&quot;, value); }</span>
+<span class="nc" id="L33">    public BigDecimal getAcCycDebit() { return getDecimal(&quot;AC-CYC-DEBIT&quot;); }</span>
+<span class="nc" id="L34">    public void setAcCycDebit(BigDecimal value) { setDecimal(&quot;AC-CYC-DEBIT&quot;, value); }</span>
+<span class="nc" id="L35">    public String getAcExpiryDate() { return getString(&quot;AC-EXPIRY-DATE&quot;); }</span>
+<span class="nc" id="L36">    public void setAcExpiryDate(String value) { setString(&quot;AC-EXPIRY-DATE&quot;, value); }</span>
+<span class="nc" id="L37">    public String getAcGroupId() { return getString(&quot;AC-GROUP-ID&quot;); }</span>
+<span class="nc" id="L38">    public void setAcGroupId(String value) { setString(&quot;AC-GROUP-ID&quot;, value); }</span>
+<span class="fc" id="L39">    public long getAcId() { return getLong(&quot;AC-ID&quot;); }</span>
+<span class="fc" id="L40">    public void setAcId(long value) { setLong(&quot;AC-ID&quot;, value); }</span>
+<span class="nc" id="L41">    public String getAcOpenDate() { return getString(&quot;AC-OPEN-DATE&quot;); }</span>
+<span class="nc" id="L42">    public void setAcOpenDate(String value) { setString(&quot;AC-OPEN-DATE&quot;, value); }</span>
+<span class="nc" id="L43">    public String getAcReissueDate() { return getString(&quot;AC-REISSUE-DATE&quot;); }</span>
+<span class="nc" id="L44">    public void setAcReissueDate(String value) { setString(&quot;AC-REISSUE-DATE&quot;, value); }</span>
+<span class="nc" id="L45">    public String getAcctRec() { return groupToString(&quot;ACCT-REC&quot;); }</span>
+<span class="nc" id="L46">    public void setAcctRec(String value) { setGroup(&quot;ACCT-REC&quot;, value); }</span>
+<span class="nc" id="L47">    public long getAqAcctId() { return getLong(&quot;AQ-ACCT-ID&quot;); }</span>
+<span class="fc" id="L48">    public void setAqAcctId(long value) { setLong(&quot;AQ-ACCT-ID&quot;, value); }</span>
+<span class="fc" id="L49">    public BigDecimal getAqAmount() { return getDecimal(&quot;AQ-AMOUNT&quot;); }</span>
+<span class="fc" id="L50">    public void setAqAmount(BigDecimal value) { setDecimal(&quot;AQ-AMOUNT&quot;, value); }</span>
+<span class="fc" id="L51">    public String getAqCardNum() { return getString(&quot;AQ-CARD-NUM&quot;); }</span>
+<span class="nc" id="L52">    public void setAqCardNum(String value) { setString(&quot;AQ-CARD-NUM&quot;, value); }</span>
+<span class="nc" id="L53">    public int getAqMerchantId() { return getInt(&quot;AQ-MERCHANT-ID&quot;); }</span>
+<span class="nc" id="L54">    public void setAqMerchantId(int value) { setInt(&quot;AQ-MERCHANT-ID&quot;, value); }</span>
+<span class="nc" id="L55">    public String getAqMerchantName() { return getString(&quot;AQ-MERCHANT-NAME&quot;); }</span>
+<span class="nc" id="L56">    public void setAqMerchantName(String value) { setString(&quot;AQ-MERCHANT-NAME&quot;, value); }</span>
+<span class="nc" id="L57">    public String getAqMsgType() { return getString(&quot;AQ-MSG-TYPE&quot;); }</span>
+<span class="fc" id="L58">    public void setAqMsgType(String value) { setString(&quot;AQ-MSG-TYPE&quot;, value); }</span>
+<span class="nc" id="L59">    public String getAqRequestedTs() { return getString(&quot;AQ-REQUESTED-TS&quot;); }</span>
+<span class="nc" id="L60">    public void setAqRequestedTs(String value) { setString(&quot;AQ-REQUESTED-TS&quot;, value); }</span>
+<span class="fc" id="L61">    public long getAsAcctId() { return getLong(&quot;AS-ACCT-ID&quot;); }</span>
+<span class="fc" id="L62">    public void setAsAcctId(long value) { setLong(&quot;AS-ACCT-ID&quot;, value); }</span>
+<span class="fc" id="L63">    public BigDecimal getAsApprovedAmt() { return getDecimal(&quot;AS-APPROVED-AMT&quot;); }</span>
+<span class="fc" id="L64">    public void setAsApprovedAmt(BigDecimal value) { setDecimal(&quot;AS-APPROVED-AMT&quot;, value); }</span>
+<span class="fc" id="L65">    public BigDecimal getAsAvailCredit() { return getDecimal(&quot;AS-AVAIL-CREDIT&quot;); }</span>
+<span class="fc" id="L66">    public void setAsAvailCredit(BigDecimal value) { setDecimal(&quot;AS-AVAIL-CREDIT&quot;, value); }</span>
+<span class="fc" id="L67">    public String getAsCardNum() { return getString(&quot;AS-CARD-NUM&quot;); }</span>
+<span class="fc" id="L68">    public void setAsCardNum(String value) { setString(&quot;AS-CARD-NUM&quot;, value); }</span>
+<span class="fc" id="L69">    public String getAsDecision() { return getString(&quot;AS-DECISION&quot;); }</span>
+<span class="nc" id="L70">    public void setAsDecision(String value) { setString(&quot;AS-DECISION&quot;, value); }</span>
+<span class="nc" id="L71">    public String getAsMsgType() { return getString(&quot;AS-MSG-TYPE&quot;); }</span>
+<span class="fc" id="L72">    public void setAsMsgType(String value) { setString(&quot;AS-MSG-TYPE&quot;, value); }</span>
+<span class="fc" id="L73">    public String getAsReason() { return getString(&quot;AS-REASON&quot;); }</span>
+<span class="fc" id="L74">    public void setAsReason(String value) { setString(&quot;AS-REASON&quot;, value); }</span>
+<span class="nc" id="L75">    public String getAsResponseTs() { return getString(&quot;AS-RESPONSE-TS&quot;); }</span>
+<span class="nc" id="L76">    public void setAsResponseTs(String value) { setString(&quot;AS-RESPONSE-TS&quot;, value); }</span>
+<span class="nc" id="L77">    public String getAuthMsgArea() { return groupToString(&quot;AUTH-MSG-AREA&quot;); }</span>
+<span class="nc" id="L78">    public void setAuthMsgArea(String value) { setGroup(&quot;AUTH-MSG-AREA&quot;, value); }</span>
+<span class="nc" id="L79">    public String getAuthRequest() { return groupToString(&quot;AUTH-REQUEST&quot;); }</span>
+<span class="nc" id="L80">    public void setAuthRequest(String value) { setGroup(&quot;AUTH-REQUEST&quot;, value); }</span>
+<span class="nc" id="L81">    public String getAuthResponse() { return groupToString(&quot;AUTH-RESPONSE&quot;); }</span>
+<span class="fc" id="L82">    public void setAuthResponse(String value) { setGroup(&quot;AUTH-RESPONSE&quot;, value); }</span>
+<span class="nc" id="L83">    public long getCaAcctId() { return getLong(&quot;CA-ACCT-ID&quot;); }</span>
+<span class="nc" id="L84">    public void setCaAcctId(long value) { setLong(&quot;CA-ACCT-ID&quot;, value); }</span>
+<span class="nc" id="L85">    public String getCaCardNum() { return getString(&quot;CA-CARD-NUM&quot;); }</span>
+<span class="nc" id="L86">    public void setCaCardNum(String value) { setString(&quot;CA-CARD-NUM&quot;, value); }</span>
+<span class="nc" id="L87">    public int getCaCustId() { return getInt(&quot;CA-CUST-ID&quot;); }</span>
+<span class="nc" id="L88">    public void setCaCustId(int value) { setInt(&quot;CA-CUST-ID&quot;, value); }</span>
+<span class="fc" id="L89">    public String getCaErrFlg() { return getString(&quot;CA-ERR-FLG&quot;); }</span>
+<span class="nc" id="L90">    public void setCaErrFlg(String value) { setString(&quot;CA-ERR-FLG&quot;, value); }</span>
+<span class="fc" id="L91">    public String getCaErrMsg() { return getString(&quot;CA-ERR-MSG&quot;); }</span>
+<span class="fc" id="L92">    public void setCaErrMsg(String value) { setString(&quot;CA-ERR-MSG&quot;, value); }</span>
+<span class="nc" id="L93">    public String getCaError() { return groupToString(&quot;CA-ERROR&quot;); }</span>
+<span class="nc" id="L94">    public void setCaError(String value) { setGroup(&quot;CA-ERROR&quot;, value); }</span>
+<span class="nc" id="L95">    public String getCaFromProgram() { return getString(&quot;CA-FROM-PROGRAM&quot;); }</span>
+<span class="nc" id="L96">    public void setCaFromProgram(String value) { setString(&quot;CA-FROM-PROGRAM&quot;, value); }</span>
+<span class="nc" id="L97">    public String getCaFromTranid() { return getString(&quot;CA-FROM-TRANID&quot;); }</span>
+<span class="nc" id="L98">    public void setCaFromTranid(String value) { setString(&quot;CA-FROM-TRANID&quot;, value); }</span>
+<span class="nc" id="L99">    public String getCaGeneral() { return groupToString(&quot;CA-GENERAL&quot;); }</span>
+<span class="nc" id="L100">    public void setCaGeneral(String value) { setGroup(&quot;CA-GENERAL&quot;, value); }</span>
+<span class="nc" id="L101">    public String getCaLastMap() { return getString(&quot;CA-LAST-MAP&quot;); }</span>
+<span class="nc" id="L102">    public void setCaLastMap(String value) { setString(&quot;CA-LAST-MAP&quot;, value); }</span>
+<span class="nc" id="L103">    public String getCaLastMapset() { return getString(&quot;CA-LAST-MAPSET&quot;); }</span>
+<span class="nc" id="L104">    public void setCaLastMapset(String value) { setString(&quot;CA-LAST-MAPSET&quot;, value); }</span>
+<span class="nc" id="L105">    public int getCaPgmContext() { return getInt(&quot;CA-PGM-CONTEXT&quot;); }</span>
+<span class="nc" id="L106">    public void setCaPgmContext(int value) { setInt(&quot;CA-PGM-CONTEXT&quot;, value); }</span>
+<span class="nc" id="L107">    public String getCaSelected() { return groupToString(&quot;CA-SELECTED&quot;); }</span>
+<span class="nc" id="L108">    public void setCaSelected(String value) { setGroup(&quot;CA-SELECTED&quot;, value); }</span>
+<span class="nc" id="L109">    public String getCaToProgram() { return getString(&quot;CA-TO-PROGRAM&quot;); }</span>
+<span class="nc" id="L110">    public void setCaToProgram(String value) { setString(&quot;CA-TO-PROGRAM&quot;, value); }</span>
+<span class="nc" id="L111">    public String getCaToTranid() { return getString(&quot;CA-TO-TRANID&quot;); }</span>
+<span class="nc" id="L112">    public void setCaToTranid(String value) { setString(&quot;CA-TO-TRANID&quot;, value); }</span>
+<span class="nc" id="L113">    public String getCaTranId() { return getString(&quot;CA-TRAN-ID&quot;); }</span>
+<span class="nc" id="L114">    public void setCaTranId(String value) { setString(&quot;CA-TRAN-ID&quot;, value); }</span>
+<span class="nc" id="L115">    public String getCaUserId() { return getString(&quot;CA-USER-ID&quot;); }</span>
+<span class="nc" id="L116">    public void setCaUserId(String value) { setString(&quot;CA-USER-ID&quot;, value); }</span>
+<span class="nc" id="L117">    public String getCaUserType() { return getString(&quot;CA-USER-TYPE&quot;); }</span>
+<span class="nc" id="L118">    public void setCaUserType(String value) { setString(&quot;CA-USER-TYPE&quot;, value); }</span>
+<span class="nc" id="L119">    public String getCaWorkArea() { return getString(&quot;CA-WORK-AREA&quot;); }</span>
+<span class="nc" id="L120">    public void setCaWorkArea(String value) { setString(&quot;CA-WORK-AREA&quot;, value); }</span>
+<span class="nc" id="L121">    public int getCompletionCode() { return getInt(&quot;COMPLETION-CODE&quot;); }</span>
+<span class="nc" id="L122">    public void setCompletionCode(int value) { setInt(&quot;COMPLETION-CODE&quot;, value); }</span>
+<span class="nc" id="L123">    public String getFiller() { return getString(&quot;FILLER&quot;); }</span>
+<span class="nc" id="L124">    public void setFiller(String value) { setString(&quot;FILLER&quot;, value); }</span>
+<span class="fc" id="L125">    public int getMqBufferLen() { return getInt(&quot;MQ-BUFFER-LEN&quot;); }</span>
+<span class="fc" id="L126">    public void setMqBufferLen(int value) { setInt(&quot;MQ-BUFFER-LEN&quot;, value); }</span>
+<span class="nc" id="L127">    public String getMqCallArgs() { return groupToString(&quot;MQ-CALL-ARGS&quot;); }</span>
+<span class="nc" id="L128">    public void setMqCallArgs(String value) { setGroup(&quot;MQ-CALL-ARGS&quot;, value); }</span>
+<span class="fc" id="L129">    public int getMqCc() { return getInt(&quot;MQ-CC&quot;); }</span>
+<span class="fc" id="L130">    public void setMqCc(int value) { setInt(&quot;MQ-CC&quot;, value); }</span>
+<span class="fc" id="L131">    public int getMqClNone() { return getInt(&quot;MQ-CL-NONE&quot;); }</span>
+<span class="nc" id="L132">    public void setMqClNone(int value) { setInt(&quot;MQ-CL-NONE&quot;, value); }</span>
+<span class="fc" id="L133">    public int getMqCloseOptions() { return getInt(&quot;MQ-CLOSE-OPTIONS&quot;); }</span>
+<span class="fc" id="L134">    public void setMqCloseOptions(int value) { setInt(&quot;MQ-CLOSE-OPTIONS&quot;, value); }</span>
+<span class="nc" id="L135">    public int getMqCoNone() { return getInt(&quot;MQ-CO-NONE&quot;); }</span>
+<span class="nc" id="L136">    public void setMqCoNone(int value) { setInt(&quot;MQ-CO-NONE&quot;, value); }</span>
+<span class="nc" id="L137">    public String getMqConstants() { return groupToString(&quot;MQ-CONSTANTS&quot;); }</span>
+<span class="nc" id="L138">    public void setMqConstants(String value) { setGroup(&quot;MQ-CONSTANTS&quot;, value); }</span>
+<span class="fc" id="L139">    public int getMqDataLen() { return getInt(&quot;MQ-DATA-LEN&quot;); }</span>
+<span class="fc" id="L140">    public void setMqDataLen(int value) { setInt(&quot;MQ-DATA-LEN&quot;, value); }</span>
+<span class="nc" id="L141">    public int getMqGmAcceptTrunc() { return getInt(&quot;MQ-GM-ACCEPT-TRUNC&quot;); }</span>
+<span class="nc" id="L142">    public void setMqGmAcceptTrunc(int value) { setInt(&quot;MQ-GM-ACCEPT-TRUNC&quot;, value); }</span>
+<span class="fc" id="L143">    public int getMqGmNoSyncpoint() { return getInt(&quot;MQ-GM-NO-SYNCPOINT&quot;); }</span>
+<span class="nc" id="L144">    public void setMqGmNoSyncpoint(int value) { setInt(&quot;MQ-GM-NO-SYNCPOINT&quot;, value); }</span>
+<span class="fc" id="L145">    public int getMqGmWait() { return getInt(&quot;MQ-GM-WAIT&quot;); }</span>
+<span class="nc" id="L146">    public void setMqGmWait(int value) { setInt(&quot;MQ-GM-WAIT&quot;, value); }</span>
+<span class="nc" id="L147">    public String getMqGmo() { return groupToString(&quot;MQ-GMO&quot;); }</span>
+<span class="nc" id="L148">    public void setMqGmo(String value) { setGroup(&quot;MQ-GMO&quot;, value); }</span>
+<span class="nc" id="L149">    public int getMqGmoOptions() { return getInt(&quot;MQ-GMO-OPTIONS&quot;); }</span>
+<span class="fc" id="L150">    public void setMqGmoOptions(int value) { setInt(&quot;MQ-GMO-OPTIONS&quot;, value); }</span>
+<span class="nc" id="L151">    public String getMqGmoResolvedQ() { return getString(&quot;MQ-GMO-RESOLVED-Q&quot;); }</span>
+<span class="nc" id="L152">    public void setMqGmoResolvedQ(String value) { setString(&quot;MQ-GMO-RESOLVED-Q&quot;, value); }</span>
+<span class="nc" id="L153">    public int getMqGmoSignal() { return getInt(&quot;MQ-GMO-SIGNAL&quot;); }</span>
+<span class="nc" id="L154">    public void setMqGmoSignal(int value) { setInt(&quot;MQ-GMO-SIGNAL&quot;, value); }</span>
+<span class="nc" id="L155">    public String getMqGmoStrucId() { return getString(&quot;MQ-GMO-STRUC-ID&quot;); }</span>
+<span class="nc" id="L156">    public void setMqGmoStrucId(String value) { setString(&quot;MQ-GMO-STRUC-ID&quot;, value); }</span>
+<span class="nc" id="L157">    public int getMqGmoVersion() { return getInt(&quot;MQ-GMO-VERSION&quot;); }</span>
+<span class="nc" id="L158">    public void setMqGmoVersion(int value) { setInt(&quot;MQ-GMO-VERSION&quot;, value); }</span>
+<span class="nc" id="L159">    public int getMqGmoWaitIntvl() { return getInt(&quot;MQ-GMO-WAIT-INTVL&quot;); }</span>
+<span class="nc" id="L160">    public void setMqGmoWaitIntvl(int value) { setInt(&quot;MQ-GMO-WAIT-INTVL&quot;, value); }</span>
+<span class="nc" id="L161">    public String getMqHandles() { return groupToString(&quot;MQ-HANDLES&quot;); }</span>
+<span class="nc" id="L162">    public void setMqHandles(String value) { setGroup(&quot;MQ-HANDLES&quot;, value); }</span>
+<span class="fc" id="L163">    public int getMqHcDefHconn() { return getInt(&quot;MQ-HC-DEF-HCONN&quot;); }</span>
+<span class="nc" id="L164">    public void setMqHcDefHconn(int value) { setInt(&quot;MQ-HC-DEF-HCONN&quot;, value); }</span>
+<span class="fc" id="L165">    public int getMqHconn() { return getInt(&quot;MQ-HCONN&quot;); }</span>
+<span class="fc" id="L166">    public void setMqHconn(int value) { setInt(&quot;MQ-HCONN&quot;, value); }</span>
+<span class="fc" id="L167">    public int getMqHobjOut() { return getInt(&quot;MQ-HOBJ-OUT&quot;); }</span>
+<span class="fc" id="L168">    public void setMqHobjOut(int value) { setInt(&quot;MQ-HOBJ-OUT&quot;, value); }</span>
+<span class="nc" id="L169">    public int getMqHobjReq() { return getInt(&quot;MQ-HOBJ-REQ&quot;); }</span>
+<span class="nc" id="L170">    public void setMqHobjReq(int value) { setInt(&quot;MQ-HOBJ-REQ&quot;, value); }</span>
+<span class="fc" id="L171">    public int getMqHobjRpy() { return getInt(&quot;MQ-HOBJ-RPY&quot;); }</span>
+<span class="fc" id="L172">    public void setMqHobjRpy(int value) { setInt(&quot;MQ-HOBJ-RPY&quot;, value); }</span>
+<span class="nc" id="L173">    public String getMqMd() { return groupToString(&quot;MQ-MD&quot;); }</span>
+<span class="nc" id="L174">    public void setMqMd(String value) { setGroup(&quot;MQ-MD&quot;, value); }</span>
+<span class="nc" id="L175">    public int getMqMdCcsid() { return getInt(&quot;MQ-MD-CCSID&quot;); }</span>
+<span class="nc" id="L176">    public void setMqMdCcsid(int value) { setInt(&quot;MQ-MD-CCSID&quot;, value); }</span>
+<span class="nc" id="L177">    public String getMqMdCorrelId() { return getString(&quot;MQ-MD-CORREL-ID&quot;); }</span>
+<span class="nc" id="L178">    public void setMqMdCorrelId(String value) { setString(&quot;MQ-MD-CORREL-ID&quot;, value); }</span>
+<span class="nc" id="L179">    public int getMqMdEncoding() { return getInt(&quot;MQ-MD-ENCODING&quot;); }</span>
+<span class="nc" id="L180">    public void setMqMdEncoding(int value) { setInt(&quot;MQ-MD-ENCODING&quot;, value); }</span>
+<span class="nc" id="L181">    public int getMqMdExpiry() { return getInt(&quot;MQ-MD-EXPIRY&quot;); }</span>
+<span class="nc" id="L182">    public void setMqMdExpiry(int value) { setInt(&quot;MQ-MD-EXPIRY&quot;, value); }</span>
+<span class="nc" id="L183">    public int getMqMdFeedback() { return getInt(&quot;MQ-MD-FEEDBACK&quot;); }</span>
+<span class="nc" id="L184">    public void setMqMdFeedback(int value) { setInt(&quot;MQ-MD-FEEDBACK&quot;, value); }</span>
+<span class="nc" id="L185">    public String getMqMdFormat() { return getString(&quot;MQ-MD-FORMAT&quot;); }</span>
+<span class="fc" id="L186">    public void setMqMdFormat(String value) { setString(&quot;MQ-MD-FORMAT&quot;, value); }</span>
+<span class="nc" id="L187">    public String getMqMdMsgId() { return getString(&quot;MQ-MD-MSG-ID&quot;); }</span>
+<span class="nc" id="L188">    public void setMqMdMsgId(String value) { setString(&quot;MQ-MD-MSG-ID&quot;, value); }</span>
+<span class="nc" id="L189">    public int getMqMdMsgType() { return getInt(&quot;MQ-MD-MSG-TYPE&quot;); }</span>
+<span class="fc" id="L190">    public void setMqMdMsgType(int value) { setInt(&quot;MQ-MD-MSG-TYPE&quot;, value); }</span>
+<span class="nc" id="L191">    public int getMqMdPersistence() { return getInt(&quot;MQ-MD-PERSISTENCE&quot;); }</span>
+<span class="nc" id="L192">    public void setMqMdPersistence(int value) { setInt(&quot;MQ-MD-PERSISTENCE&quot;, value); }</span>
+<span class="nc" id="L193">    public int getMqMdPriority() { return getInt(&quot;MQ-MD-PRIORITY&quot;); }</span>
+<span class="nc" id="L194">    public void setMqMdPriority(int value) { setInt(&quot;MQ-MD-PRIORITY&quot;, value); }</span>
+<span class="nc" id="L195">    public String getMqMdPutDate() { return getString(&quot;MQ-MD-PUT-DATE&quot;); }</span>
+<span class="nc" id="L196">    public void setMqMdPutDate(String value) { setString(&quot;MQ-MD-PUT-DATE&quot;, value); }</span>
+<span class="nc" id="L197">    public String getMqMdPutTime() { return getString(&quot;MQ-MD-PUT-TIME&quot;); }</span>
+<span class="nc" id="L198">    public void setMqMdPutTime(String value) { setString(&quot;MQ-MD-PUT-TIME&quot;, value); }</span>
+<span class="nc" id="L199">    public String getMqMdReplyQ() { return getString(&quot;MQ-MD-REPLY-Q&quot;); }</span>
+<span class="fc" id="L200">    public void setMqMdReplyQ(String value) { setString(&quot;MQ-MD-REPLY-Q&quot;, value); }</span>
+<span class="nc" id="L201">    public String getMqMdReplyQmgr() { return getString(&quot;MQ-MD-REPLY-QMGR&quot;); }</span>
+<span class="nc" id="L202">    public void setMqMdReplyQmgr(String value) { setString(&quot;MQ-MD-REPLY-QMGR&quot;, value); }</span>
+<span class="nc" id="L203">    public int getMqMdReport() { return getInt(&quot;MQ-MD-REPORT&quot;); }</span>
+<span class="nc" id="L204">    public void setMqMdReport(int value) { setInt(&quot;MQ-MD-REPORT&quot;, value); }</span>
+<span class="nc" id="L205">    public String getMqMdStrucId() { return getString(&quot;MQ-MD-STRUC-ID&quot;); }</span>
+<span class="nc" id="L206">    public void setMqMdStrucId(String value) { setString(&quot;MQ-MD-STRUC-ID&quot;, value); }</span>
+<span class="nc" id="L207">    public int getMqMdVersion() { return getInt(&quot;MQ-MD-VERSION&quot;); }</span>
+<span class="nc" id="L208">    public void setMqMdVersion(int value) { setInt(&quot;MQ-MD-VERSION&quot;, value); }</span>
+<span class="nc" id="L209">    public int getMqMtDatagram() { return getInt(&quot;MQ-MT-DATAGRAM&quot;); }</span>
+<span class="nc" id="L210">    public void setMqMtDatagram(int value) { setInt(&quot;MQ-MT-DATAGRAM&quot;, value); }</span>
+<span class="nc" id="L211">    public int getMqMtReply() { return getInt(&quot;MQ-MT-REPLY&quot;); }</span>
+<span class="nc" id="L212">    public void setMqMtReply(int value) { setInt(&quot;MQ-MT-REPLY&quot;, value); }</span>
+<span class="fc" id="L213">    public int getMqMtRequest() { return getInt(&quot;MQ-MT-REQUEST&quot;); }</span>
+<span class="nc" id="L214">    public void setMqMtRequest(int value) { setInt(&quot;MQ-MT-REQUEST&quot;, value); }</span>
+<span class="nc" id="L215">    public String getMqOd() { return groupToString(&quot;MQ-OD&quot;); }</span>
+<span class="nc" id="L216">    public void setMqOd(String value) { setGroup(&quot;MQ-OD&quot;, value); }</span>
+<span class="nc" id="L217">    public String getMqOdDynamicName() { return getString(&quot;MQ-OD-DYNAMIC-NAME&quot;); }</span>
+<span class="nc" id="L218">    public void setMqOdDynamicName(String value) { setString(&quot;MQ-OD-DYNAMIC-NAME&quot;, value); }</span>
+<span class="nc" id="L219">    public String getMqOdObjectName() { return getString(&quot;MQ-OD-OBJECT-NAME&quot;); }</span>
+<span class="fc" id="L220">    public void setMqOdObjectName(String value) { setString(&quot;MQ-OD-OBJECT-NAME&quot;, value); }</span>
+<span class="nc" id="L221">    public String getMqOdObjectQmgr() { return getString(&quot;MQ-OD-OBJECT-QMGR&quot;); }</span>
+<span class="nc" id="L222">    public void setMqOdObjectQmgr(String value) { setString(&quot;MQ-OD-OBJECT-QMGR&quot;, value); }</span>
+<span class="nc" id="L223">    public int getMqOdObjectType() { return getInt(&quot;MQ-OD-OBJECT-TYPE&quot;); }</span>
+<span class="nc" id="L224">    public void setMqOdObjectType(int value) { setInt(&quot;MQ-OD-OBJECT-TYPE&quot;, value); }</span>
+<span class="nc" id="L225">    public String getMqOdResolvedName() { return getString(&quot;MQ-OD-RESOLVED-NAME&quot;); }</span>
+<span class="nc" id="L226">    public void setMqOdResolvedName(String value) { setString(&quot;MQ-OD-RESOLVED-NAME&quot;, value); }</span>
+<span class="nc" id="L227">    public String getMqOdStrucId() { return getString(&quot;MQ-OD-STRUC-ID&quot;); }</span>
+<span class="nc" id="L228">    public void setMqOdStrucId(String value) { setString(&quot;MQ-OD-STRUC-ID&quot;, value); }</span>
+<span class="nc" id="L229">    public int getMqOdVersion() { return getInt(&quot;MQ-OD-VERSION&quot;); }</span>
+<span class="nc" id="L230">    public void setMqOdVersion(int value) { setInt(&quot;MQ-OD-VERSION&quot;, value); }</span>
+<span class="fc" id="L231">    public int getMqOoFailIfQsg() { return getInt(&quot;MQ-OO-FAIL-IF-QSG&quot;); }</span>
+<span class="nc" id="L232">    public void setMqOoFailIfQsg(int value) { setInt(&quot;MQ-OO-FAIL-IF-QSG&quot;, value); }</span>
+<span class="nc" id="L233">    public int getMqOoInputExcl() { return getInt(&quot;MQ-OO-INPUT-EXCL&quot;); }</span>
+<span class="nc" id="L234">    public void setMqOoInputExcl(int value) { setInt(&quot;MQ-OO-INPUT-EXCL&quot;, value); }</span>
+<span class="fc" id="L235">    public int getMqOoInputShared() { return getInt(&quot;MQ-OO-INPUT-SHARED&quot;); }</span>
+<span class="nc" id="L236">    public void setMqOoInputShared(int value) { setInt(&quot;MQ-OO-INPUT-SHARED&quot;, value); }</span>
+<span class="fc" id="L237">    public int getMqOoOutput() { return getInt(&quot;MQ-OO-OUTPUT&quot;); }</span>
+<span class="nc" id="L238">    public void setMqOoOutput(int value) { setInt(&quot;MQ-OO-OUTPUT&quot;, value); }</span>
+<span class="fc" id="L239">    public int getMqOpenOptions() { return getInt(&quot;MQ-OPEN-OPTIONS&quot;); }</span>
+<span class="fc" id="L240">    public void setMqOpenOptions(int value) { setInt(&quot;MQ-OPEN-OPTIONS&quot;, value); }</span>
+<span class="nc" id="L241">    public int getMqPmNewMsgId() { return getInt(&quot;MQ-PM-NEW-MSG-ID&quot;); }</span>
+<span class="nc" id="L242">    public void setMqPmNewMsgId(int value) { setInt(&quot;MQ-PM-NEW-MSG-ID&quot;, value); }</span>
+<span class="fc" id="L243">    public int getMqPmNoSyncpoint() { return getInt(&quot;MQ-PM-NO-SYNCPOINT&quot;); }</span>
+<span class="nc" id="L244">    public void setMqPmNoSyncpoint(int value) { setInt(&quot;MQ-PM-NO-SYNCPOINT&quot;, value); }</span>
+<span class="nc" id="L245">    public int getMqPmSyncpoint() { return getInt(&quot;MQ-PM-SYNCPOINT&quot;); }</span>
+<span class="nc" id="L246">    public void setMqPmSyncpoint(int value) { setInt(&quot;MQ-PM-SYNCPOINT&quot;, value); }</span>
+<span class="nc" id="L247">    public String getMqPmo() { return groupToString(&quot;MQ-PMO&quot;); }</span>
+<span class="nc" id="L248">    public void setMqPmo(String value) { setGroup(&quot;MQ-PMO&quot;, value); }</span>
+<span class="nc" id="L249">    public int getMqPmoContext() { return getInt(&quot;MQ-PMO-CONTEXT&quot;); }</span>
+<span class="nc" id="L250">    public void setMqPmoContext(int value) { setInt(&quot;MQ-PMO-CONTEXT&quot;, value); }</span>
+<span class="nc" id="L251">    public int getMqPmoOptions() { return getInt(&quot;MQ-PMO-OPTIONS&quot;); }</span>
+<span class="fc" id="L252">    public void setMqPmoOptions(int value) { setInt(&quot;MQ-PMO-OPTIONS&quot;, value); }</span>
+<span class="nc" id="L253">    public String getMqPmoReslvQmgr() { return getString(&quot;MQ-PMO-RESLV-QMGR&quot;); }</span>
+<span class="nc" id="L254">    public void setMqPmoReslvQmgr(String value) { setString(&quot;MQ-PMO-RESLV-QMGR&quot;, value); }</span>
+<span class="nc" id="L255">    public String getMqPmoResolvedQ() { return getString(&quot;MQ-PMO-RESOLVED-Q&quot;); }</span>
+<span class="nc" id="L256">    public void setMqPmoResolvedQ(String value) { setString(&quot;MQ-PMO-RESOLVED-Q&quot;, value); }</span>
+<span class="nc" id="L257">    public String getMqPmoStrucId() { return getString(&quot;MQ-PMO-STRUC-ID&quot;); }</span>
+<span class="nc" id="L258">    public void setMqPmoStrucId(String value) { setString(&quot;MQ-PMO-STRUC-ID&quot;, value); }</span>
+<span class="nc" id="L259">    public int getMqPmoTimeout() { return getInt(&quot;MQ-PMO-TIMEOUT&quot;); }</span>
+<span class="nc" id="L260">    public void setMqPmoTimeout(int value) { setInt(&quot;MQ-PMO-TIMEOUT&quot;, value); }</span>
+<span class="nc" id="L261">    public int getMqPmoVersion() { return getInt(&quot;MQ-PMO-VERSION&quot;); }</span>
+<span class="nc" id="L262">    public void setMqPmoVersion(int value) { setInt(&quot;MQ-PMO-VERSION&quot;, value); }</span>
+<span class="fc" id="L263">    public int getMqRc() { return getInt(&quot;MQ-RC&quot;); }</span>
+<span class="fc" id="L264">    public void setMqRc(int value) { setInt(&quot;MQ-RC&quot;, value); }</span>
+<span class="nc" id="L265">    public String getMqResult() { return groupToString(&quot;MQ-RESULT&quot;); }</span>
+<span class="nc" id="L266">    public void setMqResult(String value) { setGroup(&quot;MQ-RESULT&quot;, value); }</span>
+<span class="nc" id="L267">    public String getOrionCommarea() { return groupToString(&quot;ORION-COMMAREA&quot;); }</span>
+<span class="nc" id="L268">    public void setOrionCommarea(String value) { setGroup(&quot;ORION-COMMAREA&quot;, value); }</span>
+<span class="nc" id="L269">    public int getSqlcode() { return getInt(&quot;SQLCODE&quot;); }</span>
+<span class="nc" id="L270">    public void setSqlcode(int value) { setInt(&quot;SQLCODE&quot;, value); }</span>
+<span class="nc" id="L271">    public BigDecimal getWsAbsTime() { return getDecimal(&quot;WS-ABS-TIME&quot;); }</span>
+<span class="nc" id="L272">    public void setWsAbsTime(BigDecimal value) { setDecimal(&quot;WS-ABS-TIME&quot;, value); }</span>
+<span class="fc" id="L273">    public String getWsAcctfile() { return getString(&quot;WS-ACCTFILE&quot;); }</span>
+<span class="nc" id="L274">    public void setWsAcctfile(String value) { setString(&quot;WS-ACCTFILE&quot;, value); }</span>
+<span class="fc" id="L275">    public BigDecimal getWsAmt() { return getDecimal(&quot;WS-AMT&quot;); }</span>
+<span class="fc" id="L276">    public void setWsAmt(BigDecimal value) { setDecimal(&quot;WS-AMT&quot;, value); }</span>
+<span class="nc" id="L277">    public String getWsBillfile() { return getString(&quot;WS-BILLFILE&quot;); }</span>
+<span class="nc" id="L278">    public void setWsBillfile(String value) { setString(&quot;WS-BILLFILE&quot;, value); }</span>
+<span class="nc" id="L279">    public String getWsCardfile() { return getString(&quot;WS-CARDFILE&quot;); }</span>
+<span class="nc" id="L280">    public void setWsCardfile(String value) { setString(&quot;WS-CARDFILE&quot;, value); }</span>
+<span class="nc" id="L281">    public String getWsCicsResp() { return groupToString(&quot;WS-CICS-RESP&quot;); }</span>
+<span class="nc" id="L282">    public void setWsCicsResp(String value) { setGroup(&quot;WS-CICS-RESP&quot;, value); }</span>
+<span class="nc" id="L283">    public int getWsCnt() { return getInt(&quot;WS-CNT&quot;); }</span>
+<span class="nc" id="L284">    public void setWsCnt(int value) { setInt(&quot;WS-CNT&quot;, value); }</span>
+<span class="nc" id="L285">    public String getWsCtrlfile() { return getString(&quot;WS-CTRLFILE&quot;); }</span>
+<span class="nc" id="L286">    public void setWsCtrlfile(String value) { setString(&quot;WS-CTRLFILE&quot;, value); }</span>
+<span class="nc" id="L287">    public String getWsCustfile() { return getString(&quot;WS-CUSTFILE&quot;); }</span>
+<span class="nc" id="L288">    public void setWsCustfile(String value) { setString(&quot;WS-CUSTFILE&quot;, value); }</span>
+<span class="nc" id="L289">    public String getWsDgrpfile() { return getString(&quot;WS-DGRPFILE&quot;); }</span>
+<span class="nc" id="L290">    public void setWsDgrpfile(String value) { setString(&quot;WS-DGRPFILE&quot;, value); }</span>
+<span class="nc" id="L291">    public BigDecimal getWsEdAmt() { return getDecimal(&quot;WS-ED-AMT&quot;); }</span>
+<span class="nc" id="L292">    public void setWsEdAmt(BigDecimal value) { setDecimal(&quot;WS-ED-AMT&quot;, value); }</span>
+<span class="nc" id="L293">    public BigDecimal getWsEdBal() { return getDecimal(&quot;WS-ED-BAL&quot;); }</span>
+<span class="nc" id="L294">    public void setWsEdBal(BigDecimal value) { setDecimal(&quot;WS-ED-BAL&quot;, value); }</span>
+<span class="nc" id="L295">    public long getWsEdId() { return getLong(&quot;WS-ED-ID&quot;); }</span>
+<span class="nc" id="L296">    public void setWsEdId(long value) { setLong(&quot;WS-ED-ID&quot;, value); }</span>
+<span class="nc" id="L297">    public String getWsEdit() { return groupToString(&quot;WS-EDIT&quot;); }</span>
+<span class="nc" id="L298">    public void setWsEdit(String value) { setGroup(&quot;WS-EDIT&quot;, value); }</span>
+<span class="nc" id="L299">    public String getWsEndFlg() { return getString(&quot;WS-END-FLG&quot;); }</span>
+<span class="nc" id="L300">    public void setWsEndFlg(String value) { setString(&quot;WS-END-FLG&quot;, value); }</span>
+<span class="nc" id="L301">    public String getWsErrFlg() { return getString(&quot;WS-ERR-FLG&quot;); }</span>
+<span class="nc" id="L302">    public void setWsErrFlg(String value) { setString(&quot;WS-ERR-FLG&quot;, value); }</span>
+<span class="nc" id="L303">    public String getWsFileNames() { return groupToString(&quot;WS-FILE-NAMES&quot;); }</span>
+<span class="nc" id="L304">    public void setWsFileNames(String value) { setGroup(&quot;WS-FILE-NAMES&quot;, value); }</span>
+<span class="fc" id="L305">    public String getWsFoundFlg() { return getString(&quot;WS-FOUND-FLG&quot;); }</span>
+<span class="nc" id="L306">    public void setWsFoundFlg(String value) { setString(&quot;WS-FOUND-FLG&quot;, value); }</span>
+<span class="nc" id="L307">    public int getWsIdx() { return getInt(&quot;WS-IDX&quot;); }</span>
+<span class="nc" id="L308">    public void setWsIdx(int value) { setInt(&quot;WS-IDX&quot;, value); }</span>
+<span class="fc" id="L309">    public String getWsIoFlg() { return getString(&quot;WS-IO-FLG&quot;); }</span>
+<span class="nc" id="L310">    public void setWsIoFlg(String value) { setString(&quot;WS-IO-FLG&quot;, value); }</span>
+<span class="fc" id="L311">    public String getWsMqDownFlg() { return getString(&quot;WS-MQ-DOWN-FLG&quot;); }</span>
+<span class="nc" id="L312">    public void setWsMqDownFlg(String value) { setString(&quot;WS-MQ-DOWN-FLG&quot;, value); }</span>
+<span class="fc" id="L313">    public String getWsMqOp() { return getString(&quot;WS-MQ-OP&quot;); }</span>
+<span class="fc" id="L314">    public void setWsMqOp(String value) { setString(&quot;WS-MQ-OP&quot;, value); }</span>
+<span class="nc" id="L315">    public String getWsMqWork() { return groupToString(&quot;WS-MQ-WORK&quot;); }</span>
+<span class="nc" id="L316">    public void setWsMqWork(String value) { setGroup(&quot;WS-MQ-WORK&quot;, value); }</span>
+<span class="nc" id="L317">    public String getWsPgmname() { return getString(&quot;WS-PGMNAME&quot;); }</span>
+<span class="nc" id="L318">    public void setWsPgmname(String value) { setString(&quot;WS-PGMNAME&quot;, value); }</span>
+<span class="nc" id="L319">    public String getWsProgramVars() { return groupToString(&quot;WS-PROGRAM-VARS&quot;); }</span>
+<span class="nc" id="L320">    public void setWsProgramVars(String value) { setGroup(&quot;WS-PROGRAM-VARS&quot;, value); }</span>
+<span class="nc" id="L321">    public String getWsQueueNames() { return groupToString(&quot;WS-QUEUE-NAMES&quot;); }</span>
+<span class="nc" id="L322">    public void setWsQueueNames(String value) { setGroup(&quot;WS-QUEUE-NAMES&quot;, value); }</span>
+<span class="nc" id="L323">    public int getWsReasCd() { return getInt(&quot;WS-REAS-CD&quot;); }</span>
+<span class="nc" id="L324">    public void setWsReasCd(int value) { setInt(&quot;WS-REAS-CD&quot;, value); }</span>
+<span class="fc" id="L325">    public String getWsReplyBuf() { return getString(&quot;WS-REPLY-BUF&quot;); }</span>
+<span class="fc" id="L326">    public void setWsReplyBuf(String value) { setString(&quot;WS-REPLY-BUF&quot;, value); }</span>
+<span class="fc" id="L327">    public String getWsReqQueue() { return getString(&quot;WS-REQ-QUEUE&quot;); }</span>
+<span class="nc" id="L328">    public void setWsReqQueue(String value) { setString(&quot;WS-REQ-QUEUE&quot;, value); }</span>
+<span class="fc" id="L329">    public int getWsRespCd() { return getInt(&quot;WS-RESP-CD&quot;); }</span>
+<span class="fc" id="L330">    public void setWsRespCd(int value) { setInt(&quot;WS-RESP-CD&quot;, value); }</span>
+<span class="fc" id="L331">    public String getWsRpyQueue() { return getString(&quot;WS-RPY-QUEUE&quot;); }</span>
+<span class="nc" id="L332">    public void setWsRpyQueue(String value) { setString(&quot;WS-RPY-QUEUE&quot;, value); }</span>
+<span class="nc" id="L333">    public String getWsStDate() { return getString(&quot;WS-ST-DATE&quot;); }</span>
+<span class="fc" id="L334">    public void setWsStDate(String value) { setString(&quot;WS-ST-DATE&quot;, value); }</span>
+<span class="nc" id="L335">    public String getWsStTime() { return getString(&quot;WS-ST-TIME&quot;); }</span>
+<span class="fc" id="L336">    public void setWsStTime(String value) { setString(&quot;WS-ST-TIME&quot;, value); }</span>
+<span class="nc" id="L337">    public String getWsStamp() { return groupToString(&quot;WS-STAMP&quot;); }</span>
+<span class="nc" id="L338">    public void setWsStamp(String value) { setGroup(&quot;WS-STAMP&quot;, value); }</span>
+<span class="nc" id="L339">    public String getWsStmtfile() { return getString(&quot;WS-STMTFILE&quot;); }</span>
+<span class="nc" id="L340">    public void setWsStmtfile(String value) { setString(&quot;WS-STMTFILE&quot;, value); }</span>
+<span class="nc" id="L341">    public String getWsSwitches() { return groupToString(&quot;WS-SWITCHES&quot;); }</span>
+<span class="nc" id="L342">    public void setWsSwitches(String value) { setGroup(&quot;WS-SWITCHES&quot;, value); }</span>
+<span class="nc" id="L343">    public String getWsTcatfile() { return getString(&quot;WS-TCATFILE&quot;); }</span>
+<span class="nc" id="L344">    public void setWsTcatfile(String value) { setString(&quot;WS-TCATFILE&quot;, value); }</span>
+<span class="nc" id="L345">    public String getWsTranfile() { return getString(&quot;WS-TRANFILE&quot;); }</span>
+<span class="nc" id="L346">    public void setWsTranfile(String value) { setString(&quot;WS-TRANFILE&quot;, value); }</span>
+<span class="nc" id="L347">    public String getWsTtypfile() { return getString(&quot;WS-TTYPFILE&quot;); }</span>
+<span class="nc" id="L348">    public void setWsTtypfile(String value) { setString(&quot;WS-TTYPFILE&quot;, value); }</span>
+<span class="nc" id="L349">    public String getWsUsrsec() { return getString(&quot;WS-USRSEC&quot;); }</span>
+<span class="nc" id="L350">    public void setWsUsrsec(String value) { setString(&quot;WS-USRSEC&quot;, value); }</span>
+<span class="nc" id="L351">    public String getWsWork() { return groupToString(&quot;WS-WORK&quot;); }</span>
+<span class="nc" id="L352">    public void setWsWork(String value) { setGroup(&quot;WS-WORK&quot;, value); }</span>
+<span class="fc" id="L353">    public String getWsXreffile() { return getString(&quot;WS-XREFFILE&quot;); }</span>
+<span class="nc" id="L354">    public void setWsXreffile(String value) { setString(&quot;WS-XREFFILE&quot;, value); }</span>
+<span class="fc" id="L355">    public long getXrAcctId() { return getLong(&quot;XR-ACCT-ID&quot;); }</span>
+<span class="fc" id="L356">    public void setXrAcctId(long value) { setLong(&quot;XR-ACCT-ID&quot;, value); }</span>
+<span class="fc" id="L357">    public String getXrCardNum() { return getString(&quot;XR-CARD-NUM&quot;); }</span>
+<span class="fc" id="L358">    public void setXrCardNum(String value) { setString(&quot;XR-CARD-NUM&quot;, value); }</span>
+<span class="nc" id="L359">    public int getXrCustId() { return getInt(&quot;XR-CUST-ID&quot;); }</span>
+<span class="nc" id="L360">    public void setXrCustId(int value) { setInt(&quot;XR-CUST-ID&quot;, value); }</span>
+<span class="nc" id="L361">    public String getXrefRec() { return groupToString(&quot;XREF-REC&quot;); }</span>
+<span class="nc" id="L362">    public void setXrefRec(String value) { setGroup(&quot;XREF-REC&quot;, value); }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

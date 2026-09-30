@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OccustuBmsMetadata.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCCUSTU Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.occustu.metadata</a> &gt; <span class="el_source">OccustuBmsMetadata.java</span></div><h1>OccustuBmsMetadata.java</h1><pre class="source lang-java linenums">package com.generated.orion.occustu.metadata;
+
+import com.appruntime.AppRunner;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import java.util.*;
+
+/**
+ * BMS screen metadata for OCCUSTU.
+ * Contains button definitions, FSET fields, and field mappings.
+ */
+<span class="nc" id="L12">public class OccustuBmsMetadata {</span>
+
+    public static List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="fc" id="L15">        return List.of(</span>
+            new ScreenResponse.ButtonDef(&quot;ENTER&quot;, &quot;ENTER=PROCESS&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF3&quot;, &quot;PF3=BACK&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF4&quot;, &quot;PF4=CLEAR&quot;, &quot;&quot;)
+        );
+    }
+
+    public static void registerFsetFields(AppRunner runner) {
+<span class="fc" id="L23">        runner.registerFsetFields(&quot;MCUSTUA&quot;, Set.of(&quot;CUSTID&quot;, &quot;CUFNAM&quot;, &quot;CULNAM&quot;, &quot;CUADDR&quot;, &quot;CUCITY&quot;, &quot;CUPHONE&quot;));</span>
+<span class="fc" id="L24">    }</span>
+
+    /** Danh sách BMS map của program (cho smoke test / tooling). */
+    public static List&lt;String&gt; getMapNames() {
+<span class="nc" id="L28">        return List.of(&quot;MCUSTUA&quot;);</span>
+    }
+
+    /** Classpath resource của WORKING-STORAGE layout (FieldStore đọc lúc runtime). */
+    public static String getLayoutResource() {
+<span class="nc" id="L33">        return &quot;layout/OCCUSTU_WS.xml&quot;;</span>
+    }
+
+    public static FieldMapping getFieldMapping(String mapName) {
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (&quot;MCUSTUA&quot;.equalsIgnoreCase(mapName)) {</span>
+<span class="fc" id="L38">            return FieldMapping.builder()</span>
+<span class="fc" id="L39">                .addDataIn(&quot;CUADDR&quot;, &quot;cuaddri&quot;)</span>
+<span class="fc" id="L40">                .addDataIn(&quot;TRNNAME&quot;, &quot;trnnamei&quot;)</span>
+<span class="fc" id="L41">                .addDataIn(&quot;ERRMSG&quot;, &quot;errmsgi&quot;)</span>
+<span class="fc" id="L42">                .addDataIn(&quot;CURTIME&quot;, &quot;curtimei&quot;)</span>
+<span class="fc" id="L43">                .addDataIn(&quot;CUFNAM&quot;, &quot;cufnami&quot;)</span>
+<span class="fc" id="L44">                .addDataIn(&quot;CULNAM&quot;, &quot;culnami&quot;)</span>
+<span class="fc" id="L45">                .addDataIn(&quot;CUSTID&quot;, &quot;custidi&quot;)</span>
+<span class="fc" id="L46">                .addDataIn(&quot;TITLE&quot;, &quot;titlei&quot;)</span>
+<span class="fc" id="L47">                .addDataIn(&quot;CUPHONE&quot;, &quot;cuphonei&quot;)</span>
+<span class="fc" id="L48">                .addDataIn(&quot;PGMNAME&quot;, &quot;pgmnamei&quot;)</span>
+<span class="fc" id="L49">                .addDataIn(&quot;CURDATE&quot;, &quot;curdatei&quot;)</span>
+<span class="fc" id="L50">                .addDataIn(&quot;CUCITY&quot;, &quot;cucityi&quot;)</span>
+<span class="fc" id="L51">                .addDataOut(&quot;CUADDR&quot;, &quot;cuaddro&quot;)</span>
+<span class="fc" id="L52">                .addDataOut(&quot;TRNNAME&quot;, &quot;trnnameo&quot;)</span>
+<span class="fc" id="L53">                .addDataOut(&quot;ERRMSG&quot;, &quot;errmsgo&quot;)</span>
+<span class="fc" id="L54">                .addDataOut(&quot;CURTIME&quot;, &quot;curtimeo&quot;)</span>
+<span class="fc" id="L55">                .addDataOut(&quot;CUFNAM&quot;, &quot;cufnamo&quot;)</span>
+<span class="fc" id="L56">                .addDataOut(&quot;CULNAM&quot;, &quot;culnamo&quot;)</span>
+<span class="fc" id="L57">                .addDataOut(&quot;CUSTID&quot;, &quot;custido&quot;)</span>
+<span class="fc" id="L58">                .addDataOut(&quot;TITLE&quot;, &quot;titleo&quot;)</span>
+<span class="fc" id="L59">                .addDataOut(&quot;CUPHONE&quot;, &quot;cuphoneo&quot;)</span>
+<span class="fc" id="L60">                .addDataOut(&quot;PGMNAME&quot;, &quot;pgmnameo&quot;)</span>
+<span class="fc" id="L61">                .addDataOut(&quot;CURDATE&quot;, &quot;curdateo&quot;)</span>
+<span class="fc" id="L62">                .addDataOut(&quot;CUCITY&quot;, &quot;cucityo&quot;)</span>
+<span class="fc" id="L63">                .addAttr(&quot;CUADDR&quot;, &quot;cuaddra&quot;)</span>
+<span class="fc" id="L64">                .addAttr(&quot;TRNNAME&quot;, &quot;trnnamea&quot;)</span>
+<span class="fc" id="L65">                .addAttr(&quot;ERRMSG&quot;, &quot;errmsga&quot;)</span>
+<span class="fc" id="L66">                .addAttr(&quot;CURTIME&quot;, &quot;curtimea&quot;)</span>
+<span class="fc" id="L67">                .addAttr(&quot;CUFNAM&quot;, &quot;cufnama&quot;)</span>
+<span class="fc" id="L68">                .addAttr(&quot;CULNAM&quot;, &quot;culnama&quot;)</span>
+<span class="fc" id="L69">                .addAttr(&quot;CUSTID&quot;, &quot;custida&quot;)</span>
+<span class="fc" id="L70">                .addAttr(&quot;TITLE&quot;, &quot;titlea&quot;)</span>
+<span class="fc" id="L71">                .addAttr(&quot;CUPHONE&quot;, &quot;cuphonea&quot;)</span>
+<span class="fc" id="L72">                .addAttr(&quot;PGMNAME&quot;, &quot;pgmnamea&quot;)</span>
+<span class="fc" id="L73">                .addAttr(&quot;CURDATE&quot;, &quot;curdatea&quot;)</span>
+<span class="fc" id="L74">                .addAttr(&quot;CUCITY&quot;, &quot;cucitya&quot;)</span>
+<span class="fc" id="L75">                .addLength(&quot;CUADDR&quot;, &quot;cuaddrl&quot;)</span>
+<span class="fc" id="L76">                .addLength(&quot;TRNNAME&quot;, &quot;trnnamel&quot;)</span>
+<span class="fc" id="L77">                .addLength(&quot;ERRMSG&quot;, &quot;errmsgl&quot;)</span>
+<span class="fc" id="L78">                .addLength(&quot;CURTIME&quot;, &quot;curtimel&quot;)</span>
+<span class="fc" id="L79">                .addLength(&quot;CUFNAM&quot;, &quot;cufnaml&quot;)</span>
+<span class="fc" id="L80">                .addLength(&quot;CULNAM&quot;, &quot;culnaml&quot;)</span>
+<span class="fc" id="L81">                .addLength(&quot;CUSTID&quot;, &quot;custidl&quot;)</span>
+<span class="fc" id="L82">                .addLength(&quot;TITLE&quot;, &quot;titlel&quot;)</span>
+<span class="fc" id="L83">                .addLength(&quot;CUPHONE&quot;, &quot;cuphonel&quot;)</span>
+<span class="fc" id="L84">                .addLength(&quot;PGMNAME&quot;, &quot;pgmnamel&quot;)</span>
+<span class="fc" id="L85">                .addLength(&quot;CURDATE&quot;, &quot;curdatel&quot;)</span>
+<span class="fc" id="L86">                .addLength(&quot;CUCITY&quot;, &quot;cucityl&quot;)</span>
+<span class="fc" id="L87">                .build();</span>
+        }
+<span class="fc" id="L89">        return FieldMapping.empty();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

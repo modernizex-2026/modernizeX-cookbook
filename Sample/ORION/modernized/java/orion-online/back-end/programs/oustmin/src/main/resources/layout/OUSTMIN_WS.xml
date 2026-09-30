@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : OUSTMIN_WS
+-->
+<dataLayout name="OUSTMIN_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="8">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="SQLCODE" offset="4" size="4" javaType="int" value="0" usage="BINARY"/>
+  </group>
+  <group name="WS-PROGRAM-VARS" offset="0" size="8">
+    <field name="WS-PGMNAME" offset="0" size="8" javaType="String" value="OUSTMIN"/>
+  </group>
+  <group name="WS-WORK-FIELDS" offset="0" size="6">
+    <field name="WS-ROW-CNT" offset="0" size="2" javaType="int" value="ZEROS"/>
+    <field name="WS-MAX-ROWS" offset="2" size="2" javaType="int" value="ZEROS"/>
+    <field name="WS-BROWSE-SW" offset="4" size="1" javaType="String" value="N"/>
+    <field name="WS-EOF-SW" offset="5" size="1" javaType="String" value="N"/>
+  </group>
+  <group name="WS-DIAG" offset="0" size="113">
+    <field name="WS-DIAG-QNAME" offset="0" size="4" javaType="String" value="CSSL"/>
+    <field name="WS-DIAG-MSG" offset="4" size="80" javaType="String" value="SPACES"/>
+    <field name="WS-DIAG-CTX" offset="84" size="20" javaType="String" value="SPACES"/>
+    <field name="WS-DIAG-RESP" offset="104" size="9" javaType="int" value="ZEROS"/>
+  </group>
+  <group name="WS-DIAG-LINE" offset="0" size="91">
+    <field name="FILLER-0" offset="0" size="10" javaType="String" value="OUSTMIN : "/>
+    <field name="WDL-CTX" offset="10" size="20" javaType="String" value="SPACES"/>
+    <field name="FILLER-30" offset="30" size="6" javaType="String" value=" RESP="/>
+    <field name="WDL-RESP" offset="36" size="9" javaType="int" editFormat="ZERO_SUPPRESS" editPicture="ZZZZZZZZ9" integerDigits="9" hasTrailingNine="true"/>
+    <field name="FILLER-45" offset="45" size="46" javaType="String" value="SPACES"/>
+  </group>
+  <group name="WS-CICS-RESP" offset="0" size="8">
+    <field name="WS-RESP-CD" offset="0" size="4" javaType="int" signed="true" value="ZEROS" usage="BINARY"/>
+    <field name="WS-REAS-CD" offset="4" size="4" javaType="int" signed="true" value="ZEROS" usage="BINARY"/>
+  </group>
+  <group name="WS-SWITCHES" offset="0" size="3">
+    <field name="WS-ERR-FLG" offset="0" size="1" javaType="String" value="N"/>
+    <field name="WS-END-FLG" offset="1" size="1" javaType="String" value="N"/>
+    <field name="WS-FOUND-FLG" offset="2" size="1" javaType="String" value="N"/>
+  </group>
+  <group name="WS-FILE-NAMES" offset="0" size="96">
+    <field name="WS-ACCTFILE" offset="0" size="8" javaType="String" value="ACCTFILE"/>
+    <field name="WS-CARDFILE" offset="8" size="8" javaType="String" value="CARDFILE"/>
+    <field name="WS-CUSTFILE" offset="16" size="8" javaType="String" value="CUSTFILE"/>
+    <field name="WS-XREFFILE" offset="24" size="8" javaType="String" value="XREFFILE"/>
+    <field name="WS-TRANFILE" offset="32" size="8" javaType="String" value="TRANFILE"/>
+    <field name="WS-TTYPFILE" offset="40" size="8" javaType="String" value="TTYPFILE"/>
+    <field name="WS-TCATFILE" offset="48" size="8" javaType="String" value="TCATFILE"/>
+    <field name="WS-DGRPFILE" offset="56" size="8" javaType="String" value="DGRPFILE"/>
+    <field name="WS-USRSEC" offset="64" size="8" javaType="String" value="USRSEC  "/>
+    <field name="WS-BILLFILE" offset="72" size="8" javaType="String" value="BILLFILE"/>
+    <field name="WS-STMTFILE" offset="80" size="8" javaType="String" value="STMTFILE"/>
+    <field name="WS-CTRLFILE" offset="88" size="8" javaType="String" value="CTRLFILE"/>
+  </group>
+  <group name="WS-WORK" offset="0" size="26">
+    <field name="WS-CNT" offset="0" size="7" javaType="int" value="ZEROS"/>
+    <field name="WS-IDX" offset="7" size="4" javaType="int" value="ZEROS"/>
+    <field name="WS-AMT" offset="11" size="15" javaType="BigDecimal" signed="true" scale="2" value="ZEROS"/>
+  </group>
+  <group name="WS-EDIT" offset="0" size="43">
+    <field name="WS-ED-AMT" offset="0" size="16" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" editPicture="-,---,---,--9.99" integerDigits="10" insertCommas="true" hasTrailingNine="true"/>
+    <field name="WS-ED-BAL" offset="16" size="16" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" editPicture="-,---,---,--9.99" integerDigits="10" insertCommas="true" hasTrailingNine="true"/>
+    <field name="WS-ED-ID" offset="32" size="11" javaType="long" editFormat="ZERO_SUPPRESS" editPicture="ZZZZZZZZZZ9" integerDigits="11" hasTrailingNine="true"/>
+  </group>
+  <group name="STMT-REC" offset="0" size="107">
+    <group name="ST-KEY" offset="0" size="17">
+      <field name="ST-ACCT-ID" offset="0" size="11" javaType="long"/>
+      <field name="ST-CYCLE" offset="11" size="6" javaType="int"/>
+    </group>
+    <field name="ST-OPEN-BAL" offset="17" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="ST-CLOSE-BAL" offset="29" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="ST-TOTAL-CREDIT" offset="41" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="ST-TOTAL-DEBIT" offset="53" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="ST-MIN-DUE" offset="65" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="ST-DUE-DATE" offset="77" size="10" javaType="String"/>
+    <field name="FILLER-87" offset="87" size="20" javaType="String"/>
+  </group>
+  <group name="KSTMB-PARM" offset="0" size="567">
+    <group name="KSB-REQUEST" offset="0" size="23">
+      <field name="KSB-MODE" offset="0" size="4" javaType="String"/>
+      <field name="KSB-START-ACCT" offset="4" size="11" javaType="long"/>
+      <field name="KSB-START-CYCLE" offset="15" size="6" javaType="int"/>
+      <field name="KSB-MAX-ROWS" offset="21" size="2" javaType="int"/>
+    </group>
+    <group name="KSB-RESULT" offset="23" size="22">
+      <field name="KSB-STATUS" offset="23" size="2" javaType="String"/>
+      <field name="KSB-ROW-CNT" offset="25" size="2" javaType="int"/>
+      <field name="KSB-NEXT-ACCT" offset="27" size="11" javaType="long"/>
+      <field name="KSB-NEXT-CYCLE" offset="38" size="6" javaType="int"/>
+      <field name="KSB-MORE" offset="44" size="1" javaType="String"/>
+    </group>
+    <group name="KSB-ROWS" offset="45" size="522">
+      <group name="KSB-ROW" offset="45" size="522" occurs="6" elementSize="87">
+        <field name="KSB-R-ACCT" offset="45" size="11" javaType="long"/>
+        <field name="KSB-R-CYCLE" offset="56" size="6" javaType="int"/>
+        <field name="KSB-R-OPEN" offset="62" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+        <field name="KSB-R-CLOSE" offset="74" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+        <field name="KSB-R-CREDIT" offset="86" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+        <field name="KSB-R-DEBIT" offset="98" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+        <field name="KSB-R-MINDUE" offset="110" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+        <field name="KSB-R-DUEDT" offset="122" size="10" javaType="String"/>
+      </group>
+    </group>
+  </group>
+</dataLayout>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OcauthqService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCAUTHQ Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ocauthq.service</a> &gt; <span class="el_source">OcauthqService.java</span></div><h1>OcauthqService.java</h1><pre class="source lang-java linenums">package com.generated.orion.ocauthq.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.common.linkage.OcauthqLinkParm;
+import com.generated.orion.ocauthq.accessor.OcauthqFields;
+import com.generated.orion.ocauthq.metadata.OcauthqBmsMetadata;
+import com.generated.orion.ocauthq.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OCAUTHQ. */
+@Service
+<span class="nc" id="L22">public class OcauthqService implements AppProgram {</span>
+<span class="nc" id="L23">    private static final Logger log = LoggerFactory.getLogger(OcauthqService.class);</span>
+
+    // TODO(layer1): cross-cohort pattern — promote to batch-common Constants
+    private static final int COMMAREA_LENGTH = 692;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L34">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc" id="L35">        executeMainFlow(ctx);</span>
+<span class="nc" id="L36">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L40">        return &quot;OCAUTHQ&quot;;</span>
+    }
+
+    @Override
+    public String getTransId() {
+<span class="nc" id="L45">        return &quot;ORAQ&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L50">        return OcauthqBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L55">        OcauthqBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L56">    }</span>
+
+    @Override
+    public FieldMapping getFieldMapping(String mapName) {
+<span class="nc" id="L60">        return OcauthqBmsMetadata.getFieldMapping(mapName);</span>
+    }
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void executeMainFlow(TaskContext ctx) {
+<span class="nc" id="L65">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L66">        ctx.f.setCaErrMsg(&quot; &quot;);</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        if (ctx.appService.getEibcalen() == 0) {</span>
+<span class="nc" id="L68">            sendInitialScreen(ctx);</span>
+        } else {
+<span class="nc" id="L70">            ctx.f.setOrionCommarea(Utility.groupToString(ctx.appService.getSerializedCommarea()));</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (ctx.f.getCaPgmContext() == 0) {</span>
+<span class="nc" id="L72">                sendInitialScreen(ctx);</span>
+            } else {
+<span class="nc" id="L74">                processAidKeyInput(ctx);</span>
+            }
+        }
+<span class="nc" id="L77">        ctx.appService.returnTransid(</span>
+<span class="nc" id="L78">                ctx.f.getWsTranid(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L79">    }</span>
+
+    /** COBOL paragraph: 1000-SEND-INITIAL */
+    private void sendInitialScreen(TaskContext ctx) {
+<span class="nc" id="L83">        ctx.f.fillLowValues(&quot;MAUTHQAO&quot;);</span>
+<span class="nc" id="L84">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L85">        ctx.f.setErrmsgo(&quot;Enter card, amount, merchant; press ENTER.&quot;);</span>
+<span class="nc" id="L86">        ctx.appService.sendMap(</span>
+                &quot;MAUTHQA&quot;, ctx.f, ctx.f, /* erase */ true, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L88">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L89">        ctx.f.setCaPgmContext(1);</span>
+<span class="nc" id="L90">    }</span>
+
+    /** COBOL paragraph: 2000-PROCESS-INPUT */
+    private void processAidKeyInput(TaskContext ctx) {
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;3&quot;)) {</span>
+<span class="nc" id="L95">            transferToMenuProgram(ctx);</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;4&quot;)) {</span>
+<span class="nc" id="L97">            sendInitialScreen(ctx);</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;'&quot;)) {</span>
+<span class="nc" id="L99">            authorizeTransaction(ctx);</span>
+        } else {
+<span class="nc" id="L101">            sendInitialScreen(ctx);</span>
+<span class="nc" id="L102">            ctx.f.setErrmsgo(ctx.f.getWsMsgInvalidKey());</span>
+<span class="nc" id="L103">            sendDataOnlyScreen(ctx);</span>
+        }
+<span class="nc" id="L105">    }</span>
+
+    /** COBOL paragraph: 2100-AUTHORIZE */
+    private void authorizeTransaction(TaskContext ctx) {
+<span class="nc" id="L109">        ctx.appService.receiveMap(&quot;MAUTHQA&quot;, ctx.f);</span>
+<span class="nc" id="L110">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L111">        ctx.f.setWsInCard(ctx.f.getCardnumi());</span>
+<span class="nc" id="L112">        ctx.f.setWsInAmt(ctx.f.getAmounti());</span>
+<span class="nc" id="L113">        ctx.f.setWsInMerch(ctx.f.getMerchi());</span>
+<span class="nc" id="L114">        validateAuthorizationInput(ctx);</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (ctx.f.getWsErrFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L116">            populateEchoFields(ctx);</span>
+<span class="nc" id="L117">            ctx.f.setDecisno(&quot; &quot;);</span>
+<span class="nc" id="L118">            ctx.f.setReasono(&quot; &quot;);</span>
+<span class="nc" id="L119">            ctx.f.setAvailo(&quot; &quot;);</span>
+<span class="nc" id="L120">            sendDataOnlyScreen(ctx);</span>
+        } else {
+<span class="nc" id="L122">            callMqRequestProgram(ctx);</span>
+<span class="nc" id="L123">            displayAuthorizationDecision(ctx);</span>
+        }
+<span class="nc" id="L125">    }</span>
+
+    /** COBOL paragraph: 2200-VALIDATE-INPUT */
+    private void validateAuthorizationInput(TaskContext ctx) {
+<span class="nc" id="L129">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc bnc" id="L130" title="All 4 branches missed.">        if (Utility.fieldEquals(ctx.f.getWsInCard(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;WS-IN-CARD&quot;)) {</span>
+<span class="nc" id="L131">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L132">            ctx.f.setErrmsgo(&quot;Card number is required.&quot;);</span>
+        }
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        if (ctx.f.getWsErrFlg().equals(&quot;N&quot;)) {</span>
+<span class="nc bnc" id="L135" title="All 4 branches missed.">            if (Utility.fieldEquals(ctx.f.getWsInAmt(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;WS-IN-AMT&quot;)) {</span>
+<span class="nc" id="L136">                ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L137">                ctx.f.setErrmsgo(&quot;Amount is required.&quot;);</span>
+            }
+        }
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        if (ctx.f.getWsErrFlg().equals(&quot;N&quot;)) {</span>
+<span class="nc" id="L141">            ctx.f.setWsAmtNum(Utility.parseNumeric(String.valueOf(ctx.f.getWsInAmt())));</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">            if ((ctx.f.getWsAmtNum().signum() &lt;= 0)) {</span>
+<span class="nc" id="L143">                ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L144">                ctx.f.setErrmsgo(&quot;Amount must be greater than zero.&quot;);</span>
+            }
+        }
+<span class="nc" id="L147">    }</span>
+
+    /** COBOL paragraph: 2300-CALL-MQREQ */
+    private void callMqRequestProgram(TaskContext ctx) {
+<span class="nc" id="L151">        ctx.f.setAuthMsgArea(&quot;&quot;);</span>
+<span class="nc" id="L152">        ctx.f.setAqMsgType(&quot;AREQ&quot;);</span>
+<span class="nc" id="L153">        ctx.f.setAqCardNum(ctx.f.getWsInCard());</span>
+<span class="nc" id="L154">        ctx.f.setAqAcctId(0);</span>
+<span class="nc" id="L155">        ctx.f.setAqAmount(ctx.f.getWsAmtNum());</span>
+<span class="nc" id="L156">        ctx.f.setAqMerchantId(0);</span>
+<span class="nc" id="L157">        ctx.f.setAqMerchantName(ctx.f.getWsInMerch());</span>
+<span class="nc" id="L158">        ctx.f.setAqRequestedTs(&quot; &quot;);</span>
+<span class="nc" id="L159">        ctx.f.setCaCardNum(ctx.f.getWsInCard());</span>
+<span class="nc" id="L160">        ctx.f.setCaWorkArea(ctx.f.getAuthMsgArea());</span>
+        {
+<span class="nc" id="L162">            byte[] _linkCa = ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;);</span>
+<span class="nc" id="L163">            ctx.appService.link(ctx.f.getWsMqreqPgm(), _linkCa, COMMAREA_LENGTH);</span>
+<span class="nc" id="L164">            ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, _linkCa);</span>
+        }
+<span class="nc" id="L166">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L168">            ctx.f.setAuthMsgArea(String.valueOf(ctx.f.getCaWorkArea()));</span>
+        } else {
+<span class="nc" id="L170">            ctx.f.setAuthMsgArea(&quot; &quot;);</span>
+<span class="nc" id="L171">            ctx.f.setString(&quot;AS-DECISION&quot;, &quot;ERROR   &quot;);</span>
+<span class="nc" id="L172">            ctx.f.setAsReason(&quot;LINK OUMQREQ FAILED&quot;);</span>
+<span class="nc" id="L173">            log.info(</span>
+<span class="nc" id="L174">                    &quot;OCAUTHQ: LINK RESP={}&quot;, String.format(&quot;%+010d&quot;, (long) (ctx.f.getWsRespCd())));</span>
+        }
+<span class="nc" id="L176">    }</span>
+
+    /** COBOL paragraph: 2400-SHOW-DECISION */
+    private void displayAuthorizationDecision(TaskContext ctx) {
+<span class="nc" id="L180">        populateEchoFields(ctx);</span>
+<span class="nc" id="L181">        ctx.f.setDecisno(ctx.f.getAsDecision());</span>
+<span class="nc" id="L182">        ctx.f.setReasono(ctx.f.getAsReason());</span>
+<span class="nc" id="L183">        ctx.f.setWsEdBal(ctx.f.getAsAvailCredit());</span>
+<span class="nc" id="L184">        ctx.f.setAvailo(</span>
+<span class="nc" id="L185">                Utility.padRight(String.valueOf(ctx.f.getString(&quot;WS-ED-BAL&quot;)), 16)</span>
+<span class="nc" id="L186">                        .substring(1, 16));</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        if (ctx.f.getCaErrFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L188">            ctx.f.setErrmsgo(ctx.f.getCaErrMsg());</span>
+        } else {
+<span class="nc" id="L190">            ctx.f.setErrmsgo(&quot;Authorization complete. PF3=Back.&quot;);</span>
+        }
+<span class="nc" id="L192">        sendDataOnlyScreen(ctx);</span>
+<span class="nc" id="L193">    }</span>
+
+    /** COBOL paragraph: 2600-POPULATE-ECHO */
+    private void populateEchoFields(TaskContext ctx) {
+<span class="nc" id="L197">        ctx.f.setCardnumo(ctx.f.getWsInCard());</span>
+<span class="nc" id="L198">        ctx.f.setAmounto(ctx.f.getWsInAmt());</span>
+<span class="nc" id="L199">        ctx.f.setMercho(ctx.f.getWsInMerch());</span>
+<span class="nc" id="L200">    }</span>
+
+    /** COBOL paragraph: 7000-XCTL-MENU */
+    private void transferToMenuProgram(TaskContext ctx) {
+<span class="nc" id="L204">        ctx.f.setCaFromProgram(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L205">        ctx.f.setCaFromTranid(ctx.f.getWsTranid());</span>
+<span class="nc" id="L206">        ctx.f.setCaPgmContext(0);</span>
+<span class="nc" id="L207">        ctx.appService.xctl(</span>
+<span class="nc" id="L208">                ctx.f.getWsMenuPgm(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L209">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L210">    }</span>
+
+    /** COBOL paragraph: 8000-POPULATE-HEADER */
+    private void populateScreenHeader(TaskContext ctx) {
+<span class="nc" id="L214">        ctx.f.setTrnnameo(ctx.f.getWsTranid());</span>
+<span class="nc" id="L215">        ctx.f.setPgmnameo(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L216">        ctx.f.setTitleo(ctx.f.getWsHdrTitle());</span>
+<span class="nc" id="L217">        loadCurrentDateTime(ctx);</span>
+<span class="nc" id="L218">        ctx.f.setCurdateo(ctx.f.getWsHdrDate());</span>
+<span class="nc" id="L219">        ctx.f.setCurtimeo(ctx.f.getWsHdrTime());</span>
+<span class="nc" id="L220">    }</span>
+
+    /** COBOL paragraph: 8100-SEND-DATAONLY */
+    private void sendDataOnlyScreen(TaskContext ctx) {
+<span class="nc" id="L224">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L225">        ctx.appService.sendMap(</span>
+                &quot;MAUTHQA&quot;, ctx.f, ctx.f, /* erase */ false, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L227">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L228">    }</span>
+
+    /** COBOL paragraph: 8500-GET-DATE-TIME */
+    private void loadCurrentDateTime(TaskContext ctx) {
+<span class="nc" id="L232">        ctx.appService.askTime();</span>
+<span class="nc" id="L233">        com.appruntime.FormatTimeResult _ftResult =</span>
+<span class="nc" id="L234">                ctx.appService.formatTime(null, &quot;YYYYMMDD&quot;, &quot;-&quot;, &quot;:&quot;);</span>
+<span class="nc" id="L235">        ctx.f.setWsHdrDate(_ftResult.getDate());</span>
+<span class="nc" id="L236">        ctx.f.setWsHdrTime(_ftResult.getTime());</span>
+<span class="nc" id="L237">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L238">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OcauthqFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L251">        final OcauthqLinkParm link = new OcauthqLinkParm();</span>
+
+<span class="nc" id="L253">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L254">            this.appService = appService;</span>
+<span class="nc" id="L255">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L256">            this.f = new OcauthqFields(ws);</span>
+<span class="nc" id="L257">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

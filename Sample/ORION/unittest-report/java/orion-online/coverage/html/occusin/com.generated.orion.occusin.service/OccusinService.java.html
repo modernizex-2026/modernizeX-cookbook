@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OccusinService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCCUSIN Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.occusin.service</a> &gt; <span class="el_source">OccusinService.java</span></div><h1>OccusinService.java</h1><pre class="source lang-java linenums">package com.generated.orion.occusin.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.RuntimeConstants;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.common.linkage.OccusinLinkParm;
+import com.generated.orion.occusin.accessor.OccusinFields;
+import com.generated.orion.occusin.metadata.OccusinBmsMetadata;
+import com.generated.orion.occusin.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OCCUSIN. */
+@Service
+<span class="nc" id="L23">public class OccusinService implements AppProgram {</span>
+<span class="nc" id="L24">    private static final Logger log = LoggerFactory.getLogger(OccusinService.class);</span>
+
+    private static final int COMMAREA_LENGTH = 692;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L34">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc" id="L35">        runMainLine(ctx);</span>
+<span class="nc" id="L36">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L40">        return &quot;OCCUSIN&quot;;</span>
+    }
+
+    @Override
+    public String getTransId() {
+<span class="nc" id="L45">        return &quot;ORQC&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L50">        return OccusinBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L55">        OccusinBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L56">    }</span>
+
+    @Override
+    public FieldMapping getFieldMapping(String mapName) {
+<span class="nc" id="L60">        return OccusinBmsMetadata.getFieldMapping(mapName);</span>
+    }
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainLine(TaskContext ctx) {
+<span class="nc" id="L65">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L66">        ctx.f.setCaErrMsg(&quot; &quot;);</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        if (ctx.appService.getEibcalen() == 0) {</span>
+<span class="nc" id="L68">            ctx.f.setOrionCommarea(&quot;&quot;);</span>
+<span class="nc" id="L69">            sendInitialScreen(ctx);</span>
+        } else {
+<span class="nc" id="L71">            ctx.f.setOrionCommarea(Utility.groupToString(ctx.appService.getSerializedCommarea()));</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (ctx.f.getCaPgmContext() == 0) {</span>
+<span class="nc" id="L73">                sendInitialScreen(ctx);</span>
+            } else {
+<span class="nc" id="L75">                processInput(ctx);</span>
+            }
+        }
+<span class="nc" id="L78">        returnTransaction(ctx);</span>
+<span class="nc" id="L79">    }</span>
+
+    /** COBOL paragraph: 1000-SEND-INITIAL */
+    private void sendInitialScreen(TaskContext ctx) {
+<span class="nc" id="L83">        ctx.f.fillLowValues(&quot;MCUSINAO&quot;);</span>
+<span class="nc" id="L84">        populateHeader(ctx);</span>
+<span class="nc" id="L85">        clearAllRows(ctx);</span>
+<span class="nc" id="L86">        ctx.f.setKcusinArea(&quot;&quot;);</span>
+<span class="nc" id="L87">        ctx.f.setString(&quot;KUI-FILTER&quot;, &quot;I&quot;);</span>
+<span class="nc" id="L88">        ctx.f.setCaWorkArea(ctx.f.getKuiRequest());</span>
+<span class="nc" id="L89">        ctx.f.setFmodeo(&quot;I&quot;);</span>
+<span class="nc" id="L90">        ctx.f.setErrmsgo(ctx.f.getWsMPrompt());</span>
+<span class="nc" id="L91">        ctx.f.setFmodel((short) -1);</span>
+<span class="nc" id="L92">        ctx.appService.sendMap(</span>
+                &quot;MCUSINA&quot;, ctx.f, ctx.f, /* erase */ true, /* freekb */ false, /* cursor */ true);
+<span class="nc" id="L94">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L95">        ctx.f.setCaPgmContext(1);</span>
+<span class="nc" id="L96">    }</span>
+
+    /** COBOL paragraph: 2000-PROCESS-INPUT */
+    private void processInput(TaskContext ctx) {
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;3&quot;)) {</span>
+<span class="nc" id="L101">            transferToMenu(ctx);</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;7&quot;)) {</span>
+<span class="nc" id="L103">            restartQuery(ctx);</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;8&quot;)) {</span>
+<span class="nc" id="L105">            showNextPage(ctx);</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;'&quot;)) {</span>
+<span class="nc" id="L107">            applyFilter(ctx);</span>
+        } else {
+<span class="nc" id="L109">            sendInitialScreen(ctx);</span>
+<span class="nc" id="L110">            ctx.f.setErrmsgo(ctx.f.getWsMsgInvalidKey());</span>
+<span class="nc" id="L111">            sendDataOnly(ctx);</span>
+        }
+<span class="nc" id="L113">    }</span>
+
+    /** COBOL paragraph: 2100-APPLY-FILTER */
+    private void applyFilter(TaskContext ctx) {
+<span class="nc" id="L117">        ctx.appService.receiveMap(&quot;MCUSINA&quot;, ctx.f);</span>
+<span class="nc" id="L118">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 36) {</span>
+<span class="nc" id="L120">            ctx.f.fillLowValues(&quot;MCUSINAI&quot;);</span>
+        }
+<span class="nc" id="L122">        parseFilterMode(ctx);</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        if (isValidationFailed(ctx)) {</span>
+<span class="nc" id="L124">            ctx.f.setFmodel((short) -1);</span>
+<span class="nc" id="L125">            sendDataOnly(ctx);</span>
+<span class="nc" id="L126">            return;</span>
+        }
+<span class="nc" id="L128">        ctx.f.setKuiStartKey(0);</span>
+<span class="nc" id="L129">        callSubProgram(ctx);</span>
+<span class="nc" id="L130">        displayResultPage(ctx);</span>
+<span class="nc" id="L131">    }</span>
+
+    /** COBOL paragraph: 2200-PAGE-NEXT */
+    private void showNextPage(TaskContext ctx) {
+<span class="nc" id="L135">        ctx.f.setKuiRequest(String.valueOf(ctx.f.getCaWorkArea()));</span>
+<span class="nc" id="L136">        callSubProgram(ctx);</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        if (ctx.f.getKuiRowCount() == 0) {</span>
+<span class="nc" id="L138">            ctx.f.setErrmsgo(ctx.f.getWsMEndList());</span>
+<span class="nc" id="L139">            ctx.f.setFmodel((short) -1);</span>
+<span class="nc" id="L140">            sendDataOnly(ctx);</span>
+        } else {
+<span class="nc" id="L142">            displayResultPage(ctx);</span>
+        }
+<span class="nc" id="L144">    }</span>
+
+    /** COBOL paragraph: 2300-RESTART */
+    private void restartQuery(TaskContext ctx) {
+<span class="nc" id="L148">        ctx.f.setKuiRequest(String.valueOf(ctx.f.getCaWorkArea()));</span>
+<span class="nc" id="L149">        ctx.f.setKuiStartKey(0);</span>
+<span class="nc" id="L150">        callSubProgram(ctx);</span>
+<span class="nc" id="L151">        displayResultPage(ctx);</span>
+<span class="nc" id="L152">    }</span>
+
+    /** COBOL paragraph: 3000-CALL-SUB */
+    private void callSubProgram(TaskContext ctx) {
+<span class="nc" id="L156">        ctx.f.setCaFromProgram(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L157">        ctx.f.setCaToProgram(ctx.f.getWsSubPgm());</span>
+        {
+<span class="nc" id="L159">            byte[] _linkCa = ctx.f.sliceBytes(&quot;KCUSIN-AREA&quot;);</span>
+<span class="nc" id="L160">            ctx.appService.link(ctx.f.getWsSubPgm(), _linkCa, 795);</span>
+<span class="nc" id="L161">            ctx.f.writeBytes(&quot;KCUSIN-AREA&quot;, _linkCa);</span>
+        }
+<span class="nc" id="L163">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() != 0) {</span>
+<span class="nc" id="L165">            ctx.f.setString(&quot;KUI-RETURN-CD&quot;, &quot;E&quot;);</span>
+<span class="nc" id="L166">            ctx.f.setCaErrMsg(ctx.f.getWsMLinkErr());</span>
+        }
+<span class="nc bnc" id="L168" title="All 2 branches missed.">        if (ctx.f.getKuiRowCount() &gt; 0) {</span>
+<span class="nc" id="L169">            ctx.f.setKuiStartKey(ctx.f.getKuiNextKey());</span>
+        }
+<span class="nc" id="L171">        ctx.f.setCaWorkArea(ctx.f.getKuiRequest());</span>
+<span class="nc" id="L172">    }</span>
+
+    /** COBOL paragraph: 4000-SHOW-PAGE */
+    private void displayResultPage(TaskContext ctx) {
+<span class="nc" id="L176">        clearAllRows(ctx);</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">        if (ctx.f.getKuiReturnCd().equals(&quot;E&quot;)) {</span>
+<span class="nc" id="L178">            ctx.f.setErrmsgo(ctx.f.getCaErrMsg());</span>
+<span class="nc" id="L179">            ctx.f.setFmodel((short) -1);</span>
+<span class="nc" id="L180">            sendDataOnly(ctx);</span>
+<span class="nc" id="L181">            return;</span>
+        }
+<span class="nc bnc" id="L183" title="All 2 branches missed.">        if (ctx.f.getKuiRowCount() == 0) {</span>
+<span class="nc" id="L184">            ctx.f.setErrmsgo(ctx.f.getWsMNoneFound());</span>
+        } else {
+<span class="nc" id="L186">            for (ctx.f.setWsRowIdx(1);</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">                    ctx.f.getWsRowIdx() &lt;= ctx.f.getKuiRowCount();</span>
+<span class="nc" id="L188">                    ctx.f.setWsRowIdx(ctx.f.getWsRowIdx() + 1)) {</span>
+<span class="nc" id="L189">                populateRow(ctx);</span>
+            }
+<span class="nc" id="L191">            buildSummaryMessage(ctx);</span>
+<span class="nc" id="L192">            ctx.f.setErrmsgo(ctx.f.getWsMsgLine());</span>
+        }
+<span class="nc" id="L194">        ctx.f.setFmodel((short) -1);</span>
+<span class="nc" id="L195">        sendDataOnly(ctx);</span>
+<span class="nc" id="L196">    }</span>
+
+    /** COBOL paragraph: 4100-CLEAR-ROWS */
+    private void clearAllRows(TaskContext ctx) {
+<span class="nc" id="L200">        ctx.f.setCul1o(&quot; &quot;);</span>
+<span class="nc" id="L201">        ctx.f.setCun1o(&quot; &quot;);</span>
+<span class="nc" id="L202">        ctx.f.setCst1o(&quot; &quot;);</span>
+<span class="nc" id="L203">        ctx.f.setCzp1o(&quot; &quot;);</span>
+<span class="nc" id="L204">        ctx.f.setCfi1o(&quot; &quot;);</span>
+<span class="nc" id="L205">        ctx.f.setCul2o(&quot; &quot;);</span>
+<span class="nc" id="L206">        ctx.f.setCun2o(&quot; &quot;);</span>
+<span class="nc" id="L207">        ctx.f.setCst2o(&quot; &quot;);</span>
+<span class="nc" id="L208">        ctx.f.setCzp2o(&quot; &quot;);</span>
+<span class="nc" id="L209">        ctx.f.setCfi2o(&quot; &quot;);</span>
+<span class="nc" id="L210">        ctx.f.setCul3o(&quot; &quot;);</span>
+<span class="nc" id="L211">        ctx.f.setCun3o(&quot; &quot;);</span>
+<span class="nc" id="L212">        ctx.f.setCst3o(&quot; &quot;);</span>
+<span class="nc" id="L213">        ctx.f.setCzp3o(&quot; &quot;);</span>
+<span class="nc" id="L214">        ctx.f.setCfi3o(&quot; &quot;);</span>
+<span class="nc" id="L215">        ctx.f.setCul4o(&quot; &quot;);</span>
+<span class="nc" id="L216">        ctx.f.setCun4o(&quot; &quot;);</span>
+<span class="nc" id="L217">        ctx.f.setCst4o(&quot; &quot;);</span>
+<span class="nc" id="L218">        ctx.f.setCzp4o(&quot; &quot;);</span>
+<span class="nc" id="L219">        ctx.f.setCfi4o(&quot; &quot;);</span>
+<span class="nc" id="L220">        ctx.f.setCul5o(&quot; &quot;);</span>
+<span class="nc" id="L221">        ctx.f.setCun5o(&quot; &quot;);</span>
+<span class="nc" id="L222">        ctx.f.setCst5o(&quot; &quot;);</span>
+<span class="nc" id="L223">        ctx.f.setCzp5o(&quot; &quot;);</span>
+<span class="nc" id="L224">        ctx.f.setCfi5o(&quot; &quot;);</span>
+<span class="nc" id="L225">        ctx.f.setCul6o(&quot; &quot;);</span>
+<span class="nc" id="L226">        ctx.f.setCun6o(&quot; &quot;);</span>
+<span class="nc" id="L227">        ctx.f.setCst6o(&quot; &quot;);</span>
+<span class="nc" id="L228">        ctx.f.setCzp6o(&quot; &quot;);</span>
+<span class="nc" id="L229">        ctx.f.setCfi6o(&quot; &quot;);</span>
+<span class="nc" id="L230">        ctx.f.setCul7o(&quot; &quot;);</span>
+<span class="nc" id="L231">        ctx.f.setCun7o(&quot; &quot;);</span>
+<span class="nc" id="L232">        ctx.f.setCst7o(&quot; &quot;);</span>
+<span class="nc" id="L233">        ctx.f.setCzp7o(&quot; &quot;);</span>
+<span class="nc" id="L234">        ctx.f.setCfi7o(&quot; &quot;);</span>
+<span class="nc" id="L235">        ctx.f.setCul8o(&quot; &quot;);</span>
+<span class="nc" id="L236">        ctx.f.setCun8o(&quot; &quot;);</span>
+<span class="nc" id="L237">        ctx.f.setCst8o(&quot; &quot;);</span>
+<span class="nc" id="L238">        ctx.f.setCzp8o(&quot; &quot;);</span>
+<span class="nc" id="L239">        ctx.f.setCfi8o(&quot; &quot;);</span>
+<span class="nc" id="L240">        ctx.f.setCul9o(&quot; &quot;);</span>
+<span class="nc" id="L241">        ctx.f.setCun9o(&quot; &quot;);</span>
+<span class="nc" id="L242">        ctx.f.setCst9o(&quot; &quot;);</span>
+<span class="nc" id="L243">        ctx.f.setCzp9o(&quot; &quot;);</span>
+<span class="nc" id="L244">        ctx.f.setCfi9o(&quot; &quot;);</span>
+<span class="nc" id="L245">        ctx.f.setCul10o(&quot; &quot;);</span>
+<span class="nc" id="L246">        ctx.f.setCun10o(&quot; &quot;);</span>
+<span class="nc" id="L247">        ctx.f.setCst10o(&quot; &quot;);</span>
+<span class="nc" id="L248">        ctx.f.setCzp10o(&quot; &quot;);</span>
+<span class="nc" id="L249">        ctx.f.setCfi10o(&quot; &quot;);</span>
+<span class="nc" id="L250">        ctx.f.setCul11o(&quot; &quot;);</span>
+<span class="nc" id="L251">        ctx.f.setCun11o(&quot; &quot;);</span>
+<span class="nc" id="L252">        ctx.f.setCst11o(&quot; &quot;);</span>
+<span class="nc" id="L253">        ctx.f.setCzp11o(&quot; &quot;);</span>
+<span class="nc" id="L254">        ctx.f.setCfi11o(&quot; &quot;);</span>
+<span class="nc" id="L255">        ctx.f.setCul12o(&quot; &quot;);</span>
+<span class="nc" id="L256">        ctx.f.setCun12o(&quot; &quot;);</span>
+<span class="nc" id="L257">        ctx.f.setCst12o(&quot; &quot;);</span>
+<span class="nc" id="L258">        ctx.f.setCzp12o(&quot; &quot;);</span>
+<span class="nc" id="L259">        ctx.f.setCfi12o(&quot; &quot;);</span>
+<span class="nc" id="L260">        ctx.f.setCul13o(&quot; &quot;);</span>
+<span class="nc" id="L261">        ctx.f.setCun13o(&quot; &quot;);</span>
+<span class="nc" id="L262">        ctx.f.setCst13o(&quot; &quot;);</span>
+<span class="nc" id="L263">        ctx.f.setCzp13o(&quot; &quot;);</span>
+<span class="nc" id="L264">        ctx.f.setCfi13o(&quot; &quot;);</span>
+<span class="nc" id="L265">    }</span>
+
+    /** COBOL paragraph: 4200-PLACE-ROW */
+    private void populateRow(TaskContext ctx) {
+<span class="nc bnc" id="L269" title="All 14 branches missed.">        switch (ctx.f.getWsRowIdx()) {</span>
+            case 1 -&gt; {
+<span class="nc" id="L271">                ctx.f.setCul1o(String.format(&quot;%09d&quot;, ctx.f.getKurId(1)));</span>
+<span class="nc" id="L272">                ctx.f.setCun1o(ctx.f.getKurName(1));</span>
+<span class="nc" id="L273">                ctx.f.setCst1o(ctx.f.getKurState(1));</span>
+<span class="nc" id="L274">                ctx.f.setCzp1o(ctx.f.getKurZip(1));</span>
+<span class="nc" id="L275">                ctx.f.setCfi1o(String.format(&quot;%03d&quot;, ctx.f.getKurFico(1)));</span>
+<span class="nc" id="L276">            }</span>
+            case 2 -&gt; {
+<span class="nc" id="L278">                ctx.f.setCul2o(String.format(&quot;%09d&quot;, ctx.f.getKurId(2)));</span>
+<span class="nc" id="L279">                ctx.f.setCun2o(ctx.f.getKurName(2));</span>
+<span class="nc" id="L280">                ctx.f.setCst2o(ctx.f.getKurState(2));</span>
+<span class="nc" id="L281">                ctx.f.setCzp2o(ctx.f.getKurZip(2));</span>
+<span class="nc" id="L282">                ctx.f.setCfi2o(String.format(&quot;%03d&quot;, ctx.f.getKurFico(2)));</span>
+<span class="nc" id="L283">            }</span>
+            case 3 -&gt; {
+<span class="nc" id="L285">                ctx.f.setCul3o(String.format(&quot;%09d&quot;, ctx.f.getKurId(3)));</span>
+<span class="nc" id="L286">                ctx.f.setCun3o(ctx.f.getKurName(3));</span>
+<span class="nc" id="L287">                ctx.f.setCst3o(ctx.f.getKurState(3));</span>
+<span class="nc" id="L288">                ctx.f.setCzp3o(ctx.f.getKurZip(3));</span>
+<span class="nc" id="L289">                ctx.f.setCfi3o(String.format(&quot;%03d&quot;, ctx.f.getKurFico(3)));</span>
+<span class="nc" id="L290">            }</span>
+            case 4 -&gt; {
+<span class="nc" id="L292">                ctx.f.setCul4o(String.format(&quot;%09d&quot;, ctx.f.getKurId(4)));</span>
+<span class="nc" id="L293">                ctx.f.setCun4o(ctx.f.getKurName(4));</span>
+<span class="nc" id="L294">                ctx.f.setCst4o(ctx.f.getKurState(4));</span>
+<span class="nc" id="L295">                ctx.f.setCzp4o(ctx.f.getKurZip(4));</span>
+<span class="nc" id="L296">                ctx.f.setCfi4o(String.format(&quot;%03d&quot;, ctx.f.getKurFico(4)));</span>
+<span class="nc" id="L297">            }</span>
+            case 5 -&gt; {
+<span class="nc" id="L299">                ctx.f.setCul5o(String.format(&quot;%09d&quot;, ctx.f.getKurId(5)));</span>
+<span class="nc" id="L300">                ctx.f.setCun5o(ctx.f.getKurName(5));</span>
+<span class="nc" id="L301">                ctx.f.setCst5o(ctx.f.getKurState(5));</span>
+<span class="nc" id="L302">                ctx.f.setCzp5o(ctx.f.getKurZip(5));</span>
+<span class="nc" id="L303">                ctx.f.setCfi5o(String.format(&quot;%03d&quot;, ctx.f.getKurFico(5)));</span>
+<span class="nc" id="L304">            }</span>
+            case 6 -&gt; {
+<span class="nc" id="L306">                ctx.f.setCul6o(String.format(&quot;%09d&quot;, ctx.f.getKurId(6)));</span>
+<span class="nc" id="L307">                ctx.f.setCun6o(ctx.f.getKurName(6));</span>
+<span class="nc" id="L308">                ctx.f.setCst6o(ctx.f.getKurState(6));</span>
+<span class="nc" id="L309">                ctx.f.setCzp6o(ctx.f.getKurZip(6));</span>
+<span class="nc" id="L310">                ctx.f.setCfi6o(String.format(&quot;%03d&quot;, ctx.f.getKurFico(6)));</span>
+<span class="nc" id="L311">            }</span>
+            case 7 -&gt; {
+<span class="nc" id="L313">                ctx.f.setCul7o(String.format(&quot;%09d&quot;, ctx.f.getKurId(7)));</span>
+<span class="nc" id="L314">                ctx.f.setCun7o(ctx.f.getKurName(7));</span>
+<span class="nc" id="L315">                ctx.f.setCst7o(ctx.f.getKurState(7));</span>
+<span class="nc" id="L316">                ctx.f.setCzp7o(ctx.f.getKurZip(7));</span>
+<span class="nc" id="L317">                ctx.f.setCfi7o(String.format(&quot;%03d&quot;, ctx.f.getKurFico(7)));</span>
+<span class="nc" id="L318">            }</span>
+            case 8 -&gt; {
+<span class="nc" id="L320">                ctx.f.setCul8o(String.format(&quot;%09d&quot;, ctx.f.getKurId(8)));</span>
+<span class="nc" id="L321">                ctx.f.setCun8o(ctx.f.getKurName(8));</span>
+<span class="nc" id="L322">                ctx.f.setCst8o(ctx.f.getKurState(8));</span>
+<span class="nc" id="L323">                ctx.f.setCzp8o(ctx.f.getKurZip(8));</span>
+<span class="nc" id="L324">                ctx.f.setCfi8o(String.format(&quot;%03d&quot;, ctx.f.getKurFico(8)));</span>
+<span class="nc" id="L325">            }</span>
+            case 9 -&gt; {
+<span class="nc" id="L327">                ctx.f.setCul9o(String.format(&quot;%09d&quot;, ctx.f.getKurId(9)));</span>
+<span class="nc" id="L328">                ctx.f.setCun9o(ctx.f.getKurName(9));</span>
+<span class="nc" id="L329">                ctx.f.setCst9o(ctx.f.getKurState(9));</span>
+<span class="nc" id="L330">                ctx.f.setCzp9o(ctx.f.getKurZip(9));</span>
+<span class="nc" id="L331">                ctx.f.setCfi9o(String.format(&quot;%03d&quot;, ctx.f.getKurFico(9)));</span>
+<span class="nc" id="L332">            }</span>
+            case 10 -&gt; {
+<span class="nc" id="L334">                ctx.f.setCul10o(String.format(&quot;%09d&quot;, ctx.f.getKurId(10)));</span>
+<span class="nc" id="L335">                ctx.f.setCun10o(ctx.f.getKurName(10));</span>
+<span class="nc" id="L336">                ctx.f.setCst10o(ctx.f.getKurState(10));</span>
+<span class="nc" id="L337">                ctx.f.setCzp10o(ctx.f.getKurZip(10));</span>
+<span class="nc" id="L338">                ctx.f.setCfi10o(String.format(&quot;%03d&quot;, ctx.f.getKurFico(10)));</span>
+<span class="nc" id="L339">            }</span>
+            case 11 -&gt; {
+<span class="nc" id="L341">                ctx.f.setCul11o(String.format(&quot;%09d&quot;, ctx.f.getKurId(11)));</span>
+<span class="nc" id="L342">                ctx.f.setCun11o(ctx.f.getKurName(11));</span>
+<span class="nc" id="L343">                ctx.f.setCst11o(ctx.f.getKurState(11));</span>
+<span class="nc" id="L344">                ctx.f.setCzp11o(ctx.f.getKurZip(11));</span>
+<span class="nc" id="L345">                ctx.f.setCfi11o(String.format(&quot;%03d&quot;, ctx.f.getKurFico(11)));</span>
+<span class="nc" id="L346">            }</span>
+            case 12 -&gt; {
+<span class="nc" id="L348">                ctx.f.setCul12o(String.format(&quot;%09d&quot;, ctx.f.getKurId(12)));</span>
+<span class="nc" id="L349">                ctx.f.setCun12o(ctx.f.getKurName(12));</span>
+<span class="nc" id="L350">                ctx.f.setCst12o(ctx.f.getKurState(12));</span>
+<span class="nc" id="L351">                ctx.f.setCzp12o(ctx.f.getKurZip(12));</span>
+<span class="nc" id="L352">                ctx.f.setCfi12o(String.format(&quot;%03d&quot;, ctx.f.getKurFico(12)));</span>
+<span class="nc" id="L353">            }</span>
+            case 13 -&gt; {
+<span class="nc" id="L355">                ctx.f.setCul13o(String.format(&quot;%09d&quot;, ctx.f.getKurId(13)));</span>
+<span class="nc" id="L356">                ctx.f.setCun13o(ctx.f.getKurName(13));</span>
+<span class="nc" id="L357">                ctx.f.setCst13o(ctx.f.getKurState(13));</span>
+<span class="nc" id="L358">                ctx.f.setCzp13o(ctx.f.getKurZip(13));</span>
+<span class="nc" id="L359">                ctx.f.setCfi13o(String.format(&quot;%03d&quot;, ctx.f.getKurFico(13)));</span>
+<span class="nc" id="L360">            }</span>
+            default -&gt; {
+                /* CONTINUE */
+            }
+        }
+<span class="nc" id="L365">    }</span>
+
+    /** COBOL paragraph: 4300-BUILD-SUMMARY */
+    private void buildSummaryMessage(TaskContext ctx) {
+<span class="nc" id="L369">        ctx.f.setWsCntEd(ctx.f.getKuiMatchCount());</span>
+<span class="nc" id="L370">        ctx.f.setWsFicoMinEd(ctx.f.getKuiFicoMin());</span>
+<span class="nc" id="L371">        ctx.f.setWsFicoEd(ctx.f.getKuiFicoAvg());</span>
+<span class="nc" id="L372">        ctx.f.setWsFicoMaxEd(ctx.f.getKuiFicoMax());</span>
+<span class="nc" id="L373">        ctx.f.setWsMsgLine(&quot; &quot;);</span>
+<span class="nc bnc" id="L374" title="All 2 branches missed.">        String suffix = ctx.f.getKuiMoreSw().equals(&quot;Y&quot;) ? &quot;  PF8=more PF7=top&quot; : &quot;  End of list.&quot;;</span>
+<span class="nc" id="L375">        StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L376">        sb.append(String.valueOf(ctx.f.getString(&quot;WS-CNT-ED&quot;)));</span>
+<span class="nc" id="L377">        sb.append(String.valueOf(&quot; match, FICO min/avg/max &quot;));</span>
+<span class="nc" id="L378">        sb.append(String.valueOf(ctx.f.getString(&quot;WS-FICO-MIN-ED&quot;)));</span>
+<span class="nc" id="L379">        sb.append(String.valueOf(&quot;/&quot;));</span>
+<span class="nc" id="L380">        sb.append(String.valueOf(ctx.f.getString(&quot;WS-FICO-ED&quot;)));</span>
+<span class="nc" id="L381">        sb.append(String.valueOf(&quot;/&quot;));</span>
+<span class="nc" id="L382">        sb.append(String.valueOf(ctx.f.getString(&quot;WS-FICO-MAX-ED&quot;)));</span>
+<span class="nc" id="L383">        sb.append(String.valueOf(suffix));</span>
+<span class="nc" id="L384">        ctx.f.setWsMsgLine(sb.toString());</span>
+<span class="nc" id="L385">    }</span>
+
+    /** COBOL paragraph: 5000-PARSE-FILTER */
+    private void parseFilterMode(TaskContext ctx) {
+<span class="nc" id="L389">        ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L390">        ctx.f.setWsMode(ctx.f.getFmodei());</span>
+<span class="nc" id="L391">        ctx.f.setWsMode(</span>
+<span class="nc" id="L392">                String.valueOf(ctx.f.getWsMode())</span>
+<span class="nc" id="L393">                        .replace(String.valueOf(RuntimeConstants.LOW_VALUES), String.valueOf(&quot; &quot;)));</span>
+<span class="nc" id="L394">        ctx.f.setKuiRequest(&quot;&quot;);</span>
+<span class="nc bnc" id="L395" title="All 4 branches missed.">        switch (Utility.rtrim(ctx.f.getWsMode())) {</span>
+            case &quot;I&quot; -&gt; {
+<span class="nc" id="L397">                parseIdRange(ctx);</span>
+<span class="nc" id="L398">            }</span>
+            case &quot;F&quot; -&gt; {
+<span class="nc" id="L400">                parseFicoRange(ctx);</span>
+<span class="nc" id="L401">            }</span>
+            case &quot;S&quot; -&gt; {
+<span class="nc" id="L403">                parseStateZip(ctx);</span>
+<span class="nc" id="L404">            }</span>
+            default -&gt; {
+<span class="nc" id="L406">                ctx.f.setErrmsgo(ctx.f.getWsMBadMode());</span>
+<span class="nc" id="L407">                ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+            }
+        }
+<span class="nc" id="L410">    }</span>
+
+    /** COBOL paragraph: 5100-PARSE-IDRANGE */
+    private void parseIdRange(TaskContext ctx) {
+<span class="nc" id="L414">        ctx.f.setString(&quot;KUI-FILTER&quot;, &quot;I&quot;);</span>
+<span class="nc" id="L415">        ctx.f.setKuiIdFrom(0);</span>
+<span class="nc" id="L416">        ctx.f.setKuiIdTo(999999999);</span>
+<span class="nc" id="L417">        Integer idFrom = parseOptionalNumericBound(ctx, ctx.f.getFridi(), 9);</span>
+<span class="nc bnc" id="L418" title="All 2 branches missed.">        if (isValidationFailed(ctx)) {</span>
+<span class="nc" id="L419">            ctx.f.setErrmsgo(ctx.f.getWsMBadNum());</span>
+<span class="nc" id="L420">            return;</span>
+        }
+<span class="nc bnc" id="L422" title="All 2 branches missed.">        if (idFrom != null) {</span>
+<span class="nc" id="L423">            ctx.f.setKuiIdFrom(idFrom);</span>
+        }
+<span class="nc" id="L425">        Integer idTo = parseOptionalNumericBound(ctx, ctx.f.getToidi(), 9);</span>
+<span class="nc bnc" id="L426" title="All 2 branches missed.">        if (isValidationFailed(ctx)) {</span>
+<span class="nc" id="L427">            ctx.f.setErrmsgo(ctx.f.getWsMBadNum());</span>
+<span class="nc" id="L428">            return;</span>
+        }
+<span class="nc bnc" id="L430" title="All 2 branches missed.">        if (idTo != null) {</span>
+<span class="nc" id="L431">            ctx.f.setKuiIdTo(idTo);</span>
+        }
+<span class="nc" id="L433">    }</span>
+
+    /** COBOL paragraph: 5200-PARSE-FICO */
+    private void parseFicoRange(TaskContext ctx) {
+<span class="nc" id="L437">        ctx.f.setString(&quot;KUI-FILTER&quot;, &quot;F&quot;);</span>
+<span class="nc" id="L438">        ctx.f.setKuiFicoFrom(0);</span>
+<span class="nc" id="L439">        ctx.f.setKuiFicoTo(999);</span>
+<span class="nc" id="L440">        Integer ficoFrom = parseOptionalNumericBound(ctx, ctx.f.getFrficoi(), 3);</span>
+<span class="nc bnc" id="L441" title="All 2 branches missed.">        if (isValidationFailed(ctx)) {</span>
+<span class="nc" id="L442">            ctx.f.setErrmsgo(ctx.f.getWsMBadNum());</span>
+<span class="nc" id="L443">            return;</span>
+        }
+<span class="nc bnc" id="L445" title="All 2 branches missed.">        if (ficoFrom != null) {</span>
+<span class="nc" id="L446">            ctx.f.setKuiFicoFrom(ficoFrom);</span>
+        }
+<span class="nc" id="L448">        Integer ficoTo = parseOptionalNumericBound(ctx, ctx.f.getToficoi(), 3);</span>
+<span class="nc bnc" id="L449" title="All 2 branches missed.">        if (isValidationFailed(ctx)) {</span>
+<span class="nc" id="L450">            ctx.f.setErrmsgo(ctx.f.getWsMBadNum());</span>
+<span class="nc" id="L451">            return;</span>
+        }
+<span class="nc bnc" id="L453" title="All 2 branches missed.">        if (ficoTo != null) {</span>
+<span class="nc" id="L454">            ctx.f.setKuiFicoTo(ficoTo);</span>
+        }
+<span class="nc" id="L456">    }</span>
+
+    /** COBOL paragraph: 5300-PARSE-STZIP */
+    private void parseStateZip(TaskContext ctx) {
+<span class="nc" id="L460">        ctx.f.setString(&quot;KUI-FILTER&quot;, &quot;S&quot;);</span>
+<span class="nc" id="L461">        ctx.f.setKuiState(ctx.f.getFstatei());</span>
+<span class="nc" id="L462">        ctx.f.setKuiState(</span>
+<span class="nc" id="L463">                String.valueOf(ctx.f.getKuiState())</span>
+<span class="nc" id="L464">                        .replace(String.valueOf(RuntimeConstants.LOW_VALUES), String.valueOf(&quot; &quot;)));</span>
+<span class="nc" id="L465">        ctx.f.setKuiZip(ctx.f.getFzipi());</span>
+<span class="nc" id="L466">        ctx.f.setKuiZip(</span>
+<span class="nc" id="L467">                String.valueOf(ctx.f.getKuiZip())</span>
+<span class="nc" id="L468">                        .replace(String.valueOf(RuntimeConstants.LOW_VALUES), String.valueOf(&quot; &quot;)));</span>
+<span class="nc bnc" id="L469" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getKuiState(), &quot; &quot;)) {</span>
+<span class="nc" id="L470">            ctx.f.setErrmsgo(ctx.f.getWsMStateReq());</span>
+<span class="nc" id="L471">            ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+        }
+<span class="nc" id="L473">    }</span>
+
+    /** COBOL paragraph: 6000-PARSE-NUM */
+    private void parseNumericField(TaskContext ctx) {
+<span class="nc" id="L477">        ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L478">        ctx.f.setWsNcValue(0);</span>
+<span class="nc" id="L479">        ctx.f.setWsNcDigits(0);</span>
+<span class="nc" id="L480">        ctx.f.setWsNcIn(</span>
+<span class="nc" id="L481">                String.valueOf(ctx.f.getWsNcIn())</span>
+<span class="nc" id="L482">                        .replace(String.valueOf(RuntimeConstants.LOW_VALUES), String.valueOf(&quot; &quot;)));</span>
+<span class="nc" id="L483">        for (ctx.f.setWsNcPos(1);</span>
+<span class="nc bnc" id="L484" title="All 2 branches missed.">                ctx.f.getWsNcPos() &lt;= ctx.f.getWsNcLen();</span>
+<span class="nc" id="L485">                ctx.f.setWsNcPos(ctx.f.getWsNcPos() + 1)) {</span>
+<span class="nc" id="L486">            ctx.f.setWsNcChar(</span>
+<span class="nc" id="L487">                    Utility.padRight(String.valueOf(ctx.f.getWsNcIn()), 256)</span>
+<span class="nc" id="L488">                            .substring(ctx.f.getWsNcPos() - 1, ctx.f.getWsNcPos() - 1 + 1));</span>
+<span class="nc bnc" id="L489" title="All 2 branches missed.">            if (Utility.fieldEquals(ctx.f.getWsNcChar(), &quot; &quot;)) {</span>
+                /* CONTINUE */
+<span class="nc bnc" id="L491" title="All 2 branches missed.">            } else if ((ctx.f.getWsNcChar().compareTo(&quot;0&quot;) &gt;= 0)</span>
+<span class="nc bnc" id="L492" title="All 2 branches missed.">                    &amp;&amp; (ctx.f.getWsNcChar().compareTo(&quot;9&quot;) &lt;= 0)) {</span>
+<span class="nc" id="L493">                ctx.f.setWsNcDigit(Utility.parseNumeric(ctx.f.getWsNcChar()).intValue());</span>
+<span class="nc" id="L494">                ctx.f.setWsNcValue(((ctx.f.getWsNcValue() * 10) + ctx.f.getWsNcDigit()));</span>
+<span class="nc" id="L495">                ctx.f.setWsNcDigits(ctx.f.getWsNcDigits() + 1);</span>
+            } else {
+<span class="nc" id="L497">                ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+            }
+        }
+<span class="nc bnc" id="L500" title="All 2 branches missed.">        if (ctx.f.getWsNcDigits() == 0) {</span>
+<span class="nc" id="L501">            ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+        }
+<span class="nc" id="L503">    }</span>
+
+    /** COBOL paragraph: 7000-XCTL-MENU */
+    private void transferToMenu(TaskContext ctx) {
+<span class="nc" id="L507">        ctx.f.setCaFromProgram(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L508">        ctx.f.setCaFromTranid(ctx.f.getWsTranid());</span>
+<span class="nc" id="L509">        ctx.f.setCaPgmContext(0);</span>
+<span class="nc" id="L510">        ctx.appService.xctl(</span>
+<span class="nc" id="L511">                ctx.f.getWsMenuPgm(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L512">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L513">    }</span>
+
+    /** COBOL paragraph: 8000-POPULATE-HEADER */
+    private void populateHeader(TaskContext ctx) {
+<span class="nc" id="L517">        ctx.f.setTrnnameo(ctx.f.getWsTranid());</span>
+<span class="nc" id="L518">        ctx.f.setPgmnameo(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L519">        ctx.f.setTitleo(ctx.f.getWsHdrTitle());</span>
+<span class="nc" id="L520">        loadCurrentDateTime(ctx);</span>
+<span class="nc" id="L521">        ctx.f.setCurdateo(ctx.f.getWsHdrDate());</span>
+<span class="nc" id="L522">        ctx.f.setCurtimeo(ctx.f.getWsHdrTime());</span>
+<span class="nc" id="L523">    }</span>
+
+    /** COBOL paragraph: 8100-SEND-DATAONLY */
+    private void sendDataOnly(TaskContext ctx) {
+<span class="nc" id="L527">        populateHeader(ctx);</span>
+<span class="nc" id="L528">        ctx.appService.sendMap(</span>
+                &quot;MCUSINA&quot;, ctx.f, ctx.f, /* erase */ false, /* freekb */ false, /* cursor */ true);
+<span class="nc" id="L530">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L531">    }</span>
+
+    /** COBOL paragraph: 8500-GET-DATE-TIME */
+    private void loadCurrentDateTime(TaskContext ctx) {
+<span class="nc" id="L535">        ctx.appService.askTime();</span>
+<span class="nc" id="L536">        com.appruntime.FormatTimeResult _ftResult =</span>
+<span class="nc" id="L537">                ctx.appService.formatTime(null, &quot;YYYYMMDD&quot;, &quot;-&quot;, &quot;:&quot;);</span>
+<span class="nc" id="L538">        ctx.f.setWsHdrDate(_ftResult.getDate());</span>
+<span class="nc" id="L539">        ctx.f.setWsHdrTime(_ftResult.getTime());</span>
+<span class="nc" id="L540">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L541">    }</span>
+
+    /** COBOL paragraph: 9000-RETURN */
+    private void returnTransaction(TaskContext ctx) {
+<span class="nc" id="L545">        ctx.appService.returnTransid(</span>
+<span class="nc" id="L546">                ctx.f.getWsTranid(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L547">    }</span>
+
+    /** Parse an optional numeric range bound; blank input yields no change to the default. */
+    private Integer parseOptionalNumericBound(TaskContext ctx, String rawValue, int length) {
+<span class="nc" id="L551">        ctx.f.setWsNcIn(rawValue);</span>
+<span class="nc" id="L552">        ctx.f.setWsNcIn(</span>
+<span class="nc" id="L553">                String.valueOf(ctx.f.getWsNcIn())</span>
+<span class="nc" id="L554">                        .replace(String.valueOf(RuntimeConstants.LOW_VALUES), String.valueOf(&quot; &quot;)));</span>
+<span class="nc bnc" id="L555" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getWsNcIn(), &quot; &quot;)) {</span>
+<span class="nc" id="L556">            return null;</span>
+        }
+<span class="nc" id="L558">        ctx.f.setWsNcLen(length);</span>
+<span class="nc" id="L559">        parseNumericField(ctx);</span>
+<span class="nc bnc" id="L560" title="All 2 branches missed.">        return isValidationFailed(ctx) ? null : ctx.f.getWsNcValue();</span>
+    }
+
+    /** True when the last field-validation pass marked the input invalid. */
+    private boolean isValidationFailed(TaskContext ctx) {
+<span class="nc" id="L565">        return ctx.f.getWsValidSw().equals(&quot;N&quot;);</span>
+    }
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OccusinFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L579">        final OccusinLinkParm link = new OccusinLinkParm();</span>
+
+<span class="nc" id="L581">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L582">            this.appService = appService;</span>
+<span class="nc" id="L583">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L584">            this.f = new OccusinFields(ws);</span>
+<span class="nc" id="L585">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

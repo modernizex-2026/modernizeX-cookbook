@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OdtranlBmsMetadata.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ODTRANL Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.odtranl.metadata</a> &gt; <span class="el_source">OdtranlBmsMetadata.java</span></div><h1>OdtranlBmsMetadata.java</h1><pre class="source lang-java linenums">package com.generated.orion.odtranl.metadata;
+
+import com.appruntime.AppRunner;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import java.util.*;
+
+/**
+ * BMS screen metadata for ODTRANL.
+ * Contains button definitions, FSET fields, and field mappings.
+ */
+<span class="nc" id="L12">public class OdtranlBmsMetadata {</span>
+
+    public static List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="fc" id="L15">        return List.of(</span>
+            new ScreenResponse.ButtonDef(&quot;ENTER&quot;, &quot;ENTER=PROCESS&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF3&quot;, &quot;PF3=BACK&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF4&quot;, &quot;PF4=CLEAR&quot;, &quot;&quot;)
+        );
+    }
+
+    public static void registerFsetFields(AppRunner runner) {
+<span class="fc" id="L23">        runner.registerFsetFields(&quot;MTRANLA&quot;, Set.of(&quot;CARDNUM&quot;));</span>
+<span class="fc" id="L24">    }</span>
+
+    /** Danh sách BMS map của program (cho smoke test / tooling). */
+    public static List&lt;String&gt; getMapNames() {
+<span class="nc" id="L28">        return List.of(&quot;MTRANLA&quot;);</span>
+    }
+
+    /** Classpath resource của WORKING-STORAGE layout (FieldStore đọc lúc runtime). */
+    public static String getLayoutResource() {
+<span class="nc" id="L33">        return &quot;layout/ODTRANL_WS.xml&quot;;</span>
+    }
+
+    public static FieldMapping getFieldMapping(String mapName) {
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (&quot;MTRANLA&quot;.equalsIgnoreCase(mapName)) {</span>
+<span class="fc" id="L38">            return FieldMapping.builder()</span>
+<span class="fc" id="L39">                .addDataIn(&quot;TYP2&quot;, &quot;typ2i&quot;)</span>
+<span class="fc" id="L40">                .addDataIn(&quot;TYP1&quot;, &quot;typ1i&quot;)</span>
+<span class="fc" id="L41">                .addDataIn(&quot;TRN5&quot;, &quot;trn5i&quot;)</span>
+<span class="fc" id="L42">                .addDataIn(&quot;TRN4&quot;, &quot;trn4i&quot;)</span>
+<span class="fc" id="L43">                .addDataIn(&quot;TRN3&quot;, &quot;trn3i&quot;)</span>
+<span class="fc" id="L44">                .addDataIn(&quot;TRN2&quot;, &quot;trn2i&quot;)</span>
+<span class="fc" id="L45">                .addDataIn(&quot;CARDNUM&quot;, &quot;cardnumi&quot;)</span>
+<span class="fc" id="L46">                .addDataIn(&quot;TRN1&quot;, &quot;trn1i&quot;)</span>
+<span class="fc" id="L47">                .addDataIn(&quot;TYP5&quot;, &quot;typ5i&quot;)</span>
+<span class="fc" id="L48">                .addDataIn(&quot;TYP4&quot;, &quot;typ4i&quot;)</span>
+<span class="fc" id="L49">                .addDataIn(&quot;TYP3&quot;, &quot;typ3i&quot;)</span>
+<span class="fc" id="L50">                .addDataIn(&quot;AMT4&quot;, &quot;amt4i&quot;)</span>
+<span class="fc" id="L51">                .addDataIn(&quot;TRNNAME&quot;, &quot;trnnamei&quot;)</span>
+<span class="fc" id="L52">                .addDataIn(&quot;AMT5&quot;, &quot;amt5i&quot;)</span>
+<span class="fc" id="L53">                .addDataIn(&quot;AMT2&quot;, &quot;amt2i&quot;)</span>
+<span class="fc" id="L54">                .addDataIn(&quot;ERRMSG&quot;, &quot;errmsgi&quot;)</span>
+<span class="fc" id="L55">                .addDataIn(&quot;CURTIME&quot;, &quot;curtimei&quot;)</span>
+<span class="fc" id="L56">                .addDataIn(&quot;AMT3&quot;, &quot;amt3i&quot;)</span>
+<span class="fc" id="L57">                .addDataIn(&quot;AMT1&quot;, &quot;amt1i&quot;)</span>
+<span class="fc" id="L58">                .addDataIn(&quot;TITLE&quot;, &quot;titlei&quot;)</span>
+<span class="fc" id="L59">                .addDataIn(&quot;PGMNAME&quot;, &quot;pgmnamei&quot;)</span>
+<span class="fc" id="L60">                .addDataIn(&quot;CURDATE&quot;, &quot;curdatei&quot;)</span>
+<span class="fc" id="L61">                .addDataOut(&quot;TYP2&quot;, &quot;typ2o&quot;)</span>
+<span class="fc" id="L62">                .addDataOut(&quot;TYP1&quot;, &quot;typ1o&quot;)</span>
+<span class="fc" id="L63">                .addDataOut(&quot;TRN5&quot;, &quot;trn5o&quot;)</span>
+<span class="fc" id="L64">                .addDataOut(&quot;TRN4&quot;, &quot;trn4o&quot;)</span>
+<span class="fc" id="L65">                .addDataOut(&quot;TRN3&quot;, &quot;trn3o&quot;)</span>
+<span class="fc" id="L66">                .addDataOut(&quot;TRN2&quot;, &quot;trn2o&quot;)</span>
+<span class="fc" id="L67">                .addDataOut(&quot;CARDNUM&quot;, &quot;cardnumo&quot;)</span>
+<span class="fc" id="L68">                .addDataOut(&quot;TRN1&quot;, &quot;trn1o&quot;)</span>
+<span class="fc" id="L69">                .addDataOut(&quot;TYP5&quot;, &quot;typ5o&quot;)</span>
+<span class="fc" id="L70">                .addDataOut(&quot;TYP4&quot;, &quot;typ4o&quot;)</span>
+<span class="fc" id="L71">                .addDataOut(&quot;TYP3&quot;, &quot;typ3o&quot;)</span>
+<span class="fc" id="L72">                .addDataOut(&quot;AMT4&quot;, &quot;amt4o&quot;)</span>
+<span class="fc" id="L73">                .addDataOut(&quot;TRNNAME&quot;, &quot;trnnameo&quot;)</span>
+<span class="fc" id="L74">                .addDataOut(&quot;AMT5&quot;, &quot;amt5o&quot;)</span>
+<span class="fc" id="L75">                .addDataOut(&quot;AMT2&quot;, &quot;amt2o&quot;)</span>
+<span class="fc" id="L76">                .addDataOut(&quot;ERRMSG&quot;, &quot;errmsgo&quot;)</span>
+<span class="fc" id="L77">                .addDataOut(&quot;CURTIME&quot;, &quot;curtimeo&quot;)</span>
+<span class="fc" id="L78">                .addDataOut(&quot;AMT3&quot;, &quot;amt3o&quot;)</span>
+<span class="fc" id="L79">                .addDataOut(&quot;AMT1&quot;, &quot;amt1o&quot;)</span>
+<span class="fc" id="L80">                .addDataOut(&quot;TITLE&quot;, &quot;titleo&quot;)</span>
+<span class="fc" id="L81">                .addDataOut(&quot;PGMNAME&quot;, &quot;pgmnameo&quot;)</span>
+<span class="fc" id="L82">                .addDataOut(&quot;CURDATE&quot;, &quot;curdateo&quot;)</span>
+<span class="fc" id="L83">                .addAttr(&quot;TYP2&quot;, &quot;typ2a&quot;)</span>
+<span class="fc" id="L84">                .addAttr(&quot;TYP1&quot;, &quot;typ1a&quot;)</span>
+<span class="fc" id="L85">                .addAttr(&quot;TRN5&quot;, &quot;trn5a&quot;)</span>
+<span class="fc" id="L86">                .addAttr(&quot;TRN4&quot;, &quot;trn4a&quot;)</span>
+<span class="fc" id="L87">                .addAttr(&quot;TRN3&quot;, &quot;trn3a&quot;)</span>
+<span class="fc" id="L88">                .addAttr(&quot;TRN2&quot;, &quot;trn2a&quot;)</span>
+<span class="fc" id="L89">                .addAttr(&quot;CARDNUM&quot;, &quot;cardnuma&quot;)</span>
+<span class="fc" id="L90">                .addAttr(&quot;TRN1&quot;, &quot;trn1a&quot;)</span>
+<span class="fc" id="L91">                .addAttr(&quot;TYP5&quot;, &quot;typ5a&quot;)</span>
+<span class="fc" id="L92">                .addAttr(&quot;TYP4&quot;, &quot;typ4a&quot;)</span>
+<span class="fc" id="L93">                .addAttr(&quot;TYP3&quot;, &quot;typ3a&quot;)</span>
+<span class="fc" id="L94">                .addAttr(&quot;AMT4&quot;, &quot;amt4a&quot;)</span>
+<span class="fc" id="L95">                .addAttr(&quot;TRNNAME&quot;, &quot;trnnamea&quot;)</span>
+<span class="fc" id="L96">                .addAttr(&quot;AMT5&quot;, &quot;amt5a&quot;)</span>
+<span class="fc" id="L97">                .addAttr(&quot;AMT2&quot;, &quot;amt2a&quot;)</span>
+<span class="fc" id="L98">                .addAttr(&quot;ERRMSG&quot;, &quot;errmsga&quot;)</span>
+<span class="fc" id="L99">                .addAttr(&quot;CURTIME&quot;, &quot;curtimea&quot;)</span>
+<span class="fc" id="L100">                .addAttr(&quot;AMT3&quot;, &quot;amt3a&quot;)</span>
+<span class="fc" id="L101">                .addAttr(&quot;AMT1&quot;, &quot;amt1a&quot;)</span>
+<span class="fc" id="L102">                .addAttr(&quot;TITLE&quot;, &quot;titlea&quot;)</span>
+<span class="fc" id="L103">                .addAttr(&quot;PGMNAME&quot;, &quot;pgmnamea&quot;)</span>
+<span class="fc" id="L104">                .addAttr(&quot;CURDATE&quot;, &quot;curdatea&quot;)</span>
+<span class="fc" id="L105">                .addLength(&quot;TYP2&quot;, &quot;typ2l&quot;)</span>
+<span class="fc" id="L106">                .addLength(&quot;TYP1&quot;, &quot;typ1l&quot;)</span>
+<span class="fc" id="L107">                .addLength(&quot;TRN5&quot;, &quot;trn5l&quot;)</span>
+<span class="fc" id="L108">                .addLength(&quot;TRN4&quot;, &quot;trn4l&quot;)</span>
+<span class="fc" id="L109">                .addLength(&quot;TRN3&quot;, &quot;trn3l&quot;)</span>
+<span class="fc" id="L110">                .addLength(&quot;TRN2&quot;, &quot;trn2l&quot;)</span>
+<span class="fc" id="L111">                .addLength(&quot;CARDNUM&quot;, &quot;cardnuml&quot;)</span>
+<span class="fc" id="L112">                .addLength(&quot;TRN1&quot;, &quot;trn1l&quot;)</span>
+<span class="fc" id="L113">                .addLength(&quot;TYP5&quot;, &quot;typ5l&quot;)</span>
+<span class="fc" id="L114">                .addLength(&quot;TYP4&quot;, &quot;typ4l&quot;)</span>
+<span class="fc" id="L115">                .addLength(&quot;TYP3&quot;, &quot;typ3l&quot;)</span>
+<span class="fc" id="L116">                .addLength(&quot;AMT4&quot;, &quot;amt4l&quot;)</span>
+<span class="fc" id="L117">                .addLength(&quot;TRNNAME&quot;, &quot;trnnamel&quot;)</span>
+<span class="fc" id="L118">                .addLength(&quot;AMT5&quot;, &quot;amt5l&quot;)</span>
+<span class="fc" id="L119">                .addLength(&quot;AMT2&quot;, &quot;amt2l&quot;)</span>
+<span class="fc" id="L120">                .addLength(&quot;ERRMSG&quot;, &quot;errmsgl&quot;)</span>
+<span class="fc" id="L121">                .addLength(&quot;CURTIME&quot;, &quot;curtimel&quot;)</span>
+<span class="fc" id="L122">                .addLength(&quot;AMT3&quot;, &quot;amt3l&quot;)</span>
+<span class="fc" id="L123">                .addLength(&quot;AMT1&quot;, &quot;amt1l&quot;)</span>
+<span class="fc" id="L124">                .addLength(&quot;TITLE&quot;, &quot;titlel&quot;)</span>
+<span class="fc" id="L125">                .addLength(&quot;PGMNAME&quot;, &quot;pgmnamel&quot;)</span>
+<span class="fc" id="L126">                .addLength(&quot;CURDATE&quot;, &quot;curdatel&quot;)</span>
+<span class="fc" id="L127">                .build();</span>
+        }
+<span class="fc" id="L129">        return FieldMapping.empty();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

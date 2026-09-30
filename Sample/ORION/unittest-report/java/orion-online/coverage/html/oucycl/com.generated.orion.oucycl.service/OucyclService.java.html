@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OucyclService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUCYCL Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.oucycl.service</a> &gt; <span class="el_source">OucyclService.java</span></div><h1>OucyclService.java</h1><pre class="source lang-java linenums">package com.generated.orion.oucycl.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.oucycl.accessor.OucyclFields;
+import com.generated.orion.oucycl.metadata.OucyclBmsMetadata;
+import com.generated.orion.oucycl.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OUCYCL. */
+@Service
+<span class="nc" id="L19">public class OucyclService implements AppProgram {</span>
+<span class="nc" id="L20">    private static final Logger log = LoggerFactory.getLogger(OucyclService.class);</span>
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L28">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc bnc" id="L29" title="All 4 branches missed.">        if (ctx.appService.getEibcalen() &gt; 0 &amp;&amp; ctx.appService.getCommarea() != null) {</span>
+<span class="nc" id="L30">            Object _commarea = ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">            if (_commarea instanceof Object[]) {</span>
+<span class="nc" id="L32">                Object[] _params = (Object[]) _commarea;</span>
+<span class="nc bnc" id="L33" title="All 4 branches missed.">                if (_params.length &gt; 0 &amp;&amp; _params[0] instanceof byte[]) {</span>
+<span class="nc" id="L34">                    ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _params[0]);</span>
+<span class="nc bnc" id="L35" title="All 4 branches missed.">                } else if (_params.length &gt; 0 &amp;&amp; _params[0] != null) {</span>
+<span class="nc" id="L36">                    ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_params[0]));</span>
+                }
+<span class="nc bnc" id="L38" title="All 2 branches missed.">            } else if (_commarea instanceof byte[]) {</span>
+<span class="nc" id="L39">                ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _commarea);</span>
+            } else {
+<span class="nc" id="L41">                ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_commarea));</span>
+            }
+        }
+        try {
+<span class="nc" id="L45">            runMainProgram(ctx);</span>
+        } finally {
+<span class="nc bnc" id="L47" title="All 2 branches missed.">            if (ctx.appService.getEibcalen() &gt; 0) {</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">                if (ctx.appService.getCommarea() instanceof Object[]) {</span>
+<span class="nc" id="L49">                    Object[] _params = (Object[]) ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">                    if (_params.length &gt; 0) {</span>
+<span class="nc" id="L51">                        _params[0] =</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                                _params[0] instanceof byte[]</span>
+<span class="nc" id="L53">                                        ? (Object) ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;)</span>
+<span class="nc" id="L54">                                        : (Object) ctx.f.groupToString(&quot;ORION-COMMAREA&quot;);</span>
+                    }
+<span class="nc" id="L56">                } else {</span>
+<span class="nc" id="L57">                    ctx.appService.setCommarea(ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;));</span>
+                }
+            }
+        }
+<span class="nc" id="L61">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L65">        return &quot;OUCYCL&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L70">        return OucyclBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L75">        OucyclBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L76">    }</span>
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainProgram(TaskContext ctx) {
+<span class="nc" id="L80">        ctx.f.aliasGroup(&quot;KOPS-AREA&quot;, &quot;CA-WORK-AREA&quot;);</span>
+<span class="nc" id="L81">        initializeCycleCounters(ctx);</span>
+<span class="nc" id="L82">        driveAccountBrowse(ctx);</span>
+<span class="nc" id="L83">        finalizeCycleStatus(ctx);</span>
+<span class="nc" id="L84">        return;</span>
+    }
+
+    /** COBOL paragraph: 1000-INITIALISE */
+    private void initializeCycleCounters(TaskContext ctx) {
+<span class="nc" id="L89">        ctx.f.setString(&quot;KO-STATUS&quot;, &quot;O&quot;);</span>
+<span class="nc" id="L90">        ctx.f.setKoStatusMsg(&quot; &quot;);</span>
+<span class="nc" id="L91">        ctx.f.setKoReadCnt(0);</span>
+<span class="nc" id="L92">        ctx.f.setKoSelectCnt(0);</span>
+<span class="nc" id="L93">        ctx.f.setKoUpdateCnt(0);</span>
+<span class="nc" id="L94">        ctx.f.setKoPostedCnt(0);</span>
+<span class="nc" id="L95">        ctx.f.setKoRejectCnt(0);</span>
+<span class="nc" id="L96">        ctx.f.setKoSkipCnt(0);</span>
+<span class="nc" id="L97">        ctx.f.setKoTranCnt(0);</span>
+<span class="nc" id="L98">        ctx.f.setKoC1(0);</span>
+<span class="nc" id="L99">        ctx.f.setKoC2(0);</span>
+<span class="nc" id="L100">        ctx.f.setKoC3(0);</span>
+<span class="nc" id="L101">        ctx.f.setKoAmt1(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L102">        ctx.f.setKoAmt2(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L103">        ctx.f.setKoAmt3(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L104">        ctx.f.setWsFilterOn(&quot;N&quot;);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (ctx.f.getKoParmAcct() &gt; 0) {</span>
+<span class="nc" id="L106">            ctx.f.setWsFilterAcct(ctx.f.getKoParmAcct());</span>
+<span class="nc" id="L107">            ctx.f.setString(&quot;WS-FILTER-ON&quot;, &quot;Y&quot;);</span>
+        }
+<span class="nc" id="L109">        ctx.f.setString(&quot;WS-BR-END-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L110">        ctx.f.setString(&quot;WS-BR-STARTED-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L111">    }</span>
+
+    /** COBOL paragraph: 3000-BROWSE-DRIVER */
+    private void driveAccountBrowse(TaskContext ctx) {
+<span class="nc" id="L115">        startAccountBrowse(ctx);</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        if (ctx.f.getWsBrStartedSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L117">            readNextAccount(ctx);</span>
+<span class="nc bnc" id="L118" title="All 4 branches missed.">            while (!(ctx.f.getWsBrEndSw().equals(&quot;Y&quot;) || ctx.f.getKoStatus().equals(&quot;E&quot;))) {</span>
+<span class="nc" id="L119">                processAccount(ctx);</span>
+            }
+<span class="nc" id="L121">            endAccountBrowse(ctx);</span>
+        }
+<span class="nc" id="L123">    }</span>
+
+    /** COBOL paragraph: 3100-START-BROWSE */
+    private void startAccountBrowse(TaskContext ctx) {
+<span class="nc bnc" id="L127" title="All 2 branches missed.">        if (ctx.f.getWsFilterOn().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L128">            ctx.f.setAcId(ctx.f.getWsFilterAcct());</span>
+        } else {
+<span class="nc" id="L130">            ctx.f.setAcId(0);</span>
+        }
+<span class="nc" id="L132">        ctx.appService.startBrowse(ctx.f.getWsAcctfile(), String.valueOf(ctx.f.getAcId()), 0);</span>
+<span class="nc" id="L133">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L135">            ctx.f.setString(&quot;WS-BR-STARTED-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L137">            ctx.f.setString(&quot;WS-BR-END-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L138">            ctx.f.setKoStatusMsg(&quot;NO ACCOUNTS TO ROLL.&quot;);</span>
+        } else {
+<span class="nc" id="L140">            ctx.f.setString(&quot;WS-BR-END-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L141">            ctx.f.setString(&quot;KO-STATUS&quot;, &quot;E&quot;);</span>
+<span class="nc" id="L142">            ctx.f.setKoStatusMsg(&quot;STARTBR ACCTFILE FAILED.&quot;);</span>
+        }
+<span class="nc" id="L144">    }</span>
+
+    /** COBOL paragraph: 3200-READ-NEXT-ACCT */
+    private void readNextAccount(TaskContext ctx) {
+<span class="nc" id="L148">        ctx.appService.readNext(ctx.f.getWsAcctfile(), ctx.f);</span>
+<span class="nc" id="L149">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L151">            ctx.f.setKoReadCnt(ctx.f.getKoReadCnt() + 1);</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L153">            ctx.f.setString(&quot;WS-BR-END-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L155">            ctx.f.setString(&quot;WS-BR-END-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L156">            ctx.f.setString(&quot;KO-STATUS&quot;, &quot;E&quot;);</span>
+<span class="nc" id="L157">            ctx.f.setKoStatusMsg(&quot;READNEXT ACCTFILE FAILED.&quot;);</span>
+        }
+<span class="nc" id="L159">    }</span>
+
+    /** COBOL paragraph: 4000-PROCESS-ACCT */
+    private void processAccount(TaskContext ctx) {
+<span class="nc bnc" id="L163" title="All 4 branches missed.">        if (ctx.f.getWsFilterOn().equals(&quot;Y&quot;) &amp;&amp; ctx.f.getAcId() != ctx.f.getWsFilterAcct()) {</span>
+<span class="nc" id="L164">            ctx.f.setString(&quot;WS-BR-END-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L166">            captureAccountBalances(ctx);</span>
+<span class="nc" id="L167">            classifyAccountBalance(ctx);</span>
+<span class="nc" id="L168">            rollAccountCycle(ctx);</span>
+<span class="nc" id="L169">            readNextAccount(ctx);</span>
+        }
+<span class="nc" id="L171">    }</span>
+
+    /** COBOL paragraph: 4100-CAPTURE */
+    private void captureAccountBalances(TaskContext ctx) {
+<span class="nc" id="L175">        ctx.f.setWsOldBal(ctx.f.getAcCurrBal());</span>
+<span class="nc" id="L176">        ctx.f.setWsCapCredit(ctx.f.getAcCycCredit());</span>
+<span class="nc" id="L177">        ctx.f.setWsCapDebit(ctx.f.getAcCycDebit());</span>
+<span class="nc" id="L178">        ctx.f.setWsNewBal(</span>
+<span class="nc" id="L179">                ctx.f.getAcCurrBal().add(ctx.f.getAcCycDebit()).subtract(ctx.f.getAcCycCredit()));</span>
+<span class="nc bnc" id="L180" title="All 4 branches missed.">        if (ctx.f.getWsCapCredit().signum() != 0 || ctx.f.getWsCapDebit().signum() != 0) {</span>
+<span class="nc" id="L181">            ctx.f.setKoSelectCnt(ctx.f.getKoSelectCnt() + 1);</span>
+        }
+<span class="nc" id="L183">        ctx.f.setKoAmt1(ctx.f.getKoAmt1().add(ctx.f.getWsCapCredit()));</span>
+<span class="nc" id="L184">        ctx.f.setKoAmt2(ctx.f.getKoAmt2().add(ctx.f.getWsCapDebit()));</span>
+<span class="nc" id="L185">    }</span>
+
+    /** COBOL paragraph: 4200-CLASSIFY */
+    private void classifyAccountBalance(TaskContext ctx) {
+<span class="nc bnc" id="L189" title="All 2 branches missed.">        if ((ctx.f.getWsNewBal().signum() &lt; 0)) {</span>
+<span class="nc" id="L190">            ctx.f.setKoC3(ctx.f.getKoC3() + 1);</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">        } else if (ctx.f.getWsNewBal().signum() == 0) {</span>
+<span class="nc" id="L192">            ctx.f.setKoC2(ctx.f.getKoC2() + 1);</span>
+<span class="nc bnc" id="L193" title="All 2 branches missed.">        } else if ((ctx.f.getWsNewBal().compareTo(ctx.f.getAcCreditLimit()) &gt; 0)) {</span>
+<span class="nc" id="L194">            ctx.f.setKoC1(ctx.f.getKoC1() + 1);</span>
+        } else {
+            /* CONTINUE */
+        }
+<span class="nc" id="L198">    }</span>
+
+    /** COBOL paragraph: 4300-ROLL-CYCLE */
+    private void rollAccountCycle(TaskContext ctx) {
+<span class="nc" id="L202">        ctx.appService.readFileForUpdate(</span>
+<span class="nc" id="L203">                ctx.f.getWsAcctfile(), ctx.f, String.valueOf(ctx.f.getAcId()), 0);</span>
+<span class="nc" id="L204">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() != 0) {</span>
+<span class="nc" id="L206">            ctx.f.setKoRejectCnt(ctx.f.getKoRejectCnt() + 1);</span>
+<span class="nc" id="L207">            return;</span>
+        }
+<span class="nc" id="L209">        ctx.f.setAcCurrBal(ctx.f.getWsNewBal());</span>
+<span class="nc" id="L210">        ctx.f.setAcCycCredit(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L211">        ctx.f.setAcCycDebit(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L212">        ctx.appService.rewriteFile(ctx.f.getWsAcctfile(), ctx.f);</span>
+<span class="nc" id="L213">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L215">            ctx.f.setKoPostedCnt(ctx.f.getKoPostedCnt() + 1);</span>
+<span class="nc" id="L216">            ctx.f.setKoUpdateCnt(ctx.f.getKoUpdateCnt() + 1);</span>
+<span class="nc" id="L217">            ctx.f.setKoAmt3(ctx.f.getKoAmt3().add(ctx.f.getWsNewBal()));</span>
+        } else {
+<span class="nc" id="L219">            ctx.f.setKoRejectCnt(ctx.f.getKoRejectCnt() + 1);</span>
+        }
+<span class="nc" id="L221">    }</span>
+
+    /** COBOL paragraph: 3400-END-BROWSE */
+    private void endAccountBrowse(TaskContext ctx) {
+<span class="nc bnc" id="L225" title="All 2 branches missed.">        if (ctx.f.getWsBrStartedSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L226">            ctx.appService.endBrowse(ctx.f.getWsAcctfile());</span>
+<span class="nc" id="L227">            ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+        }
+<span class="nc" id="L229">    }</span>
+
+    /** COBOL paragraph: 9000-FINALISE */
+    private void finalizeCycleStatus(TaskContext ctx) {
+<span class="nc bnc" id="L233" title="All 2 branches missed.">        if (ctx.f.getKoStatus().equals(&quot;E&quot;)) {</span>
+<span class="nc" id="L234">            return;</span>
+        }
+<span class="nc bnc" id="L236" title="All 2 branches missed.">        if (ctx.f.getKoRejectCnt() &gt; 0) {</span>
+<span class="nc" id="L237">            ctx.f.setString(&quot;KO-STATUS&quot;, &quot;W&quot;);</span>
+        } else {
+<span class="nc" id="L239">            ctx.f.setString(&quot;KO-STATUS&quot;, &quot;O&quot;);</span>
+        }
+<span class="nc" id="L241">        ctx.f.setKoStatusMsg(&quot;CYCLE ROLL PROCESSING COMPLETE.&quot;);</span>
+<span class="nc" id="L242">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OucyclFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L255">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L256">            this.appService = appService;</span>
+<span class="nc" id="L257">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L258">            this.f = new OucyclFields(ws);</span>
+<span class="nc" id="L259">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

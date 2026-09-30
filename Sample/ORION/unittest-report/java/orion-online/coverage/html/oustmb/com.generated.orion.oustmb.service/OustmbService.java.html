@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OustmbService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUSTMB Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.oustmb.service</a> &gt; <span class="el_source">OustmbService.java</span></div><h1>OustmbService.java</h1><pre class="source lang-java linenums">package com.generated.orion.oustmb.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.oustmb.accessor.OustmbFields;
+import com.generated.orion.oustmb.metadata.OustmbBmsMetadata;
+import com.generated.orion.oustmb.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OUSTMB. */
+@Service
+<span class="nc" id="L20">public class OustmbService implements AppProgram {</span>
+<span class="nc" id="L21">    private static final Logger log = LoggerFactory.getLogger(OustmbService.class);</span>
+
+    /** CICS response code indicating the prior file operation completed normally. */
+    private static final int RESP_NORMAL = 0;
+
+    /** CICS response code indicating end-of-file was reached during a browse/read. */
+    private static final int RESP_ENDFILE = 20;
+
+    /** KSM-STATUS sentinel indicating a fatal condition that aborts the main flow. */
+    private static final String STATUS_FATAL_ERROR = &quot;99&quot;;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L38">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc bnc" id="L39" title="All 4 branches missed.">        if (ctx.appService.getEibcalen() &gt; 0 &amp;&amp; ctx.appService.getCommarea() != null) {</span>
+<span class="nc" id="L40">            Object _commarea = ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">            if (_commarea instanceof Object[]) {</span>
+<span class="nc" id="L42">                Object[] _params = (Object[]) _commarea;</span>
+<span class="nc bnc" id="L43" title="All 4 branches missed.">                if (_params.length &gt; 0 &amp;&amp; _params[0] instanceof byte[]) {</span>
+<span class="nc" id="L44">                    ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _params[0]);</span>
+<span class="nc bnc" id="L45" title="All 4 branches missed.">                } else if (_params.length &gt; 0 &amp;&amp; _params[0] != null) {</span>
+<span class="nc" id="L46">                    ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_params[0]));</span>
+                }
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            } else if (_commarea instanceof byte[]) {</span>
+<span class="nc" id="L49">                ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _commarea);</span>
+            } else {
+<span class="nc" id="L51">                ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_commarea));</span>
+            }
+        }
+        try {
+<span class="nc" id="L55">            runMainProgram(ctx);</span>
+        } finally {
+<span class="nc bnc" id="L57" title="All 2 branches missed.">            if (ctx.appService.getEibcalen() &gt; 0) {</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">                if (ctx.appService.getCommarea() instanceof Object[]) {</span>
+<span class="nc" id="L59">                    Object[] _params = (Object[]) ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">                    if (_params.length &gt; 0) {</span>
+<span class="nc" id="L61">                        _params[0] =</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">                                _params[0] instanceof byte[]</span>
+<span class="nc" id="L63">                                        ? (Object) ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;)</span>
+<span class="nc" id="L64">                                        : (Object) ctx.f.groupToString(&quot;ORION-COMMAREA&quot;);</span>
+                    }
+<span class="nc" id="L66">                } else {</span>
+<span class="nc" id="L67">                    ctx.appService.setCommarea(ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;));</span>
+                }
+            }
+        }
+<span class="nc" id="L71">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L75">        return &quot;OUSTMB&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L80">        return OustmbBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L85">        OustmbBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L86">    }</span>
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainProgram(TaskContext ctx) {
+<span class="nc" id="L90">        ctx.f.aliasGroup(&quot;KSM-PARM&quot;, &quot;CA-WORK-AREA&quot;);</span>
+<span class="nc" id="L91">        initializeWorkingStorage(ctx);</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (!Utility.fieldEquals(ctx.f.getKsmStatus(), STATUS_FATAL_ERROR)) {</span>
+<span class="nc" id="L93">            positionAccountBrowse(ctx);</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">            if (ctx.f.getWsBrowseSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">                while (!(ctx.f.getWsEofSw().equals(&quot;Y&quot;)</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">                        || Utility.fieldEquals(ctx.f.getWsCapped(), &quot;Y&quot;))) {</span>
+<span class="nc" id="L97">                    processAccountLoop(ctx);</span>
+                }
+<span class="nc" id="L99">                peekNextAccountForMore(ctx);</span>
+<span class="nc" id="L100">                endAccountBrowse(ctx);</span>
+            }
+        }
+<span class="nc" id="L103">        setFinalStatus(ctx);</span>
+<span class="nc" id="L104">        return;</span>
+    }
+
+    /** COBOL paragraph: 1000-INIT */
+    private void initializeWorkingStorage(TaskContext ctx) {
+<span class="nc" id="L109">        ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L110">        ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L111">        ctx.f.setWsCapped(&quot;N&quot;);</span>
+<span class="nc" id="L112">        ctx.f.setKsmStatus(&quot;00&quot;);</span>
+<span class="nc" id="L113">        ctx.f.setKsmMsg(&quot; &quot;);</span>
+<span class="nc" id="L114">        ctx.f.setKsmAcctRead(0);</span>
+<span class="nc" id="L115">        ctx.f.setKsmStmtWritten(0);</span>
+<span class="nc" id="L116">        ctx.f.setKsmNoTran(0);</span>
+<span class="nc" id="L117">        ctx.f.setKsmErrors(0);</span>
+<span class="nc" id="L118">        ctx.f.setKsmTotCredit(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L119">        ctx.f.setKsmTotDebit(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L120">        ctx.f.setKsmNextAcct(0);</span>
+<span class="nc" id="L121">        ctx.f.setKsmMore(&quot;N&quot;);</span>
+<span class="nc" id="L122">        ctx.f.setWsMax(ctx.f.getKsmMax());</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        if (ctx.f.getKsmCycle() == 0) {</span>
+<span class="nc" id="L124">            ctx.f.setKsmStatus(STATUS_FATAL_ERROR);</span>
+<span class="nc" id="L125">            ctx.f.setKsmMsg(&quot;STATEMENT CYCLE (YYYYMM) REQUIRED&quot;);</span>
+        }
+<span class="nc" id="L127">    }</span>
+
+    /** COBOL paragraph: 2000-POSITION */
+    private void positionAccountBrowse(TaskContext ctx) {
+<span class="nc" id="L131">        ctx.f.setAcId(ctx.f.getKsmStartAcct());</span>
+<span class="nc" id="L132">        ctx.appService.startBrowse(ctx.f.getWsAcctfile(), String.valueOf(ctx.f.getAcId()), 0);</span>
+<span class="nc" id="L133">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == RESP_NORMAL) {</span>
+<span class="nc" id="L135">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L137">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == RESP_ENDFILE) {</span>
+<span class="nc" id="L139">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L141">            ctx.f.setKsmStatus(STATUS_FATAL_ERROR);</span>
+<span class="nc" id="L142">            ctx.f.setKsmMsg(&quot;ACCTFILE STARTBR FAILED&quot;);</span>
+        }
+<span class="nc" id="L144">    }</span>
+
+    /** COBOL paragraph: 3000-PROC-LOOP */
+    private void processAccountLoop(TaskContext ctx) {
+<span class="nc" id="L148">        readNextAccount(ctx);</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">        if (!ctx.f.getWsEofSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L150">            processAccountRecord(ctx);</span>
+<span class="nc bnc" id="L151" title="All 4 branches missed.">            if (ctx.f.getWsMax() &gt; 0 &amp;&amp; ctx.f.getKsmAcctRead() &gt;= ctx.f.getWsMax()) {</span>
+<span class="nc" id="L152">                ctx.f.setWsCapped(&quot;Y&quot;);</span>
+            }
+        }
+<span class="nc" id="L155">    }</span>
+
+    /** COBOL paragraph: 3100-READ-ACCT */
+    private void readNextAccount(TaskContext ctx) {
+<span class="nc" id="L159">        ctx.appService.readNext(ctx.f.getWsAcctfile(), ctx.f);</span>
+<span class="nc" id="L160">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == RESP_NORMAL) {</span>
+            /* CONTINUE */
+<span class="nc bnc" id="L163" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == RESP_ENDFILE) {</span>
+<span class="nc" id="L164">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L166">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L167">            ctx.f.setKsmErrors(ctx.f.getKsmErrors() + 1);</span>
+<span class="nc" id="L168">            ctx.f.setKsmMsg(&quot;ACCTFILE READNEXT FAILED&quot;);</span>
+        }
+<span class="nc" id="L170">    }</span>
+
+    /** COBOL paragraph: 3200-PROCESS-ACCT */
+    private void processAccountRecord(TaskContext ctx) {
+<span class="nc" id="L174">        ctx.f.setKsmAcctRead(ctx.f.getKsmAcctRead() + 1);</span>
+<span class="nc" id="L175">        resetAccountTotals(ctx);</span>
+<span class="nc" id="L176">        collectCardsForAccount(ctx);</span>
+<span class="nc" id="L177">        sumTransactionsForCards(ctx);</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">        if (ctx.f.getWsTranThis() == 0) {</span>
+<span class="nc" id="L179">            ctx.f.setKsmNoTran(ctx.f.getKsmNoTran() + 1);</span>
+        }
+<span class="nc" id="L181">        computeStatementBalances(ctx);</span>
+<span class="nc" id="L182">        writeStatementRecord(ctx);</span>
+<span class="nc" id="L183">        ctx.f.setKsmTotCredit(ctx.f.getKsmTotCredit().add(ctx.f.getWsTotCredit()));</span>
+<span class="nc" id="L184">        ctx.f.setKsmTotDebit(ctx.f.getKsmTotDebit().add(ctx.f.getWsTotDebit()));</span>
+<span class="nc" id="L185">    }</span>
+
+    /** COBOL paragraph: 3210-RESET */
+    private void resetAccountTotals(TaskContext ctx) {
+<span class="nc" id="L189">        ctx.f.setWsCardCnt(0);</span>
+<span class="nc" id="L190">        ctx.f.setWsTotCredit(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L191">        ctx.f.setWsTotDebit(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L192">        ctx.f.setWsOpenBal(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L193">        ctx.f.setWsCloseBal(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L194">        ctx.f.setWsMinDue(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L195">        ctx.f.setWsTranThis(0);</span>
+<span class="nc" id="L196">    }</span>
+
+    /** COBOL paragraph: 3220-COLLECT-CARDS */
+    private void collectCardsForAccount(TaskContext ctx) {
+<span class="nc" id="L200">        ctx.f.setWsXrefEof(&quot;N&quot;);</span>
+<span class="nc" id="L201">        ctx.f.setXrAcctId(ctx.f.getAcId());</span>
+<span class="nc" id="L202">        ctx.appService.startBrowse(ctx.f.getWsXrefPath(), String.valueOf(ctx.f.getXrAcctId()), 0);</span>
+<span class="nc" id="L203">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() != RESP_NORMAL) {</span>
+<span class="nc" id="L205">            ctx.f.setString(&quot;WS-XREF-EOF&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L206">            return;</span>
+        }
+<span class="nc" id="L208">        readNextCardXref(ctx);</span>
+<span class="nc bnc" id="L209" title="All 2 branches missed.">        while (!ctx.f.getWsXrefEof().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">            if (ctx.f.getXrAcctId() == ctx.f.getAcId()) {</span>
+<span class="nc bnc" id="L211" title="All 2 branches missed.">                if (ctx.f.getWsCardCnt() &lt; ctx.f.getWsMaxCards()) {</span>
+<span class="nc" id="L212">                    ctx.f.setWsCardCnt(ctx.f.getWsCardCnt() + 1);</span>
+<span class="nc" id="L213">                    ctx.f.setWsCardNum(ctx.f.getWsCardCnt(), ctx.f.getXrCardNum());</span>
+                }
+<span class="nc" id="L215">                readNextCardXref(ctx);</span>
+            } else {
+<span class="nc" id="L217">                ctx.f.setString(&quot;WS-XREF-EOF&quot;, &quot;Y&quot;);</span>
+            }
+        }
+<span class="nc" id="L220">        ctx.appService.endBrowse(ctx.f.getWsXrefPath());</span>
+<span class="nc" id="L221">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L222">    }</span>
+
+    /** COBOL paragraph: 3230-READ-XREF-NEXT */
+    private void readNextCardXref(TaskContext ctx) {
+<span class="nc" id="L226">        ctx.appService.readNext(ctx.f.getWsXrefPath(), ctx.f);</span>
+<span class="nc" id="L227">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L228" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == RESP_NORMAL) {</span>
+            /* CONTINUE */
+<span class="nc bnc" id="L230" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == RESP_ENDFILE) {</span>
+<span class="nc" id="L231">            ctx.f.setString(&quot;WS-XREF-EOF&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L233">            ctx.f.setString(&quot;WS-XREF-EOF&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L234">            ctx.f.setKsmErrors(ctx.f.getKsmErrors() + 1);</span>
+        }
+<span class="nc" id="L236">    }</span>
+
+    /** COBOL paragraph: 3300-SUM-TRANS */
+    private void sumTransactionsForCards(TaskContext ctx) {
+<span class="nc" id="L240">        for (ctx.f.setWsCx(1);</span>
+<span class="nc bnc" id="L241" title="All 2 branches missed.">                ctx.f.getWsCx() &lt;= ctx.f.getWsCardCnt();</span>
+<span class="nc" id="L242">                ctx.f.setWsCx(ctx.f.getWsCx() + 1)) {</span>
+<span class="nc" id="L243">            browseCardTransactions(ctx);</span>
+        }
+<span class="nc" id="L245">    }</span>
+
+    /** COBOL paragraph: 3310-BROWSE-CARD */
+    private void browseCardTransactions(TaskContext ctx) {
+<span class="nc" id="L249">        ctx.f.setWsTranEof(&quot;N&quot;);</span>
+<span class="nc" id="L250">        ctx.f.setTrCardNum(ctx.f.getWsCardNum(ctx.f.getWsCx()));</span>
+<span class="nc" id="L251">        ctx.appService.startBrowse(ctx.f.getWsTranPath(), String.valueOf(ctx.f.getTrCardNum()), 0);</span>
+<span class="nc" id="L252">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L253" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() != RESP_NORMAL) {</span>
+<span class="nc" id="L254">            ctx.f.setString(&quot;WS-TRAN-EOF&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L255">            return;</span>
+        }
+<span class="nc" id="L257">        readNextTransaction(ctx);</span>
+<span class="nc bnc" id="L258" title="All 2 branches missed.">        while (!ctx.f.getWsTranEof().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L259" title="All 2 branches missed.">            if (Utility.fieldEquals(ctx.f.getTrCardNum(), ctx.f.getWsCardNum(ctx.f.getWsCx()))) {</span>
+<span class="nc" id="L260">                accumulateTransactionForCycle(ctx);</span>
+<span class="nc" id="L261">                readNextTransaction(ctx);</span>
+            } else {
+<span class="nc" id="L263">                ctx.f.setString(&quot;WS-TRAN-EOF&quot;, &quot;Y&quot;);</span>
+            }
+        }
+<span class="nc" id="L266">        ctx.appService.endBrowse(ctx.f.getWsTranPath());</span>
+<span class="nc" id="L267">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L268">    }</span>
+
+    /** COBOL paragraph: 3320-READ-TRAN-NEXT */
+    private void readNextTransaction(TaskContext ctx) {
+<span class="nc" id="L272">        ctx.appService.readNext(ctx.f.getWsTranPath(), ctx.f);</span>
+<span class="nc" id="L273">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L274" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == RESP_NORMAL) {</span>
+            /* CONTINUE */
+<span class="nc bnc" id="L276" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == RESP_ENDFILE) {</span>
+<span class="nc" id="L277">            ctx.f.setString(&quot;WS-TRAN-EOF&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L279">            ctx.f.setString(&quot;WS-TRAN-EOF&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L280">            ctx.f.setKsmErrors(ctx.f.getKsmErrors() + 1);</span>
+        }
+<span class="nc" id="L282">    }</span>
+
+    /** COBOL paragraph: 3330-ACCUM */
+    private void accumulateTransactionForCycle(TaskContext ctx) {
+<span class="nc" id="L286">        ctx.f.setWsTcycYy(</span>
+<span class="nc" id="L287">                Utility.parseNumeric(</span>
+<span class="nc" id="L288">                                Utility.padRight(String.valueOf(ctx.f.getTrProcTs()), 4)</span>
+<span class="nc" id="L289">                                        .substring(0, 4))</span>
+<span class="nc" id="L290">                        .intValue());</span>
+<span class="nc" id="L291">        ctx.f.setWsTcycMm(</span>
+<span class="nc" id="L292">                Utility.parseNumeric(</span>
+<span class="nc" id="L293">                                Utility.padRight(String.valueOf(ctx.f.getTrProcTs()), 7)</span>
+<span class="nc" id="L294">                                        .substring(5, 7))</span>
+<span class="nc" id="L295">                        .intValue());</span>
+<span class="nc bnc" id="L296" title="All 2 branches missed.">        if (ctx.f.getWsTcyc() == ctx.f.getKsmCycle()) {</span>
+<span class="nc" id="L297">            ctx.f.setWsTranThis(ctx.f.getWsTranThis() + 1);</span>
+<span class="nc bnc" id="L298" title="All 2 branches missed.">            if (Utility.fieldEquals(ctx.f.getTrTypeCd(), &quot;PY&quot;)</span>
+<span class="nc bnc" id="L299" title="All 2 branches missed.">                    || Utility.fieldEquals(ctx.f.getTrTypeCd(), &quot;CR&quot;)) {</span>
+<span class="nc" id="L300">                ctx.f.setWsTotCredit(ctx.f.getWsTotCredit().add(ctx.f.getTrAmt()));</span>
+            } else {
+<span class="nc" id="L302">                ctx.f.setWsTotDebit(ctx.f.getWsTotDebit().add(ctx.f.getTrAmt()));</span>
+            }
+        }
+<span class="nc" id="L305">    }</span>
+
+    /** COBOL paragraph: 3400-COMPUTE */
+    private void computeStatementBalances(TaskContext ctx) {
+<span class="nc" id="L309">        ctx.f.setWsCloseBal(ctx.f.getAcCurrBal());</span>
+<span class="nc" id="L310">        ctx.f.setWsOpenBal(</span>
+<span class="nc" id="L311">                ctx.f.getWsCloseBal().subtract(ctx.f.getWsTotDebit()).add(ctx.f.getWsTotCredit()));</span>
+<span class="nc bnc" id="L312" title="All 2 branches missed.">        if ((ctx.f.getWsCloseBal().signum() &lt;= 0)) {</span>
+<span class="nc" id="L313">            ctx.f.setWsMinDue(java.math.BigDecimal.valueOf(0));</span>
+        } else {
+<span class="nc" id="L315">            ctx.f.setWsMinDue(ctx.f.getWsCloseBal().multiply(new java.math.BigDecimal(&quot;0.02&quot;)));</span>
+<span class="nc bnc" id="L316" title="All 2 branches missed.">            if ((ctx.f.getWsCloseBal().compareTo(new java.math.BigDecimal(&quot;25.00&quot;)) &lt;= 0)) {</span>
+<span class="nc" id="L317">                ctx.f.setWsMinDue(ctx.f.getWsCloseBal());</span>
+            } else {
+<span class="nc bnc" id="L319" title="All 2 branches missed.">                if ((ctx.f.getWsMinDue().compareTo(new java.math.BigDecimal(&quot;25.00&quot;)) &lt; 0)) {</span>
+<span class="nc" id="L320">                    ctx.f.setWsMinDue(new java.math.BigDecimal(&quot;25.00&quot;));</span>
+                }
+            }
+        }
+<span class="nc" id="L324">    }</span>
+
+    /** COBOL paragraph: 3500-WRITE-STMT */
+    private void writeStatementRecord(TaskContext ctx) {
+<span class="nc" id="L328">        ctx.f.setStmtRec(&quot; &quot;);</span>
+<span class="nc" id="L329">        ctx.f.setStAcctId(ctx.f.getAcId());</span>
+<span class="nc" id="L330">        ctx.f.setStCycle(ctx.f.getKsmCycle());</span>
+<span class="nc" id="L331">        ctx.f.setStOpenBal(ctx.f.getWsOpenBal());</span>
+<span class="nc" id="L332">        ctx.f.setStCloseBal(ctx.f.getWsCloseBal());</span>
+<span class="nc" id="L333">        ctx.f.setStTotalCredit(ctx.f.getWsTotCredit());</span>
+<span class="nc" id="L334">        ctx.f.setStTotalDebit(ctx.f.getWsTotDebit());</span>
+<span class="nc" id="L335">        ctx.f.setStMinDue(ctx.f.getWsMinDue());</span>
+<span class="nc" id="L336">        ctx.f.setStDueDate(ctx.f.getKsmDueDate());</span>
+<span class="nc" id="L337">        ctx.appService.writeFile(</span>
+<span class="nc" id="L338">                ctx.f.getWsStmtfile(),</span>
+                ctx.f,
+<span class="nc" id="L340">                String.valueOf(ctx.f.getStAcctId()) + &quot;|&quot; + String.valueOf(ctx.f.getStCycle()),</span>
+                0);
+<span class="nc" id="L342">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L343" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == RESP_NORMAL) {</span>
+<span class="nc" id="L344">            ctx.f.setKsmStmtWritten(ctx.f.getKsmStmtWritten() + 1);</span>
+<span class="nc bnc" id="L345" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 14) {</span>
+<span class="nc" id="L346">            rewriteStatementRecord(ctx);</span>
+        } else {
+<span class="nc" id="L348">            ctx.f.setKsmErrors(ctx.f.getKsmErrors() + 1);</span>
+        }
+<span class="nc" id="L350">    }</span>
+
+    /** COBOL paragraph: 3510-REWRITE-STMT */
+    private void rewriteStatementRecord(TaskContext ctx) {
+<span class="nc" id="L354">        ctx.appService.readFileForUpdate(</span>
+<span class="nc" id="L355">                ctx.f.getWsStmtfile(),</span>
+                ctx.f,
+<span class="nc" id="L357">                String.valueOf(ctx.f.getStAcctId()) + &quot;|&quot; + String.valueOf(ctx.f.getStCycle()),</span>
+                0);
+<span class="nc" id="L359">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L360" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() != RESP_NORMAL) {</span>
+<span class="nc" id="L361">            ctx.f.setKsmErrors(ctx.f.getKsmErrors() + 1);</span>
+<span class="nc" id="L362">            return;</span>
+        }
+<span class="nc" id="L364">        ctx.f.setStOpenBal(ctx.f.getWsOpenBal());</span>
+<span class="nc" id="L365">        ctx.f.setStCloseBal(ctx.f.getWsCloseBal());</span>
+<span class="nc" id="L366">        ctx.f.setStTotalCredit(ctx.f.getWsTotCredit());</span>
+<span class="nc" id="L367">        ctx.f.setStTotalDebit(ctx.f.getWsTotDebit());</span>
+<span class="nc" id="L368">        ctx.f.setStMinDue(ctx.f.getWsMinDue());</span>
+<span class="nc" id="L369">        ctx.f.setStDueDate(ctx.f.getKsmDueDate());</span>
+<span class="nc" id="L370">        ctx.appService.rewriteFile(ctx.f.getWsStmtfile(), ctx.f);</span>
+<span class="nc" id="L371">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L372" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == RESP_NORMAL) {</span>
+<span class="nc" id="L373">            ctx.f.setKsmStmtWritten(ctx.f.getKsmStmtWritten() + 1);</span>
+        } else {
+<span class="nc" id="L375">            ctx.f.setKsmErrors(ctx.f.getKsmErrors() + 1);</span>
+        }
+<span class="nc" id="L377">    }</span>
+
+    /** COBOL paragraph: 4000-PEEK-NEXT */
+    private void peekNextAccountForMore(TaskContext ctx) {
+<span class="nc bnc" id="L381" title="All 2 branches missed.">        if (ctx.f.getWsEofSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L382">            ctx.f.setKsmMore(&quot;N&quot;);</span>
+<span class="nc" id="L383">            return;</span>
+        }
+<span class="nc" id="L385">        ctx.appService.readNext(ctx.f.getWsAcctfile(), ctx.f);</span>
+<span class="nc" id="L386">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L387" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == RESP_NORMAL) {</span>
+<span class="nc" id="L388">            ctx.f.setKsmMore(&quot;Y&quot;);</span>
+<span class="nc" id="L389">            ctx.f.setKsmNextAcct(ctx.f.getAcId());</span>
+<span class="nc bnc" id="L390" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == RESP_ENDFILE) {</span>
+<span class="nc" id="L391">            ctx.f.setKsmMore(&quot;N&quot;);</span>
+        } else {
+<span class="nc" id="L393">            ctx.f.setKsmMore(&quot;N&quot;);</span>
+<span class="nc" id="L394">            ctx.f.setKsmErrors(ctx.f.getKsmErrors() + 1);</span>
+        }
+<span class="nc" id="L396">    }</span>
+
+    /** COBOL paragraph: 5000-END-BROWSE */
+    private void endAccountBrowse(TaskContext ctx) {
+<span class="nc" id="L400">        ctx.appService.endBrowse(ctx.f.getWsAcctfile());</span>
+<span class="nc" id="L401">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L402">    }</span>
+
+    /** COBOL paragraph: 6000-SET-STATUS */
+    private void setFinalStatus(TaskContext ctx) {
+<span class="nc bnc" id="L406" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getKsmStatus(), STATUS_FATAL_ERROR)) {</span>
+<span class="nc" id="L407">            return;</span>
+        }
+<span class="nc bnc" id="L409" title="All 2 branches missed.">        if (ctx.f.getKsmAcctRead() == 0) {</span>
+<span class="nc" id="L410">            ctx.f.setKsmStatus(&quot;10&quot;);</span>
+<span class="nc" id="L411">            ctx.f.setKsmMsg(&quot;NO ACCOUNTS PROCESSED&quot;);</span>
+        } else {
+<span class="nc" id="L413">            ctx.f.setKsmStatus(&quot;00&quot;);</span>
+<span class="nc" id="L414">            ctx.f.setKsmMsg(&quot;STATEMENT BUILD COMPLETE&quot;);</span>
+        }
+<span class="nc" id="L416">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OustmbFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L429">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L430">            this.appService = appService;</span>
+<span class="nc" id="L431">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L432">            this.f = new OustmbFields(ws);</span>
+<span class="nc" id="L433">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OuanlinService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUANLIN Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ouanlin.service</a> &gt; <span class="el_source">OuanlinService.java</span></div><h1>OuanlinService.java</h1><pre class="source lang-java linenums">package com.generated.orion.ouanlin.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.ouanlin.accessor.OuanlinFields;
+import com.generated.orion.ouanlin.metadata.OuanlinBmsMetadata;
+import com.generated.orion.ouanlin.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OUANLIN. */
+@Service
+<span class="nc" id="L20">public class OuanlinService implements AppProgram {</span>
+<span class="nc" id="L21">    private static final Logger log = LoggerFactory.getLogger(OuanlinService.class);</span>
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L29">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc bnc" id="L30" title="All 4 branches missed.">        if (ctx.appService.getEibcalen() &gt; 0 &amp;&amp; ctx.appService.getCommarea() != null) {</span>
+<span class="nc" id="L31">            Object _commarea = ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            if (_commarea instanceof Object[]) {</span>
+<span class="nc" id="L33">                Object[] _params = (Object[]) _commarea;</span>
+<span class="nc bnc" id="L34" title="All 4 branches missed.">                if (_params.length &gt; 0 &amp;&amp; _params[0] instanceof byte[]) {</span>
+<span class="nc" id="L35">                    ctx.f.writeBytes(&quot;KANLB-PARM&quot;, (byte[]) _params[0]);</span>
+<span class="nc bnc" id="L36" title="All 4 branches missed.">                } else if (_params.length &gt; 0 &amp;&amp; _params[0] != null) {</span>
+<span class="nc" id="L37">                    ctx.f.setGroup(&quot;KANLB-PARM&quot;, String.valueOf(_params[0]));</span>
+                }
+<span class="nc bnc" id="L39" title="All 2 branches missed.">            } else if (_commarea instanceof byte[]) {</span>
+<span class="nc" id="L40">                ctx.f.writeBytes(&quot;KANLB-PARM&quot;, (byte[]) _commarea);</span>
+            } else {
+<span class="nc" id="L42">                ctx.f.setGroup(&quot;KANLB-PARM&quot;, String.valueOf(_commarea));</span>
+            }
+        }
+        try {
+<span class="nc" id="L46">            runMainProgram(ctx);</span>
+        } finally {
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            if (ctx.appService.getEibcalen() &gt; 0) {</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                if (ctx.appService.getCommarea() instanceof Object[]) {</span>
+<span class="nc" id="L50">                    Object[] _params = (Object[]) ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                    if (_params.length &gt; 0) {</span>
+<span class="nc" id="L52">                        _params[0] =</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                                _params[0] instanceof byte[]</span>
+<span class="nc" id="L54">                                        ? (Object) ctx.f.sliceBytes(&quot;KANLB-PARM&quot;)</span>
+<span class="nc" id="L55">                                        : (Object) ctx.f.groupToString(&quot;KANLB-PARM&quot;);</span>
+                    }
+<span class="nc" id="L57">                } else {</span>
+<span class="nc" id="L58">                    ctx.appService.setCommarea(ctx.f.sliceBytes(&quot;KANLB-PARM&quot;));</span>
+                }
+            }
+        }
+<span class="nc" id="L62">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L66">        return &quot;OUANLIN&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L71">        return OuanlinBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L76">        OuanlinBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L77">    }</span>
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainProgram(TaskContext ctx) {
+<span class="nc" id="L81">        initializeWorkingStorage(ctx);</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        if (!Utility.fieldEquals(ctx.f.getKabStatus(), &quot;99&quot;)) {</span>
+<span class="nc" id="L83">            scanTransactionFile(ctx);</span>
+<span class="nc" id="L84">            finalizeResults(ctx);</span>
+<span class="nc" id="L85">            buildResultPage(ctx);</span>
+        }
+<span class="nc" id="L87">        updateResultStatus(ctx);</span>
+<span class="nc" id="L88">        return;</span>
+    }
+
+    /** COBOL paragraph: 1000-INIT */
+    private void initializeWorkingStorage(TaskContext ctx) {
+<span class="nc" id="L93">        ctx.f.setWsResCnt(0);</span>
+<span class="nc" id="L94">        ctx.f.setWsScanned(0);</span>
+<span class="nc" id="L95">        ctx.f.setWsDiscCnt(0);</span>
+<span class="nc" id="L96">        ctx.f.setWsOflowCnt(0);</span>
+<span class="nc" id="L97">        ctx.f.setWsOrphCnt(0);</span>
+<span class="nc" id="L98">        ctx.f.setWsTot1(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L99">        ctx.f.setWsTot2(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L100">        ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L101">        ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L102">        ctx.f.setKabStatus(&quot;00&quot;);</span>
+<span class="nc" id="L103">        ctx.f.setWsMaxRows(ctx.f.getKabMaxRows());</span>
+<span class="nc bnc" id="L104" title="All 4 branches missed.">        if (ctx.f.getWsMaxRows() &lt; 1 || ctx.f.getWsMaxRows() &gt; 6) {</span>
+<span class="nc" id="L105">            ctx.f.setWsMaxRows(6);</span>
+        }
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        switch (Utility.rtrim(ctx.f.getKabMode())) {</span>
+            case &quot;RW&quot;, &quot;FR&quot;, &quot;GL&quot;, &quot;RC&quot; -&gt; {
+                /* CONTINUE */
+<span class="nc" id="L110">            }</span>
+            default -&gt; {
+<span class="nc" id="L112">                ctx.f.setKabStatus(&quot;99&quot;);</span>
+            }
+        }
+<span class="nc" id="L115">    }</span>
+
+    /** COBOL paragraph: 2000-SCAN-FILE */
+    private void scanTransactionFile(TaskContext ctx) {
+<span class="nc" id="L119">        startTransactionBrowse(ctx);</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        if (ctx.f.getWsBrowseSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L121" title="All 4 branches missed.">            while (!ctx.f.getWsEofSw().equals(&quot;Y&quot;) &amp;&amp; ctx.f.getWsScanned() &lt; ctx.f.getWsMaxScan()) {</span>
+<span class="nc" id="L122">                readNextTransaction(ctx);</span>
+            }
+<span class="nc" id="L124">            endTransactionBrowse(ctx);</span>
+        }
+<span class="nc" id="L126">    }</span>
+
+    /** COBOL paragraph: 2100-START-TRAN */
+    private void startTransactionBrowse(TaskContext ctx) {
+<span class="nc" id="L130">        ctx.f.fillLowValues(&quot;TR-ID&quot;);</span>
+<span class="nc" id="L131">        ctx.appService.startBrowse(ctx.f.getWsTranfile(), String.valueOf(ctx.f.getTrId()), 0);</span>
+<span class="nc" id="L132">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L134">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L136">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L137">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L139">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L140">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L142">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L143">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L144">            ctx.f.setKabStatus(&quot;99&quot;);</span>
+        }
+<span class="nc" id="L146">    }</span>
+
+    /** COBOL paragraph: 2200-READ-TRAN */
+    private void readNextTransaction(TaskContext ctx) {
+<span class="nc" id="L150">        ctx.appService.readNext(ctx.f.getWsTranfile(), ctx.f);</span>
+<span class="nc" id="L151">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L153">            ctx.f.setWsScanned(ctx.f.getWsScanned() + 1);</span>
+<span class="nc" id="L154">            dispatchByMode(ctx);</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L156">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L158">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L159">            ctx.f.setKabStatus(&quot;99&quot;);</span>
+        }
+<span class="nc" id="L161">    }</span>
+
+    /** COBOL paragraph: 2300-DISPATCH */
+    private void dispatchByMode(TaskContext ctx) {
+<span class="nc bnc" id="L165" title="All 5 branches missed.">        switch (Utility.rtrim(ctx.f.getKabMode())) {</span>
+            case &quot;RW&quot; -&gt; {
+<span class="nc" id="L167">                accumulateRewardsPoints(ctx);</span>
+<span class="nc" id="L168">            }</span>
+            case &quot;FR&quot; -&gt; {
+<span class="nc" id="L170">                accumulateFraudReviewStats(ctx);</span>
+<span class="nc" id="L171">            }</span>
+            case &quot;GL&quot; -&gt; {
+<span class="nc" id="L173">                accumulateGeneralLedgerEntries(ctx);</span>
+<span class="nc" id="L174">            }</span>
+            case &quot;RC&quot; -&gt; {
+<span class="nc" id="L176">                accumulateReconciliationEntries(ctx);</span>
+<span class="nc" id="L177">            }</span>
+            default -&gt; {
+                /* CONTINUE */
+            }
+        }
+<span class="nc" id="L182">    }</span>
+
+    /** COBOL paragraph: 2350-CLASSIFY */
+    private void classifyPurchaseTransaction(TaskContext ctx) {
+<span class="nc bnc" id="L186" title="All 2 branches missed.">        switch (Utility.rtrim(ctx.f.getTrTypeCd())) {</span>
+            case &quot;PY&quot;, &quot;CR&quot;, &quot;FE&quot;, &quot;IN&quot; -&gt; {
+<span class="nc" id="L188">                ctx.f.setString(&quot;WS-PURCHASE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L189">            }</span>
+            default -&gt; {
+<span class="nc" id="L191">                ctx.f.setString(&quot;WS-PURCHASE-SW&quot;, &quot;Y&quot;);</span>
+            }
+        }
+<span class="nc" id="L194">    }</span>
+
+    /** COBOL paragraph: 2400-ACCUM-RW */
+    private void accumulateRewardsPoints(TaskContext ctx) {
+<span class="nc" id="L198">        classifyPurchaseTransaction(ctx);</span>
+<span class="nc bnc" id="L199" title="All 2 branches missed.">        if (ctx.f.getWsPurchaseSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L200">            ctx.f.setWsWholeAmt(ctx.f.getTrAmt().longValue());</span>
+<span class="nc bnc" id="L201" title="All 2 branches missed.">            if ((ctx.f.getTrAmt().compareTo(ctx.f.getWsLargeThresh()) &gt;= 0)) {</span>
+<span class="nc" id="L202">                ctx.f.setWsPoints((ctx.f.getWsWholeAmt() * (long) ctx.f.getWsBonusRate()));</span>
+            } else {
+<span class="nc" id="L204">                ctx.f.setWsPoints((ctx.f.getWsWholeAmt() * (long) ctx.f.getWsBaseRate()));</span>
+            }
+<span class="nc" id="L206">            ctx.f.setWsKey(ctx.f.getTrCardNum());</span>
+<span class="nc" id="L207">            findOrAddResultSlot(ctx);</span>
+<span class="nc bnc" id="L208" title="All 2 branches missed.">            if (ctx.f.getWsSlotSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L209">                ctx.f.setWsReCnt(ctx.f.getWsFidx(), ctx.f.getWsReCnt(ctx.f.getWsFidx()) + 1);</span>
+<span class="nc" id="L210">                ctx.f.setWsReAmt(</span>
+<span class="nc" id="L211">                        ctx.f.getWsFidx(),</span>
+<span class="nc" id="L212">                        ctx.f.getWsReAmt(ctx.f.getWsFidx()).add(ctx.f.getTrAmt()));</span>
+<span class="nc" id="L213">                ctx.f.setWsReVal(</span>
+<span class="nc" id="L214">                        ctx.f.getWsFidx(),</span>
+                        ctx.f
+<span class="nc" id="L216">                                .getWsReVal(ctx.f.getWsFidx())</span>
+<span class="nc" id="L217">                                .add(java.math.BigDecimal.valueOf(ctx.f.getWsPoints())));</span>
+<span class="nc" id="L218">                ctx.f.setWsReInfo(ctx.f.getWsFidx(), &quot;PURCHASES&quot;);</span>
+<span class="nc" id="L219">                ctx.f.setWsTot1(ctx.f.getWsTot1().add(ctx.f.getTrAmt()));</span>
+<span class="nc" id="L220">                ctx.f.setWsTot2(</span>
+<span class="nc" id="L221">                        ctx.f.getWsTot2().add(java.math.BigDecimal.valueOf(ctx.f.getWsPoints())));</span>
+            }
+        }
+<span class="nc" id="L224">    }</span>
+
+    /** COBOL paragraph: 2500-ACCUM-FR */
+    private void accumulateFraudReviewStats(TaskContext ctx) {
+<span class="nc" id="L228">        ctx.f.setWsKey(ctx.f.getTrCardNum());</span>
+<span class="nc" id="L229">        findOrAddResultSlot(ctx);</span>
+<span class="nc bnc" id="L230" title="All 2 branches missed.">        if (ctx.f.getWsSlotSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L231">            ctx.f.setWsReCnt(ctx.f.getWsFidx(), ctx.f.getWsReCnt(ctx.f.getWsFidx()) + 1);</span>
+<span class="nc" id="L232">            ctx.f.setWsReAmt(</span>
+<span class="nc" id="L233">                    ctx.f.getWsFidx(), ctx.f.getWsReAmt(ctx.f.getWsFidx()).add(ctx.f.getTrAmt()));</span>
+<span class="nc bnc" id="L234" title="All 2 branches missed.">            if ((ctx.f.getTrAmt().compareTo(ctx.f.getWsReVal(ctx.f.getWsFidx())) &gt; 0)) {</span>
+<span class="nc" id="L235">                ctx.f.setWsReVal(ctx.f.getWsFidx(), ctx.f.getTrAmt());</span>
+            }
+        }
+<span class="nc" id="L238">    }</span>
+
+    /** COBOL paragraph: 2600-ACCUM-GL */
+    private void accumulateGeneralLedgerEntries(TaskContext ctx) {
+<span class="nc" id="L242">        ctx.f.setWsKey(&quot; &quot;);</span>
+<span class="nc" id="L243">        ctx.f.setWsKey(</span>
+<span class="nc" id="L244">                Utility.setSubstring(</span>
+<span class="nc" id="L245">                        String.valueOf(ctx.f.getWsKey()),</span>
+                        1,
+                        2,
+<span class="nc" id="L248">                        String.valueOf(ctx.f.getTrTypeCd())));</span>
+<span class="nc" id="L249">        findOrAddResultSlot(ctx);</span>
+<span class="nc bnc" id="L250" title="All 2 branches missed.">        if (ctx.f.getWsSlotSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L251">            ctx.f.setWsReCnt(ctx.f.getWsFidx(), ctx.f.getWsReCnt(ctx.f.getWsFidx()) + 1);</span>
+<span class="nc" id="L252">            ctx.f.setWsReAmt(</span>
+<span class="nc" id="L253">                    ctx.f.getWsFidx(), ctx.f.getWsReAmt(ctx.f.getWsFidx()).add(ctx.f.getTrAmt()));</span>
+<span class="nc bnc" id="L254" title="All 2 branches missed.">            if (Utility.fieldEquals(ctx.f.getTrTypeCd(), &quot;PY&quot;)</span>
+<span class="nc bnc" id="L255" title="All 2 branches missed.">                    || Utility.fieldEquals(ctx.f.getTrTypeCd(), &quot;CR&quot;)) {</span>
+<span class="nc" id="L256">                ctx.f.setWsReInfo(ctx.f.getWsFidx(), &quot;CR&quot;);</span>
+<span class="nc" id="L257">                ctx.f.setWsTot2(ctx.f.getWsTot2().add(ctx.f.getTrAmt()));</span>
+            } else {
+<span class="nc" id="L259">                ctx.f.setWsReInfo(ctx.f.getWsFidx(), &quot;DR&quot;);</span>
+<span class="nc" id="L260">                ctx.f.setWsTot1(ctx.f.getWsTot1().add(ctx.f.getTrAmt()));</span>
+            }
+        }
+<span class="nc" id="L263">    }</span>
+
+    /** COBOL paragraph: 2700-ACCUM-RC */
+    private void accumulateReconciliationEntries(TaskContext ctx) {
+<span class="nc bnc" id="L267" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getTrTypeCd(), &quot;PY&quot;)</span>
+<span class="nc bnc" id="L268" title="All 2 branches missed.">                || Utility.fieldEquals(ctx.f.getTrTypeCd(), &quot;CR&quot;)) {</span>
+<span class="nc" id="L269">            ctx.f.setWsTot2(ctx.f.getWsTot2().add(ctx.f.getTrAmt()));</span>
+<span class="nc" id="L270">            ctx.f.setWsMove(ctx.f.getTrAmt().multiply(java.math.BigDecimal.valueOf(-1)));</span>
+        } else {
+<span class="nc" id="L272">            ctx.f.setWsTot1(ctx.f.getWsTot1().add(ctx.f.getTrAmt()));</span>
+<span class="nc" id="L273">            ctx.f.setWsMove(ctx.f.getTrAmt());</span>
+        }
+<span class="nc" id="L275">        ctx.f.setXrCardNum(ctx.f.getTrCardNum());</span>
+<span class="nc" id="L276">        ctx.appService.readFile(</span>
+<span class="nc" id="L277">                ctx.f.getWsXreffile(), ctx.f, String.valueOf(ctx.f.getXrCardNum()), 0);</span>
+<span class="nc" id="L278">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L279" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L280">            ctx.f.setWsKey(&quot; &quot;);</span>
+<span class="nc" id="L281">            ctx.f.setWsKey(</span>
+<span class="nc" id="L282">                    Utility.setSubstring(</span>
+<span class="nc" id="L283">                            String.valueOf(ctx.f.getWsKey()),</span>
+                            1,
+                            11,
+<span class="nc" id="L286">                            String.valueOf(ctx.f.getXrAcctId())));</span>
+<span class="nc" id="L287">            findOrAddResultSlot(ctx);</span>
+<span class="nc bnc" id="L288" title="All 2 branches missed.">            if (ctx.f.getWsSlotSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L289">                ctx.f.setWsReCnt(ctx.f.getWsFidx(), ctx.f.getWsReCnt(ctx.f.getWsFidx()) + 1);</span>
+<span class="nc" id="L290">                ctx.f.setWsReAmt(</span>
+<span class="nc" id="L291">                        ctx.f.getWsFidx(),</span>
+<span class="nc" id="L292">                        ctx.f.getWsReAmt(ctx.f.getWsFidx()).add(ctx.f.getWsMove()));</span>
+            }
+<span class="nc bnc" id="L294" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L295">            ctx.f.setWsOrphCnt(ctx.f.getWsOrphCnt() + 1);</span>
+        } else {
+<span class="nc" id="L297">            ctx.f.setWsOrphCnt(ctx.f.getWsOrphCnt() + 1);</span>
+        }
+<span class="nc" id="L299">    }</span>
+
+    /** COBOL paragraph: 2900-END-TRAN */
+    private void endTransactionBrowse(TaskContext ctx) {
+<span class="nc" id="L303">        ctx.appService.endBrowse(ctx.f.getWsTranfile());</span>
+<span class="nc" id="L304">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L305">    }</span>
+
+    /** COBOL paragraph: 3000-FINALIZE */
+    private void finalizeResults(TaskContext ctx) {
+<span class="nc bnc" id="L309" title="All 3 branches missed.">        switch (Utility.rtrim(ctx.f.getKabMode())) {</span>
+            case &quot;FR&quot; -&gt; {
+<span class="nc" id="L311">                filterFlaggedFraudEntries(ctx);</span>
+<span class="nc" id="L312">            }</span>
+            case &quot;RC&quot; -&gt; {
+<span class="nc" id="L314">                reconcileAccountBalances(ctx);</span>
+<span class="nc" id="L315">            }</span>
+            default -&gt; {
+                /* CONTINUE */
+            }
+        }
+<span class="nc" id="L320">    }</span>
+
+    /** COBOL paragraph: 3100-FINALIZE-FR */
+    private void filterFlaggedFraudEntries(TaskContext ctx) {
+<span class="nc" id="L324">        ctx.f.setWsNewCnt(0);</span>
+<span class="nc" id="L325">        ctx.f.setWsTot1(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L326">        ctx.f.setWsTot2(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L327">        for (ctx.f.setWsIdx(1);</span>
+<span class="nc bnc" id="L328" title="All 2 branches missed.">                ctx.f.getWsIdx() &lt;= ctx.f.getWsResCnt();</span>
+<span class="nc" id="L329">                ctx.f.setWsIdx(ctx.f.getWsIdx() + 1)) {</span>
+<span class="nc" id="L330">            ctx.f.setWsFlagSw(&quot;N&quot;);</span>
+<span class="nc" id="L331">            ctx.f.setWsReason(&quot; &quot;);</span>
+<span class="nc bnc" id="L332" title="All 2 branches missed.">            if ((ctx.f.getWsReVal(ctx.f.getWsIdx()).compareTo(ctx.f.getWsLargeThresh()) &gt;= 0)) {</span>
+<span class="nc" id="L333">                ctx.f.setWsFlagSw(&quot;Y&quot;);</span>
+<span class="nc" id="L334">                ctx.f.setWsReason(&quot;LARGE AMT&quot;);</span>
+            }
+<span class="nc bnc" id="L336" title="All 2 branches missed.">            if (ctx.f.getWsReCnt(ctx.f.getWsIdx()) &gt;= ctx.f.getWsVeloThresh()) {</span>
+<span class="nc" id="L337">                ctx.f.setWsFlagSw(&quot;Y&quot;);</span>
+<span class="nc bnc" id="L338" title="All 2 branches missed.">                if (Utility.fieldEquals(ctx.f.getWsReason(), &quot; &quot;)) {</span>
+<span class="nc" id="L339">                    ctx.f.setWsReason(&quot;VELOCITY&quot;);</span>
+                } else {
+<span class="nc" id="L341">                    ctx.f.setWsReason(&quot;LARGE+VELO&quot;);</span>
+                }
+            }
+<span class="nc bnc" id="L344" title="All 2 branches missed.">            if (Utility.fieldEquals(ctx.f.getWsFlagSw(), &quot;Y&quot;)) {</span>
+<span class="nc" id="L345">                ctx.f.setWsNewCnt(ctx.f.getWsNewCnt() + 1);</span>
+<span class="nc" id="L346">                ctx.f.setWsReKey(ctx.f.getWsNewCnt(), ctx.f.getWsReKey(ctx.f.getWsIdx()));</span>
+<span class="nc" id="L347">                ctx.f.setWsReInfo(ctx.f.getWsNewCnt(), ctx.f.getWsReason());</span>
+<span class="nc" id="L348">                ctx.f.setWsReCnt(ctx.f.getWsNewCnt(), ctx.f.getWsReCnt(ctx.f.getWsIdx()));</span>
+<span class="nc" id="L349">                ctx.f.setWsReAmt(ctx.f.getWsNewCnt(), ctx.f.getWsReAmt(ctx.f.getWsIdx()));</span>
+<span class="nc" id="L350">                ctx.f.setWsReVal(ctx.f.getWsNewCnt(), ctx.f.getWsReVal(ctx.f.getWsIdx()));</span>
+<span class="nc" id="L351">                ctx.f.setWsTot1(ctx.f.getWsTot1().add(ctx.f.getWsReAmt(ctx.f.getWsNewCnt())));</span>
+<span class="nc" id="L352">                ctx.f.setWsTot2(ctx.f.getWsTot2().add(java.math.BigDecimal.valueOf(1)));</span>
+            }
+        }
+<span class="nc" id="L355">        ctx.f.setWsResCnt(ctx.f.getWsNewCnt());</span>
+<span class="nc" id="L356">    }</span>
+
+    /** COBOL paragraph: 3200-FINALIZE-RC */
+    private void reconcileAccountBalances(TaskContext ctx) {
+<span class="nc" id="L360">        ctx.f.setWsDiscCnt(0);</span>
+<span class="nc" id="L361">        for (ctx.f.setWsIdx(1);</span>
+<span class="nc bnc" id="L362" title="All 2 branches missed.">                ctx.f.getWsIdx() &lt;= ctx.f.getWsResCnt();</span>
+<span class="nc" id="L363">                ctx.f.setWsIdx(ctx.f.getWsIdx() + 1)) {</span>
+<span class="nc" id="L364">            ctx.f.setWsKey(ctx.f.getWsReKey(ctx.f.getWsIdx()));</span>
+<span class="nc" id="L365">            ctx.f.setAcId(</span>
+<span class="nc" id="L366">                    Utility.parseNumeric(</span>
+<span class="nc" id="L367">                                    Utility.padRight(String.valueOf(ctx.f.getWsKey()), 11)</span>
+<span class="nc" id="L368">                                            .substring(0, 11))</span>
+<span class="nc" id="L369">                            .longValue());</span>
+<span class="nc" id="L370">            ctx.appService.readFile(</span>
+<span class="nc" id="L371">                    ctx.f.getWsAcctfile(), ctx.f, String.valueOf(ctx.f.getAcId()), 0);</span>
+<span class="nc" id="L372">            ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L373" title="All 2 branches missed.">            if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L374">                ctx.f.setWsReVal(ctx.f.getWsIdx(), ctx.f.getAcCurrBal());</span>
+<span class="nc" id="L375">                ctx.f.setWsDiff(ctx.f.getWsReAmt(ctx.f.getWsIdx()).subtract(ctx.f.getAcCurrBal()));</span>
+<span class="nc bnc" id="L376" title="All 2 branches missed.">                if (ctx.f.getWsDiff().signum() == 0) {</span>
+<span class="nc" id="L377">                    ctx.f.setWsReInfo(ctx.f.getWsIdx(), &quot;OK&quot;);</span>
+                } else {
+<span class="nc" id="L379">                    ctx.f.setWsReInfo(ctx.f.getWsIdx(), &quot;MISMATCH&quot;);</span>
+<span class="nc" id="L380">                    ctx.f.setWsDiscCnt(ctx.f.getWsDiscCnt() + 1);</span>
+                }
+<span class="nc bnc" id="L382" title="All 2 branches missed.">            } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L383">                ctx.f.setWsReVal(ctx.f.getWsIdx(), java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L384">                ctx.f.setWsReInfo(ctx.f.getWsIdx(), &quot;MISSING&quot;);</span>
+<span class="nc" id="L385">                ctx.f.setWsDiscCnt(ctx.f.getWsDiscCnt() + 1);</span>
+            } else {
+<span class="nc" id="L387">                ctx.f.setWsReInfo(ctx.f.getWsIdx(), &quot;READ ERR&quot;);</span>
+            }
+        }
+<span class="nc" id="L390">    }</span>
+
+    /** COBOL paragraph: 4000-BUILD-PAGE */
+    private void buildResultPage(TaskContext ctx) {
+<span class="nc" id="L394">        ctx.f.setKabResultCnt(ctx.f.getWsResCnt());</span>
+<span class="nc" id="L395">        ctx.f.setKabScanned(ctx.f.getWsScanned());</span>
+<span class="nc" id="L396">        ctx.f.setKabDisc(ctx.f.getWsDiscCnt());</span>
+<span class="nc" id="L397">        ctx.f.setKabTot1(ctx.f.getWsTot1());</span>
+<span class="nc" id="L398">        ctx.f.setKabTot2(ctx.f.getWsTot2());</span>
+<span class="nc" id="L399">        clearResultRows(ctx);</span>
+<span class="nc" id="L400">        ctx.f.setKabRowCnt(0);</span>
+<span class="nc" id="L401">        ctx.f.setKabMore(&quot;N&quot;);</span>
+<span class="nc bnc" id="L402" title="All 2 branches missed.">        if (ctx.f.getWsResCnt() == 0) {</span>
+<span class="nc" id="L403">            return;</span>
+        }
+<span class="nc" id="L405">        ctx.f.setWsStartIdx((ctx.f.getKabStartOff() + 1));</span>
+<span class="nc bnc" id="L406" title="All 2 branches missed.">        if (ctx.f.getWsStartIdx() &lt; 1) {</span>
+<span class="nc" id="L407">            ctx.f.setWsStartIdx(1);</span>
+        }
+<span class="nc" id="L409">        ctx.f.setWsOutCnt(0);</span>
+<span class="nc" id="L410">        for (ctx.f.setWsIdx(ctx.f.getWsStartIdx());</span>
+<span class="nc bnc" id="L411" title="All 2 branches missed.">                !(ctx.f.getWsIdx() &gt; ctx.f.getWsResCnt()</span>
+<span class="nc bnc" id="L412" title="All 2 branches missed.">                        || ctx.f.getWsOutCnt() &gt;= ctx.f.getWsMaxRows());</span>
+<span class="nc" id="L413">                ctx.f.setWsIdx(ctx.f.getWsIdx() + 1)) {</span>
+<span class="nc" id="L414">            ctx.f.setWsOutCnt(ctx.f.getWsOutCnt() + 1);</span>
+<span class="nc" id="L415">            ctx.f.setKabRKey(ctx.f.getWsOutCnt(), ctx.f.getWsReKey(ctx.f.getWsIdx()));</span>
+<span class="nc" id="L416">            ctx.f.setKabRInfo(ctx.f.getWsOutCnt(), ctx.f.getWsReInfo(ctx.f.getWsIdx()));</span>
+<span class="nc" id="L417">            ctx.f.setKabRCnt(ctx.f.getWsOutCnt(), ctx.f.getWsReCnt(ctx.f.getWsIdx()));</span>
+<span class="nc" id="L418">            ctx.f.setKabRAmt(ctx.f.getWsOutCnt(), ctx.f.getWsReAmt(ctx.f.getWsIdx()));</span>
+<span class="nc" id="L419">            ctx.f.setKabRVal(ctx.f.getWsOutCnt(), ctx.f.getWsReVal(ctx.f.getWsIdx()));</span>
+        }
+<span class="nc" id="L421">        ctx.f.setKabRowCnt(ctx.f.getWsOutCnt());</span>
+<span class="nc bnc" id="L422" title="All 2 branches missed.">        if (ctx.f.getWsIdx() &lt;= ctx.f.getWsResCnt()) {</span>
+<span class="nc" id="L423">            ctx.f.setKabMore(&quot;Y&quot;);</span>
+        }
+<span class="nc" id="L425">    }</span>
+
+    /** COBOL paragraph: 4050-CLEAR-ROWS */
+    private void clearResultRows(TaskContext ctx) {
+<span class="nc bnc" id="L429" title="All 2 branches missed.">        for (ctx.f.setWsSidx(1); ctx.f.getWsSidx() &lt;= 6; ctx.f.setWsSidx(ctx.f.getWsSidx() + 1)) {</span>
+<span class="nc" id="L430">            ctx.f.setKabRKey(ctx.f.getWsSidx(), &quot; &quot;);</span>
+<span class="nc" id="L431">            ctx.f.setKabRInfo(ctx.f.getWsSidx(), &quot; &quot;);</span>
+<span class="nc" id="L432">            ctx.f.setKabRCnt(ctx.f.getWsSidx(), 0);</span>
+<span class="nc" id="L433">            ctx.f.setKabRAmt(ctx.f.getWsSidx(), java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L434">            ctx.f.setKabRVal(ctx.f.getWsSidx(), java.math.BigDecimal.valueOf(0));</span>
+        }
+<span class="nc" id="L436">    }</span>
+
+    /** COBOL paragraph: 6000-SET-STATUS */
+    private void updateResultStatus(TaskContext ctx) {
+<span class="nc bnc" id="L440" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getKabStatus(), &quot;99&quot;)) {</span>
+<span class="nc" id="L441">            ctx.f.setKabRowCnt(0);</span>
+        } else {
+<span class="nc bnc" id="L443" title="All 2 branches missed.">            if (ctx.f.getWsResCnt() == 0) {</span>
+<span class="nc" id="L444">                ctx.f.setKabStatus(&quot;10&quot;);</span>
+            } else {
+<span class="nc" id="L446">                ctx.f.setKabStatus(&quot;00&quot;);</span>
+            }
+        }
+<span class="nc" id="L449">    }</span>
+
+    /** COBOL paragraph: 7000-FIND-OR-ADD */
+    private void findOrAddResultSlot(TaskContext ctx) {
+<span class="nc" id="L453">        ctx.f.setString(&quot;WS-SLOT-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L454">        ctx.f.setWsFidx(0);</span>
+<span class="nc" id="L455">        for (ctx.f.setWsSidx(1);</span>
+<span class="nc bnc" id="L456" title="All 4 branches missed.">                ctx.f.getWsSidx() &lt;= ctx.f.getWsResCnt() &amp;&amp; !ctx.f.getWsSlotSw().equals(&quot;Y&quot;);</span>
+<span class="nc" id="L457">                ctx.f.setWsSidx(ctx.f.getWsSidx() + 1)) {</span>
+<span class="nc bnc" id="L458" title="All 2 branches missed.">            if (Utility.fieldEquals(ctx.f.getWsReKey(ctx.f.getWsSidx()), ctx.f.getWsKey())) {</span>
+<span class="nc" id="L459">                ctx.f.setWsFidx(ctx.f.getWsSidx());</span>
+<span class="nc" id="L460">                ctx.f.setString(&quot;WS-SLOT-SW&quot;, &quot;Y&quot;);</span>
+            }
+        }
+<span class="nc bnc" id="L463" title="All 2 branches missed.">        if (!ctx.f.getWsSlotSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L464" title="All 2 branches missed.">            if (ctx.f.getWsResCnt() &lt; ctx.f.getWsMaxRes()) {</span>
+<span class="nc" id="L465">                ctx.f.setWsResCnt(ctx.f.getWsResCnt() + 1);</span>
+<span class="nc" id="L466">                ctx.f.setWsFidx(ctx.f.getWsResCnt());</span>
+<span class="nc" id="L467">                ctx.f.setWsReKey(ctx.f.getWsFidx(), ctx.f.getWsKey());</span>
+<span class="nc" id="L468">                ctx.f.setWsReInfo(ctx.f.getWsFidx(), &quot; &quot;);</span>
+<span class="nc" id="L469">                ctx.f.setWsReCnt(ctx.f.getWsFidx(), 0);</span>
+<span class="nc" id="L470">                ctx.f.setWsReAmt(ctx.f.getWsFidx(), java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L471">                ctx.f.setWsReVal(ctx.f.getWsFidx(), java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L472">                ctx.f.setString(&quot;WS-SLOT-SW&quot;, &quot;Y&quot;);</span>
+            } else {
+<span class="nc" id="L474">                ctx.f.setWsOflowCnt(ctx.f.getWsOflowCnt() + 1);</span>
+<span class="nc" id="L475">                ctx.f.setString(&quot;WS-SLOT-SW&quot;, &quot;N&quot;);</span>
+            }
+        }
+<span class="nc" id="L478">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OuanlinFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L491">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L492">            this.appService = appService;</span>
+<span class="nc" id="L493">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L494">            this.f = new OuanlinFields(ws);</span>
+<span class="nc" id="L495">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

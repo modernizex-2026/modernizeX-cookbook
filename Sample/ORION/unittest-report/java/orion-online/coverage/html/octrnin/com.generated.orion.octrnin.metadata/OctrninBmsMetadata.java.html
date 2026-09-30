@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OctrninBmsMetadata.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCTRNIN Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.octrnin.metadata</a> &gt; <span class="el_source">OctrninBmsMetadata.java</span></div><h1>OctrninBmsMetadata.java</h1><pre class="source lang-java linenums">package com.generated.orion.octrnin.metadata;
+
+import com.appruntime.AppRunner;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import java.util.*;
+
+/**
+ * BMS screen metadata for OCTRNIN.
+ * Contains button definitions, FSET fields, and field mappings.
+ */
+<span class="nc" id="L12">public class OctrninBmsMetadata {</span>
+
+    public static List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="fc" id="L15">        return List.of(</span>
+            new ScreenResponse.ButtonDef(&quot;ENTER&quot;, &quot;ENTER=FILTER&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF7&quot;, &quot;PF7=RESTART&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF8&quot;, &quot;PF8=NEXT&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF3&quot;, &quot;PF3=MENU&quot;, &quot;&quot;)
+        );
+    }
+
+    public static void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L24">        runner.registerFsetFields(&quot;MTRNINA&quot;, Set.of(&quot;TMODE&quot;, &quot;FCARD&quot;, &quot;FMERCH&quot;, &quot;FRDATE&quot;, &quot;FTDATE&quot;, &quot;FTYPE&quot;, &quot;FCAT&quot;, &quot;FAMT&quot;));</span>
+<span class="nc" id="L25">    }</span>
+
+    /** Danh sách BMS map của program (cho smoke test / tooling). */
+    public static List&lt;String&gt; getMapNames() {
+<span class="nc" id="L29">        return List.of(&quot;MTRNINA&quot;);</span>
+    }
+
+    /** Classpath resource của WORKING-STORAGE layout (FieldStore đọc lúc runtime). */
+    public static String getLayoutResource() {
+<span class="nc" id="L34">        return &quot;layout/OCTRNIN_WS.xml&quot;;</span>
+    }
+
+    public static FieldMapping getFieldMapping(String mapName) {
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (&quot;MTRNINA&quot;.equalsIgnoreCase(mapName)) {</span>
+<span class="fc" id="L39">            return FieldMapping.builder()</span>
+<span class="fc" id="L40">                .addDataIn(&quot;TID6&quot;, &quot;tid6i&quot;)</span>
+<span class="fc" id="L41">                .addDataIn(&quot;FTYPE&quot;, &quot;ftypei&quot;)</span>
+<span class="fc" id="L42">                .addDataIn(&quot;TID5&quot;, &quot;tid5i&quot;)</span>
+<span class="fc" id="L43">                .addDataIn(&quot;FAMT&quot;, &quot;famti&quot;)</span>
+<span class="fc" id="L44">                .addDataIn(&quot;TID4&quot;, &quot;tid4i&quot;)</span>
+<span class="fc" id="L45">                .addDataIn(&quot;TID3&quot;, &quot;tid3i&quot;)</span>
+<span class="fc" id="L46">                .addDataIn(&quot;TID2&quot;, &quot;tid2i&quot;)</span>
+<span class="fc" id="L47">                .addDataIn(&quot;FSUM&quot;, &quot;fsumi&quot;)</span>
+<span class="fc" id="L48">                .addDataIn(&quot;TID1&quot;, &quot;tid1i&quot;)</span>
+<span class="fc" id="L49">                .addDataIn(&quot;TCD6&quot;, &quot;tcd6i&quot;)</span>
+<span class="fc" id="L50">                .addDataIn(&quot;TCD5&quot;, &quot;tcd5i&quot;)</span>
+<span class="fc" id="L51">                .addDataIn(&quot;TDS2&quot;, &quot;tds2i&quot;)</span>
+<span class="fc" id="L52">                .addDataIn(&quot;TDS1&quot;, &quot;tds1i&quot;)</span>
+<span class="fc" id="L53">                .addDataIn(&quot;FCAT&quot;, &quot;fcati&quot;)</span>
+<span class="fc" id="L54">                .addDataIn(&quot;TAM6&quot;, &quot;tam6i&quot;)</span>
+<span class="fc" id="L55">                .addDataIn(&quot;TAM5&quot;, &quot;tam5i&quot;)</span>
+<span class="fc" id="L56">                .addDataIn(&quot;TAM4&quot;, &quot;tam4i&quot;)</span>
+<span class="fc" id="L57">                .addDataIn(&quot;TAM3&quot;, &quot;tam3i&quot;)</span>
+<span class="fc" id="L58">                .addDataIn(&quot;TDS6&quot;, &quot;tds6i&quot;)</span>
+<span class="fc" id="L59">                .addDataIn(&quot;ERRMSG&quot;, &quot;errmsgi&quot;)</span>
+<span class="fc" id="L60">                .addDataIn(&quot;CURTIME&quot;, &quot;curtimei&quot;)</span>
+<span class="fc" id="L61">                .addDataIn(&quot;TAM2&quot;, &quot;tam2i&quot;)</span>
+<span class="fc" id="L62">                .addDataIn(&quot;TDS5&quot;, &quot;tds5i&quot;)</span>
+<span class="fc" id="L63">                .addDataIn(&quot;TAM1&quot;, &quot;tam1i&quot;)</span>
+<span class="fc" id="L64">                .addDataIn(&quot;TDS4&quot;, &quot;tds4i&quot;)</span>
+<span class="fc" id="L65">                .addDataIn(&quot;TDS3&quot;, &quot;tds3i&quot;)</span>
+<span class="fc" id="L66">                .addDataIn(&quot;YSUM&quot;, &quot;ysumi&quot;)</span>
+<span class="fc" id="L67">                .addDataIn(&quot;TMC1&quot;, &quot;tmc1i&quot;)</span>
+<span class="fc" id="L68">                .addDataIn(&quot;TMC6&quot;, &quot;tmc6i&quot;)</span>
+<span class="fc" id="L69">                .addDataIn(&quot;TMC5&quot;, &quot;tmc5i&quot;)</span>
+<span class="fc" id="L70">                .addDataIn(&quot;TMC4&quot;, &quot;tmc4i&quot;)</span>
+<span class="fc" id="L71">                .addDataIn(&quot;TMC3&quot;, &quot;tmc3i&quot;)</span>
+<span class="fc" id="L72">                .addDataIn(&quot;FCARD&quot;, &quot;fcardi&quot;)</span>
+<span class="fc" id="L73">                .addDataIn(&quot;TMC2&quot;, &quot;tmc2i&quot;)</span>
+<span class="fc" id="L74">                .addDataIn(&quot;TMODE&quot;, &quot;tmodei&quot;)</span>
+<span class="fc" id="L75">                .addDataIn(&quot;TCD4&quot;, &quot;tcd4i&quot;)</span>
+<span class="fc" id="L76">                .addDataIn(&quot;TCD3&quot;, &quot;tcd3i&quot;)</span>
+<span class="fc" id="L77">                .addDataIn(&quot;TCD2&quot;, &quot;tcd2i&quot;)</span>
+<span class="fc" id="L78">                .addDataIn(&quot;TCD1&quot;, &quot;tcd1i&quot;)</span>
+<span class="fc" id="L79">                .addDataIn(&quot;PGMNAME&quot;, &quot;pgmnamei&quot;)</span>
+<span class="fc" id="L80">                .addDataIn(&quot;CURDATE&quot;, &quot;curdatei&quot;)</span>
+<span class="fc" id="L81">                .addDataIn(&quot;ICNT&quot;, &quot;icnti&quot;)</span>
+<span class="fc" id="L82">                .addDataIn(&quot;FMERCH&quot;, &quot;fmerchi&quot;)</span>
+<span class="fc" id="L83">                .addDataIn(&quot;FTDATE&quot;, &quot;ftdatei&quot;)</span>
+<span class="fc" id="L84">                .addDataIn(&quot;PCNT&quot;, &quot;pcnti&quot;)</span>
+<span class="fc" id="L85">                .addDataIn(&quot;ISUM&quot;, &quot;isumi&quot;)</span>
+<span class="fc" id="L86">                .addDataIn(&quot;FCNT&quot;, &quot;fcnti&quot;)</span>
+<span class="fc" id="L87">                .addDataIn(&quot;TTC2&quot;, &quot;ttc2i&quot;)</span>
+<span class="fc" id="L88">                .addDataIn(&quot;TDT3&quot;, &quot;tdt3i&quot;)</span>
+<span class="fc" id="L89">                .addDataIn(&quot;MTOT&quot;, &quot;mtoti&quot;)</span>
+<span class="fc" id="L90">                .addDataIn(&quot;TTC1&quot;, &quot;ttc1i&quot;)</span>
+<span class="fc" id="L91">                .addDataIn(&quot;TDT2&quot;, &quot;tdt2i&quot;)</span>
+<span class="fc" id="L92">                .addDataIn(&quot;TDT1&quot;, &quot;tdt1i&quot;)</span>
+<span class="fc" id="L93">                .addDataIn(&quot;FRDATE&quot;, &quot;frdatei&quot;)</span>
+<span class="fc" id="L94">                .addDataIn(&quot;XID&quot;, &quot;xidi&quot;)</span>
+<span class="fc" id="L95">                .addDataIn(&quot;TRNNAME&quot;, &quot;trnnamei&quot;)</span>
+<span class="fc" id="L96">                .addDataIn(&quot;TTC6&quot;, &quot;ttc6i&quot;)</span>
+<span class="fc" id="L97">                .addDataIn(&quot;TTC5&quot;, &quot;ttc5i&quot;)</span>
+<span class="fc" id="L98">                .addDataIn(&quot;TDT6&quot;, &quot;tdt6i&quot;)</span>
+<span class="fc" id="L99">                .addDataIn(&quot;TTC4&quot;, &quot;ttc4i&quot;)</span>
+<span class="fc" id="L100">                .addDataIn(&quot;TDT5&quot;, &quot;tdt5i&quot;)</span>
+<span class="fc" id="L101">                .addDataIn(&quot;TTC3&quot;, &quot;ttc3i&quot;)</span>
+<span class="fc" id="L102">                .addDataIn(&quot;TDT4&quot;, &quot;tdt4i&quot;)</span>
+<span class="fc" id="L103">                .addDataIn(&quot;MCNT&quot;, &quot;mcnti&quot;)</span>
+<span class="fc" id="L104">                .addDataIn(&quot;XAMT&quot;, &quot;xamti&quot;)</span>
+<span class="fc" id="L105">                .addDataIn(&quot;YCNT&quot;, &quot;ycnti&quot;)</span>
+<span class="fc" id="L106">                .addDataIn(&quot;TITLE&quot;, &quot;titlei&quot;)</span>
+<span class="fc" id="L107">                .addDataIn(&quot;PSUM&quot;, &quot;psumi&quot;)</span>
+<span class="fc" id="L108">                .addDataOut(&quot;TID6&quot;, &quot;tid6o&quot;)</span>
+<span class="fc" id="L109">                .addDataOut(&quot;FTYPE&quot;, &quot;ftypeo&quot;)</span>
+<span class="fc" id="L110">                .addDataOut(&quot;TID5&quot;, &quot;tid5o&quot;)</span>
+<span class="fc" id="L111">                .addDataOut(&quot;FAMT&quot;, &quot;famto&quot;)</span>
+<span class="fc" id="L112">                .addDataOut(&quot;TID4&quot;, &quot;tid4o&quot;)</span>
+<span class="fc" id="L113">                .addDataOut(&quot;TID3&quot;, &quot;tid3o&quot;)</span>
+<span class="fc" id="L114">                .addDataOut(&quot;TID2&quot;, &quot;tid2o&quot;)</span>
+<span class="fc" id="L115">                .addDataOut(&quot;FSUM&quot;, &quot;fsumo&quot;)</span>
+<span class="fc" id="L116">                .addDataOut(&quot;TID1&quot;, &quot;tid1o&quot;)</span>
+<span class="fc" id="L117">                .addDataOut(&quot;TCD6&quot;, &quot;tcd6o&quot;)</span>
+<span class="fc" id="L118">                .addDataOut(&quot;TCD5&quot;, &quot;tcd5o&quot;)</span>
+<span class="fc" id="L119">                .addDataOut(&quot;TDS2&quot;, &quot;tds2o&quot;)</span>
+<span class="fc" id="L120">                .addDataOut(&quot;TDS1&quot;, &quot;tds1o&quot;)</span>
+<span class="fc" id="L121">                .addDataOut(&quot;FCAT&quot;, &quot;fcato&quot;)</span>
+<span class="fc" id="L122">                .addDataOut(&quot;TAM6&quot;, &quot;tam6o&quot;)</span>
+<span class="fc" id="L123">                .addDataOut(&quot;TAM5&quot;, &quot;tam5o&quot;)</span>
+<span class="fc" id="L124">                .addDataOut(&quot;TAM4&quot;, &quot;tam4o&quot;)</span>
+<span class="fc" id="L125">                .addDataOut(&quot;TAM3&quot;, &quot;tam3o&quot;)</span>
+<span class="fc" id="L126">                .addDataOut(&quot;TDS6&quot;, &quot;tds6o&quot;)</span>
+<span class="fc" id="L127">                .addDataOut(&quot;ERRMSG&quot;, &quot;errmsgo&quot;)</span>
+<span class="fc" id="L128">                .addDataOut(&quot;CURTIME&quot;, &quot;curtimeo&quot;)</span>
+<span class="fc" id="L129">                .addDataOut(&quot;TAM2&quot;, &quot;tam2o&quot;)</span>
+<span class="fc" id="L130">                .addDataOut(&quot;TDS5&quot;, &quot;tds5o&quot;)</span>
+<span class="fc" id="L131">                .addDataOut(&quot;TAM1&quot;, &quot;tam1o&quot;)</span>
+<span class="fc" id="L132">                .addDataOut(&quot;TDS4&quot;, &quot;tds4o&quot;)</span>
+<span class="fc" id="L133">                .addDataOut(&quot;TDS3&quot;, &quot;tds3o&quot;)</span>
+<span class="fc" id="L134">                .addDataOut(&quot;YSUM&quot;, &quot;ysumo&quot;)</span>
+<span class="fc" id="L135">                .addDataOut(&quot;TMC1&quot;, &quot;tmc1o&quot;)</span>
+<span class="fc" id="L136">                .addDataOut(&quot;TMC6&quot;, &quot;tmc6o&quot;)</span>
+<span class="fc" id="L137">                .addDataOut(&quot;TMC5&quot;, &quot;tmc5o&quot;)</span>
+<span class="fc" id="L138">                .addDataOut(&quot;TMC4&quot;, &quot;tmc4o&quot;)</span>
+<span class="fc" id="L139">                .addDataOut(&quot;TMC3&quot;, &quot;tmc3o&quot;)</span>
+<span class="fc" id="L140">                .addDataOut(&quot;FCARD&quot;, &quot;fcardo&quot;)</span>
+<span class="fc" id="L141">                .addDataOut(&quot;TMC2&quot;, &quot;tmc2o&quot;)</span>
+<span class="fc" id="L142">                .addDataOut(&quot;TMODE&quot;, &quot;tmodeo&quot;)</span>
+<span class="fc" id="L143">                .addDataOut(&quot;TCD4&quot;, &quot;tcd4o&quot;)</span>
+<span class="fc" id="L144">                .addDataOut(&quot;TCD3&quot;, &quot;tcd3o&quot;)</span>
+<span class="fc" id="L145">                .addDataOut(&quot;TCD2&quot;, &quot;tcd2o&quot;)</span>
+<span class="fc" id="L146">                .addDataOut(&quot;TCD1&quot;, &quot;tcd1o&quot;)</span>
+<span class="fc" id="L147">                .addDataOut(&quot;PGMNAME&quot;, &quot;pgmnameo&quot;)</span>
+<span class="fc" id="L148">                .addDataOut(&quot;CURDATE&quot;, &quot;curdateo&quot;)</span>
+<span class="fc" id="L149">                .addDataOut(&quot;ICNT&quot;, &quot;icnto&quot;)</span>
+<span class="fc" id="L150">                .addDataOut(&quot;FMERCH&quot;, &quot;fmercho&quot;)</span>
+<span class="fc" id="L151">                .addDataOut(&quot;FTDATE&quot;, &quot;ftdateo&quot;)</span>
+<span class="fc" id="L152">                .addDataOut(&quot;PCNT&quot;, &quot;pcnto&quot;)</span>
+<span class="fc" id="L153">                .addDataOut(&quot;ISUM&quot;, &quot;isumo&quot;)</span>
+<span class="fc" id="L154">                .addDataOut(&quot;FCNT&quot;, &quot;fcnto&quot;)</span>
+<span class="fc" id="L155">                .addDataOut(&quot;TTC2&quot;, &quot;ttc2o&quot;)</span>
+<span class="fc" id="L156">                .addDataOut(&quot;TDT3&quot;, &quot;tdt3o&quot;)</span>
+<span class="fc" id="L157">                .addDataOut(&quot;MTOT&quot;, &quot;mtoto&quot;)</span>
+<span class="fc" id="L158">                .addDataOut(&quot;TTC1&quot;, &quot;ttc1o&quot;)</span>
+<span class="fc" id="L159">                .addDataOut(&quot;TDT2&quot;, &quot;tdt2o&quot;)</span>
+<span class="fc" id="L160">                .addDataOut(&quot;TDT1&quot;, &quot;tdt1o&quot;)</span>
+<span class="fc" id="L161">                .addDataOut(&quot;FRDATE&quot;, &quot;frdateo&quot;)</span>
+<span class="fc" id="L162">                .addDataOut(&quot;XID&quot;, &quot;xido&quot;)</span>
+<span class="fc" id="L163">                .addDataOut(&quot;TRNNAME&quot;, &quot;trnnameo&quot;)</span>
+<span class="fc" id="L164">                .addDataOut(&quot;TTC6&quot;, &quot;ttc6o&quot;)</span>
+<span class="fc" id="L165">                .addDataOut(&quot;TTC5&quot;, &quot;ttc5o&quot;)</span>
+<span class="fc" id="L166">                .addDataOut(&quot;TDT6&quot;, &quot;tdt6o&quot;)</span>
+<span class="fc" id="L167">                .addDataOut(&quot;TTC4&quot;, &quot;ttc4o&quot;)</span>
+<span class="fc" id="L168">                .addDataOut(&quot;TDT5&quot;, &quot;tdt5o&quot;)</span>
+<span class="fc" id="L169">                .addDataOut(&quot;TTC3&quot;, &quot;ttc3o&quot;)</span>
+<span class="fc" id="L170">                .addDataOut(&quot;TDT4&quot;, &quot;tdt4o&quot;)</span>
+<span class="fc" id="L171">                .addDataOut(&quot;MCNT&quot;, &quot;mcnto&quot;)</span>
+<span class="fc" id="L172">                .addDataOut(&quot;XAMT&quot;, &quot;xamto&quot;)</span>
+<span class="fc" id="L173">                .addDataOut(&quot;YCNT&quot;, &quot;ycnto&quot;)</span>
+<span class="fc" id="L174">                .addDataOut(&quot;TITLE&quot;, &quot;titleo&quot;)</span>
+<span class="fc" id="L175">                .addDataOut(&quot;PSUM&quot;, &quot;psumo&quot;)</span>
+<span class="fc" id="L176">                .addAttr(&quot;TID6&quot;, &quot;tid6a&quot;)</span>
+<span class="fc" id="L177">                .addAttr(&quot;FTYPE&quot;, &quot;ftypea&quot;)</span>
+<span class="fc" id="L178">                .addAttr(&quot;TID5&quot;, &quot;tid5a&quot;)</span>
+<span class="fc" id="L179">                .addAttr(&quot;FAMT&quot;, &quot;famta&quot;)</span>
+<span class="fc" id="L180">                .addAttr(&quot;TID4&quot;, &quot;tid4a&quot;)</span>
+<span class="fc" id="L181">                .addAttr(&quot;TID3&quot;, &quot;tid3a&quot;)</span>
+<span class="fc" id="L182">                .addAttr(&quot;TID2&quot;, &quot;tid2a&quot;)</span>
+<span class="fc" id="L183">                .addAttr(&quot;FSUM&quot;, &quot;fsuma&quot;)</span>
+<span class="fc" id="L184">                .addAttr(&quot;TID1&quot;, &quot;tid1a&quot;)</span>
+<span class="fc" id="L185">                .addAttr(&quot;TCD6&quot;, &quot;tcd6a&quot;)</span>
+<span class="fc" id="L186">                .addAttr(&quot;TCD5&quot;, &quot;tcd5a&quot;)</span>
+<span class="fc" id="L187">                .addAttr(&quot;TDS2&quot;, &quot;tds2a&quot;)</span>
+<span class="fc" id="L188">                .addAttr(&quot;TDS1&quot;, &quot;tds1a&quot;)</span>
+<span class="fc" id="L189">                .addAttr(&quot;FCAT&quot;, &quot;fcata&quot;)</span>
+<span class="fc" id="L190">                .addAttr(&quot;TAM6&quot;, &quot;tam6a&quot;)</span>
+<span class="fc" id="L191">                .addAttr(&quot;TAM5&quot;, &quot;tam5a&quot;)</span>
+<span class="fc" id="L192">                .addAttr(&quot;TAM4&quot;, &quot;tam4a&quot;)</span>
+<span class="fc" id="L193">                .addAttr(&quot;TAM3&quot;, &quot;tam3a&quot;)</span>
+<span class="fc" id="L194">                .addAttr(&quot;TDS6&quot;, &quot;tds6a&quot;)</span>
+<span class="fc" id="L195">                .addAttr(&quot;ERRMSG&quot;, &quot;errmsga&quot;)</span>
+<span class="fc" id="L196">                .addAttr(&quot;CURTIME&quot;, &quot;curtimea&quot;)</span>
+<span class="fc" id="L197">                .addAttr(&quot;TAM2&quot;, &quot;tam2a&quot;)</span>
+<span class="fc" id="L198">                .addAttr(&quot;TDS5&quot;, &quot;tds5a&quot;)</span>
+<span class="fc" id="L199">                .addAttr(&quot;TAM1&quot;, &quot;tam1a&quot;)</span>
+<span class="fc" id="L200">                .addAttr(&quot;TDS4&quot;, &quot;tds4a&quot;)</span>
+<span class="fc" id="L201">                .addAttr(&quot;TDS3&quot;, &quot;tds3a&quot;)</span>
+<span class="fc" id="L202">                .addAttr(&quot;YSUM&quot;, &quot;ysuma&quot;)</span>
+<span class="fc" id="L203">                .addAttr(&quot;TMC1&quot;, &quot;tmc1a&quot;)</span>
+<span class="fc" id="L204">                .addAttr(&quot;TMC6&quot;, &quot;tmc6a&quot;)</span>
+<span class="fc" id="L205">                .addAttr(&quot;TMC5&quot;, &quot;tmc5a&quot;)</span>
+<span class="fc" id="L206">                .addAttr(&quot;TMC4&quot;, &quot;tmc4a&quot;)</span>
+<span class="fc" id="L207">                .addAttr(&quot;TMC3&quot;, &quot;tmc3a&quot;)</span>
+<span class="fc" id="L208">                .addAttr(&quot;FCARD&quot;, &quot;fcarda&quot;)</span>
+<span class="fc" id="L209">                .addAttr(&quot;TMC2&quot;, &quot;tmc2a&quot;)</span>
+<span class="fc" id="L210">                .addAttr(&quot;TMODE&quot;, &quot;tmodea&quot;)</span>
+<span class="fc" id="L211">                .addAttr(&quot;TCD4&quot;, &quot;tcd4a&quot;)</span>
+<span class="fc" id="L212">                .addAttr(&quot;TCD3&quot;, &quot;tcd3a&quot;)</span>
+<span class="fc" id="L213">                .addAttr(&quot;TCD2&quot;, &quot;tcd2a&quot;)</span>
+<span class="fc" id="L214">                .addAttr(&quot;TCD1&quot;, &quot;tcd1a&quot;)</span>
+<span class="fc" id="L215">                .addAttr(&quot;PGMNAME&quot;, &quot;pgmnamea&quot;)</span>
+<span class="fc" id="L216">                .addAttr(&quot;CURDATE&quot;, &quot;curdatea&quot;)</span>
+<span class="fc" id="L217">                .addAttr(&quot;ICNT&quot;, &quot;icnta&quot;)</span>
+<span class="fc" id="L218">                .addAttr(&quot;FMERCH&quot;, &quot;fmercha&quot;)</span>
+<span class="fc" id="L219">                .addAttr(&quot;FTDATE&quot;, &quot;ftdatea&quot;)</span>
+<span class="fc" id="L220">                .addAttr(&quot;PCNT&quot;, &quot;pcnta&quot;)</span>
+<span class="fc" id="L221">                .addAttr(&quot;ISUM&quot;, &quot;isuma&quot;)</span>
+<span class="fc" id="L222">                .addAttr(&quot;FCNT&quot;, &quot;fcnta&quot;)</span>
+<span class="fc" id="L223">                .addAttr(&quot;TTC2&quot;, &quot;ttc2a&quot;)</span>
+<span class="fc" id="L224">                .addAttr(&quot;TDT3&quot;, &quot;tdt3a&quot;)</span>
+<span class="fc" id="L225">                .addAttr(&quot;MTOT&quot;, &quot;mtota&quot;)</span>
+<span class="fc" id="L226">                .addAttr(&quot;TTC1&quot;, &quot;ttc1a&quot;)</span>
+<span class="fc" id="L227">                .addAttr(&quot;TDT2&quot;, &quot;tdt2a&quot;)</span>
+<span class="fc" id="L228">                .addAttr(&quot;TDT1&quot;, &quot;tdt1a&quot;)</span>
+<span class="fc" id="L229">                .addAttr(&quot;FRDATE&quot;, &quot;frdatea&quot;)</span>
+<span class="fc" id="L230">                .addAttr(&quot;XID&quot;, &quot;xida&quot;)</span>
+<span class="fc" id="L231">                .addAttr(&quot;TRNNAME&quot;, &quot;trnnamea&quot;)</span>
+<span class="fc" id="L232">                .addAttr(&quot;TTC6&quot;, &quot;ttc6a&quot;)</span>
+<span class="fc" id="L233">                .addAttr(&quot;TTC5&quot;, &quot;ttc5a&quot;)</span>
+<span class="fc" id="L234">                .addAttr(&quot;TDT6&quot;, &quot;tdt6a&quot;)</span>
+<span class="fc" id="L235">                .addAttr(&quot;TTC4&quot;, &quot;ttc4a&quot;)</span>
+<span class="fc" id="L236">                .addAttr(&quot;TDT5&quot;, &quot;tdt5a&quot;)</span>
+<span class="fc" id="L237">                .addAttr(&quot;TTC3&quot;, &quot;ttc3a&quot;)</span>
+<span class="fc" id="L238">                .addAttr(&quot;TDT4&quot;, &quot;tdt4a&quot;)</span>
+<span class="fc" id="L239">                .addAttr(&quot;MCNT&quot;, &quot;mcnta&quot;)</span>
+<span class="fc" id="L240">                .addAttr(&quot;XAMT&quot;, &quot;xamta&quot;)</span>
+<span class="fc" id="L241">                .addAttr(&quot;YCNT&quot;, &quot;ycnta&quot;)</span>
+<span class="fc" id="L242">                .addAttr(&quot;TITLE&quot;, &quot;titlea&quot;)</span>
+<span class="fc" id="L243">                .addAttr(&quot;PSUM&quot;, &quot;psuma&quot;)</span>
+<span class="fc" id="L244">                .addLength(&quot;TID6&quot;, &quot;tid6l&quot;)</span>
+<span class="fc" id="L245">                .addLength(&quot;FTYPE&quot;, &quot;ftypel&quot;)</span>
+<span class="fc" id="L246">                .addLength(&quot;TID5&quot;, &quot;tid5l&quot;)</span>
+<span class="fc" id="L247">                .addLength(&quot;FAMT&quot;, &quot;famtl&quot;)</span>
+<span class="fc" id="L248">                .addLength(&quot;TID4&quot;, &quot;tid4l&quot;)</span>
+<span class="fc" id="L249">                .addLength(&quot;TID3&quot;, &quot;tid3l&quot;)</span>
+<span class="fc" id="L250">                .addLength(&quot;TID2&quot;, &quot;tid2l&quot;)</span>
+<span class="fc" id="L251">                .addLength(&quot;FSUM&quot;, &quot;fsuml&quot;)</span>
+<span class="fc" id="L252">                .addLength(&quot;TID1&quot;, &quot;tid1l&quot;)</span>
+<span class="fc" id="L253">                .addLength(&quot;TCD6&quot;, &quot;tcd6l&quot;)</span>
+<span class="fc" id="L254">                .addLength(&quot;TCD5&quot;, &quot;tcd5l&quot;)</span>
+<span class="fc" id="L255">                .addLength(&quot;TDS2&quot;, &quot;tds2l&quot;)</span>
+<span class="fc" id="L256">                .addLength(&quot;TDS1&quot;, &quot;tds1l&quot;)</span>
+<span class="fc" id="L257">                .addLength(&quot;FCAT&quot;, &quot;fcatl&quot;)</span>
+<span class="fc" id="L258">                .addLength(&quot;TAM6&quot;, &quot;tam6l&quot;)</span>
+<span class="fc" id="L259">                .addLength(&quot;TAM5&quot;, &quot;tam5l&quot;)</span>
+<span class="fc" id="L260">                .addLength(&quot;TAM4&quot;, &quot;tam4l&quot;)</span>
+<span class="fc" id="L261">                .addLength(&quot;TAM3&quot;, &quot;tam3l&quot;)</span>
+<span class="fc" id="L262">                .addLength(&quot;TDS6&quot;, &quot;tds6l&quot;)</span>
+<span class="fc" id="L263">                .addLength(&quot;ERRMSG&quot;, &quot;errmsgl&quot;)</span>
+<span class="fc" id="L264">                .addLength(&quot;CURTIME&quot;, &quot;curtimel&quot;)</span>
+<span class="fc" id="L265">                .addLength(&quot;TAM2&quot;, &quot;tam2l&quot;)</span>
+<span class="fc" id="L266">                .addLength(&quot;TDS5&quot;, &quot;tds5l&quot;)</span>
+<span class="fc" id="L267">                .addLength(&quot;TAM1&quot;, &quot;tam1l&quot;)</span>
+<span class="fc" id="L268">                .addLength(&quot;TDS4&quot;, &quot;tds4l&quot;)</span>
+<span class="fc" id="L269">                .addLength(&quot;TDS3&quot;, &quot;tds3l&quot;)</span>
+<span class="fc" id="L270">                .addLength(&quot;YSUM&quot;, &quot;ysuml&quot;)</span>
+<span class="fc" id="L271">                .addLength(&quot;TMC1&quot;, &quot;tmc1l&quot;)</span>
+<span class="fc" id="L272">                .addLength(&quot;TMC6&quot;, &quot;tmc6l&quot;)</span>
+<span class="fc" id="L273">                .addLength(&quot;TMC5&quot;, &quot;tmc5l&quot;)</span>
+<span class="fc" id="L274">                .addLength(&quot;TMC4&quot;, &quot;tmc4l&quot;)</span>
+<span class="fc" id="L275">                .addLength(&quot;TMC3&quot;, &quot;tmc3l&quot;)</span>
+<span class="fc" id="L276">                .addLength(&quot;FCARD&quot;, &quot;fcardl&quot;)</span>
+<span class="fc" id="L277">                .addLength(&quot;TMC2&quot;, &quot;tmc2l&quot;)</span>
+<span class="fc" id="L278">                .addLength(&quot;TMODE&quot;, &quot;tmodel&quot;)</span>
+<span class="fc" id="L279">                .addLength(&quot;TCD4&quot;, &quot;tcd4l&quot;)</span>
+<span class="fc" id="L280">                .addLength(&quot;TCD3&quot;, &quot;tcd3l&quot;)</span>
+<span class="fc" id="L281">                .addLength(&quot;TCD2&quot;, &quot;tcd2l&quot;)</span>
+<span class="fc" id="L282">                .addLength(&quot;TCD1&quot;, &quot;tcd1l&quot;)</span>
+<span class="fc" id="L283">                .addLength(&quot;PGMNAME&quot;, &quot;pgmnamel&quot;)</span>
+<span class="fc" id="L284">                .addLength(&quot;CURDATE&quot;, &quot;curdatel&quot;)</span>
+<span class="fc" id="L285">                .addLength(&quot;ICNT&quot;, &quot;icntl&quot;)</span>
+<span class="fc" id="L286">                .addLength(&quot;FMERCH&quot;, &quot;fmerchl&quot;)</span>
+<span class="fc" id="L287">                .addLength(&quot;FTDATE&quot;, &quot;ftdatel&quot;)</span>
+<span class="fc" id="L288">                .addLength(&quot;PCNT&quot;, &quot;pcntl&quot;)</span>
+<span class="fc" id="L289">                .addLength(&quot;ISUM&quot;, &quot;isuml&quot;)</span>
+<span class="fc" id="L290">                .addLength(&quot;FCNT&quot;, &quot;fcntl&quot;)</span>
+<span class="fc" id="L291">                .addLength(&quot;TTC2&quot;, &quot;ttc2l&quot;)</span>
+<span class="fc" id="L292">                .addLength(&quot;TDT3&quot;, &quot;tdt3l&quot;)</span>
+<span class="fc" id="L293">                .addLength(&quot;MTOT&quot;, &quot;mtotl&quot;)</span>
+<span class="fc" id="L294">                .addLength(&quot;TTC1&quot;, &quot;ttc1l&quot;)</span>
+<span class="fc" id="L295">                .addLength(&quot;TDT2&quot;, &quot;tdt2l&quot;)</span>
+<span class="fc" id="L296">                .addLength(&quot;TDT1&quot;, &quot;tdt1l&quot;)</span>
+<span class="fc" id="L297">                .addLength(&quot;FRDATE&quot;, &quot;frdatel&quot;)</span>
+<span class="fc" id="L298">                .addLength(&quot;XID&quot;, &quot;xidl&quot;)</span>
+<span class="fc" id="L299">                .addLength(&quot;TRNNAME&quot;, &quot;trnnamel&quot;)</span>
+<span class="fc" id="L300">                .addLength(&quot;TTC6&quot;, &quot;ttc6l&quot;)</span>
+<span class="fc" id="L301">                .addLength(&quot;TTC5&quot;, &quot;ttc5l&quot;)</span>
+<span class="fc" id="L302">                .addLength(&quot;TDT6&quot;, &quot;tdt6l&quot;)</span>
+<span class="fc" id="L303">                .addLength(&quot;TTC4&quot;, &quot;ttc4l&quot;)</span>
+<span class="fc" id="L304">                .addLength(&quot;TDT5&quot;, &quot;tdt5l&quot;)</span>
+<span class="fc" id="L305">                .addLength(&quot;TTC3&quot;, &quot;ttc3l&quot;)</span>
+<span class="fc" id="L306">                .addLength(&quot;TDT4&quot;, &quot;tdt4l&quot;)</span>
+<span class="fc" id="L307">                .addLength(&quot;MCNT&quot;, &quot;mcntl&quot;)</span>
+<span class="fc" id="L308">                .addLength(&quot;XAMT&quot;, &quot;xamtl&quot;)</span>
+<span class="fc" id="L309">                .addLength(&quot;YCNT&quot;, &quot;ycntl&quot;)</span>
+<span class="fc" id="L310">                .addLength(&quot;TITLE&quot;, &quot;titlel&quot;)</span>
+<span class="fc" id="L311">                .addLength(&quot;PSUM&quot;, &quot;psuml&quot;)</span>
+<span class="fc" id="L312">                .build();</span>
+        }
+<span class="nc" id="L314">        return FieldMapping.empty();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

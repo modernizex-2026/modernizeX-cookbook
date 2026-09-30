@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OuabndFields.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUABND Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ouabnd.accessor</a> &gt; <span class="el_source">OuabndFields.java</span></div><h1>OuabndFields.java</h1><pre class="source lang-java linenums">package com.generated.orion.ouabnd.accessor;
+
+import com.generated.orion.common.infrastructure.layout.DynamicFieldAccessor;
+import com.generated.orion.ouabnd.model.WorkingStorage;
+
+/**
+ * Field accessor for OUABND.
+ * Backend: DynamicFieldAccessor (raw RecordBuffer byte[]).
+ * Typed methods auto-generated from referenced fields — bodies delegate to the string-key API.
+ */
+public class OuabndFields extends DynamicFieldAccessor {
+
+<span class="fc" id="L13">    public OuabndFields(WorkingStorage ws) {</span>
+<span class="pc bpc" id="L14" title="1 of 2 branches missed.">        if (ws != null) {</span>
+<span class="fc" id="L15">            register(ws.buffer());</span>
+        }
+<span class="fc" id="L17">    }</span>
+
+    /* ── Typed wrappers (delegate → string-key) ─────────────── */
+<span class="nc" id="L20">    public int getCompletionCode() { return getInt(&quot;COMPLETION-CODE&quot;); }</span>
+<span class="nc" id="L21">    public void setCompletionCode(int value) { setInt(&quot;COMPLETION-CODE&quot;, value); }</span>
+<span class="fc" id="L22">    public String getKaDetail() { return getString(&quot;KA-DETAIL&quot;); }</span>
+<span class="fc" id="L23">    public void setKaDetail(String value) { setString(&quot;KA-DETAIL&quot;, value); }</span>
+<span class="fc" id="L24">    public String getKaParagraph() { return getString(&quot;KA-PARAGRAPH&quot;); }</span>
+<span class="fc" id="L25">    public void setKaParagraph(String value) { setString(&quot;KA-PARAGRAPH&quot;, value); }</span>
+<span class="fc" id="L26">    public String getKaProgram() { return getString(&quot;KA-PROGRAM&quot;); }</span>
+<span class="fc" id="L27">    public void setKaProgram(String value) { setString(&quot;KA-PROGRAM&quot;, value); }</span>
+<span class="nc" id="L28">    public int getKaReasCd() { return getInt(&quot;KA-REAS-CD&quot;); }</span>
+<span class="nc" id="L29">    public void setKaReasCd(int value) { setInt(&quot;KA-REAS-CD&quot;, value); }</span>
+<span class="nc" id="L30">    public int getKaRespCd() { return getInt(&quot;KA-RESP-CD&quot;); }</span>
+<span class="nc" id="L31">    public void setKaRespCd(int value) { setInt(&quot;KA-RESP-CD&quot;, value); }</span>
+<span class="nc" id="L32">    public String getKabndParm() { return groupToString(&quot;KABND-PARM&quot;); }</span>
+<span class="nc" id="L33">    public void setKabndParm(String value) { setGroup(&quot;KABND-PARM&quot;, value); }</span>
+<span class="nc" id="L34">    public int getSqlcode() { return getInt(&quot;SQLCODE&quot;); }</span>
+<span class="nc" id="L35">    public void setSqlcode(int value) { setInt(&quot;SQLCODE&quot;, value); }</span>
+<span class="nc" id="L36">    public String getWsAbcode() { return getString(&quot;WS-ABCODE&quot;); }</span>
+<span class="nc" id="L37">    public void setWsAbcode(String value) { setString(&quot;WS-ABCODE&quot;, value); }</span>
+<span class="fc" id="L38">    public String getWsAbendMsg() { return getString(&quot;WS-ABEND-MSG&quot;); }</span>
+<span class="fc" id="L39">    public void setWsAbendMsg(String value) { setString(&quot;WS-ABEND-MSG&quot;, value); }</span>
+<span class="fc" id="L40">    public int getWsRespCd() { return getInt(&quot;WS-RESP-CD&quot;); }</span>
+<span class="fc" id="L41">    public void setWsRespCd(int value) { setInt(&quot;WS-RESP-CD&quot;, value); }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

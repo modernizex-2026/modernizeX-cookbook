@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OurnewService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OURNEW Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ournew.service</a> &gt; <span class="el_source">OurnewService.java</span></div><h1>OurnewService.java</h1><pre class="source lang-java linenums">package com.generated.orion.ournew.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.ournew.accessor.OurnewFields;
+import com.generated.orion.ournew.metadata.OurnewBmsMetadata;
+import com.generated.orion.ournew.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OURNEW. */
+@Service
+<span class="nc" id="L20">public class OurnewService implements AppProgram {</span>
+<span class="nc" id="L21">    private static final Logger log = LoggerFactory.getLogger(OurnewService.class);</span>
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L29">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc bnc" id="L30" title="All 4 branches missed.">        if (ctx.appService.getEibcalen() &gt; 0 &amp;&amp; ctx.appService.getCommarea() != null) {</span>
+<span class="nc" id="L31">            Object _commarea = ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            if (_commarea instanceof Object[]) {</span>
+<span class="nc" id="L33">                Object[] _params = (Object[]) _commarea;</span>
+<span class="nc bnc" id="L34" title="All 4 branches missed.">                if (_params.length &gt; 0 &amp;&amp; _params[0] instanceof byte[]) {</span>
+<span class="nc" id="L35">                    ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _params[0]);</span>
+<span class="nc bnc" id="L36" title="All 4 branches missed.">                } else if (_params.length &gt; 0 &amp;&amp; _params[0] != null) {</span>
+<span class="nc" id="L37">                    ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_params[0]));</span>
+                }
+<span class="nc bnc" id="L39" title="All 2 branches missed.">            } else if (_commarea instanceof byte[]) {</span>
+<span class="nc" id="L40">                ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _commarea);</span>
+            } else {
+<span class="nc" id="L42">                ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_commarea));</span>
+            }
+        }
+        try {
+<span class="nc" id="L46">            runMainProgram(ctx);</span>
+        } finally {
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            if (ctx.appService.getEibcalen() &gt; 0) {</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                if (ctx.appService.getCommarea() instanceof Object[]) {</span>
+<span class="nc" id="L50">                    Object[] _params = (Object[]) ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                    if (_params.length &gt; 0) {</span>
+<span class="nc" id="L52">                        _params[0] =</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                                _params[0] instanceof byte[]</span>
+<span class="nc" id="L54">                                        ? (Object) ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;)</span>
+<span class="nc" id="L55">                                        : (Object) ctx.f.groupToString(&quot;ORION-COMMAREA&quot;);</span>
+                    }
+<span class="nc" id="L57">                } else {</span>
+<span class="nc" id="L58">                    ctx.appService.setCommarea(ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;));</span>
+                }
+            }
+        }
+<span class="nc" id="L62">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L66">        return &quot;OURNEW&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L71">        return OurnewBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L76">        OurnewBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L77">    }</span>
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainProgram(TaskContext ctx) {
+<span class="nc" id="L81">        ctx.f.aliasGroup(&quot;KOPS-AREA&quot;, &quot;CA-WORK-AREA&quot;);</span>
+<span class="nc" id="L82">        initializeProgram(ctx);</span>
+<span class="nc" id="L83">        computeCutoffDate(ctx);</span>
+<span class="nc" id="L84">        browseAndProcessCards(ctx);</span>
+<span class="nc" id="L85">        finalizeProgramStatus(ctx);</span>
+<span class="nc" id="L86">        return;</span>
+    }
+
+    /** COBOL paragraph: 1000-INITIALISE */
+    private void initializeProgram(TaskContext ctx) {
+<span class="nc" id="L91">        ctx.f.setString(&quot;KO-STATUS&quot;, &quot;O&quot;);</span>
+<span class="nc" id="L92">        ctx.f.setKoStatusMsg(&quot; &quot;);</span>
+<span class="nc" id="L93">        ctx.f.setKoReadCnt(0);</span>
+<span class="nc" id="L94">        ctx.f.setKoSelectCnt(0);</span>
+<span class="nc" id="L95">        ctx.f.setKoUpdateCnt(0);</span>
+<span class="nc" id="L96">        ctx.f.setKoPostedCnt(0);</span>
+<span class="nc" id="L97">        ctx.f.setKoRejectCnt(0);</span>
+<span class="nc" id="L98">        ctx.f.setKoSkipCnt(0);</span>
+<span class="nc" id="L99">        ctx.f.setKoTranCnt(0);</span>
+<span class="nc" id="L100">        ctx.f.setKoC1(0);</span>
+<span class="nc" id="L101">        ctx.f.setKoC2(0);</span>
+<span class="nc" id="L102">        ctx.f.setKoC3(0);</span>
+<span class="nc" id="L103">        ctx.f.setKoAmt1(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L104">        ctx.f.setKoAmt2(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L105">        ctx.f.setKoAmt3(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L106">        ctx.f.setWsFilterOn(&quot;N&quot;);</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        if (!Utility.fieldEquals(ctx.f.getKoParmCard(), &quot; &quot;)</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">                &amp;&amp; !ctx.f.isAllLowValues(&quot;KO-PARM-CARD&quot;)) {</span>
+<span class="nc" id="L109">            ctx.f.setWsFilterCard(ctx.f.getKoParmCard());</span>
+<span class="nc" id="L110">            ctx.f.setString(&quot;WS-FILTER-ON&quot;, &quot;Y&quot;);</span>
+        }
+<span class="nc" id="L112">        ctx.f.setString(&quot;WS-BR-END-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L113">        ctx.f.setString(&quot;WS-BR-STARTED-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L114">    }</span>
+
+    /** COBOL paragraph: 1300-COMPUTE-CUTOFF */
+    private void computeCutoffDate(TaskContext ctx) {
+<span class="nc" id="L118">        ctx.f.setWsCurrRaw(</span>
+<span class="nc" id="L119">                (java.time.LocalDateTime.now()</span>
+<span class="nc" id="L120">                                .format(</span>
+<span class="nc" id="L121">                                        java.time.format.DateTimeFormatter.ofPattern(</span>
+                                                &quot;yyyyMMddHHmmss&quot;))
+                        + &quot;00+0000&quot;));
+<span class="nc" id="L124">        ctx.f.setWsCurrN(Utility.padRight(String.valueOf(ctx.f.getWsCurrRaw()), 8).substring(0, 8));</span>
+<span class="nc" id="L125">        ctx.f.setWsTodayYmd(</span>
+<span class="nc" id="L126">                (((ctx.f.getWcnYear() * 10000) + (ctx.f.getWcnMon() * 100)) + ctx.f.getWcnDay()));</span>
+<span class="nc" id="L127">        ctx.f.setWsTodayInt(</span>
+<span class="nc" id="L128">                Utility.toCobolInt((long) (Utility.integerOfDate(ctx.f.getWsTodayYmd())), 8));</span>
+<span class="nc" id="L129">        ctx.f.setWsCutoffInt((ctx.f.getWsTodayInt() + ctx.f.getWsLeadDays()));</span>
+<span class="nc" id="L130">        ctx.f.setWsCutoffYmd(</span>
+<span class="nc" id="L131">                Utility.toCobolInt((long) (Utility.dateOfInteger(ctx.f.getWsCutoffInt())), 8));</span>
+<span class="nc" id="L132">        ctx.f.setCsYear(ctx.f.getWcYear());</span>
+<span class="nc" id="L133">        ctx.f.setCsMm(ctx.f.getWcMm());</span>
+<span class="nc" id="L134">        ctx.f.setCsDd(ctx.f.getWcDd());</span>
+<span class="nc" id="L135">    }</span>
+
+    /** COBOL paragraph: 3000-BROWSE-DRIVER */
+    private void browseAndProcessCards(TaskContext ctx) {
+<span class="nc" id="L139">        startCardBrowse(ctx);</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        if (ctx.f.getWsBrStartedSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L141">            readNextCard(ctx);</span>
+<span class="nc bnc" id="L142" title="All 4 branches missed.">            while (!(ctx.f.getWsBrEndSw().equals(&quot;Y&quot;) || ctx.f.getKoStatus().equals(&quot;E&quot;))) {</span>
+<span class="nc" id="L143">                processCard(ctx);</span>
+            }
+<span class="nc" id="L145">            endCardBrowse(ctx);</span>
+        }
+<span class="nc" id="L147">    }</span>
+
+    /** COBOL paragraph: 3100-START-BROWSE */
+    private void startCardBrowse(TaskContext ctx) {
+<span class="nc bnc" id="L151" title="All 2 branches missed.">        if (ctx.f.getWsFilterOn().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L152">            ctx.f.setCdNum(ctx.f.getWsFilterCard());</span>
+        } else {
+<span class="nc" id="L154">            ctx.f.fillLowValues(&quot;CD-NUM&quot;);</span>
+        }
+<span class="nc" id="L156">        ctx.appService.startBrowse(ctx.f.getWsCardfile(), String.valueOf(ctx.f.getCdNum()), 0);</span>
+<span class="nc" id="L157">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L159">            ctx.f.setString(&quot;WS-BR-STARTED-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L161">            ctx.f.setString(&quot;WS-BR-END-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L162">            ctx.f.setKoStatusMsg(&quot;NO CARDS TO PROCESS.&quot;);</span>
+        } else {
+<span class="nc" id="L164">            ctx.f.setString(&quot;WS-BR-END-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L165">            ctx.f.setString(&quot;KO-STATUS&quot;, &quot;E&quot;);</span>
+<span class="nc" id="L166">            ctx.f.setKoStatusMsg(&quot;STARTBR CARDFILE FAILED.&quot;);</span>
+        }
+<span class="nc" id="L168">    }</span>
+
+    /** COBOL paragraph: 3200-READ-NEXT-CARD */
+    private void readNextCard(TaskContext ctx) {
+<span class="nc" id="L172">        ctx.appService.readNext(ctx.f.getWsCardfile(), ctx.f);</span>
+<span class="nc" id="L173">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L175">            ctx.f.setKoReadCnt(ctx.f.getKoReadCnt() + 1);</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L177">            ctx.f.setString(&quot;WS-BR-END-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L179">            ctx.f.setString(&quot;WS-BR-END-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L180">            ctx.f.setString(&quot;KO-STATUS&quot;, &quot;E&quot;);</span>
+<span class="nc" id="L181">            ctx.f.setKoStatusMsg(&quot;READNEXT CARDFILE FAILED.&quot;);</span>
+        }
+<span class="nc" id="L183">    }</span>
+
+    /** COBOL paragraph: 4000-PROCESS-CARD */
+    private void processCard(TaskContext ctx) {
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        if (ctx.f.getWsFilterOn().equals(&quot;Y&quot;)</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">                &amp;&amp; !Utility.fieldEquals(ctx.f.getCdNum(), ctx.f.getWsFilterCard())) {</span>
+<span class="nc" id="L189">            ctx.f.setString(&quot;WS-BR-END-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L191">            validateExpiryDate(ctx);</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">            if (!Utility.fieldEquals(ctx.f.getCdActiveStatus(), &quot;Y&quot;)) {</span>
+<span class="nc" id="L193">                ctx.f.setKoC2(ctx.f.getKoC2() + 1);</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">            } else if (ctx.f.getWsExpValidSw().equals(&quot;N&quot;)) {</span>
+<span class="nc" id="L195">                ctx.f.setKoC3(ctx.f.getKoC3() + 1);</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">            } else if ((ctx.f.getCdExpiryDate().compareTo(ctx.f.getWsCutoffStr()) &lt;= 0)) {</span>
+<span class="nc" id="L197">                reissueCard(ctx);</span>
+            } else {
+<span class="nc" id="L199">                ctx.f.setKoC1(ctx.f.getKoC1() + 1);</span>
+            }
+<span class="nc" id="L201">            readNextCard(ctx);</span>
+        }
+<span class="nc" id="L203">    }</span>
+
+    /** COBOL paragraph: 4100-VALIDATE-EXPIRY */
+    private void validateExpiryDate(TaskContext ctx) {
+<span class="nc" id="L207">        ctx.f.setString(&quot;WS-EXP-VALID-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L208">        ctx.f.setWsExpYearX(</span>
+<span class="nc" id="L209">                Utility.padRight(String.valueOf(ctx.f.getCdExpiryDate()), 4).substring(0, 4));</span>
+<span class="nc" id="L210">        ctx.f.setWsExpMmX(</span>
+<span class="nc" id="L211">                Utility.padRight(String.valueOf(ctx.f.getCdExpiryDate()), 7).substring(5, 7));</span>
+<span class="nc" id="L212">        ctx.f.setWsExpDdX(</span>
+<span class="nc" id="L213">                Utility.padRight(String.valueOf(ctx.f.getCdExpiryDate()), 10).substring(8, 10));</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">        if (!Utility.isNumeric(ctx.f.getRawString(&quot;WS-EXP-YEAR-X&quot;))) {</span>
+<span class="nc" id="L215">            ctx.f.setString(&quot;WS-EXP-VALID-SW&quot;, &quot;N&quot;);</span>
+        }
+<span class="nc bnc" id="L217" title="All 2 branches missed.">        if (!Utility.isNumeric(ctx.f.getRawString(&quot;WS-EXP-MM-X&quot;))) {</span>
+<span class="nc" id="L218">            ctx.f.setString(&quot;WS-EXP-VALID-SW&quot;, &quot;N&quot;);</span>
+        }
+<span class="nc bnc" id="L220" title="All 2 branches missed.">        if (!Utility.isNumeric(ctx.f.getRawString(&quot;WS-EXP-DD-X&quot;))) {</span>
+<span class="nc" id="L221">            ctx.f.setString(&quot;WS-EXP-VALID-SW&quot;, &quot;N&quot;);</span>
+        }
+<span class="nc" id="L223">    }</span>
+
+    /** COBOL paragraph: 4200-REISSUE-CARD */
+    private void reissueCard(TaskContext ctx) {
+<span class="nc" id="L227">        ctx.f.setWneYear((ctx.f.getWsExpYearN() + ctx.f.getWsExtendYears()));</span>
+<span class="nc" id="L228">        ctx.f.setWneMm(ctx.f.getWsExpMmX());</span>
+<span class="nc" id="L229">        ctx.f.setWneDd(ctx.f.getWsExpDdX());</span>
+<span class="nc bnc" id="L230" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getWneMm(), &quot;02&quot;)</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">                &amp;&amp; Utility.fieldEquals(ctx.f.getWneDd(), &quot;29&quot;)) {</span>
+<span class="nc" id="L232">            adjustLeapYearDay(ctx);</span>
+        }
+<span class="nc" id="L234">        ctx.appService.readFileForUpdate(</span>
+<span class="nc" id="L235">                ctx.f.getWsCardfile(), ctx.f, String.valueOf(ctx.f.getCdNum()), 0);</span>
+<span class="nc" id="L236">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L237" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() != 0) {</span>
+<span class="nc" id="L238">            ctx.f.setKoRejectCnt(ctx.f.getKoRejectCnt() + 1);</span>
+<span class="nc" id="L239">            return;</span>
+        }
+<span class="nc" id="L241">        ctx.f.copyBytes(&quot;CD-EXPIRY-DATE&quot;, &quot;WS-NEW-EXP&quot;);</span>
+<span class="nc" id="L242">        ctx.appService.rewriteFile(ctx.f.getWsCardfile(), ctx.f);</span>
+<span class="nc" id="L243">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L244" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L245">            ctx.f.setKoPostedCnt(ctx.f.getKoPostedCnt() + 1);</span>
+<span class="nc" id="L246">            ctx.f.setKoSelectCnt(ctx.f.getKoSelectCnt() + 1);</span>
+<span class="nc" id="L247">            ctx.f.setKoUpdateCnt(ctx.f.getKoUpdateCnt() + 1);</span>
+        } else {
+<span class="nc" id="L249">            ctx.f.setKoRejectCnt(ctx.f.getKoRejectCnt() + 1);</span>
+        }
+<span class="nc" id="L251">    }</span>
+
+    /** COBOL paragraph: 4250-ADJUST-LEAP */
+    private void adjustLeapYearDay(TaskContext ctx) {
+<span class="nc" id="L255">        ctx.f.setWsLeapR4((ctx.f.getWneYear() % 4));</span>
+<span class="nc" id="L256">        ctx.f.setWsLeapR100((ctx.f.getWneYear() % 100));</span>
+<span class="nc" id="L257">        ctx.f.setWsLeapR400((ctx.f.getWneYear() % 400));</span>
+<span class="nc bnc" id="L258" title="All 2 branches missed.">        if (ctx.f.getWsLeapR4() == 0</span>
+<span class="nc bnc" id="L259" title="All 4 branches missed.">                &amp;&amp; (ctx.f.getWsLeapR100() != 0 || ctx.f.getWsLeapR400() == 0)) {</span>
+            /* CONTINUE */
+        } else {
+<span class="nc" id="L262">            ctx.f.setWneDd(&quot;28&quot;);</span>
+        }
+<span class="nc" id="L264">    }</span>
+
+    /** COBOL paragraph: 3400-END-BROWSE */
+    private void endCardBrowse(TaskContext ctx) {
+<span class="nc bnc" id="L268" title="All 2 branches missed.">        if (ctx.f.getWsBrStartedSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L269">            ctx.appService.endBrowse(ctx.f.getWsCardfile());</span>
+<span class="nc" id="L270">            ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+        }
+<span class="nc" id="L272">    }</span>
+
+    /** COBOL paragraph: 9000-FINALISE */
+    private void finalizeProgramStatus(TaskContext ctx) {
+<span class="nc bnc" id="L276" title="All 2 branches missed.">        if (ctx.f.getKoStatus().equals(&quot;E&quot;)) {</span>
+            /* CONTINUE */
+        } else {
+<span class="nc bnc" id="L279" title="All 2 branches missed.">            if (ctx.f.getKoRejectCnt() &gt; 0) {</span>
+<span class="nc" id="L280">                ctx.f.setString(&quot;KO-STATUS&quot;, &quot;W&quot;);</span>
+            } else {
+<span class="nc" id="L282">                ctx.f.setString(&quot;KO-STATUS&quot;, &quot;O&quot;);</span>
+            }
+<span class="nc" id="L284">            ctx.f.setKoStatusMsg(&quot;CARD RENEWAL PROCESSING COMPLETE.&quot;);</span>
+        }
+<span class="nc" id="L286">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OurnewFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L299">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L300">            this.appService = appService;</span>
+<span class="nc" id="L301">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L302">            this.f = new OurnewFields(ws);</span>
+<span class="nc" id="L303">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

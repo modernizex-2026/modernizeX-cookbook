@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OcanlinBmsMetadata.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCANLIN Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ocanlin.metadata</a> &gt; <span class="el_source">OcanlinBmsMetadata.java</span></div><h1>OcanlinBmsMetadata.java</h1><pre class="source lang-java linenums">package com.generated.orion.ocanlin.metadata;
+
+import com.appruntime.AppRunner;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import java.util.*;
+
+/**
+ * BMS screen metadata for OCANLIN.
+ * Contains button definitions, FSET fields, and field mappings.
+ */
+<span class="nc" id="L12">public class OcanlinBmsMetadata {</span>
+
+    public static List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L15">        return List.of(</span>
+            new ScreenResponse.ButtonDef(&quot;ENTER&quot;, &quot;ENTER=PROCESS&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF3&quot;, &quot;PF3=BACK&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF4&quot;, &quot;PF4=CLEAR&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF7&quot;, &quot;PF7&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF8&quot;, &quot;PF8&quot;, &quot;&quot;)
+        );
+    }
+
+    public static void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L25">        runner.registerFsetFields(&quot;MANLINA&quot;, Set.of(&quot;ANMODE&quot;));</span>
+<span class="nc" id="L26">    }</span>
+
+    /** Danh sách BMS map của program (cho smoke test / tooling). */
+    public static List&lt;String&gt; getMapNames() {
+<span class="nc" id="L30">        return List.of(&quot;MANLINA&quot;);</span>
+    }
+
+    /** Classpath resource của WORKING-STORAGE layout (FieldStore đọc lúc runtime). */
+    public static String getLayoutResource() {
+<span class="nc" id="L35">        return &quot;layout/OCANLIN_WS.xml&quot;;</span>
+    }
+
+    public static FieldMapping getFieldMapping(String mapName) {
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (&quot;MANLINA&quot;.equalsIgnoreCase(mapName)) {</span>
+<span class="nc" id="L40">            return FieldMapping.builder()</span>
+<span class="nc" id="L41">                .addDataIn(&quot;ANMODE&quot;, &quot;anmodei&quot;)</span>
+<span class="nc" id="L42">                .addDataIn(&quot;ANV5&quot;, &quot;anv5i&quot;)</span>
+<span class="nc" id="L43">                .addDataIn(&quot;ANV6&quot;, &quot;anv6i&quot;)</span>
+<span class="nc" id="L44">                .addDataIn(&quot;ANV3&quot;, &quot;anv3i&quot;)</span>
+<span class="nc" id="L45">                .addDataIn(&quot;ERRMSG&quot;, &quot;errmsgi&quot;)</span>
+<span class="nc" id="L46">                .addDataIn(&quot;CURTIME&quot;, &quot;curtimei&quot;)</span>
+<span class="nc" id="L47">                .addDataIn(&quot;ANV4&quot;, &quot;anv4i&quot;)</span>
+<span class="nc" id="L48">                .addDataIn(&quot;ANV1&quot;, &quot;anv1i&quot;)</span>
+<span class="nc" id="L49">                .addDataIn(&quot;ANV2&quot;, &quot;anv2i&quot;)</span>
+<span class="nc" id="L50">                .addDataIn(&quot;ANTOT1&quot;, &quot;antot1i&quot;)</span>
+<span class="nc" id="L51">                .addDataIn(&quot;ANHEAD&quot;, &quot;anheadi&quot;)</span>
+<span class="nc" id="L52">                .addDataIn(&quot;ANTOT2&quot;, &quot;antot2i&quot;)</span>
+<span class="nc" id="L53">                .addDataIn(&quot;ANA6&quot;, &quot;ana6i&quot;)</span>
+<span class="nc" id="L54">                .addDataIn(&quot;ANA4&quot;, &quot;ana4i&quot;)</span>
+<span class="nc" id="L55">                .addDataIn(&quot;ANC6&quot;, &quot;anc6i&quot;)</span>
+<span class="nc" id="L56">                .addDataIn(&quot;ANA5&quot;, &quot;ana5i&quot;)</span>
+<span class="nc" id="L57">                .addDataIn(&quot;ANA2&quot;, &quot;ana2i&quot;)</span>
+<span class="nc" id="L58">                .addDataIn(&quot;ANC4&quot;, &quot;anc4i&quot;)</span>
+<span class="nc" id="L59">                .addDataIn(&quot;ANA3&quot;, &quot;ana3i&quot;)</span>
+<span class="nc" id="L60">                .addDataIn(&quot;ANC5&quot;, &quot;anc5i&quot;)</span>
+<span class="nc" id="L61">                .addDataIn(&quot;ANC2&quot;, &quot;anc2i&quot;)</span>
+<span class="nc" id="L62">                .addDataIn(&quot;ANA1&quot;, &quot;ana1i&quot;)</span>
+<span class="nc" id="L63">                .addDataIn(&quot;ANC3&quot;, &quot;anc3i&quot;)</span>
+<span class="nc" id="L64">                .addDataIn(&quot;ANI6&quot;, &quot;ani6i&quot;)</span>
+<span class="nc" id="L65">                .addDataIn(&quot;ANC1&quot;, &quot;anc1i&quot;)</span>
+<span class="nc" id="L66">                .addDataIn(&quot;ANI4&quot;, &quot;ani4i&quot;)</span>
+<span class="nc" id="L67">                .addDataIn(&quot;ANK6&quot;, &quot;ank6i&quot;)</span>
+<span class="nc" id="L68">                .addDataIn(&quot;ANI5&quot;, &quot;ani5i&quot;)</span>
+<span class="nc" id="L69">                .addDataIn(&quot;ANI2&quot;, &quot;ani2i&quot;)</span>
+<span class="nc" id="L70">                .addDataIn(&quot;ANK4&quot;, &quot;ank4i&quot;)</span>
+<span class="nc" id="L71">                .addDataIn(&quot;ANI3&quot;, &quot;ani3i&quot;)</span>
+<span class="nc" id="L72">                .addDataIn(&quot;ANK5&quot;, &quot;ank5i&quot;)</span>
+<span class="nc" id="L73">                .addDataIn(&quot;ANK2&quot;, &quot;ank2i&quot;)</span>
+<span class="nc" id="L74">                .addDataIn(&quot;ANI1&quot;, &quot;ani1i&quot;)</span>
+<span class="nc" id="L75">                .addDataIn(&quot;ANK3&quot;, &quot;ank3i&quot;)</span>
+<span class="nc" id="L76">                .addDataIn(&quot;ANK1&quot;, &quot;ank1i&quot;)</span>
+<span class="nc" id="L77">                .addDataIn(&quot;TRNNAME&quot;, &quot;trnnamei&quot;)</span>
+<span class="nc" id="L78">                .addDataIn(&quot;TITLE&quot;, &quot;titlei&quot;)</span>
+<span class="nc" id="L79">                .addDataIn(&quot;PGMNAME&quot;, &quot;pgmnamei&quot;)</span>
+<span class="nc" id="L80">                .addDataIn(&quot;CURDATE&quot;, &quot;curdatei&quot;)</span>
+<span class="nc" id="L81">                .addDataOut(&quot;ANMODE&quot;, &quot;anmodeo&quot;)</span>
+<span class="nc" id="L82">                .addDataOut(&quot;ANV5&quot;, &quot;anv5o&quot;)</span>
+<span class="nc" id="L83">                .addDataOut(&quot;ANV6&quot;, &quot;anv6o&quot;)</span>
+<span class="nc" id="L84">                .addDataOut(&quot;ANV3&quot;, &quot;anv3o&quot;)</span>
+<span class="nc" id="L85">                .addDataOut(&quot;ERRMSG&quot;, &quot;errmsgo&quot;)</span>
+<span class="nc" id="L86">                .addDataOut(&quot;CURTIME&quot;, &quot;curtimeo&quot;)</span>
+<span class="nc" id="L87">                .addDataOut(&quot;ANV4&quot;, &quot;anv4o&quot;)</span>
+<span class="nc" id="L88">                .addDataOut(&quot;ANV1&quot;, &quot;anv1o&quot;)</span>
+<span class="nc" id="L89">                .addDataOut(&quot;ANV2&quot;, &quot;anv2o&quot;)</span>
+<span class="nc" id="L90">                .addDataOut(&quot;ANTOT1&quot;, &quot;antot1o&quot;)</span>
+<span class="nc" id="L91">                .addDataOut(&quot;ANHEAD&quot;, &quot;anheado&quot;)</span>
+<span class="nc" id="L92">                .addDataOut(&quot;ANTOT2&quot;, &quot;antot2o&quot;)</span>
+<span class="nc" id="L93">                .addDataOut(&quot;ANA6&quot;, &quot;ana6o&quot;)</span>
+<span class="nc" id="L94">                .addDataOut(&quot;ANA4&quot;, &quot;ana4o&quot;)</span>
+<span class="nc" id="L95">                .addDataOut(&quot;ANC6&quot;, &quot;anc6o&quot;)</span>
+<span class="nc" id="L96">                .addDataOut(&quot;ANA5&quot;, &quot;ana5o&quot;)</span>
+<span class="nc" id="L97">                .addDataOut(&quot;ANA2&quot;, &quot;ana2o&quot;)</span>
+<span class="nc" id="L98">                .addDataOut(&quot;ANC4&quot;, &quot;anc4o&quot;)</span>
+<span class="nc" id="L99">                .addDataOut(&quot;ANA3&quot;, &quot;ana3o&quot;)</span>
+<span class="nc" id="L100">                .addDataOut(&quot;ANC5&quot;, &quot;anc5o&quot;)</span>
+<span class="nc" id="L101">                .addDataOut(&quot;ANC2&quot;, &quot;anc2o&quot;)</span>
+<span class="nc" id="L102">                .addDataOut(&quot;ANA1&quot;, &quot;ana1o&quot;)</span>
+<span class="nc" id="L103">                .addDataOut(&quot;ANC3&quot;, &quot;anc3o&quot;)</span>
+<span class="nc" id="L104">                .addDataOut(&quot;ANI6&quot;, &quot;ani6o&quot;)</span>
+<span class="nc" id="L105">                .addDataOut(&quot;ANC1&quot;, &quot;anc1o&quot;)</span>
+<span class="nc" id="L106">                .addDataOut(&quot;ANI4&quot;, &quot;ani4o&quot;)</span>
+<span class="nc" id="L107">                .addDataOut(&quot;ANK6&quot;, &quot;ank6o&quot;)</span>
+<span class="nc" id="L108">                .addDataOut(&quot;ANI5&quot;, &quot;ani5o&quot;)</span>
+<span class="nc" id="L109">                .addDataOut(&quot;ANI2&quot;, &quot;ani2o&quot;)</span>
+<span class="nc" id="L110">                .addDataOut(&quot;ANK4&quot;, &quot;ank4o&quot;)</span>
+<span class="nc" id="L111">                .addDataOut(&quot;ANI3&quot;, &quot;ani3o&quot;)</span>
+<span class="nc" id="L112">                .addDataOut(&quot;ANK5&quot;, &quot;ank5o&quot;)</span>
+<span class="nc" id="L113">                .addDataOut(&quot;ANK2&quot;, &quot;ank2o&quot;)</span>
+<span class="nc" id="L114">                .addDataOut(&quot;ANI1&quot;, &quot;ani1o&quot;)</span>
+<span class="nc" id="L115">                .addDataOut(&quot;ANK3&quot;, &quot;ank3o&quot;)</span>
+<span class="nc" id="L116">                .addDataOut(&quot;ANK1&quot;, &quot;ank1o&quot;)</span>
+<span class="nc" id="L117">                .addDataOut(&quot;TRNNAME&quot;, &quot;trnnameo&quot;)</span>
+<span class="nc" id="L118">                .addDataOut(&quot;TITLE&quot;, &quot;titleo&quot;)</span>
+<span class="nc" id="L119">                .addDataOut(&quot;PGMNAME&quot;, &quot;pgmnameo&quot;)</span>
+<span class="nc" id="L120">                .addDataOut(&quot;CURDATE&quot;, &quot;curdateo&quot;)</span>
+<span class="nc" id="L121">                .addAttr(&quot;ANMODE&quot;, &quot;anmodea&quot;)</span>
+<span class="nc" id="L122">                .addAttr(&quot;ANV5&quot;, &quot;anv5a&quot;)</span>
+<span class="nc" id="L123">                .addAttr(&quot;ANV6&quot;, &quot;anv6a&quot;)</span>
+<span class="nc" id="L124">                .addAttr(&quot;ANV3&quot;, &quot;anv3a&quot;)</span>
+<span class="nc" id="L125">                .addAttr(&quot;ERRMSG&quot;, &quot;errmsga&quot;)</span>
+<span class="nc" id="L126">                .addAttr(&quot;CURTIME&quot;, &quot;curtimea&quot;)</span>
+<span class="nc" id="L127">                .addAttr(&quot;ANV4&quot;, &quot;anv4a&quot;)</span>
+<span class="nc" id="L128">                .addAttr(&quot;ANV1&quot;, &quot;anv1a&quot;)</span>
+<span class="nc" id="L129">                .addAttr(&quot;ANV2&quot;, &quot;anv2a&quot;)</span>
+<span class="nc" id="L130">                .addAttr(&quot;ANTOT1&quot;, &quot;antot1a&quot;)</span>
+<span class="nc" id="L131">                .addAttr(&quot;ANHEAD&quot;, &quot;anheada&quot;)</span>
+<span class="nc" id="L132">                .addAttr(&quot;ANTOT2&quot;, &quot;antot2a&quot;)</span>
+<span class="nc" id="L133">                .addAttr(&quot;ANA6&quot;, &quot;ana6a&quot;)</span>
+<span class="nc" id="L134">                .addAttr(&quot;ANA4&quot;, &quot;ana4a&quot;)</span>
+<span class="nc" id="L135">                .addAttr(&quot;ANC6&quot;, &quot;anc6a&quot;)</span>
+<span class="nc" id="L136">                .addAttr(&quot;ANA5&quot;, &quot;ana5a&quot;)</span>
+<span class="nc" id="L137">                .addAttr(&quot;ANA2&quot;, &quot;ana2a&quot;)</span>
+<span class="nc" id="L138">                .addAttr(&quot;ANC4&quot;, &quot;anc4a&quot;)</span>
+<span class="nc" id="L139">                .addAttr(&quot;ANA3&quot;, &quot;ana3a&quot;)</span>
+<span class="nc" id="L140">                .addAttr(&quot;ANC5&quot;, &quot;anc5a&quot;)</span>
+<span class="nc" id="L141">                .addAttr(&quot;ANC2&quot;, &quot;anc2a&quot;)</span>
+<span class="nc" id="L142">                .addAttr(&quot;ANA1&quot;, &quot;ana1a&quot;)</span>
+<span class="nc" id="L143">                .addAttr(&quot;ANC3&quot;, &quot;anc3a&quot;)</span>
+<span class="nc" id="L144">                .addAttr(&quot;ANI6&quot;, &quot;ani6a&quot;)</span>
+<span class="nc" id="L145">                .addAttr(&quot;ANC1&quot;, &quot;anc1a&quot;)</span>
+<span class="nc" id="L146">                .addAttr(&quot;ANI4&quot;, &quot;ani4a&quot;)</span>
+<span class="nc" id="L147">                .addAttr(&quot;ANK6&quot;, &quot;ank6a&quot;)</span>
+<span class="nc" id="L148">                .addAttr(&quot;ANI5&quot;, &quot;ani5a&quot;)</span>
+<span class="nc" id="L149">                .addAttr(&quot;ANI2&quot;, &quot;ani2a&quot;)</span>
+<span class="nc" id="L150">                .addAttr(&quot;ANK4&quot;, &quot;ank4a&quot;)</span>
+<span class="nc" id="L151">                .addAttr(&quot;ANI3&quot;, &quot;ani3a&quot;)</span>
+<span class="nc" id="L152">                .addAttr(&quot;ANK5&quot;, &quot;ank5a&quot;)</span>
+<span class="nc" id="L153">                .addAttr(&quot;ANK2&quot;, &quot;ank2a&quot;)</span>
+<span class="nc" id="L154">                .addAttr(&quot;ANI1&quot;, &quot;ani1a&quot;)</span>
+<span class="nc" id="L155">                .addAttr(&quot;ANK3&quot;, &quot;ank3a&quot;)</span>
+<span class="nc" id="L156">                .addAttr(&quot;ANK1&quot;, &quot;ank1a&quot;)</span>
+<span class="nc" id="L157">                .addAttr(&quot;TRNNAME&quot;, &quot;trnnamea&quot;)</span>
+<span class="nc" id="L158">                .addAttr(&quot;TITLE&quot;, &quot;titlea&quot;)</span>
+<span class="nc" id="L159">                .addAttr(&quot;PGMNAME&quot;, &quot;pgmnamea&quot;)</span>
+<span class="nc" id="L160">                .addAttr(&quot;CURDATE&quot;, &quot;curdatea&quot;)</span>
+<span class="nc" id="L161">                .addLength(&quot;ANMODE&quot;, &quot;anmodel&quot;)</span>
+<span class="nc" id="L162">                .addLength(&quot;ANV5&quot;, &quot;anv5l&quot;)</span>
+<span class="nc" id="L163">                .addLength(&quot;ANV6&quot;, &quot;anv6l&quot;)</span>
+<span class="nc" id="L164">                .addLength(&quot;ANV3&quot;, &quot;anv3l&quot;)</span>
+<span class="nc" id="L165">                .addLength(&quot;ERRMSG&quot;, &quot;errmsgl&quot;)</span>
+<span class="nc" id="L166">                .addLength(&quot;CURTIME&quot;, &quot;curtimel&quot;)</span>
+<span class="nc" id="L167">                .addLength(&quot;ANV4&quot;, &quot;anv4l&quot;)</span>
+<span class="nc" id="L168">                .addLength(&quot;ANV1&quot;, &quot;anv1l&quot;)</span>
+<span class="nc" id="L169">                .addLength(&quot;ANV2&quot;, &quot;anv2l&quot;)</span>
+<span class="nc" id="L170">                .addLength(&quot;ANTOT1&quot;, &quot;antot1l&quot;)</span>
+<span class="nc" id="L171">                .addLength(&quot;ANHEAD&quot;, &quot;anheadl&quot;)</span>
+<span class="nc" id="L172">                .addLength(&quot;ANTOT2&quot;, &quot;antot2l&quot;)</span>
+<span class="nc" id="L173">                .addLength(&quot;ANA6&quot;, &quot;ana6l&quot;)</span>
+<span class="nc" id="L174">                .addLength(&quot;ANA4&quot;, &quot;ana4l&quot;)</span>
+<span class="nc" id="L175">                .addLength(&quot;ANC6&quot;, &quot;anc6l&quot;)</span>
+<span class="nc" id="L176">                .addLength(&quot;ANA5&quot;, &quot;ana5l&quot;)</span>
+<span class="nc" id="L177">                .addLength(&quot;ANA2&quot;, &quot;ana2l&quot;)</span>
+<span class="nc" id="L178">                .addLength(&quot;ANC4&quot;, &quot;anc4l&quot;)</span>
+<span class="nc" id="L179">                .addLength(&quot;ANA3&quot;, &quot;ana3l&quot;)</span>
+<span class="nc" id="L180">                .addLength(&quot;ANC5&quot;, &quot;anc5l&quot;)</span>
+<span class="nc" id="L181">                .addLength(&quot;ANC2&quot;, &quot;anc2l&quot;)</span>
+<span class="nc" id="L182">                .addLength(&quot;ANA1&quot;, &quot;ana1l&quot;)</span>
+<span class="nc" id="L183">                .addLength(&quot;ANC3&quot;, &quot;anc3l&quot;)</span>
+<span class="nc" id="L184">                .addLength(&quot;ANI6&quot;, &quot;ani6l&quot;)</span>
+<span class="nc" id="L185">                .addLength(&quot;ANC1&quot;, &quot;anc1l&quot;)</span>
+<span class="nc" id="L186">                .addLength(&quot;ANI4&quot;, &quot;ani4l&quot;)</span>
+<span class="nc" id="L187">                .addLength(&quot;ANK6&quot;, &quot;ank6l&quot;)</span>
+<span class="nc" id="L188">                .addLength(&quot;ANI5&quot;, &quot;ani5l&quot;)</span>
+<span class="nc" id="L189">                .addLength(&quot;ANI2&quot;, &quot;ani2l&quot;)</span>
+<span class="nc" id="L190">                .addLength(&quot;ANK4&quot;, &quot;ank4l&quot;)</span>
+<span class="nc" id="L191">                .addLength(&quot;ANI3&quot;, &quot;ani3l&quot;)</span>
+<span class="nc" id="L192">                .addLength(&quot;ANK5&quot;, &quot;ank5l&quot;)</span>
+<span class="nc" id="L193">                .addLength(&quot;ANK2&quot;, &quot;ank2l&quot;)</span>
+<span class="nc" id="L194">                .addLength(&quot;ANI1&quot;, &quot;ani1l&quot;)</span>
+<span class="nc" id="L195">                .addLength(&quot;ANK3&quot;, &quot;ank3l&quot;)</span>
+<span class="nc" id="L196">                .addLength(&quot;ANK1&quot;, &quot;ank1l&quot;)</span>
+<span class="nc" id="L197">                .addLength(&quot;TRNNAME&quot;, &quot;trnnamel&quot;)</span>
+<span class="nc" id="L198">                .addLength(&quot;TITLE&quot;, &quot;titlel&quot;)</span>
+<span class="nc" id="L199">                .addLength(&quot;PGMNAME&quot;, &quot;pgmnamel&quot;)</span>
+<span class="nc" id="L200">                .addLength(&quot;CURDATE&quot;, &quot;curdatel&quot;)</span>
+<span class="nc" id="L201">                .build();</span>
+        }
+<span class="nc" id="L203">        return FieldMapping.empty();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

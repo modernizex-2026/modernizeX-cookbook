@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OumqbrgService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">oumqbrg</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.oumqbrg.service</a> &gt; <span class="el_source">OumqbrgService.java</span></div><h1>OumqbrgService.java</h1><pre class="source lang-java linenums">package com.generated.orion.oumqbrg.service;
+
+import com.appruntime.MqService;
+import com.generated.orion.oumqbrg.domain.OumqbrgFieldAccess;
+import com.generated.orion.oumqbrg.domain.WorkingStorage;
+import com.generated.orion.oumqbrg.runtime.OumqbrgDatasets;
+import com.generated.orion.runtime.BatchServiceBase;
+import com.generated.orion.runtime.DatasetEnums.*;
+import com.generated.orion.runtime.ProgramExitSignal;
+import com.generated.orion.runtime.Utility;
+import com.generated.orion.runtime.io.AbstractDatasets;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
+/** Business logic service generated from COBOL program OUMQBRG. */
+@Service
+@Scope(&quot;prototype&quot;)
+public class OumqbrgService extends BatchServiceBase {
+    /** Shared file instances for all FD files in this program. */
+    private final OumqbrgDatasets fileSet;
+
+    /**
+     * IBM MQ verbs (CALL 'MQOPEN'/'MQGET'/'MQPUT'/'MQCLOSE') — JMS-backed at runtime, stub without
+     * a broker.
+     */
+    private final MqService mq;
+
+    private final OumqbrgFieldAccess ws;
+
+<span class="fc" id="L31">    public OumqbrgService(OumqbrgDatasets fileSet, MqService mq) {</span>
+<span class="fc" id="L32">        this.fileSet = fileSet;</span>
+<span class="fc" id="L33">        this.ws = new OumqbrgFieldAccess(new WorkingStorage(), fileSet);</span>
+<span class="fc" id="L34">        this.mq = mq;</span>
+<span class="fc" id="L35">    }</span>
+
+    /**
+     * Program entry point — runs the first COBOL paragraph via runChain. Base class run() wraps
+     * this in StopRun/Abort/Exception handling.
+     */
+    @Override
+    protected void mainProcess() {
+        // Import anchors for types referenced by emitted paragraph bodies:
+        // StopRunSignal, JobAbortException, ParagraphJumpSignal, ProgramExitSignal
+<span class="nc" id="L45">        runChain(this::_0000Main);</span>
+<span class="nc" id="L46">    }</span>
+
+    /**
+     * Returns COBOL COMPLETION-CODE after run() completes. Used by Tasklet to propagate exit code
+     * into StepExecutionContext.
+     */
+    @Override
+    public int getCompletionCode() {
+<span class="fc" id="L54">        return ws.getCompletionCode();</span>
+    }
+
+    /**
+     * Set COBOL COMPLETION-CODE. Called by base class run() on Abort (255) / Exception (12) paths.
+     */
+    @Override
+    protected void setCompletionCode(int code) {
+<span class="fc" id="L62">        ws.setCompletionCode(code);</span>
+<span class="fc" id="L63">    }</span>
+
+    /**
+     * Returns this program's FileSet (or null if no files declared). Base class run() uses this for
+     * commit/rollback/closeAll lifecycle.
+     */
+    @Override
+    protected AbstractDatasets getFileSet() {
+<span class="fc" id="L71">        return fileSet;</span>
+    }
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void _0000Main() {
+<span class="fc" id="L76">        runChain(this::_1000Initialize);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        while (!ws.getWsEofFlg().equals(&quot;Y&quot;)) {</span>
+<span class="fc" id="L78">            runChain(this::_2000BridgeTrans);</span>
+        }
+<span class="fc" id="L80">        runChain(this::_3000Finalize);</span>
+<span class="fc" id="L81">        throw new ProgramExitSignal();</span>
+    }
+
+    /** COBOL paragraph: 1000-INITIALIZE */
+    private void _1000Initialize() {
+<span class="fc" id="L86">        log.info(&quot;OUMQBRG: VSAM-to-MQ transaction bridge started.&quot;);</span>
+<span class="fc" id="L87">        ws.setString(&quot;WS-MQ-DOWN-FLG&quot;, &quot;N&quot;);</span>
+<span class="fc" id="L88">        fileSet.getTranFile().open(FileOpenMode.INPUT);</span>
+<span class="fc" id="L89">        ws.trySetString(&quot;WS-TRAN-FS&quot;, fileSet.getTranFile().getFileStatus());</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        if (Utility.fieldEquals(ws.getWsTranFs(), &quot;00&quot;)) {</span>
+<span class="fc" id="L91">            ws.setString(&quot;WS-TRAN-OPEN-FLG&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="fc" id="L93">            log.info(&quot;OUMQBRG: OPEN TRANFILE FS={}&quot;, ws.getWsTranFs());</span>
+<span class="fc" id="L94">            ws.setString(&quot;WS-EOF-FLG&quot;, &quot;Y&quot;);</span>
+        }
+<span class="fc" id="L96">        runChain(this::_1100MqConnect);</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        if (ws.getWsMqDownFlg().equals(&quot;N&quot;)) {</span>
+<span class="fc" id="L98">            runChain(this::_1200MqOpenOut);</span>
+        }
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (ws.getWsTranOpenFlg().equals(&quot;Y&quot;)) {</span>
+<span class="fc" id="L101">            runChain(this::_2100ReadTran);</span>
+        }
+<span class="fc" id="L103">    }</span>
+
+    /** COBOL paragraph: 1100-MQ-CONNECT */
+    private void _1100MqConnect() {
+<span class="fc" id="L107">        ws.setWsMqOp(&quot;MQCONN  &quot;);</span>
+<span class="fc" id="L108">        mqconn(ws.getWsQmgrName(), ws.getMqHconn(), ws.getMqCc(), ws.getMqRc());</span>
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">        if ((ws.getMqCc() == 0)) {</span>
+<span class="fc" id="L110">            ws.setString(&quot;WS-MQ-CONN-FLG&quot;, &quot;Y&quot;);</span>
+<span class="fc" id="L111">            log.info(&quot;OUMQBRG: connected to {}&quot;, ws.getWsQmgrName());</span>
+        } else {
+<span class="nc" id="L113">            ws.setString(&quot;WS-MQ-DOWN-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L114">            log.info(</span>
+                    &quot;OUMQBRG: MQCONN FAILED CC={} RC={}&quot;,
+<span class="nc" id="L116">                    String.format(&quot;%+010d&quot;, (long) (ws.getMqCc())),</span>
+<span class="nc" id="L117">                    String.format(&quot;%+010d&quot;, (long) (ws.getMqRc())));</span>
+<span class="nc" id="L118">            log.info(&quot;OUMQBRG: continuing in read-only mode.&quot;);</span>
+        }
+<span class="fc" id="L120">    }</span>
+
+    /** COBOL paragraph: 1200-MQ-OPEN-OUT */
+    private void _1200MqOpenOut() {
+<span class="fc" id="L124">        ws.setMqOdObjectName(ws.getWsOutQueue());</span>
+<span class="fc" id="L125">        ws.setMqOpenOptions((ws.getMqOoOutput() + ws.getMqOoFailIfQsg()));</span>
+<span class="fc" id="L126">        ws.setWsMqOp(&quot;MQOPEN  &quot;);</span>
+<span class="fc" id="L127">        Object[] _mq0 =</span>
+                new Object[] {
+<span class="fc" id="L129">                    ws.getMqHconn(),</span>
+                    new com.appruntime.GroupRef(ws, &quot;MQ-OD&quot;),
+<span class="fc" id="L131">                    ws.getMqOpenOptions(),</span>
+<span class="fc" id="L132">                    ws.getMqHobjOut(),</span>
+<span class="fc" id="L133">                    ws.getMqCc(),</span>
+<span class="fc" id="L134">                    ws.getMqRc()</span>
+                };
+<span class="fc" id="L136">        mq.mqOpen(_mq0);</span>
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">        if (_mq0[3] != null) {</span>
+<span class="fc" id="L138">            ws.setMqHobjOut(((Number) _mq0[3]).intValue());</span>
+        }
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">        if (_mq0[4] != null) {</span>
+<span class="fc" id="L141">            ws.setMqCc(((Number) _mq0[4]).intValue());</span>
+        }
+<span class="pc bpc" id="L143" title="1 of 2 branches missed.">        if (_mq0[5] != null) {</span>
+<span class="fc" id="L144">            ws.setMqRc(((Number) _mq0[5]).intValue());</span>
+        }
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        if ((ws.getMqCc() == 0)) {</span>
+<span class="fc" id="L147">            ws.setString(&quot;WS-MQ-OPEN-FLG&quot;, &quot;Y&quot;);</span>
+<span class="fc" id="L148">            log.info(&quot;OUMQBRG: opened {}&quot;, ws.getWsOutQueue());</span>
+        } else {
+<span class="fc" id="L150">            ws.setString(&quot;WS-MQ-DOWN-FLG&quot;, &quot;Y&quot;);</span>
+<span class="fc" id="L151">            log.info(</span>
+                    &quot;OUMQBRG: MQOPEN FAILED CC={} RC={}&quot;,
+<span class="fc" id="L153">                    String.format(&quot;%+010d&quot;, (long) (ws.getMqCc())),</span>
+<span class="fc" id="L154">                    String.format(&quot;%+010d&quot;, (long) (ws.getMqRc())));</span>
+        }
+<span class="fc" id="L156">    }</span>
+
+    /** COBOL paragraph: 2000-BRIDGE-TRANS */
+    private void _2000BridgeTrans() {
+<span class="fc" id="L160">        ws.setWsReadCnt(ws.getWsReadCnt() + 1);</span>
+<span class="pc bpc" id="L161" title="1 of 4 branches missed.">        if (ws.getWsMqDownFlg().equals(&quot;N&quot;) &amp;&amp; ws.getWsMqOpenFlg().equals(&quot;Y&quot;)) {</span>
+<span class="fc" id="L162">            runChain(this::_2200PutTran);</span>
+        } else {
+<span class="fc" id="L164">            ws.setWsSkipCnt(ws.getWsSkipCnt() + 1);</span>
+        }
+<span class="fc" id="L166">        runChain(this::_2100ReadTran);</span>
+<span class="fc" id="L167">    }</span>
+
+    /** COBOL paragraph: 2100-READ-TRAN */
+    private void _2100ReadTran() {
+<span class="fc" id="L171">        String rkVal_0 = &quot;&quot;;</span>
+<span class="pc bpc" id="L172" title="2 of 4 branches missed.">        if (rkVal_0 == null || rkVal_0.trim().isEmpty()) {</span>
+            try {
+<span class="fc" id="L174">                rkVal_0 = ws.getString(&quot;TR-ID&quot;);</span>
+<span class="nc" id="L175">            } catch (Exception _e) {</span>
+<span class="fc" id="L176">            }</span>
+        }
+<span class="pc bpc" id="L178" title="2 of 4 branches missed.">        if (rkVal_0 == null || rkVal_0.trim().isEmpty()) {</span>
+            try {
+<span class="fc" id="L180">                rkVal_0 = fileSet.getTranFile().extractKeyFromCurrentRecord();</span>
+<span class="nc" id="L181">            } catch (Exception _e3) {</span>
+<span class="fc" id="L182">            }</span>
+        }
+<span class="pc bpc" id="L184" title="1 of 2 branches missed.">        fileSet.getTranFile().readByKey(rkVal_0 != null ? rkVal_0.trim() : &quot;&quot;);</span>
+<span class="fc" id="L185">        ws.trySetString(&quot;WS-TRAN-FS&quot;, fileSet.getTranFile().getFileStatus());</span>
+<span class="fc bfc" id="L186" title="All 2 branches covered.">        if (fileSet.getTranFile().isAtEnd()) {</span>
+<span class="fc" id="L187">            ws.setString(&quot;WS-EOF-FLG&quot;, &quot;Y&quot;);</span>
+        }
+<span class="pc bpc" id="L189" title="1 of 2 branches missed.">        if (!Utility.fieldEquals(ws.getWsTranFs(), &quot;00&quot;)</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">                &amp;&amp; !Utility.fieldEquals(ws.getWsTranFs(), &quot;10&quot;)) {</span>
+<span class="nc" id="L191">            log.info(&quot;OUMQBRG: READ TRANFILE FS={}&quot;, ws.getWsTranFs());</span>
+<span class="nc" id="L192">            ws.setString(&quot;WS-EOF-FLG&quot;, &quot;Y&quot;);</span>
+        }
+<span class="fc" id="L194">    }</span>
+
+    /** COBOL paragraph: 2200-PUT-TRAN */
+    private void _2200PutTran() {
+<span class="fc" id="L198">        ws.setOmRecType(&quot;TRAN&quot;);</span>
+<span class="fc" id="L199">        ws.setOmSrcSystem(&quot;ORION   &quot;);</span>
+<span class="fc" id="L200">        ws.setOmTranData(Utility.groupToString(fileSet.getTranFile().getRecord()));</span>
+<span class="fc" id="L201">        ws.setMqMdMsgType(ws.getMqMtDatagram());</span>
+<span class="fc" id="L202">        ws.setMqMdFormat(&quot;MQSTR   &quot;);</span>
+<span class="fc" id="L203">        ws.setMqPmoOptions(ws.getMqPmNoSyncpoint());</span>
+<span class="fc" id="L204">        ws.setMqBufferLen(362);</span>
+<span class="fc" id="L205">        ws.fillLowValues(&quot;MQ-MD-MSG-ID&quot;);</span>
+<span class="fc" id="L206">        ws.fillLowValues(&quot;MQ-MD-CORREL-ID&quot;);</span>
+<span class="fc" id="L207">        ws.setWsMqOp(&quot;MQPUT   &quot;);</span>
+<span class="fc" id="L208">        Object[] _mq1 =</span>
+                new Object[] {
+<span class="fc" id="L210">                    ws.getMqHconn(),</span>
+<span class="fc" id="L211">                    ws.getMqHobjOut(),</span>
+                    new com.appruntime.GroupRef(ws, &quot;MQ-MD&quot;),
+                    new com.appruntime.GroupRef(ws, &quot;MQ-PMO&quot;),
+<span class="fc" id="L214">                    ws.getMqBufferLen(),</span>
+                    new com.appruntime.GroupRef(ws, &quot;WS-OUT-MSG&quot;),
+<span class="fc" id="L216">                    ws.getMqCc(),</span>
+<span class="fc" id="L217">                    ws.getMqRc()</span>
+                };
+<span class="fc" id="L219">        mq.mqPut(_mq1);</span>
+<span class="pc bpc" id="L220" title="1 of 2 branches missed.">        if (_mq1[6] != null) {</span>
+<span class="fc" id="L221">            ws.setMqCc(((Number) _mq1[6]).intValue());</span>
+        }
+<span class="pc bpc" id="L223" title="1 of 2 branches missed.">        if (_mq1[7] != null) {</span>
+<span class="fc" id="L224">            ws.setMqRc(((Number) _mq1[7]).intValue());</span>
+        }
+<span class="fc bfc" id="L226" title="All 2 branches covered.">        if ((ws.getMqCc() == 0)) {</span>
+<span class="fc" id="L227">            ws.setWsPutCnt(ws.getWsPutCnt() + 1);</span>
+        } else {
+<span class="fc" id="L229">            ws.setWsPuterrCnt(ws.getWsPuterrCnt() + 1);</span>
+<span class="fc" id="L230">            log.info(</span>
+                    &quot;OUMQBRG: MQPUT id={} CC={} RC={}&quot;,
+<span class="fc" id="L232">                    ws.getTrId(),</span>
+<span class="fc" id="L233">                    String.format(&quot;%+010d&quot;, (long) (ws.getMqCc())),</span>
+<span class="fc" id="L234">                    String.format(&quot;%+010d&quot;, (long) (ws.getMqRc())));</span>
+        }
+<span class="fc" id="L236">    }</span>
+
+    /** COBOL paragraph: 3000-FINALIZE */
+    private void _3000Finalize() {
+<span class="fc bfc" id="L240" title="All 2 branches covered.">        if (ws.getWsMqOpenFlg().equals(&quot;Y&quot;)) {</span>
+<span class="fc" id="L241">            runChain(this::_3100MqCloseOut);</span>
+        }
+<span class="pc bpc" id="L243" title="1 of 2 branches missed.">        if (ws.getWsMqConnFlg().equals(&quot;Y&quot;)) {</span>
+<span class="fc" id="L244">            runChain(this::_3200MqDisconnect);</span>
+        }
+<span class="fc bfc" id="L246" title="All 2 branches covered.">        if (ws.getWsTranOpenFlg().equals(&quot;Y&quot;)) {</span>
+<span class="fc" id="L247">            fileSet.getTranFile().close();</span>
+<span class="fc" id="L248">            ws.trySetString(&quot;WS-TRAN-FS&quot;, fileSet.getTranFile().getFileStatus());</span>
+<span class="pc bpc" id="L249" title="1 of 2 branches missed.">            if (!Utility.fieldEquals(ws.getWsTranFs(), &quot;00&quot;)) {</span>
+<span class="nc" id="L250">                log.info(&quot;OUMQBRG: CLOSE TRANFILE FS={}&quot;, ws.getWsTranFs());</span>
+            }
+        }
+<span class="fc" id="L253">        runChain(this::_3900DisplaySummary);</span>
+<span class="fc" id="L254">    }</span>
+
+    /** COBOL paragraph: 3100-MQ-CLOSE-OUT */
+    private void _3100MqCloseOut() {
+<span class="fc" id="L258">        ws.setMqCloseOptions(ws.getMqClNone());</span>
+<span class="fc" id="L259">        ws.setWsMqOp(&quot;MQCLOSE &quot;);</span>
+<span class="fc" id="L260">        Object[] _mq2 =</span>
+                new Object[] {
+<span class="fc" id="L262">                    ws.getMqHconn(),</span>
+<span class="fc" id="L263">                    ws.getMqHobjOut(),</span>
+<span class="fc" id="L264">                    ws.getMqCloseOptions(),</span>
+<span class="fc" id="L265">                    ws.getMqCc(),</span>
+<span class="fc" id="L266">                    ws.getMqRc()</span>
+                };
+<span class="fc" id="L268">        mq.mqClose(_mq2);</span>
+<span class="pc bpc" id="L269" title="1 of 2 branches missed.">        if (_mq2[3] != null) {</span>
+<span class="fc" id="L270">            ws.setMqCc(((Number) _mq2[3]).intValue());</span>
+        }
+<span class="pc bpc" id="L272" title="1 of 2 branches missed.">        if (_mq2[4] != null) {</span>
+<span class="fc" id="L273">            ws.setMqRc(((Number) _mq2[4]).intValue());</span>
+        }
+<span class="fc bfc" id="L275" title="All 2 branches covered.">        if ((ws.getMqCc() != 0)) {</span>
+<span class="fc" id="L276">            log.info(</span>
+                    &quot;OUMQBRG: MQCLOSE CC={} RC={}&quot;,
+<span class="fc" id="L278">                    String.format(&quot;%+010d&quot;, (long) (ws.getMqCc())),</span>
+<span class="fc" id="L279">                    String.format(&quot;%+010d&quot;, (long) (ws.getMqRc())));</span>
+        }
+<span class="fc" id="L281">    }</span>
+
+    /** COBOL paragraph: 3200-MQ-DISCONNECT */
+    private void _3200MqDisconnect() {
+<span class="fc" id="L285">        ws.setWsMqOp(&quot;MQDISC  &quot;);</span>
+<span class="fc" id="L286">        mqdisc(ws.getMqHconn(), ws.getMqCc(), ws.getMqRc());</span>
+<span class="fc bfc" id="L287" title="All 2 branches covered.">        if ((ws.getMqCc() != 0)) {</span>
+<span class="fc" id="L288">            log.info(</span>
+                    &quot;OUMQBRG: MQDISC CC={} RC={}&quot;,
+<span class="fc" id="L290">                    String.format(&quot;%+010d&quot;, (long) (ws.getMqCc())),</span>
+<span class="fc" id="L291">                    String.format(&quot;%+010d&quot;, (long) (ws.getMqRc())));</span>
+        }
+<span class="fc" id="L293">    }</span>
+
+    /** COBOL paragraph: 3900-DISPLAY-SUMMARY */
+    private void _3900DisplaySummary() {
+<span class="fc" id="L297">        log.info(</span>
+<span class="fc" id="L298">                &quot;OUMQBRG: records read    = {}&quot;, String.format(&quot;%09d&quot;, (long) (ws.getWsReadCnt())));</span>
+<span class="fc" id="L299">        log.info(&quot;OUMQBRG: messages put    = {}&quot;, String.format(&quot;%09d&quot;, (long) (ws.getWsPutCnt())));</span>
+<span class="fc" id="L300">        log.info(</span>
+                &quot;OUMQBRG: put errors      = {}&quot;,
+<span class="fc" id="L302">                String.format(&quot;%09d&quot;, (long) (ws.getWsPuterrCnt())));</span>
+<span class="fc" id="L303">        log.info(</span>
+<span class="fc" id="L304">                &quot;OUMQBRG: skipped (no MQ) = {}&quot;, String.format(&quot;%09d&quot;, (long) (ws.getWsSkipCnt())));</span>
+<span class="fc" id="L305">        log.info(&quot;OUMQBRG: bridge complete.&quot;);</span>
+<span class="fc" id="L306">    }</span>
+
+    /** Stub: COBOL CALL MQCONN — inter-program call placeholder. */
+    private void mqconn(Object... args) {
+        /* CALL MQCONN: inter-program call — implement wiring if needed */ ;
+<span class="fc" id="L311">    }</span>
+
+    /** Stub: COBOL CALL MQDISC — inter-program call placeholder. */
+    private void mqdisc(Object... args) {
+        /* CALL MQDISC: inter-program call — implement wiring if needed */ ;
+<span class="fc" id="L316">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

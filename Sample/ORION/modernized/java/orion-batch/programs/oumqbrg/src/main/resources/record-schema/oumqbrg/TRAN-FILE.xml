@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  COBOL FD name  : TRAN-FILE
+  FD record name : TRAN-REC
+  Copybook src   : RTRAN
+-->
+<dataLayout name="TRAN-FILE" scope="file" charset="MS932" recordSize="350">
+  <group name="TRAN-REC" offset="0" size="350">
+    <field name="TR-ID" offset="0" size="16" javaType="String"/>
+    <field name="TR-TYPE-CD" offset="16" size="2" javaType="String"/>
+    <field name="TR-CAT-CD" offset="18" size="4" javaType="int"/>
+    <field name="TR-SOURCE" offset="22" size="10" javaType="String"/>
+    <field name="TR-DESC" offset="32" size="100" javaType="String"/>
+    <field name="TR-AMT" offset="132" size="11" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="TR-MERCHANT-ID" offset="143" size="9" javaType="int"/>
+    <field name="TR-MERCHANT-NAME" offset="152" size="50" javaType="String"/>
+    <field name="TR-MERCHANT-CITY" offset="202" size="50" javaType="String"/>
+    <field name="TR-MERCHANT-ZIP" offset="252" size="10" javaType="String"/>
+    <field name="TR-CARD-NUM" offset="262" size="16" javaType="String"/>
+    <field name="TR-ORIG-TS" offset="278" size="26" javaType="String"/>
+    <field name="TR-PROC-TS" offset="304" size="26" javaType="String"/>
+    <field name="FILLER-330" offset="330" size="20" javaType="String"/>
+  </group>
+</dataLayout>

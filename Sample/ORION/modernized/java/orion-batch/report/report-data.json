@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-09-17T12:08:02.129245",
+  "projectName": "orion-batch",
+  "programs": 0,
+  "loc": {
+    "total": 9761,
+    "javaFiles": 40,
+    "byCategory": {
+      "MODEL": { "lines": 57, "files": 3 },
+      "SERVICE": { "lines": 405, "files": 2 },
+      "FIELD_ACCESSOR": { "lines": 126, "files": 2 },
+      "BATCH_CONFIG": { "lines": 316, "files": 2 },
+      "INFRASTRUCTURE": { "lines": 8838, "files": 30 },
+      "APPLICATION": { "lines": 19, "files": 1 }
+    }
+  },
+  "build": { "status": "FAILURE", "errors": 1, "warnings": 0 },
+  "checkstyle": { "totalViolations": 3639 },
+  "pmd": { "totalViolations": 0 },
+  "cpd": { "duplicateBlocks": 6 },
+  "conversion": {
+    "coverage": {
+      "byEffectiveLOC": { "total": 94, "unconverted": 0, "ratePct": 100.00, "note": "Distinct executable lines reached by statements (excludes comments + blanks)" },
+      "byRawLOC": { "total": 304, "unconverted": 0, "ratePct": 100.00, "note": "Max line number in XML AST — approximates wc -l of .cob within ~2%" },
+      "byStatement": { "total": 101, "unconverted": 0, "ratePct": 100.00 }
+    },
+    "programs": [
+      { "name": "OUMQBRG", "sourceFile": "OUMQBRG", "rawLines": 271, "actualRawLines": null, "effectiveLines": 81, "statements": 81, "procedures": 11, "dataItems": 110, "files": 1, "unsupported": 0 },
+      { "name": "OUMSG", "sourceFile": "OUMSG", "rawLines": 33, "actualRawLines": null, "effectiveLines": 13, "statements": 20, "procedures": 1, "dataItems": 6, "files": 0, "unsupported": 0 }
+    ],
+    "unsupported": [
+    ],
+    "mapping": {
+      "OUMQBRG": ["programs/oumqbrg/src/main/java/com/generated/orion/oumqbrg/domain/WorkingStorage.java", "programs/oumqbrg/src/main/java/com/generated/orion/oumqbrg/service/OumqbrgService.java", "programs/oumqbrg/src/main/java/com/generated/orion/oumqbrg/domain/OumqbrgFieldAccess.java", "programs/oumqbrg/src/main/java/com/generated/orion/oumqbrg/flow/OumqbrgJobFlow.java", "programs/oumqbrg/src/main/java/com/generated/orion/oumqbrg/io/TranFileDataset.java", "programs/oumqbrg/src/main/java/com/generated/orion/oumqbrg/runtime/OumqbrgDatasets.java"],
+      "OUMSG": ["programs/oumsg/src/main/java/com/generated/orion/oumsg/domain/WorkingStorage.java", "programs/oumsg/src/main/java/com/generated/orion/oumsg/service/OumsgService.java", "programs/oumsg/src/main/java/com/generated/orion/oumsg/domain/OumsgFieldAccess.java", "programs/oumsg/src/main/java/com/generated/orion/oumsg/flow/OumsgJobFlow.java"]
+    },
+    "paragraphs": {
+      "OUMQBRG": [
+        { "cobolName": "0000-MAIN", "javaMethodName": "_0000Main", "startLine": 116, "endLine": 120, "statementCount": 4, "sectionName": null, "category": "PROCESS" },
+        { "cobolName": "1000-INITIALIZE", "javaMethodName": "_1000Initialize", "startLine": 126, "endLine": 140, "statementCount": 12, "sectionName": null, "category": "INITIALIZATION" },
+        { "cobolName": "1100-MQ-CONNECT", "javaMethodName": "_1100MqConnect", "startLine": 146, "endLine": 155, "statementCount": 8, "sectionName": null, "category": "PROCESS" },
+        { "cobolName": "1200-MQ-OPEN-OUT", "javaMethodName": "_1200MqOpenOut", "startLine": 161, "endLine": 173, "statementCount": 9, "sectionName": null, "category": "INITIALIZATION" },
+        { "cobolName": "2000-BRIDGE-TRANS", "javaMethodName": "_2000BridgeTrans", "startLine": 181, "endLine": 187, "statementCount": 5, "sectionName": null, "category": "PROCESS" },
+        { "cobolName": "2100-READ-TRAN", "javaMethodName": "_2100ReadTran", "startLine": 192, "endLine": 198, "statementCount": 5, "sectionName": null, "category": "READ" },
+        { "cobolName": "2200-PUT-TRAN", "javaMethodName": "_2200PutTran", "startLine": 204, "endLine": 221, "statementCount": 15, "sectionName": null, "category": "PROCESS" },
+        { "cobolName": "3000-FINALIZE", "javaMethodName": "_3000Finalize", "startLine": 228, "endLine": 240, "statementCount": 9, "sectionName": null, "category": "PROCESS" },
+        { "cobolName": "3100-MQ-CLOSE-OUT", "javaMethodName": "_3100MqCloseOut", "startLine": 245, "endLine": 251, "statementCount": 5, "sectionName": null, "category": "CLEANUP" },
+        { "cobolName": "3200-MQ-DISCONNECT", "javaMethodName": "_3200MqDisconnect", "startLine": 257, "endLine": 261, "statementCount": 4, "sectionName": null, "category": "PROCESS" },
+        { "cobolName": "3900-DISPLAY-SUMMARY", "javaMethodName": "_3900DisplaySummary", "startLine": 267, "endLine": 271, "statementCount": 5, "sectionName": null, "category": "PROCESS" }
+      ],
+      "OUMSG": [
+        { "cobolName": "0000-MAIN", "javaMethodName": "_0000Main", "startLine": 18, "endLine": 33, "statementCount": 20, "sectionName": null, "category": "PROCESS" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OdtranaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ODTRANA Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.odtrana.service</a> &gt; <span class="el_source">OdtranaService.java</span></div><h1>OdtranaService.java</h1><pre class="source lang-java linenums">package com.generated.orion.odtrana.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.common.linkage.OdtranaLinkParm;
+import com.generated.orion.odtrana.accessor.OdtranaFields;
+import com.generated.orion.odtrana.dao.OdtranaDao;
+import com.generated.orion.odtrana.metadata.OdtranaBmsMetadata;
+import com.generated.orion.odtrana.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program ODTRANA. */
+@Service
+<span class="nc" id="L24">public class OdtranaService implements AppProgram {</span>
+<span class="nc" id="L25">    private static final Logger log = LoggerFactory.getLogger(OdtranaService.class);</span>
+
+    /** DB2 SQLCODE meaning &quot;row not found&quot;. */
+    private static final int SQLCODE_NOT_FOUND = 100;
+
+    /** Fixed length of the ORION-COMMAREA passed between programs. */
+    private static final int COMMAREA_LENGTH = 692;
+
+    @Autowired private OdtranaDao dao;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L41">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc" id="L42">        ctx.dao = this.dao;</span>
+<span class="nc" id="L43">        runMainProgram(ctx);</span>
+<span class="nc" id="L44">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L48">        return &quot;ODTRANA&quot;;</span>
+    }
+
+    @Override
+    public String getTransId() {
+<span class="nc" id="L53">        return &quot;OD06&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L58">        return OdtranaBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L63">        OdtranaBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L64">    }</span>
+
+    @Override
+    public FieldMapping getFieldMapping(String mapName) {
+<span class="nc" id="L68">        return OdtranaBmsMetadata.getFieldMapping(mapName);</span>
+    }
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainProgram(TaskContext ctx) {
+<span class="nc" id="L73">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L74">        ctx.f.setCaErrMsg(&quot; &quot;);</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (ctx.appService.getEibcalen() == 0) {</span>
+<span class="nc" id="L76">            sendInitialScreen(ctx);</span>
+        } else {
+<span class="nc" id="L78">            ctx.f.setOrionCommarea(Utility.groupToString(ctx.appService.getSerializedCommarea()));</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">            if (ctx.f.getCaPgmContext() == 0) {</span>
+<span class="nc" id="L80">                sendInitialScreen(ctx);</span>
+            } else {
+<span class="nc" id="L82">                processInputAction(ctx);</span>
+            }
+        }
+<span class="nc" id="L85">        returnToCics(ctx);</span>
+<span class="nc" id="L86">    }</span>
+
+    /** COBOL paragraph: 1000-SEND-INITIAL */
+    private void sendInitialScreen(TaskContext ctx) {
+<span class="nc" id="L90">        ctx.f.fillLowValues(&quot;MTRANAAO&quot;);</span>
+<span class="nc" id="L91">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L92">        ctx.f.setErrmsgo(&quot;Enter transaction detail and press ENTER.&quot;);</span>
+<span class="nc" id="L93">        ctx.appService.sendMap(</span>
+                &quot;MTRANAA&quot;, ctx.f, ctx.f, /* erase */ true, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L95">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L96">        ctx.f.setCaPgmContext(1);</span>
+<span class="nc" id="L97">    }</span>
+
+    /** COBOL paragraph: 2000-PROCESS-INPUT */
+    private void processInputAction(TaskContext ctx) {
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;3&quot;)) {</span>
+<span class="nc" id="L102">            transferToMenuProgram(ctx);</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;4&quot;)) {</span>
+<span class="nc" id="L104">            sendInitialScreen(ctx);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;'&quot;)) {</span>
+<span class="nc" id="L106">            addTransaction(ctx);</span>
+        } else {
+<span class="nc" id="L108">            sendInitialScreen(ctx);</span>
+<span class="nc" id="L109">            ctx.f.setErrmsgo(ctx.f.getWsMsgInvalidKey());</span>
+<span class="nc" id="L110">            sendDataOnlyScreen(ctx);</span>
+        }
+<span class="nc" id="L112">    }</span>
+
+    /** COBOL paragraph: 2100-ADD-TRAN */
+    private void addTransaction(TaskContext ctx) {
+<span class="nc" id="L116">        ctx.appService.receiveMap(&quot;MTRANAA&quot;, ctx.f);</span>
+<span class="nc" id="L117">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L118">        validateTransactionInput(ctx);</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">        if (ctx.f.getWsValidFlag().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L120">            checkCardExists(ctx);</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">            if (ctx.f.getWsFoundFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L122">                checkTransactionType(ctx);</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">                if (ctx.f.getWsFoundFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L124">                    getNextTransactionId(ctx);</span>
+<span class="nc" id="L125">                    buildTransactionRecord(ctx);</span>
+<span class="nc" id="L126">                    insertTransaction(ctx);</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">                    if (ctx.f.getWsFoundFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L128">                        ctx.f.setErrmsgo(&quot; &quot;);</span>
+<span class="nc" id="L129">                        ctx.f.setErrmsgo(&quot;Transaction added. Id=&quot; + ctx.f.getTrId());</span>
+                    }
+                } else {
+<span class="nc" id="L132">                    ctx.f.setErrmsgo(&quot;Transaction type not found.&quot;);</span>
+                }
+            } else {
+<span class="nc" id="L135">                ctx.f.setErrmsgo(&quot;Card number not found.&quot;);</span>
+            }
+        }
+<span class="nc" id="L138">        sendDataOnlyScreen(ctx);</span>
+<span class="nc" id="L139">    }</span>
+
+    /** COBOL paragraph: 2200-EDIT-INPUT */
+    private void validateTransactionInput(TaskContext ctx) {
+<span class="nc" id="L143">        ctx.f.setString(&quot;WS-VALID-FLAG&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L144" title="All 4 branches missed.">        if (Utility.fieldEquals(ctx.f.getCardnumi(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;CARDNUMI&quot;)) {</span>
+<span class="nc" id="L145">            ctx.f.setErrmsgo(&quot;Card number is required.&quot;);</span>
+<span class="nc" id="L146">            ctx.f.setString(&quot;WS-VALID-FLAG&quot;, &quot;N&quot;);</span>
+        }
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        if (ctx.f.getWsValidFlag().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L149" title="All 4 branches missed.">            if (Utility.fieldEquals(ctx.f.getTrtypei(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;TRTYPEI&quot;)) {</span>
+<span class="nc" id="L150">                ctx.f.setErrmsgo(&quot;Transaction type is required.&quot;);</span>
+<span class="nc" id="L151">                ctx.f.setString(&quot;WS-VALID-FLAG&quot;, &quot;N&quot;);</span>
+            }
+        }
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        if (ctx.f.getWsValidFlag().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">            if (Utility.fieldEquals(ctx.f.getTrcati(), &quot; &quot;)</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">                    || !Utility.isNumeric(ctx.f.getRawString(&quot;TRCATI&quot;))) {</span>
+<span class="nc" id="L157">                ctx.f.setErrmsgo(&quot;Category must be numeric.&quot;);</span>
+<span class="nc" id="L158">                ctx.f.setString(&quot;WS-VALID-FLAG&quot;, &quot;N&quot;);</span>
+            }
+        }
+<span class="nc bnc" id="L161" title="All 2 branches missed.">        if (ctx.f.getWsValidFlag().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L162" title="All 4 branches missed.">            if (Utility.fieldEquals(ctx.f.getTramti(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;TRAMTI&quot;)) {</span>
+<span class="nc" id="L163">                ctx.f.setErrmsgo(&quot;Amount is required.&quot;);</span>
+<span class="nc" id="L164">                ctx.f.setString(&quot;WS-VALID-FLAG&quot;, &quot;N&quot;);</span>
+            }
+        }
+<span class="nc" id="L167">    }</span>
+
+    /** COBOL paragraph: 3000-CHECK-CARD */
+    private void checkCardExists(TaskContext ctx) {
+<span class="nc" id="L171">        ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L172">        ctx.f.setTrCardNum(ctx.f.getCardnumi());</span>
+        // DB2 SELECT INTO — ORION.CARD
+        {
+<span class="nc" id="L175">            java.util.Map&lt;String, Object&gt; _sqlResult = dao.selectOrionCard(ctx.f.getTrCardNum());</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">            if (!_sqlResult.containsKey(&quot;SQLCODE&quot;)) {</span>
+<span class="nc" id="L177">                ctx.f.setWsChkCardStat(</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">                        (_sqlResult.get(&quot;CD_ACTIVE_STATUS&quot;) == null</span>
+<span class="nc" id="L179">                                ? &quot;&quot;</span>
+<span class="nc" id="L180">                                : String.valueOf(_sqlResult.get(&quot;CD_ACTIVE_STATUS&quot;))));</span>
+<span class="nc" id="L181">                ctx.f.setSqlcode(0);</span>
+            } else {
+<span class="nc" id="L183">                ctx.f.setSqlcode(</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">                        _sqlResult.get(&quot;SQLCODE&quot;) != null</span>
+<span class="nc" id="L185">                                ? (Integer) _sqlResult.get(&quot;SQLCODE&quot;)</span>
+<span class="nc" id="L186">                                : 0);</span>
+            }
+        }
+<span class="nc bnc" id="L189" title="All 3 branches missed.">        switch (ctx.f.getSqlcode()) {</span>
+            case 0 -&gt; {
+<span class="nc" id="L191">                ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L192">            }</span>
+            case SQLCODE_NOT_FOUND -&gt; {
+<span class="nc" id="L194">                ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L195">            }</span>
+            default -&gt; {
+<span class="nc" id="L197">                ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L198">                ctx.f.setErrmsgo(&quot;Error reading card table.&quot;);</span>
+            }
+        }
+<span class="nc" id="L201">    }</span>
+
+    /** COBOL paragraph: 3100-CHECK-TYPE */
+    private void checkTransactionType(TaskContext ctx) {
+<span class="nc" id="L205">        ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L206">        ctx.f.setTrTypeCd(ctx.f.getTrtypei());</span>
+        // DB2 SELECT INTO — ORION.TTYP
+        {
+<span class="nc" id="L209">            java.util.Map&lt;String, Object&gt; _sqlResult = dao.selectOrionTtyp(ctx.f.getTrTypeCd());</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">            if (!_sqlResult.containsKey(&quot;SQLCODE&quot;)) {</span>
+<span class="nc" id="L211">                ctx.f.setWsChkTypeDesc(</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">                        (_sqlResult.get(&quot;TT_DESC&quot;) == null</span>
+<span class="nc" id="L213">                                ? &quot;&quot;</span>
+<span class="nc" id="L214">                                : String.valueOf(_sqlResult.get(&quot;TT_DESC&quot;))));</span>
+<span class="nc" id="L215">                ctx.f.setSqlcode(0);</span>
+            } else {
+<span class="nc" id="L217">                ctx.f.setSqlcode(</span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">                        _sqlResult.get(&quot;SQLCODE&quot;) != null</span>
+<span class="nc" id="L219">                                ? (Integer) _sqlResult.get(&quot;SQLCODE&quot;)</span>
+<span class="nc" id="L220">                                : 0);</span>
+            }
+        }
+<span class="nc bnc" id="L223" title="All 3 branches missed.">        switch (ctx.f.getSqlcode()) {</span>
+            case 0 -&gt; {
+<span class="nc" id="L225">                ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L226">            }</span>
+            case SQLCODE_NOT_FOUND -&gt; {
+<span class="nc" id="L228">                ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L229">            }</span>
+            default -&gt; {
+<span class="nc" id="L231">                ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L232">                ctx.f.setErrmsgo(&quot;Error reading type table.&quot;);</span>
+            }
+        }
+<span class="nc" id="L235">    }</span>
+
+    /** COBOL paragraph: 3200-GET-NEXT-ID */
+    private void getNextTransactionId(TaskContext ctx) {
+        // DB2 SELECT INTO — ORION.CTRL
+        {
+<span class="nc" id="L241">            java.util.Map&lt;String, Object&gt; _sqlResult = dao.selectOrionCtrl(ctx.f.getWsCtKey());</span>
+<span class="nc bnc" id="L242" title="All 2 branches missed.">            if (!_sqlResult.containsKey(&quot;SQLCODE&quot;)) {</span>
+<span class="nc" id="L243">                ctx.f.setWsCtValue(</span>
+<span class="nc bnc" id="L244" title="All 2 branches missed.">                        (_sqlResult.get(&quot;CT_LAST_VALUE&quot;) == null</span>
+<span class="nc" id="L245">                                ? 0L</span>
+<span class="nc" id="L246">                                : ((Number) _sqlResult.get(&quot;CT_LAST_VALUE&quot;)).longValue()));</span>
+<span class="nc" id="L247">                ctx.f.setSqlcode(0);</span>
+            } else {
+<span class="nc" id="L249">                ctx.f.setSqlcode(</span>
+<span class="nc bnc" id="L250" title="All 2 branches missed.">                        _sqlResult.get(&quot;SQLCODE&quot;) != null</span>
+<span class="nc" id="L251">                                ? (Integer) _sqlResult.get(&quot;SQLCODE&quot;)</span>
+<span class="nc" id="L252">                                : 0);</span>
+            }
+        }
+<span class="nc bnc" id="L255" title="All 2 branches missed.">        if (ctx.f.getSqlcode() == 0) {</span>
+<span class="nc" id="L256">            ctx.f.setWsCtValue(ctx.f.getWsCtValue() + 1);</span>
+            // DB2 UPDATE — ORION.CTRL
+            {
+<span class="nc" id="L259">                java.util.Map&lt;String, Object&gt; _sqlResult =</span>
+<span class="nc" id="L260">                        dao.updateOrionCtrl(ctx.f.getWsCtKey(), ctx.f.getWsCtValue());</span>
+<span class="nc" id="L261">                ctx.f.setSqlcode(</span>
+<span class="nc bnc" id="L262" title="All 2 branches missed.">                        _sqlResult.get(&quot;SQLCODE&quot;) != null</span>
+<span class="nc" id="L263">                                ? (Integer) _sqlResult.get(&quot;SQLCODE&quot;)</span>
+<span class="nc" id="L264">                                : 0);</span>
+<span class="nc" id="L265">            }</span>
+        } else {
+<span class="nc" id="L267">            ctx.f.setWsCtValue(1);</span>
+        }
+<span class="nc" id="L269">        ctx.f.setWsTranIdN(ctx.f.getWsCtValue());</span>
+<span class="nc" id="L270">        ctx.f.setTrId(String.format(&quot;%016d&quot;, ctx.f.getWsTranIdN()));</span>
+<span class="nc" id="L271">    }</span>
+
+    /** COBOL paragraph: 3300-BUILD-RECORD */
+    private void buildTransactionRecord(TaskContext ctx) {
+<span class="nc" id="L275">        loadCurrentDateTime(ctx);</span>
+<span class="nc" id="L276">        ctx.f.setWsTsStamp(&quot; &quot;);</span>
+<span class="nc" id="L277">        ctx.f.setWsTsStamp(ctx.f.getWsHdrDate() + &quot; &quot; + ctx.f.getWsHdrTime());</span>
+<span class="nc" id="L278">        ctx.f.setTrTypeCd(ctx.f.getTrtypei());</span>
+<span class="nc" id="L279">        ctx.f.setTrCatCd(Utility.parseNumeric(ctx.f.getTrcati()).intValue());</span>
+<span class="nc" id="L280">        ctx.f.setTrSource(&quot;ONLINE&quot;);</span>
+<span class="nc" id="L281">        ctx.f.setTrDesc(ctx.f.getTrdesci());</span>
+<span class="nc" id="L282">        ctx.f.setTrAmt(Utility.parseNumeric(String.valueOf(ctx.f.getTramti())));</span>
+<span class="nc" id="L283">        ctx.f.setTrMerchantId(0);</span>
+<span class="nc" id="L284">        ctx.f.setTrMerchantName(ctx.f.getTrmerchi());</span>
+<span class="nc" id="L285">        ctx.f.setTrMerchantCity(&quot; &quot;);</span>
+<span class="nc" id="L286">        ctx.f.setTrMerchantZip(&quot; &quot;);</span>
+<span class="nc" id="L287">        ctx.f.setTrCardNum(ctx.f.getCardnumi());</span>
+<span class="nc" id="L288">        ctx.f.setTrOrigTs(ctx.f.getWsTsStamp());</span>
+<span class="nc" id="L289">        ctx.f.setTrProcTs(ctx.f.getWsTsStamp());</span>
+<span class="nc" id="L290">    }</span>
+
+    /** COBOL paragraph: 3400-INSERT-TRAN */
+    private void insertTransaction(TaskContext ctx) {
+<span class="nc" id="L294">        ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+        // DB2 INSERT — ORION.TRAN
+        {
+<span class="nc" id="L297">            java.util.Map&lt;String, Object&gt; _sqlResult =</span>
+<span class="nc" id="L298">                    dao.insertOrionTran(</span>
+<span class="nc" id="L299">                            ctx.f.getTrId(),</span>
+<span class="nc" id="L300">                            ctx.f.getTrTypeCd(),</span>
+<span class="nc" id="L301">                            ctx.f.getTrCatCd(),</span>
+<span class="nc" id="L302">                            ctx.f.getTrSource(),</span>
+<span class="nc" id="L303">                            ctx.f.getTrDesc(),</span>
+<span class="nc" id="L304">                            ctx.f.getTrAmt(),</span>
+<span class="nc" id="L305">                            ctx.f.getTrMerchantId(),</span>
+<span class="nc" id="L306">                            ctx.f.getTrMerchantName(),</span>
+<span class="nc" id="L307">                            ctx.f.getTrMerchantCity(),</span>
+<span class="nc" id="L308">                            ctx.f.getTrMerchantZip(),</span>
+<span class="nc" id="L309">                            ctx.f.getTrCardNum(),</span>
+<span class="nc" id="L310">                            ctx.f.getTrOrigTs(),</span>
+<span class="nc" id="L311">                            ctx.f.getTrProcTs());</span>
+<span class="nc" id="L312">            ctx.f.setSqlcode(</span>
+<span class="nc bnc" id="L313" title="All 2 branches missed.">                    _sqlResult.get(&quot;SQLCODE&quot;) != null ? (Integer) _sqlResult.get(&quot;SQLCODE&quot;) : 0);</span>
+        }
+<span class="nc bnc" id="L315" title="All 2 branches missed.">        switch (ctx.f.getSqlcode()) {</span>
+            case 0 -&gt; {
+<span class="nc" id="L317">                ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L318">            }</span>
+            default -&gt; {
+<span class="nc" id="L320">                ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L321">                ctx.f.setErrmsgo(&quot;Error inserting transaction row.&quot;);</span>
+            }
+        }
+<span class="nc" id="L324">    }</span>
+
+    /** COBOL paragraph: 7000-XCTL-MENU */
+    private void transferToMenuProgram(TaskContext ctx) {
+<span class="nc" id="L328">        ctx.f.setCaFromProgram(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L329">        ctx.f.setCaFromTranid(ctx.f.getWsTranid());</span>
+<span class="nc" id="L330">        ctx.f.setCaPgmContext(0);</span>
+<span class="nc" id="L331">        ctx.appService.xctl(</span>
+<span class="nc" id="L332">                ctx.f.getWsMenuPgm(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L333">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L334">    }</span>
+
+    /** COBOL paragraph: 8000-POPULATE-HEADER */
+    private void populateScreenHeader(TaskContext ctx) {
+<span class="nc" id="L338">        ctx.f.setTrnnameo(ctx.f.getWsTranid());</span>
+<span class="nc" id="L339">        ctx.f.setPgmnameo(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L340">        ctx.f.setTitleo(ctx.f.getWsHdrTitle());</span>
+<span class="nc" id="L341">        loadCurrentDateTime(ctx);</span>
+<span class="nc" id="L342">        ctx.f.setCurdateo(ctx.f.getWsHdrDate());</span>
+<span class="nc" id="L343">        ctx.f.setCurtimeo(ctx.f.getWsHdrTime());</span>
+<span class="nc" id="L344">    }</span>
+
+    /** COBOL paragraph: 8100-SEND-DATAONLY */
+    private void sendDataOnlyScreen(TaskContext ctx) {
+<span class="nc" id="L348">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L349">        ctx.appService.sendMap(</span>
+                &quot;MTRANAA&quot;, ctx.f, ctx.f, /* erase */ false, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L351">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L352">    }</span>
+
+    /** COBOL paragraph: 8500-GET-DATE-TIME */
+    private void loadCurrentDateTime(TaskContext ctx) {
+<span class="nc" id="L356">        ctx.appService.askTime();</span>
+<span class="nc" id="L357">        com.appruntime.FormatTimeResult _ftResult =</span>
+<span class="nc" id="L358">                ctx.appService.formatTime(null, &quot;YYYYMMDD&quot;, &quot;-&quot;, &quot;:&quot;);</span>
+<span class="nc" id="L359">        ctx.f.setWsHdrDate(_ftResult.getDate());</span>
+<span class="nc" id="L360">        ctx.f.setWsHdrTime(_ftResult.getTime());</span>
+<span class="nc" id="L361">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L362">    }</span>
+
+    /** COBOL paragraph: 9000-RETURN */
+    private void returnToCics(TaskContext ctx) {
+<span class="nc" id="L366">        ctx.appService.returnTransid(</span>
+<span class="nc" id="L367">                ctx.f.getWsTranid(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L368">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OdtranaFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L381">        final OdtranaLinkParm link = new OdtranaLinkParm();</span>
+
+        OdtranaDao dao;
+
+<span class="nc" id="L385">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L386">            this.appService = appService;</span>
+<span class="nc" id="L387">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L388">            this.f = new OdtranaFields(ws);</span>
+<span class="nc" id="L389">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

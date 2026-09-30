@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OumqreqService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUMQREQ Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.oumqreq.service</a> &gt; <span class="el_source">OumqreqService.java</span></div><h1>OumqreqService.java</h1><pre class="source lang-java linenums">package com.generated.orion.oumqreq.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.oumqreq.accessor.OumqreqFields;
+import com.generated.orion.oumqreq.metadata.OumqreqBmsMetadata;
+import com.generated.orion.oumqreq.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OUMQREQ. */
+@Service
+<span class="nc" id="L20">public class OumqreqService implements AppProgram {</span>
+<span class="nc" id="L21">    private static final Logger log = LoggerFactory.getLogger(OumqreqService.class);</span>
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L29">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc bnc" id="L30" title="All 4 branches missed.">        if (ctx.appService.getEibcalen() &gt; 0 &amp;&amp; ctx.appService.getCommarea() != null) {</span>
+<span class="nc" id="L31">            Object _commarea = ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            if (_commarea instanceof Object[]) {</span>
+<span class="nc" id="L33">                Object[] _params = (Object[]) _commarea;</span>
+<span class="nc bnc" id="L34" title="All 4 branches missed.">                if (_params.length &gt; 0 &amp;&amp; _params[0] instanceof byte[]) {</span>
+<span class="nc" id="L35">                    ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _params[0]);</span>
+<span class="nc bnc" id="L36" title="All 4 branches missed.">                } else if (_params.length &gt; 0 &amp;&amp; _params[0] != null) {</span>
+<span class="nc" id="L37">                    ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_params[0]));</span>
+                }
+<span class="nc bnc" id="L39" title="All 2 branches missed.">            } else if (_commarea instanceof byte[]) {</span>
+<span class="nc" id="L40">                ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _commarea);</span>
+            } else {
+<span class="nc" id="L42">                ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_commarea));</span>
+            }
+        }
+        try {
+<span class="nc" id="L46">            runMainProgram(ctx);</span>
+        } finally {
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            if (ctx.appService.getEibcalen() &gt; 0) {</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                if (ctx.appService.getCommarea() instanceof Object[]) {</span>
+<span class="nc" id="L50">                    Object[] _params = (Object[]) ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                    if (_params.length &gt; 0) {</span>
+<span class="nc" id="L52">                        _params[0] =</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                                _params[0] instanceof byte[]</span>
+<span class="nc" id="L54">                                        ? (Object) ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;)</span>
+<span class="nc" id="L55">                                        : (Object) ctx.f.groupToString(&quot;ORION-COMMAREA&quot;);</span>
+                    }
+<span class="nc" id="L57">                } else {</span>
+<span class="nc" id="L58">                    ctx.appService.setCommarea(ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;));</span>
+                }
+            }
+        }
+<span class="nc" id="L62">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L66">        return &quot;OUMQREQ&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L71">        return OumqreqBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L76">        OumqreqBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L77">    }</span>
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainProgram(TaskContext ctx) {
+<span class="nc" id="L81">        ctx.f.aliasGroup(&quot;AUTH-MSG-AREA&quot;, &quot;CA-WORK-AREA&quot;);</span>
+<span class="nc" id="L82">        initializeProgram(ctx);</span>
+<span class="nc" id="L83">        buildAuthRequest(ctx);</span>
+<span class="nc" id="L84">        performLocalAuthorization(ctx);</span>
+<span class="nc" id="L85">        putAuthRequestToQueue(ctx);</span>
+<span class="nc" id="L86">        getAuthReplyFromQueue(ctx);</span>
+<span class="nc" id="L87">        finalizeResponse(ctx);</span>
+<span class="nc" id="L88">        return;</span>
+    }
+
+    /** COBOL paragraph: 1000-INITIALIZE */
+    private void initializeProgram(TaskContext ctx) {
+<span class="nc" id="L93">        ctx.f.setString(&quot;WS-MQ-DOWN-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L94">        ctx.f.setString(&quot;WS-IO-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L95">        ctx.f.setMqHconn(ctx.f.getMqHcDefHconn());</span>
+<span class="nc" id="L96">        ctx.f.setMqHobjOut(0);</span>
+<span class="nc" id="L97">        ctx.f.setMqHobjRpy(0);</span>
+<span class="nc" id="L98">        ctx.f.setCaErrMsg(&quot; &quot;);</span>
+<span class="nc" id="L99">    }</span>
+
+    /** COBOL paragraph: 2000-BUILD-REQUEST */
+    private void buildAuthRequest(TaskContext ctx) {
+<span class="nc" id="L103">        ctx.f.setAqMsgType(&quot;AREQ&quot;);</span>
+<span class="nc" id="L104">        getCurrentTimestamp(ctx);</span>
+<span class="nc" id="L105">        ctx.f.copyBytes(&quot;AQ-REQUESTED-TS&quot;, &quot;WS-STAMP&quot;);</span>
+<span class="nc" id="L106">        ctx.f.setAuthResponse(&quot; &quot;);</span>
+<span class="nc" id="L107">        ctx.f.setAsMsgType(&quot;ARSP&quot;);</span>
+<span class="nc" id="L108">        ctx.f.setAsCardNum(ctx.f.getAqCardNum());</span>
+<span class="nc" id="L109">        ctx.f.setAsAcctId(0);</span>
+<span class="nc" id="L110">        ctx.f.setAsApprovedAmt(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L111">        ctx.f.setAsAvailCredit(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L112">        ctx.f.setAsReason(&quot; &quot;);</span>
+<span class="nc" id="L113">    }</span>
+
+    /** COBOL paragraph: 3000-LOCAL-AUTHORIZE */
+    private void performLocalAuthorization(TaskContext ctx) {
+<span class="nc" id="L117">        ctx.f.setString(&quot;WS-IO-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L118">        ctx.f.setXrCardNum(ctx.f.getAqCardNum());</span>
+<span class="nc" id="L119">        readCardXref(ctx);</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        if (ctx.f.getWsIoFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L121">            ctx.f.setString(&quot;AS-DECISION&quot;, &quot;ERROR   &quot;);</span>
+<span class="nc" id="L122">            ctx.f.setAsReason(&quot;FILE READ ERROR&quot;);</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        } else if (ctx.f.getWsFoundFlg().equals(&quot;N&quot;)) {</span>
+<span class="nc" id="L124">            ctx.f.setString(&quot;AS-DECISION&quot;, &quot;DECLINED&quot;);</span>
+<span class="nc" id="L125">            ctx.f.setAsReason(&quot;CARD NOT FOUND&quot;);</span>
+<span class="nc" id="L126">            ctx.f.setAsApprovedAmt(java.math.BigDecimal.valueOf(0));</span>
+        } else {
+<span class="nc" id="L128">            ctx.f.setAcId(ctx.f.getXrAcctId());</span>
+<span class="nc" id="L129">            ctx.f.setAqAcctId(ctx.f.getXrAcctId());</span>
+<span class="nc" id="L130">            ctx.f.setAsAcctId(ctx.f.getXrAcctId());</span>
+<span class="nc" id="L131">            readAccountRecord(ctx);</span>
+<span class="nc" id="L132">            evaluateAccountStatus(ctx);</span>
+        }
+<span class="nc" id="L134">    }</span>
+
+    /** COBOL paragraph: 3100-READ-XREF */
+    private void readCardXref(TaskContext ctx) {
+<span class="nc" id="L138">        ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L139">        ctx.appService.readFile(</span>
+<span class="nc" id="L140">                ctx.f.getWsXreffile(), ctx.f, String.valueOf(ctx.f.getXrCardNum()), 0);</span>
+<span class="nc" id="L141">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L143">            ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L145">            ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+        } else {
+<span class="nc" id="L147">            ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L148">            ctx.f.setString(&quot;WS-IO-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L149">            log.info(</span>
+                    &quot;OUMQREQ: XREF READ RESP={}&quot;,
+<span class="nc" id="L151">                    String.format(&quot;%+010d&quot;, (long) (ctx.f.getWsRespCd())));</span>
+        }
+<span class="nc" id="L153">    }</span>
+
+    /** COBOL paragraph: 3200-READ-ACCT */
+    private void readAccountRecord(TaskContext ctx) {
+<span class="nc" id="L157">        ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L158">        ctx.appService.readFile(ctx.f.getWsAcctfile(), ctx.f, String.valueOf(ctx.f.getAcId()), 0);</span>
+<span class="nc" id="L159">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L161">            ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L163">            ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+        } else {
+<span class="nc" id="L165">            ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L166">            ctx.f.setString(&quot;WS-IO-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L167">            log.info(</span>
+                    &quot;OUMQREQ: ACCT READ RESP={}&quot;,
+<span class="nc" id="L169">                    String.format(&quot;%+010d&quot;, (long) (ctx.f.getWsRespCd())));</span>
+        }
+<span class="nc" id="L171">    }</span>
+
+    /** COBOL paragraph: 3300-EVALUATE-ACCT */
+    private void evaluateAccountStatus(TaskContext ctx) {
+<span class="nc bnc" id="L175" title="All 2 branches missed.">        if (ctx.f.getWsIoFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L176">            ctx.f.setString(&quot;AS-DECISION&quot;, &quot;ERROR   &quot;);</span>
+<span class="nc" id="L177">            ctx.f.setAsReason(&quot;FILE READ ERROR&quot;);</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">        } else if (ctx.f.getWsFoundFlg().equals(&quot;N&quot;)) {</span>
+<span class="nc" id="L179">            ctx.f.setString(&quot;AS-DECISION&quot;, &quot;DECLINED&quot;);</span>
+<span class="nc" id="L180">            ctx.f.setAsReason(&quot;ACCOUNT NOT FOUND&quot;);</span>
+<span class="nc" id="L181">            ctx.f.setAsApprovedAmt(java.math.BigDecimal.valueOf(0));</span>
+        } else {
+<span class="nc" id="L183">            decideAuthorization(ctx);</span>
+        }
+<span class="nc" id="L185">    }</span>
+
+    /** COBOL paragraph: 3600-DECIDE */
+    private void decideAuthorization(TaskContext ctx) {
+<span class="nc" id="L189">        ctx.f.setWsAmt(ctx.f.getAcCreditLimit().subtract(ctx.f.getAcCurrBal()));</span>
+<span class="nc" id="L190">        ctx.f.setAsAvailCredit(ctx.f.getWsAmt());</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">        if (!Utility.fieldEquals(ctx.f.getAcActiveStatus(), &quot;Y&quot;)) {</span>
+<span class="nc" id="L192">            ctx.f.setString(&quot;AS-DECISION&quot;, &quot;DECLINED&quot;);</span>
+<span class="nc" id="L193">            ctx.f.setAsReason(&quot;ACCOUNT INACTIVE&quot;);</span>
+<span class="nc" id="L194">            ctx.f.setAsApprovedAmt(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">        } else if ((ctx.f.getAqAmount().compareTo(ctx.f.getWsAmt()) &gt; 0)) {</span>
+<span class="nc" id="L196">            ctx.f.setString(&quot;AS-DECISION&quot;, &quot;DECLINED&quot;);</span>
+<span class="nc" id="L197">            ctx.f.setAsReason(&quot;INSUFFICIENT CREDIT&quot;);</span>
+<span class="nc" id="L198">            ctx.f.setAsApprovedAmt(java.math.BigDecimal.valueOf(0));</span>
+        } else {
+<span class="nc" id="L200">            ctx.f.setString(&quot;AS-DECISION&quot;, &quot;APPROVED&quot;);</span>
+<span class="nc" id="L201">            ctx.f.setAsReason(&quot;APPROVED OK&quot;);</span>
+<span class="nc" id="L202">            ctx.f.setAsApprovedAmt(ctx.f.getAqAmount());</span>
+        }
+<span class="nc" id="L204">    }</span>
+
+    /** COBOL paragraph: 4000-PUT-REQUEST */
+    private void putAuthRequestToQueue(TaskContext ctx) {
+<span class="nc" id="L208">        ctx.f.setMqOdObjectName(ctx.f.getWsReqQueue());</span>
+<span class="nc" id="L209">        ctx.f.setMqOpenOptions((ctx.f.getMqOoOutput() + ctx.f.getMqOoFailIfQsg()));</span>
+<span class="nc" id="L210">        ctx.f.setWsMqOp(&quot;MQOPEN  &quot;);</span>
+<span class="nc" id="L211">        Object[] _mq0 =</span>
+                new Object[] {
+<span class="nc" id="L213">                    ctx.f.getMqHconn(),</span>
+                    new com.appruntime.GroupRef(ctx.f, &quot;MQ-OD&quot;),
+<span class="nc" id="L215">                    ctx.f.getMqOpenOptions(),</span>
+<span class="nc" id="L216">                    ctx.f.getMqHobjOut(),</span>
+<span class="nc" id="L217">                    ctx.f.getMqCc(),</span>
+<span class="nc" id="L218">                    ctx.f.getMqRc()</span>
+                };
+<span class="nc" id="L220">        ctx.appService.callProgram(&quot;MQOPEN&quot;, _mq0);</span>
+<span class="nc bnc" id="L221" title="All 2 branches missed.">        if (_mq0[3] != null) {</span>
+<span class="nc" id="L222">            ctx.f.setMqHobjOut(((Number) _mq0[3]).intValue());</span>
+        }
+<span class="nc bnc" id="L224" title="All 2 branches missed.">        if (_mq0[4] != null) {</span>
+<span class="nc" id="L225">            ctx.f.setMqCc(((Number) _mq0[4]).intValue());</span>
+        }
+<span class="nc bnc" id="L227" title="All 2 branches missed.">        if (_mq0[5] != null) {</span>
+<span class="nc" id="L228">            ctx.f.setMqRc(((Number) _mq0[5]).intValue());</span>
+        }
+<span class="nc" id="L230">        checkMqStatus(ctx);</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">        if (ctx.f.getWsMqDownFlg().equals(&quot;N&quot;)) {</span>
+<span class="nc" id="L232">            putMqRequestMessage(ctx);</span>
+        }
+<span class="nc" id="L234">    }</span>
+
+    /** COBOL paragraph: 4100-PUT-MSG */
+    private void putMqRequestMessage(TaskContext ctx) {
+<span class="nc" id="L238">        ctx.f.setMqMdMsgType(ctx.f.getMqMtRequest());</span>
+<span class="nc" id="L239">        ctx.f.setMqMdFormat(&quot;MQSTR   &quot;);</span>
+<span class="nc" id="L240">        ctx.f.setMqMdReplyQ(ctx.f.getWsRpyQueue());</span>
+<span class="nc" id="L241">        ctx.f.setMqPmoOptions(ctx.f.getMqPmNoSyncpoint());</span>
+<span class="nc" id="L242">        ctx.f.setMqBufferLen(160);</span>
+<span class="nc" id="L243">        ctx.f.setWsMqOp(&quot;MQPUT   &quot;);</span>
+<span class="nc" id="L244">        Object[] _mq1 =</span>
+                new Object[] {
+<span class="nc" id="L246">                    ctx.f.getMqHconn(),</span>
+<span class="nc" id="L247">                    ctx.f.getMqHobjOut(),</span>
+                    new com.appruntime.GroupRef(ctx.f, &quot;MQ-MD&quot;),
+                    new com.appruntime.GroupRef(ctx.f, &quot;MQ-PMO&quot;),
+<span class="nc" id="L250">                    ctx.f.getMqBufferLen(),</span>
+                    new com.appruntime.GroupRef(ctx.f, &quot;AUTH-REQUEST&quot;),
+<span class="nc" id="L252">                    ctx.f.getMqCc(),</span>
+<span class="nc" id="L253">                    ctx.f.getMqRc()</span>
+                };
+<span class="nc" id="L255">        ctx.appService.callProgram(&quot;MQPUT&quot;, _mq1);</span>
+<span class="nc bnc" id="L256" title="All 2 branches missed.">        if (_mq1[6] != null) {</span>
+<span class="nc" id="L257">            ctx.f.setMqCc(((Number) _mq1[6]).intValue());</span>
+        }
+<span class="nc bnc" id="L259" title="All 2 branches missed.">        if (_mq1[7] != null) {</span>
+<span class="nc" id="L260">            ctx.f.setMqRc(((Number) _mq1[7]).intValue());</span>
+        }
+<span class="nc" id="L262">        checkMqStatus(ctx);</span>
+<span class="nc" id="L263">        ctx.f.setMqCloseOptions(ctx.f.getMqClNone());</span>
+<span class="nc" id="L264">        ctx.f.setWsMqOp(&quot;MQCLOSE &quot;);</span>
+<span class="nc" id="L265">        Object[] _mq2 =</span>
+                new Object[] {
+<span class="nc" id="L267">                    ctx.f.getMqHconn(),</span>
+<span class="nc" id="L268">                    ctx.f.getMqHobjOut(),</span>
+<span class="nc" id="L269">                    ctx.f.getMqCloseOptions(),</span>
+<span class="nc" id="L270">                    ctx.f.getMqCc(),</span>
+<span class="nc" id="L271">                    ctx.f.getMqRc()</span>
+                };
+<span class="nc" id="L273">        ctx.appService.callProgram(&quot;MQCLOSE&quot;, _mq2);</span>
+<span class="nc bnc" id="L274" title="All 2 branches missed.">        if (_mq2[3] != null) {</span>
+<span class="nc" id="L275">            ctx.f.setMqCc(((Number) _mq2[3]).intValue());</span>
+        }
+<span class="nc bnc" id="L277" title="All 2 branches missed.">        if (_mq2[4] != null) {</span>
+<span class="nc" id="L278">            ctx.f.setMqRc(((Number) _mq2[4]).intValue());</span>
+        }
+<span class="nc" id="L280">        checkMqStatus(ctx);</span>
+<span class="nc" id="L281">    }</span>
+
+    /** COBOL paragraph: 5000-GET-REPLY */
+    private void getAuthReplyFromQueue(TaskContext ctx) {
+<span class="nc" id="L285">        ctx.f.setMqOdObjectName(ctx.f.getWsRpyQueue());</span>
+<span class="nc" id="L286">        ctx.f.setMqOpenOptions((ctx.f.getMqOoInputShared() + ctx.f.getMqOoFailIfQsg()));</span>
+<span class="nc" id="L287">        ctx.f.setWsMqOp(&quot;MQOPEN  &quot;);</span>
+<span class="nc" id="L288">        Object[] _mq3 =</span>
+                new Object[] {
+<span class="nc" id="L290">                    ctx.f.getMqHconn(),</span>
+                    new com.appruntime.GroupRef(ctx.f, &quot;MQ-OD&quot;),
+<span class="nc" id="L292">                    ctx.f.getMqOpenOptions(),</span>
+<span class="nc" id="L293">                    ctx.f.getMqHobjRpy(),</span>
+<span class="nc" id="L294">                    ctx.f.getMqCc(),</span>
+<span class="nc" id="L295">                    ctx.f.getMqRc()</span>
+                };
+<span class="nc" id="L297">        ctx.appService.callProgram(&quot;MQOPEN&quot;, _mq3);</span>
+<span class="nc bnc" id="L298" title="All 2 branches missed.">        if (_mq3[3] != null) {</span>
+<span class="nc" id="L299">            ctx.f.setMqHobjRpy(((Number) _mq3[3]).intValue());</span>
+        }
+<span class="nc bnc" id="L301" title="All 2 branches missed.">        if (_mq3[4] != null) {</span>
+<span class="nc" id="L302">            ctx.f.setMqCc(((Number) _mq3[4]).intValue());</span>
+        }
+<span class="nc bnc" id="L304" title="All 2 branches missed.">        if (_mq3[5] != null) {</span>
+<span class="nc" id="L305">            ctx.f.setMqRc(((Number) _mq3[5]).intValue());</span>
+        }
+<span class="nc" id="L307">        checkMqStatus(ctx);</span>
+<span class="nc bnc" id="L308" title="All 2 branches missed.">        if (ctx.f.getWsMqDownFlg().equals(&quot;N&quot;)) {</span>
+<span class="nc" id="L309">            getMqReplyMessage(ctx);</span>
+        }
+<span class="nc" id="L311">    }</span>
+
+    /** COBOL paragraph: 5100-GET-MSG */
+    private void getMqReplyMessage(TaskContext ctx) {
+<span class="nc" id="L315">        ctx.f.setMqGmoOptions((ctx.f.getMqGmWait() + ctx.f.getMqGmNoSyncpoint()));</span>
+<span class="nc" id="L316">        ctx.f.setMqBufferLen(300);</span>
+<span class="nc" id="L317">        ctx.f.fillLowValues(&quot;MQ-MD-MSG-ID&quot;);</span>
+<span class="nc" id="L318">        ctx.f.fillLowValues(&quot;MQ-MD-CORREL-ID&quot;);</span>
+<span class="nc" id="L319">        ctx.f.setWsMqOp(&quot;MQGET   &quot;);</span>
+<span class="nc" id="L320">        Object[] _mq4 =</span>
+                new Object[] {
+<span class="nc" id="L322">                    ctx.f.getMqHconn(),</span>
+<span class="nc" id="L323">                    ctx.f.getMqHobjRpy(),</span>
+                    new com.appruntime.GroupRef(ctx.f, &quot;MQ-MD&quot;),
+                    new com.appruntime.GroupRef(ctx.f, &quot;MQ-GMO&quot;),
+<span class="nc" id="L326">                    ctx.f.getMqBufferLen(),</span>
+<span class="nc" id="L327">                    ctx.f.getWsReplyBuf(),</span>
+<span class="nc" id="L328">                    ctx.f.getMqDataLen(),</span>
+<span class="nc" id="L329">                    ctx.f.getMqCc(),</span>
+<span class="nc" id="L330">                    ctx.f.getMqRc()</span>
+                };
+<span class="nc" id="L332">        ctx.appService.callProgram(&quot;MQGET&quot;, _mq4);</span>
+<span class="nc bnc" id="L333" title="All 2 branches missed.">        if (_mq4[5] != null) {</span>
+<span class="nc" id="L334">            ctx.f.setWsReplyBuf(String.valueOf(_mq4[5]));</span>
+        }
+<span class="nc bnc" id="L336" title="All 2 branches missed.">        if (_mq4[6] != null) {</span>
+<span class="nc" id="L337">            ctx.f.setMqDataLen(((Number) _mq4[6]).intValue());</span>
+        }
+<span class="nc bnc" id="L339" title="All 2 branches missed.">        if (_mq4[7] != null) {</span>
+<span class="nc" id="L340">            ctx.f.setMqCc(((Number) _mq4[7]).intValue());</span>
+        }
+<span class="nc bnc" id="L342" title="All 2 branches missed.">        if (_mq4[8] != null) {</span>
+<span class="nc" id="L343">            ctx.f.setMqRc(((Number) _mq4[8]).intValue());</span>
+        }
+<span class="nc bnc" id="L345" title="All 2 branches missed.">        if (ctx.f.getMqCc() == 0) {</span>
+<span class="nc" id="L346">            log.info(</span>
+                    &quot;OUMQREQ: reply received len={}&quot;,
+<span class="nc" id="L348">                    String.format(&quot;%+010d&quot;, (long) (ctx.f.getMqDataLen())));</span>
+        } else {
+<span class="nc bnc" id="L350" title="All 2 branches missed.">            if (ctx.f.getMqRc() == 2033) {</span>
+<span class="nc" id="L351">                log.info(&quot;OUMQREQ: no reply queued - local decision&quot;);</span>
+            } else {
+<span class="nc" id="L353">                checkMqStatus(ctx);</span>
+            }
+        }
+<span class="nc" id="L356">        ctx.f.setMqCloseOptions(ctx.f.getMqClNone());</span>
+<span class="nc" id="L357">        ctx.f.setWsMqOp(&quot;MQCLOSE &quot;);</span>
+<span class="nc" id="L358">        Object[] _mq5 =</span>
+                new Object[] {
+<span class="nc" id="L360">                    ctx.f.getMqHconn(),</span>
+<span class="nc" id="L361">                    ctx.f.getMqHobjRpy(),</span>
+<span class="nc" id="L362">                    ctx.f.getMqCloseOptions(),</span>
+<span class="nc" id="L363">                    ctx.f.getMqCc(),</span>
+<span class="nc" id="L364">                    ctx.f.getMqRc()</span>
+                };
+<span class="nc" id="L366">        ctx.appService.callProgram(&quot;MQCLOSE&quot;, _mq5);</span>
+<span class="nc bnc" id="L367" title="All 2 branches missed.">        if (_mq5[3] != null) {</span>
+<span class="nc" id="L368">            ctx.f.setMqCc(((Number) _mq5[3]).intValue());</span>
+        }
+<span class="nc bnc" id="L370" title="All 2 branches missed.">        if (_mq5[4] != null) {</span>
+<span class="nc" id="L371">            ctx.f.setMqRc(((Number) _mq5[4]).intValue());</span>
+        }
+<span class="nc" id="L373">        checkMqStatus(ctx);</span>
+<span class="nc" id="L374">    }</span>
+
+    /** COBOL paragraph: 8000-CHECK-MQ */
+    private void checkMqStatus(TaskContext ctx) {
+<span class="nc bnc" id="L378" title="All 2 branches missed.">        if (ctx.f.getMqCc() == 0) {</span>
+            /* CONTINUE */
+        } else {
+<span class="nc" id="L381">            ctx.f.setString(&quot;WS-MQ-DOWN-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L382">            log.info(</span>
+                    &quot;OUMQREQ: {} FAILED CC={} RC={}&quot;,
+<span class="nc" id="L384">                    ctx.f.getWsMqOp(),</span>
+<span class="nc" id="L385">                    String.format(&quot;%+010d&quot;, (long) (ctx.f.getMqCc())),</span>
+<span class="nc" id="L386">                    String.format(&quot;%+010d&quot;, (long) (ctx.f.getMqRc())));</span>
+        }
+<span class="nc" id="L388">    }</span>
+
+    /** COBOL paragraph: 8500-GET-STAMP */
+    private void getCurrentTimestamp(TaskContext ctx) {
+<span class="nc" id="L392">        ctx.appService.askTime();</span>
+<span class="nc" id="L393">        com.appruntime.FormatTimeResult _ftResult =</span>
+<span class="nc" id="L394">                ctx.appService.formatTime(null, &quot;YYYYMMDD&quot;, &quot;-&quot;, &quot;:&quot;);</span>
+<span class="nc" id="L395">        ctx.f.setWsStDate(_ftResult.getDate());</span>
+<span class="nc" id="L396">        ctx.f.setWsStTime(_ftResult.getTime());</span>
+<span class="nc" id="L397">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L398">    }</span>
+
+    /** COBOL paragraph: 9000-FINALIZE */
+    private void finalizeResponse(TaskContext ctx) {
+<span class="nc" id="L402">        getCurrentTimestamp(ctx);</span>
+<span class="nc" id="L403">        ctx.f.copyBytes(&quot;AS-RESPONSE-TS&quot;, &quot;WS-STAMP&quot;);</span>
+<span class="nc bnc" id="L404" title="All 2 branches missed.">        if (ctx.f.getAsDecision().equals(&quot;ERROR   &quot;)) {</span>
+<span class="nc" id="L405">            ctx.f.setString(&quot;CA-ERR-FLG&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L407">            ctx.f.setString(&quot;CA-ERR-FLG&quot;, &quot;N&quot;);</span>
+        }
+        {
+<span class="nc" id="L410">            StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L411">            sb.append(String.valueOf(&quot;AUTH &quot;));</span>
+<span class="nc" id="L412">            sb.append(String.valueOf(ctx.f.getAsDecision()));</span>
+<span class="nc" id="L413">            sb.append(String.valueOf(&quot; - &quot;));</span>
+<span class="nc" id="L414">            sb.append(String.valueOf(ctx.f.getAsReason()));</span>
+<span class="nc" id="L415">            ctx.f.setCaErrMsg(sb.toString());</span>
+        }
+<span class="nc" id="L417">        log.info(&quot;OUMQREQ: card {} decision {}&quot;, ctx.f.getAsCardNum(), ctx.f.getAsDecision());</span>
+<span class="nc" id="L418">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OumqreqFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L431">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L432">            this.appService = appService;</span>
+<span class="nc" id="L433">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L434">            this.f = new OumqreqFields(ws);</span>
+<span class="nc" id="L435">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

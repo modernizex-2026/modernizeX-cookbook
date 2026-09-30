@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : OUIMSPA_WS
+-->
+<dataLayout name="OUIMSPA_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="8">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="SQLCODE" offset="4" size="4" javaType="int" value="0" usage="BINARY"/>
+  </group>
+  <group name="WS-PROGRAM-VARS" offset="0" size="18">
+    <field name="WS-PGMNAME" offset="0" size="8" javaType="String" value="OUIMSPA"/>
+    <field name="WS-DLI-FUNC" offset="8" size="4" javaType="String" value="SPACES"/>
+    <field name="WS-DLI-STATUS" offset="12" size="2" javaType="String" value="SPACES"/>
+    <field name="WS-CALL-COUNT" offset="14" size="4" javaType="int" value="ZEROS"/>
+  </group>
+  <group name="WS-PAU-LINK" offset="0" size="264">
+    <field name="WS-PL-FUNC" offset="0" size="4" javaType="String"/>
+    <field name="WS-PL-KEY" offset="4" size="16" javaType="String"/>
+    <field name="WS-PL-STATUS" offset="20" size="2" javaType="String"/>
+    <field name="WS-PL-MSG" offset="22" size="40" javaType="String"/>
+    <field name="WS-PL-DLI-STAT" offset="62" size="2" javaType="String"/>
+    <field name="WS-PL-SEGMENT" offset="64" size="200" javaType="String"/>
+  </group>
+  <group name="ODLI-FUNCTIONS" offset="0" size="32">
+    <field name="ODLI-GU" offset="0" size="4" javaType="String" value="GU  "/>
+    <field name="ODLI-GHU" offset="4" size="4" javaType="String" value="GHU "/>
+    <field name="ODLI-GN" offset="8" size="4" javaType="String" value="GN  "/>
+    <field name="ODLI-GHN" offset="12" size="4" javaType="String" value="GHN "/>
+    <field name="ODLI-GNP" offset="16" size="4" javaType="String" value="GNP "/>
+    <field name="ODLI-ISRT" offset="20" size="4" javaType="String" value="ISRT"/>
+    <field name="ODLI-REPL" offset="24" size="4" javaType="String" value="REPL"/>
+    <field name="ODLI-DLET" offset="28" size="4" javaType="String" value="DLET"/>
+  </group>
+  <group name="ODLI-STATUS" offset="0" size="12">
+    <field name="ODLI-ST-OK" offset="0" size="2" javaType="String" value="  "/>
+    <field name="ODLI-ST-NOTFOUND" offset="2" size="2" javaType="String" value="GE"/>
+    <field name="ODLI-ST-ENDDB" offset="4" size="2" javaType="String" value="GB"/>
+    <field name="ODLI-ST-NOTPOS" offset="6" size="2" javaType="String" value="GA"/>
+    <field name="ODLI-ST-DUP" offset="8" size="2" javaType="String" value="II"/>
+    <field name="ODLI-ST-NOSPACE" offset="10" size="2" javaType="String" value="FR"/>
+  </group>
+  <group name="ODLI-RELOPS" offset="0" size="6">
+    <field name="ODLI-OP-EQ" offset="0" size="2" javaType="String" value=" ="/>
+    <field name="ODLI-OP-GT" offset="2" size="2" javaType="String" value="&gt; "/>
+    <field name="ODLI-OP-GE" offset="4" size="2" javaType="String" value="&gt;="/>
+  </group>
+  <group name="ODLI-SSA-PAUSEG" offset="0" size="36">
+    <field name="ODLI-SSA-SEGNAME" offset="0" size="8" javaType="String" value="PAUSEG  "/>
+    <field name="ODLI-SSA-LPAREN" offset="8" size="1" javaType="String" value="("/>
+    <field name="ODLI-SSA-FLDNAME" offset="9" size="8" javaType="String" value="PAAUTHID"/>
+    <field name="ODLI-SSA-RELOP" offset="17" size="2" javaType="String" value=" ="/>
+    <field name="ODLI-SSA-KEYVAL" offset="19" size="16" javaType="String" value="SPACES"/>
+    <field name="ODLI-SSA-RPAREN" offset="35" size="1" javaType="String" value=")"/>
+  </group>
+  <group name="ODLI-SSA-UNQUAL" offset="0" size="9">
+    <field name="ODLI-SSAU-SEGNAME" offset="0" size="8" javaType="String" value="PAUSEG  "/>
+    <field name="ODLI-SSAU-BLANK" offset="8" size="1" javaType="String" value=" "/>
+  </group>
+  <group name="ODLI-PCB-MASK" offset="0" size="52">
+    <field name="ODLI-PCB-DBD-NAME" offset="0" size="8" javaType="String"/>
+    <field name="ODLI-PCB-SEG-LEVEL" offset="8" size="2" javaType="String"/>
+    <field name="ODLI-PCB-STATUS" offset="10" size="2" javaType="String"/>
+    <field name="ODLI-PCB-PROC-OPTS" offset="12" size="4" javaType="String"/>
+    <field name="ODLI-PCB-RESERVED" offset="16" size="4" javaType="int" signed="true" usage="BINARY"/>
+    <field name="ODLI-PCB-SEG-NAME" offset="20" size="8" javaType="String"/>
+    <field name="ODLI-PCB-KFB-LEN" offset="28" size="4" javaType="int" signed="true" usage="BINARY"/>
+    <field name="ODLI-PCB-SENSEGS" offset="32" size="4" javaType="int" signed="true" usage="BINARY"/>
+    <field name="ODLI-PCB-KEY-FB" offset="36" size="16" javaType="String"/>
+  </group>
+  <group name="PAUSEG-REC" offset="0" size="200">
+    <field name="PA-AUTH-ID" offset="0" size="16" javaType="String"/>
+    <field name="PA-CARD-NUM" offset="16" size="16" javaType="String"/>
+    <field name="PA-ACCT-ID" offset="32" size="11" javaType="long"/>
+    <field name="PA-AMOUNT" offset="43" size="11" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="PA-MERCHANT" offset="54" size="50" javaType="String"/>
+    <field name="PA-REQUEST-TS" offset="104" size="26" javaType="String"/>
+    <field name="PA-STATUS" offset="130" size="1" javaType="String"/>
+    <group name="PA-DECISION" offset="131" size="65">
+      <field name="PA-DEC-CODE" offset="131" size="1" javaType="String"/>
+      <field name="PA-DEC-REASON" offset="132" size="30" javaType="String"/>
+      <field name="PA-DEC-USER" offset="162" size="8" javaType="String"/>
+      <field name="PA-DEC-TS" offset="170" size="26" javaType="String"/>
+    </group>
+    <field name="FILLER-196" offset="196" size="4" javaType="String"/>
+  </group>
+  <group name="ORION-COMMAREA" offset="0" size="692">
+    <group name="CA-GENERAL" offset="0" size="47">
+      <field name="CA-FROM-PROGRAM" offset="0" size="8" javaType="String"/>
+      <field name="CA-TO-PROGRAM" offset="8" size="8" javaType="String"/>
+      <field name="CA-FROM-TRANID" offset="16" size="4" javaType="String"/>
+      <field name="CA-TO-TRANID" offset="20" size="4" javaType="String"/>
+      <field name="CA-USER-ID" offset="24" size="8" javaType="String"/>
+      <field name="CA-USER-TYPE" offset="32" size="1" javaType="String"/>
+      <field name="CA-PGM-CONTEXT" offset="33" size="1" javaType="int"/>
+      <field name="CA-LAST-MAP" offset="34" size="7" javaType="String"/>
+      <field name="CA-LAST-MAPSET" offset="41" size="6" javaType="String"/>
+    </group>
+    <group name="CA-SELECTED" offset="47" size="52">
+      <field name="CA-ACCT-ID" offset="47" size="11" javaType="long"/>
+      <field name="CA-CARD-NUM" offset="58" size="16" javaType="String"/>
+      <field name="CA-CUST-ID" offset="74" size="9" javaType="int"/>
+      <field name="CA-TRAN-ID" offset="83" size="16" javaType="String"/>
+    </group>
+    <group name="CA-ERROR" offset="99" size="81">
+      <field name="CA-ERR-FLG" offset="99" size="1" javaType="String"/>
+      <field name="CA-ERR-MSG" offset="100" size="80" javaType="String"/>
+    </group>
+    <field name="CA-WORK-AREA" offset="180" size="512" javaType="String"/>
+  </group>
+</dataLayout>

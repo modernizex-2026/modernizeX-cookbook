@@ -1,0 +1,54 @@
+/* Design tokens — palette Tailwind-scale, gom từ 37 hex hardcode (tokenize 1:1, không đổi màu).
+ * Import 1 lần ở app entry (main.ts). Component/template dùng var(--c-*) thay hex.
+ * Lớp semantic (--color-*) alias để migrate dần sang naming theo vai trò. */
+:root {
+  /* neutral */
+  --c-white: #ffffff;  --c-black: #000000;
+  --c-gray-100: #f3f4f6; --c-gray-200: #e5e7eb; --c-gray-300: #d1d5db;
+  --c-gray-500: #6b7280; --c-gray-500b: #666666; --c-gray-550: #69707c;
+  --c-gray-600: #4b5563; --c-gray-700: #374151; --c-gray-800: #1f2937;
+  --c-surface-2: #eef0f2;
+  /* blue (primary) */
+  --c-blue-50: #eff6ff; --c-blue-100: #dbeafe; --c-blue-600: #2563eb;
+  --c-blue-800: #1e40af; --c-blue-900: #1e3a8a;
+  /* red (danger) */
+  --c-red-50: #fef2f2; --c-red-75: #ffeeee; --c-red-100: #fee2e2;
+  --c-red-legacy: #cc3333; --c-red-600: #dc2626; --c-red-900: #7f1d1d;
+  /* amber (warning) */
+  --c-amber-50: #fffbeb; --c-amber-75: #fff8ed; --c-amber-100: #fef3c7;
+  --c-amber-600: #d97706; --c-amber-900: #78350f;
+  /* emerald (success) */
+  --c-emerald-50: #f0fdf4; --c-emerald-100: #d1fae5; --c-emerald-600: #16a34a;
+  --c-emerald-800: #065f46; --c-emerald-900: #14532d;
+  /* violet (accent) */
+  --c-violet-100: #ede9fe; --c-violet-800: #5b21b6;
+  /* terminal */
+  --c-terminal-green: #00ff00;
+
+  /* semantic alias (khuyến khích dùng cho code mới) */
+  --color-surface: var(--c-white);       --color-surface-alt: var(--c-gray-100);
+  --color-border: var(--c-gray-300);     --color-border-subtle: var(--c-gray-200);
+  --color-text: var(--c-gray-800);       --color-text-muted: var(--c-gray-600);
+  --color-primary: var(--c-blue-600);    --color-primary-strong: var(--c-blue-800);
+  --color-danger: var(--c-red-600);      --color-success: var(--c-emerald-600);
+  --color-warning: var(--c-amber-600);   --color-accent: var(--c-violet-800);
+  /* layout — full-bleed shell; set a px value (e.g. 1280px) to cap + centre instead */
+  --screen-max-width: 100%;
+}
+
+/* bms-online-modernize: theme (dark-mode + presets) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-surface: #0f172a;      --color-surface-alt: #1e293b;
+    --color-border: #334155;       --color-border-subtle: #1e293b;
+    --color-text: #e2e8f0;         --color-text-muted: #94a3b8;
+    --color-primary: #60a5fa;      --color-primary-strong: #93c5fd;
+    --color-danger: #f87171;       --color-success: #34d399;
+    --color-warning: #fbbf24;      --color-accent: #c4b5fd;
+    --c-blue-50: #1e293b;          /* header chip bg → dark slate */
+  }
+}
+:root[data-theme="emerald"] {   /* brand preset — <html data-theme="emerald"> */
+  --color-primary: var(--c-emerald-600);  --color-primary-strong: var(--c-emerald-800);
+  --c-blue-50: var(--c-emerald-50);
+}

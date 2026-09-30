@@ -1,0 +1,351 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Data table — DataTable, list pages, form-style product grids
+   Tokens (--scr-table-*) are defined in design-tokens.css :root
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.scr-table-container {
+  overflow: auto;
+  max-height: 100%;
+  background-color: white;
+  /* border-top-left-radius: 12px;
+  border-top-right-radius: 12px; */
+  /* Slim scrollbar, hidden until hover (Firefox). Track stays reserved so the
+     content does not shift when the thumb fades in. */
+  scrollbar-width: thin;
+  /* scrollbar-color: transparent transparent; */
+}
+
+/* .scr-table-container:hover {
+  scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+} */
+
+/* Slim scrollbar, hidden until hover (WebKit/Chromium). */
+.scr-table-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scr-table-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scr-table-container::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.scr-table-container:hover::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.scr-table-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.scr-table-title {
+  margin-bottom: 10px;
+}
+
+.scr-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 12px;
+  table-layout: fixed;
+}
+
+.scr-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.scr-table th {
+  background: #4338CA;
+  color: var(--scr-table-header-fg);
+  padding: 8px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+
+.scr-table td {
+  padding: 4px 6px;
+  font-size: 13px;
+  border-bottom: 1px solid #e5e7eb;
+  color: var(--scr-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scr-table tbody tr:nth-child(even) td {
+  background: #F3F4F6;
+}
+
+.scr-table tbody tr:hover td {
+  background: #F3F4F6;
+  cursor: pointer;
+}
+
+/*
+ * row-level color tinting driven by the source-screen
+ * tag injected by useTerminalSocket displayRecordList dispatcher.
+ *
+ * COBOL SCREEN SECTION authors declare a `color="..."` attribute on each
+ * sub-screen (e.g. SC-DISP-GREEN colors "GREEN" for pending, SC-DISP-YELLOW
+ * colors "YELLOW" for approved). The xml-layout parser captures the colors
+ * into the manifest, but the per-field colors don't naturally compose into
+ * a per-row tint when the merged record list mixes sub-screens. The dispatcher
+ * tags each record with `__source = screenName`; list SFC templates project
+ * that tag onto the `<tr data-source="…">` attribute, and these selectors paint
+ * a subtle background tint that survives :nth-child(even) and :hover.
+ *
+ * Tints use the same hue family as the legacy NEC WEBCOBOL terminal colors
+ * (GREEN/YELLOW) but at low saturation so they read as state-indicator
+ * background, not as foreground text emphasis.
+ */
+.scr-table tbody tr[data-source$='-GREEN'] td,
+.scr-table tbody tr[data-source$='-GREEN']:nth-child(even) td {
+  background: #ecfdf5;
+  /* very light green — pending/draft */
+}
+
+.scr-table tbody tr[data-source$='-YELLOW'] td,
+.scr-table tbody tr[data-source$='-YELLOW']:nth-child(even) td {
+  background: #fefce8;
+  /* very light yellow — approved */
+}
+
+.scr-table tbody tr[data-source$='-RED'] td,
+.scr-table tbody tr[data-source$='-RED']:nth-child(even) td {
+  background: #fef2f2;
+  /* very light red — error/rejected */
+}
+
+.scr-table tbody tr[data-source$='-BLUE'] td,
+.scr-table tbody tr[data-source$='-BLUE']:nth-child(even) td {
+  background: #eff6ff;
+  /* very light blue — informational */
+}
+
+/* Hover wins over the state tint so the user always sees which row they're on */
+.scr-table tbody tr[data-source]:hover td {
+  background: var(--scr-bg-hover);
+}
+
+.scr-table .is-empty {
+  text-align: center;
+  color: var(--scr-text-muted);
+  padding: 24px 0;
+}
+
+.scr-table th.scr-table-align-center,
+.scr-table td.scr-table-align-center,
+.scr-table-cell-display.scr-table-align-center,
+.scr-table-cell-input.scr-table-align-center {
+  text-align: center;
+}
+
+.scr-table th.scr-table-align-right,
+.scr-table td.scr-table-align-right,
+.scr-table-cell-display.scr-table-align-right {
+  text-align: right;
+}
+
+/* Form-style product table (rounded in-cell controls per design spec) */
+.scr-table--form td {
+  padding: 8px;
+  vertical-align: middle;
+  border-bottom: 0;
+  border-right: 1px solid rgba(196, 198, 207, 0.3);
+}
+
+.scr-table--form td:last-child {
+  border-right: 0;
+}
+
+.scr-table--form tbody tr:hover td {
+  background: var(--scr-bg-hover);
+}
+
+.scr-table--form tbody tr.scr-row-active td {
+  background: #eff6ff;
+}
+
+.scr-table-index {
+  display: block;
+  text-align: center;
+  color: var(--scr-text);
+}
+
+.scr-table-cell-display {
+  display: block;
+  width: 100%;
+  min-height: 32px;
+  padding: 6px 12px;
+  box-sizing: border-box;
+  background: transparent;
+  color: #6b7280;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.scr-table-cell-display--plain {
+  background: transparent;
+  min-height: auto;
+  padding: 0;
+  border-radius: 0;
+}
+
+.scr-table--form .scr-table-cell-input {
+  display: block;
+  width: 100%;
+  min-height: 32px;
+  padding: 6px 12px;
+  font-size: 12px;
+  border: 1px solid rgba(196, 198, 207, 0.3);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.scr-table--form .scr-table-cell-input:focus,
+.scr-table--form .scr-table-cell-input:focus-visible {
+  outline: none;
+  border: 1px solid rgba(196, 198, 207, 1);
+}
+
+.scr-table--form .scr-table-cell-input.scr-numeric {
+  text-align: right;
+}
+
+.scr-table--form .scr-table-cell-input.scr-table-align-center {
+  text-align: center;
+}
+
+.scr-table-cell-select {
+  appearance: auto;
+  cursor: pointer;
+  background: #fff;
+  font-family: var(--scr-font-ui);
+}
+
+/* Custom numeric spinner (replaces native type=number) */
+.scr-table-cell-spinner {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid rgba(196, 198, 207, 0.5);
+  border-radius: 4px;
+  background: #fff;
+  overflow: hidden;
+  min-height: 32px;
+}
+
+.scr-table-cell-spinner:focus-within {
+  border-color: rgba(196, 198, 207, 1);
+}
+
+.scr-table--form .scr-table-cell-spinner .scr-table-cell-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.scr-table--form .scr-table-cell-spinner .scr-table-cell-input:focus,
+.scr-table--form .scr-table-cell-spinner .scr-table-cell-input:focus-visible {
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.scr-table-cell-spinner-btns {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.scr-table-cell-spinner-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  flex: 1;
+  background: #fff;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #6b7280;
+  line-height: 1;
+}
+
+.scr-table-cell-spinner-btn:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.scr-table-cell-clickable {
+  cursor: pointer;
+}
+
+.scr-table-cell-clickable:hover {
+  background: #d1d5db;
+  border-color: #9ca3af;
+}
+
+.scr-table-delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin: auto;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.scr-table-delete-btn:hover {
+  background: #fee2e2;
+  opacity: 1;
+}
+
+/* Subtotal / grand-total table (小計 / 合計) — right-floated navy-header recap
+   rendered as a sibling of a two-family / OCCURS grid. Follows the
+   per-program sz-totals-table as a shared class so the generator can emit it
+   from the 小計/合計 literals + value fields it already extracts from COBOL. */
+.scr-subtotal-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 8px 0 0 auto;
+  overflow: hidden;
+}
+.scr-subtotal-table th {
+  background: #4338CA;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: left;
+  padding: 6px 16px;
+  white-space: nowrap;
+}
+.scr-subtotal-table td {
+  background: var(--scr-bg-card);
+  border-bottom: 1px solid var(--scr-border);
+  border-right: 1px solid var(--scr-border);
+  font-size: 13px;
+  padding: 6px 16px;
+  min-width: 6rem;
+  text-align: right;
+}

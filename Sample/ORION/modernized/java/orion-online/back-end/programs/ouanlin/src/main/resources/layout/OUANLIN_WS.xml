@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : OUANLIN_WS
+-->
+<dataLayout name="OUANLIN_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="8">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="SQLCODE" offset="4" size="4" javaType="int" value="0" usage="BINARY"/>
+  </group>
+  <group name="WS-PROGRAM-VARS" offset="0" size="37">
+    <field name="WS-PGMNAME" offset="0" size="8" javaType="String" value="OUANLIN"/>
+    <field name="WS-MAX-SCAN" offset="8" size="7" javaType="int" value="0020000"/>
+    <field name="WS-LARGE-THRESH" offset="15" size="11" javaType="BigDecimal" signed="true" scale="2" value="+1000.00"/>
+    <field name="WS-VELO-THRESH" offset="26" size="9" javaType="int" value="5"/>
+    <field name="WS-BONUS-RATE" offset="35" size="1" javaType="int" value="2"/>
+    <field name="WS-BASE-RATE" offset="36" size="1" javaType="int" value="1"/>
+  </group>
+  <group name="WS-WORK-FIELDS" offset="0" size="56">
+    <field name="WS-MAX-ROWS" offset="0" size="2" javaType="int" value="ZEROS"/>
+    <field name="WS-SCANNED" offset="2" size="9" javaType="int" value="ZEROS"/>
+    <field name="WS-DISC-CNT" offset="11" size="4" javaType="int" value="ZEROS"/>
+    <field name="WS-OFLOW-CNT" offset="15" size="9" javaType="int" value="ZEROS"/>
+    <field name="WS-ORPH-CNT" offset="24" size="9" javaType="int" value="ZEROS"/>
+    <field name="WS-SIDX" offset="33" size="4" javaType="int" value="ZEROS"/>
+    <field name="WS-FIDX" offset="37" size="4" javaType="int" value="ZEROS"/>
+    <field name="WS-NEW-CNT" offset="41" size="4" javaType="int" value="ZEROS"/>
+    <field name="WS-START-IDX" offset="45" size="4" javaType="int" value="ZEROS"/>
+    <field name="WS-OUT-CNT" offset="49" size="2" javaType="int" value="ZEROS"/>
+    <field name="WS-BROWSE-SW" offset="51" size="1" javaType="String" value="N"/>
+    <field name="WS-EOF-SW" offset="52" size="1" javaType="String" value="N"/>
+    <field name="WS-SLOT-SW" offset="53" size="1" javaType="String" value="N"/>
+    <field name="WS-PURCHASE-SW" offset="54" size="1" javaType="String" value="N"/>
+    <field name="WS-FLAG-SW" offset="55" size="1" javaType="String" value="N"/>
+  </group>
+  <group name="WS-CALC" offset="0" size="86">
+    <field name="WS-KEY" offset="0" size="16" javaType="String" value="SPACES"/>
+    <field name="WS-WHOLE-AMT" offset="16" size="11" javaType="long" value="ZEROS"/>
+    <field name="WS-POINTS" offset="27" size="13" javaType="long" value="ZEROS"/>
+    <field name="WS-MOVE" offset="40" size="15" javaType="BigDecimal" signed="true" scale="2" value="ZEROS"/>
+    <field name="WS-DIFF" offset="55" size="15" javaType="BigDecimal" signed="true" scale="2" value="ZEROS"/>
+    <field name="WS-REASON" offset="70" size="16" javaType="String" value="SPACES"/>
+  </group>
+  <group name="WS-ACCUM" offset="0" size="34">
+    <field name="WS-TOT-1" offset="0" size="17" javaType="BigDecimal" signed="true" scale="2" value="ZEROS"/>
+    <field name="WS-TOT-2" offset="17" size="17" javaType="BigDecimal" signed="true" scale="2" value="ZEROS"/>
+  </group>
+  <group name="WS-RES-CTL" offset="0" size="8">
+    <field name="WS-RES-CNT" offset="0" size="4" javaType="int" value="ZEROS"/>
+    <field name="WS-MAX-RES" offset="4" size="4" javaType="int" value="200"/>
+  </group>
+  <group name="WS-RES-TABLE" offset="0" size="14200">
+    <group name="WS-RES-ENT" offset="0" size="14200" occurs="200" elementSize="71">
+      <field name="WS-RE-KEY" offset="0" size="16" javaType="String"/>
+      <field name="WS-RE-INFO" offset="16" size="16" javaType="String"/>
+      <field name="WS-RE-CNT" offset="32" size="9" javaType="int"/>
+      <field name="WS-RE-AMT" offset="41" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="WS-RE-VAL" offset="56" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+    </group>
+  </group>
+  <group name="WS-CICS-RESP" offset="0" size="8">
+    <field name="WS-RESP-CD" offset="0" size="4" javaType="int" signed="true" value="ZEROS" usage="BINARY"/>
+    <field name="WS-REAS-CD" offset="4" size="4" javaType="int" signed="true" value="ZEROS" usage="BINARY"/>
+  </group>
+  <group name="WS-SWITCHES" offset="0" size="3">
+    <field name="WS-ERR-FLG" offset="0" size="1" javaType="String" value="N"/>
+    <field name="WS-END-FLG" offset="1" size="1" javaType="String" value="N"/>
+    <field name="WS-FOUND-FLG" offset="2" size="1" javaType="String" value="N"/>
+  </group>
+  <group name="WS-FILE-NAMES" offset="0" size="96">
+    <field name="WS-ACCTFILE" offset="0" size="8" javaType="String" value="ACCTFILE"/>
+    <field name="WS-CARDFILE" offset="8" size="8" javaType="String" value="CARDFILE"/>
+    <field name="WS-CUSTFILE" offset="16" size="8" javaType="String" value="CUSTFILE"/>
+    <field name="WS-XREFFILE" offset="24" size="8" javaType="String" value="XREFFILE"/>
+    <field name="WS-TRANFILE" offset="32" size="8" javaType="String" value="TRANFILE"/>
+    <field name="WS-TTYPFILE" offset="40" size="8" javaType="String" value="TTYPFILE"/>
+    <field name="WS-TCATFILE" offset="48" size="8" javaType="String" value="TCATFILE"/>
+    <field name="WS-DGRPFILE" offset="56" size="8" javaType="String" value="DGRPFILE"/>
+    <field name="WS-USRSEC" offset="64" size="8" javaType="String" value="USRSEC  "/>
+    <field name="WS-BILLFILE" offset="72" size="8" javaType="String" value="BILLFILE"/>
+    <field name="WS-STMTFILE" offset="80" size="8" javaType="String" value="STMTFILE"/>
+    <field name="WS-CTRLFILE" offset="88" size="8" javaType="String" value="CTRLFILE"/>
+  </group>
+  <group name="WS-WORK" offset="0" size="26">
+    <field name="WS-CNT" offset="0" size="7" javaType="int" value="ZEROS"/>
+    <field name="WS-IDX" offset="7" size="4" javaType="int" value="ZEROS"/>
+    <field name="WS-AMT" offset="11" size="15" javaType="BigDecimal" signed="true" scale="2" value="ZEROS"/>
+  </group>
+  <group name="WS-EDIT" offset="0" size="43">
+    <field name="WS-ED-AMT" offset="0" size="16" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" editPicture="-,---,---,--9.99" integerDigits="10" insertCommas="true" hasTrailingNine="true"/>
+    <field name="WS-ED-BAL" offset="16" size="16" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" editPicture="-,---,---,--9.99" integerDigits="10" insertCommas="true" hasTrailingNine="true"/>
+    <field name="WS-ED-ID" offset="32" size="11" javaType="long" editFormat="ZERO_SUPPRESS" editPicture="ZZZZZZZZZZ9" integerDigits="11" hasTrailingNine="true"/>
+  </group>
+  <group name="TRAN-REC" offset="0" size="350">
+    <field name="TR-ID" offset="0" size="16" javaType="String"/>
+    <field name="TR-TYPE-CD" offset="16" size="2" javaType="String"/>
+    <field name="TR-CAT-CD" offset="18" size="4" javaType="int"/>
+    <field name="TR-SOURCE" offset="22" size="10" javaType="String"/>
+    <field name="TR-DESC" offset="32" size="100" javaType="String"/>
+    <field name="TR-AMT" offset="132" size="11" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="TR-MERCHANT-ID" offset="143" size="9" javaType="int"/>
+    <field name="TR-MERCHANT-NAME" offset="152" size="50" javaType="String"/>
+    <field name="TR-MERCHANT-CITY" offset="202" size="50" javaType="String"/>
+    <field name="TR-MERCHANT-ZIP" offset="252" size="10" javaType="String"/>
+    <field name="TR-CARD-NUM" offset="262" size="16" javaType="String"/>
+    <field name="TR-ORIG-TS" offset="278" size="26" javaType="String"/>
+    <field name="TR-PROC-TS" offset="304" size="26" javaType="String"/>
+    <field name="FILLER-330" offset="330" size="20" javaType="String"/>
+  </group>
+  <group name="XREF-REC" offset="0" size="50">
+    <field name="XR-CARD-NUM" offset="0" size="16" javaType="String"/>
+    <field name="XR-ACCT-ID" offset="16" size="11" javaType="long"/>
+    <field name="XR-CUST-ID" offset="27" size="9" javaType="int"/>
+    <field name="FILLER-36" offset="36" size="14" javaType="String"/>
+  </group>
+  <group name="ACCT-REC" offset="0" size="300">
+    <field name="AC-ID" offset="0" size="11" javaType="long"/>
+    <field name="AC-ACTIVE-STATUS" offset="11" size="1" javaType="String"/>
+    <field name="AC-CURR-BAL" offset="12" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="AC-CREDIT-LIMIT" offset="24" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="AC-CASH-LIMIT" offset="36" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="AC-OPEN-DATE" offset="48" size="10" javaType="String"/>
+    <field name="AC-EXPIRY-DATE" offset="58" size="10" javaType="String"/>
+    <field name="AC-REISSUE-DATE" offset="68" size="10" javaType="String"/>
+    <field name="AC-CYC-CREDIT" offset="78" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="AC-CYC-DEBIT" offset="90" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="AC-ADDR-ZIP" offset="102" size="10" javaType="String"/>
+    <field name="AC-GROUP-ID" offset="112" size="10" javaType="String"/>
+    <field name="FILLER-122" offset="122" size="178" javaType="String"/>
+  </group>
+  <group name="KANLB-PARM" offset="0" size="490">
+    <group name="KAB-REQUEST" offset="0" size="8">
+      <field name="KAB-MODE" offset="0" size="2" javaType="String"/>
+      <field name="KAB-START-OFF" offset="2" size="4" javaType="int"/>
+      <field name="KAB-MAX-ROWS" offset="6" size="2" javaType="int"/>
+    </group>
+    <group name="KAB-RESULT" offset="8" size="22">
+      <field name="KAB-STATUS" offset="8" size="2" javaType="String"/>
+      <field name="KAB-ROW-CNT" offset="10" size="2" javaType="int"/>
+      <field name="KAB-RESULT-CNT" offset="12" size="4" javaType="int"/>
+      <field name="KAB-SCANNED" offset="16" size="9" javaType="int"/>
+      <field name="KAB-DISC" offset="25" size="4" javaType="int"/>
+      <field name="KAB-MORE" offset="29" size="1" javaType="String"/>
+    </group>
+    <group name="KAB-TOTALS" offset="30" size="34">
+      <field name="KAB-TOT-1" offset="30" size="17" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KAB-TOT-2" offset="47" size="17" javaType="BigDecimal" signed="true" scale="2"/>
+    </group>
+    <group name="KAB-ROWS" offset="64" size="426">
+      <group name="KAB-ROW" offset="64" size="426" occurs="6" elementSize="71">
+        <field name="KAB-R-KEY" offset="64" size="16" javaType="String"/>
+        <field name="KAB-R-INFO" offset="80" size="16" javaType="String"/>
+        <field name="KAB-R-CNT" offset="96" size="9" javaType="int"/>
+        <field name="KAB-R-AMT" offset="105" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+        <field name="KAB-R-VAL" offset="120" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      </group>
+    </group>
+  </group>
+</dataLayout>

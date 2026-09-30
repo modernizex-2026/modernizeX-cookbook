@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OuimspaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUIMSPA Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ouimspa.service</a> &gt; <span class="el_source">OuimspaService.java</span></div><h1>OuimspaService.java</h1><pre class="source lang-java linenums">package com.generated.orion.ouimspa.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.common.linkage.OuimspaLinkParm;
+import com.generated.orion.ouimspa.accessor.OuimspaFields;
+import com.generated.orion.ouimspa.metadata.OuimspaBmsMetadata;
+import com.generated.orion.ouimspa.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OUIMSPA. */
+@Service
+<span class="nc" id="L21">public class OuimspaService implements AppProgram {</span>
+<span class="nc" id="L22">    private static final Logger log = LoggerFactory.getLogger(OuimspaService.class);</span>
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L30">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc bnc" id="L31" title="All 4 branches missed.">        if (ctx.appService.getEibcalen() &gt; 0 &amp;&amp; ctx.appService.getCommarea() != null) {</span>
+<span class="nc" id="L32">            Object _commarea = ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">            if (_commarea instanceof Object[]) {</span>
+<span class="nc" id="L34">                Object[] _params = (Object[]) _commarea;</span>
+<span class="nc bnc" id="L35" title="All 4 branches missed.">                if (_params.length &gt; 1 &amp;&amp; _params[1] instanceof byte[]) {</span>
+<span class="nc" id="L36">                    ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _params[1]);</span>
+<span class="nc bnc" id="L37" title="All 4 branches missed.">                } else if (_params.length &gt; 1 &amp;&amp; _params[1] != null) {</span>
+<span class="nc" id="L38">                    ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_params[1]));</span>
+                }
+<span class="nc bnc" id="L40" title="All 2 branches missed.">            } else if (_commarea instanceof byte[]) {</span>
+<span class="nc" id="L41">                ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _commarea);</span>
+            } else {
+<span class="nc" id="L43">                ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_commarea));</span>
+            }
+        }
+        try {
+<span class="nc" id="L47">            _0000Main(ctx);</span>
+        } finally {
+<span class="nc bnc" id="L49" title="All 2 branches missed.">            if (ctx.appService.getEibcalen() &gt; 0) {</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">                if (ctx.appService.getCommarea() instanceof Object[]) {</span>
+<span class="nc" id="L51">                    Object[] _params = (Object[]) ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                    if (_params.length &gt; 1) {</span>
+<span class="nc" id="L53">                        _params[1] =</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">                                _params[1] instanceof byte[]</span>
+<span class="nc" id="L55">                                        ? (Object) ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;)</span>
+<span class="nc" id="L56">                                        : (Object) ctx.f.groupToString(&quot;ORION-COMMAREA&quot;);</span>
+                    }
+<span class="nc" id="L58">                } else {</span>
+<span class="nc" id="L59">                    ctx.appService.setCommarea(ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;));</span>
+                }
+            }
+        }
+<span class="nc" id="L63">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L67">        return &quot;OUIMSPA&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L72">        return OuimspaBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L77">        OuimspaBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L78">    }</span>
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void _0000Main(TaskContext ctx) {
+<span class="nc" id="L82">        _1000Initialize(ctx);</span>
+<span class="nc" id="L83">        _1100ValidateRequest(ctx);</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (ctx.f.getWsPlStatus().equals(&quot;BF&quot;)) {</span>
+<span class="nc" id="L85">            _9000Finalize(ctx);</span>
+<span class="nc" id="L86">            return;</span>
+        }
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (ctx.f.getWsPlFunc().equals(&quot;INQ &quot;)) {</span>
+<span class="nc" id="L89">            _2000Inquire(ctx);</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        } else if (ctx.f.getWsPlFunc().equals(&quot;NXT &quot;)) {</span>
+<span class="nc" id="L91">            _2100BrowseNext(ctx);</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        } else if (ctx.f.getWsPlFunc().equals(&quot;ADD &quot;)) {</span>
+<span class="nc" id="L93">            _2200Insert(ctx);</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        } else if (ctx.f.getWsPlFunc().equals(&quot;UPD &quot;)) {</span>
+<span class="nc" id="L95">            _2300Update(ctx);</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        } else if (ctx.f.getWsPlFunc().equals(&quot;DEL &quot;)) {</span>
+<span class="nc" id="L97">            _2400Delete(ctx);</span>
+        } else {
+<span class="nc" id="L99">            _2900BadFunction(ctx);</span>
+        }
+<span class="nc" id="L101">        _9000Finalize(ctx);</span>
+<span class="nc" id="L102">        return;</span>
+    }
+
+    /** COBOL paragraph: 1000-INITIALIZE */
+    private void _1000Initialize(TaskContext ctx) {
+<span class="nc" id="L107">        ctx.f.setWsPauLink(String.valueOf(ctx.f.getCaWorkArea()));</span>
+<span class="nc" id="L108">        ctx.f.setWsPlStatus(&quot; &quot;);</span>
+<span class="nc" id="L109">        ctx.f.setWsPlMsg(&quot; &quot;);</span>
+<span class="nc" id="L110">        ctx.f.setWsDliStatus(&quot; &quot;);</span>
+<span class="nc" id="L111">        ctx.f.setWsCallCount(0);</span>
+<span class="nc" id="L112">    }</span>
+
+    /** COBOL paragraph: 1100-VALIDATE-REQUEST */
+    private void _1100ValidateRequest(TaskContext ctx) {
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        if (!(ctx.f.getWsPlFunc().equals(&quot;INQ &quot;)</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">                || ctx.f.getWsPlFunc().equals(&quot;NXT &quot;)</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">                || ctx.f.getWsPlFunc().equals(&quot;ADD &quot;)</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">                || ctx.f.getWsPlFunc().equals(&quot;UPD &quot;)</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">                || ctx.f.getWsPlFunc().equals(&quot;DEL &quot;))) {</span>
+<span class="nc" id="L121">            ctx.f.setWsPlStatus(&quot;BF&quot;);</span>
+<span class="nc" id="L122">            ctx.f.setWsPlMsg(&quot;Unknown DL/I request function code.&quot;);</span>
+<span class="nc" id="L123">            return;</span>
+        }
+<span class="nc bnc" id="L125" title="All 2 branches missed.">        if (ctx.f.getWsPlFunc().equals(&quot;INQ &quot;)</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">                || ctx.f.getWsPlFunc().equals(&quot;ADD &quot;)</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">                || ctx.f.getWsPlFunc().equals(&quot;UPD &quot;)</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">                || ctx.f.getWsPlFunc().equals(&quot;DEL &quot;)) {</span>
+<span class="nc bnc" id="L129" title="All 4 branches missed.">            if (Utility.fieldEquals(ctx.f.getWsPlKey(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;WS-PL-KEY&quot;)) {</span>
+<span class="nc" id="L130">                ctx.f.setWsPlStatus(&quot;BF&quot;);</span>
+<span class="nc" id="L131">                ctx.f.setWsPlMsg(&quot;Authorization id is required.&quot;);</span>
+            }
+        }
+<span class="nc" id="L134">    }</span>
+
+    /** COBOL paragraph: 2000-INQUIRE */
+    private void _2000Inquire(TaskContext ctx) {
+<span class="nc" id="L138">        ctx.f.setOdliSsaKeyval(ctx.f.getWsPlKey());</span>
+<span class="nc" id="L139">        ctx.f.setOdliSsaRelop(ctx.f.getOdliOpEq());</span>
+<span class="nc" id="L140">        ctx.f.setWsDliFunc(ctx.f.getOdliGu());</span>
+<span class="nc" id="L141">        _5000CallGetQual(ctx);</span>
+<span class="nc bnc" id="L142" title="All 3 branches missed.">        switch (Utility.rtrim(ctx.f.getWsDliStatus())) {</span>
+            case &quot;&quot; -&gt; {
+<span class="nc" id="L144">                _6000ReturnSegment(ctx);</span>
+<span class="nc" id="L145">            }</span>
+            case &quot;GE&quot; -&gt; {
+<span class="nc" id="L147">                _6100NotFound(ctx);</span>
+<span class="nc" id="L148">            }</span>
+            default -&gt; {
+<span class="nc" id="L150">                _6900DliError(ctx);</span>
+            }
+        }
+<span class="nc" id="L153">    }</span>
+
+    /** COBOL paragraph: 2100-BROWSE-NEXT */
+    private void _2100BrowseNext(TaskContext ctx) {
+<span class="nc bnc" id="L157" title="All 4 branches missed.">        if (Utility.fieldEquals(ctx.f.getWsPlKey(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;WS-PL-KEY&quot;)) {</span>
+<span class="nc" id="L158">            _5400CallGetNext(ctx);</span>
+        } else {
+<span class="nc" id="L160">            _2110PositionThenNext(ctx);</span>
+        }
+<span class="nc bnc" id="L162" title="All 4 branches missed.">        switch (Utility.rtrim(ctx.f.getWsDliStatus())) {</span>
+            case &quot;&quot; -&gt; {
+<span class="nc" id="L164">                _6000ReturnSegment(ctx);</span>
+<span class="nc" id="L165">            }</span>
+            case &quot;GE&quot; -&gt; {
+<span class="nc" id="L167">                _6200EndOfList(ctx);</span>
+<span class="nc" id="L168">            }</span>
+            case &quot;GB&quot; -&gt; {
+<span class="nc" id="L170">                _6200EndOfList(ctx);</span>
+<span class="nc" id="L171">            }</span>
+            default -&gt; {
+<span class="nc" id="L173">                _6900DliError(ctx);</span>
+            }
+        }
+<span class="nc" id="L176">    }</span>
+
+    /** COBOL paragraph: 2110-POSITION-THEN-NEXT */
+    private void _2110PositionThenNext(TaskContext ctx) {
+<span class="nc" id="L180">        ctx.f.setOdliSsaKeyval(ctx.f.getWsPlKey());</span>
+<span class="nc" id="L181">        ctx.f.setOdliSsaRelop(ctx.f.getOdliOpEq());</span>
+<span class="nc" id="L182">        ctx.f.setWsDliFunc(ctx.f.getOdliGu());</span>
+<span class="nc" id="L183">        _5000CallGetQual(ctx);</span>
+<span class="nc bnc" id="L184" title="All 3 branches missed.">        switch (Utility.rtrim(ctx.f.getWsDliStatus())) {</span>
+            case &quot;&quot; -&gt; {
+<span class="nc" id="L186">                _5400CallGetNext(ctx);</span>
+<span class="nc" id="L187">            }</span>
+            case &quot;GE&quot; -&gt; {
+<span class="nc" id="L189">                ctx.f.setOdliSsaKeyval(ctx.f.getWsPlKey());</span>
+<span class="nc" id="L190">                ctx.f.setOdliSsaRelop(ctx.f.getOdliOpGt());</span>
+<span class="nc" id="L191">                ctx.f.setWsDliFunc(ctx.f.getOdliGu());</span>
+<span class="nc" id="L192">                _5000CallGetQual(ctx);</span>
+<span class="nc" id="L193">            }</span>
+            default -&gt; {
+                /* CONTINUE */
+            }
+        }
+<span class="nc" id="L198">    }</span>
+
+    /** COBOL paragraph: 2200-INSERT */
+    private void _2200Insert(TaskContext ctx) {
+<span class="nc" id="L202">        ctx.f.copyBytes(&quot;PAUSEG-REC&quot;, &quot;WS-PL-SEGMENT&quot;);</span>
+<span class="nc" id="L203">        ctx.f.setPaAuthId(ctx.f.getWsPlKey());</span>
+<span class="nc" id="L204">        _2210ValidateInsert(ctx);</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">        if (ctx.f.getWsPlStatus().equals(&quot;BF&quot;)) {</span>
+<span class="nc" id="L206">            return;</span>
+        }
+<span class="nc" id="L208">        ctx.f.setWsDliFunc(ctx.f.getOdliIsrt());</span>
+<span class="nc" id="L209">        _5100CallInsert(ctx);</span>
+<span class="nc bnc" id="L210" title="All 3 branches missed.">        switch (Utility.rtrim(ctx.f.getWsDliStatus())) {</span>
+            case &quot;&quot; -&gt; {
+<span class="nc" id="L212">                ctx.f.setWsPlStatus(&quot; &quot;);</span>
+<span class="nc" id="L213">                ctx.f.setWsPlMsg(&quot;Pending authorization inserted.&quot;);</span>
+<span class="nc" id="L214">                ctx.f.copyBytes(&quot;WS-PL-SEGMENT&quot;, &quot;PAUSEG-REC&quot;);</span>
+<span class="nc" id="L215">            }</span>
+            case &quot;II&quot; -&gt; {
+<span class="nc" id="L217">                ctx.f.setWsPlStatus(&quot;II&quot;);</span>
+<span class="nc" id="L218">                ctx.f.setWsPlMsg(&quot;Authorization id already exists.&quot;);</span>
+<span class="nc" id="L219">            }</span>
+            default -&gt; {
+<span class="nc" id="L221">                _6900DliError(ctx);</span>
+            }
+        }
+<span class="nc" id="L224">    }</span>
+
+    /** COBOL paragraph: 2210-VALIDATE-INSERT */
+    private void _2210ValidateInsert(TaskContext ctx) {
+<span class="nc bnc" id="L228" title="All 4 branches missed.">        if (Utility.fieldEquals(ctx.f.getPaCardNum(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;PA-CARD-NUM&quot;)) {</span>
+<span class="nc" id="L229">            ctx.f.setWsPlStatus(&quot;BF&quot;);</span>
+<span class="nc" id="L230">            ctx.f.setWsPlMsg(&quot;Card number is required to insert.&quot;);</span>
+<span class="nc" id="L231">            _2210Exit(ctx);</span>
+<span class="nc" id="L232">            return;</span>
+        }
+<span class="nc bnc" id="L234" title="All 2 branches missed.">        if (!Utility.isNumeric(ctx.f.getRawString(&quot;PA-ACCT-ID&quot;))) {</span>
+<span class="nc" id="L235">            ctx.f.setWsPlStatus(&quot;BF&quot;);</span>
+<span class="nc" id="L236">            ctx.f.setWsPlMsg(&quot;Account id must be numeric.&quot;);</span>
+<span class="nc" id="L237">            _2210Exit(ctx);</span>
+<span class="nc" id="L238">            return;</span>
+        }
+<span class="nc bnc" id="L240" title="All 4 branches missed.">        if (Utility.fieldEquals(ctx.f.getPaStatus(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;PA-STATUS&quot;)) {</span>
+<span class="nc" id="L241">            ctx.f.setPaStatus(&quot;P&quot;);</span>
+        }
+<span class="nc" id="L243">    }</span>
+
+    /** COBOL paragraph: 2210-EXIT */
+    private void _2210Exit(TaskContext ctx) {
+<span class="nc" id="L247">        return;</span>
+    }
+
+    /** COBOL paragraph: 2300-UPDATE */
+    private void _2300Update(TaskContext ctx) {
+<span class="nc" id="L252">        ctx.f.setOdliSsaKeyval(ctx.f.getWsPlKey());</span>
+<span class="nc" id="L253">        ctx.f.setOdliSsaRelop(ctx.f.getOdliOpEq());</span>
+<span class="nc" id="L254">        ctx.f.setWsDliFunc(ctx.f.getOdliGhu());</span>
+<span class="nc" id="L255">        _5000CallGetQual(ctx);</span>
+<span class="nc bnc" id="L256" title="All 3 branches missed.">        switch (Utility.rtrim(ctx.f.getWsDliStatus())) {</span>
+            case &quot;&quot; -&gt; {
+<span class="nc" id="L258">                _2310ApplyReplace(ctx);</span>
+<span class="nc" id="L259">            }</span>
+            case &quot;GE&quot; -&gt; {
+<span class="nc" id="L261">                _6100NotFound(ctx);</span>
+<span class="nc" id="L262">            }</span>
+            default -&gt; {
+<span class="nc" id="L264">                _6900DliError(ctx);</span>
+            }
+        }
+<span class="nc" id="L267">    }</span>
+
+    /** COBOL paragraph: 2310-APPLY-REPLACE */
+    private void _2310ApplyReplace(TaskContext ctx) {
+<span class="nc" id="L271">        ctx.f.copyBytes(&quot;PAUSEG-REC&quot;, &quot;WS-PL-SEGMENT&quot;);</span>
+<span class="nc" id="L272">        ctx.f.setPaAuthId(ctx.f.getWsPlKey());</span>
+<span class="nc" id="L273">        ctx.f.setWsDliFunc(ctx.f.getOdliRepl());</span>
+<span class="nc" id="L274">        _5200CallReplace(ctx);</span>
+<span class="nc bnc" id="L275" title="All 2 branches missed.">        switch (Utility.rtrim(ctx.f.getWsDliStatus())) {</span>
+            case &quot;&quot; -&gt; {
+<span class="nc" id="L277">                ctx.f.setWsPlStatus(&quot; &quot;);</span>
+<span class="nc" id="L278">                ctx.f.setWsPlMsg(&quot;Pending authorization updated.&quot;);</span>
+<span class="nc" id="L279">                ctx.f.copyBytes(&quot;WS-PL-SEGMENT&quot;, &quot;PAUSEG-REC&quot;);</span>
+<span class="nc" id="L280">            }</span>
+            default -&gt; {
+<span class="nc" id="L282">                _6900DliError(ctx);</span>
+            }
+        }
+<span class="nc" id="L285">    }</span>
+
+    /** COBOL paragraph: 2400-DELETE */
+    private void _2400Delete(TaskContext ctx) {
+<span class="nc" id="L289">        ctx.f.setOdliSsaKeyval(ctx.f.getWsPlKey());</span>
+<span class="nc" id="L290">        ctx.f.setOdliSsaRelop(ctx.f.getOdliOpEq());</span>
+<span class="nc" id="L291">        ctx.f.setWsDliFunc(ctx.f.getOdliGhu());</span>
+<span class="nc" id="L292">        _5000CallGetQual(ctx);</span>
+<span class="nc bnc" id="L293" title="All 3 branches missed.">        switch (Utility.rtrim(ctx.f.getWsDliStatus())) {</span>
+            case &quot;&quot; -&gt; {
+<span class="nc" id="L295">                _2410ApplyDelete(ctx);</span>
+<span class="nc" id="L296">            }</span>
+            case &quot;GE&quot; -&gt; {
+<span class="nc" id="L298">                _6100NotFound(ctx);</span>
+<span class="nc" id="L299">            }</span>
+            default -&gt; {
+<span class="nc" id="L301">                _6900DliError(ctx);</span>
+            }
+        }
+<span class="nc" id="L304">    }</span>
+
+    /** COBOL paragraph: 2410-APPLY-DELETE */
+    private void _2410ApplyDelete(TaskContext ctx) {
+<span class="nc" id="L308">        ctx.f.setWsDliFunc(ctx.f.getOdliDlet());</span>
+<span class="nc" id="L309">        _5300CallDelete(ctx);</span>
+<span class="nc bnc" id="L310" title="All 2 branches missed.">        switch (Utility.rtrim(ctx.f.getWsDliStatus())) {</span>
+            case &quot;&quot; -&gt; {
+<span class="nc" id="L312">                ctx.f.setWsPlStatus(&quot; &quot;);</span>
+<span class="nc" id="L313">                ctx.f.setWsPlMsg(&quot;Pending authorization purged.&quot;);</span>
+<span class="nc" id="L314">                ctx.f.setWsPlSegment(&quot; &quot;);</span>
+<span class="nc" id="L315">            }</span>
+            default -&gt; {
+<span class="nc" id="L317">                _6900DliError(ctx);</span>
+            }
+        }
+<span class="nc" id="L320">    }</span>
+
+    /** COBOL paragraph: 2900-BAD-FUNCTION */
+    private void _2900BadFunction(TaskContext ctx) {
+<span class="nc" id="L324">        ctx.f.setWsPlStatus(&quot;BF&quot;);</span>
+<span class="nc" id="L325">        ctx.f.setWsPlMsg(&quot;Unknown DL/I request function code.&quot;);</span>
+<span class="nc" id="L326">    }</span>
+
+    /** COBOL paragraph: 5000-CALL-GET-QUAL */
+    private void _5000CallGetQual(TaskContext ctx) {
+<span class="nc" id="L330">        callDliQualified(ctx, &quot;ODLI-SSA-PAUSEG&quot;);</span>
+<span class="nc" id="L331">    }</span>
+
+    /** COBOL paragraph: 5400-CALL-GET-NEXT */
+    private void _5400CallGetNext(TaskContext ctx) {
+<span class="nc" id="L335">        ctx.f.setWsDliFunc(ctx.f.getOdliGn());</span>
+<span class="nc" id="L336">        callDliQualified(ctx, &quot;ODLI-SSA-UNQUAL&quot;);</span>
+<span class="nc" id="L337">    }</span>
+
+    /** COBOL paragraph: 5100-CALL-INSERT */
+    private void _5100CallInsert(TaskContext ctx) {
+<span class="nc" id="L341">        callDliQualified(ctx, &quot;ODLI-SSA-UNQUAL&quot;);</span>
+<span class="nc" id="L342">    }</span>
+
+    /** COBOL paragraph: 5200-CALL-REPLACE */
+    private void _5200CallReplace(TaskContext ctx) {
+<span class="nc" id="L346">        callDliUnqualified(ctx);</span>
+<span class="nc" id="L347">    }</span>
+
+    /** COBOL paragraph: 5300-CALL-DELETE */
+    private void _5300CallDelete(TaskContext ctx) {
+<span class="nc" id="L351">        callDliUnqualified(ctx);</span>
+<span class="nc" id="L352">    }</span>
+
+    /** Issue a DL/I call qualified by an SSA segment group and record the returned PCB status. */
+    private void callDliQualified(TaskContext ctx, String ssaGroupName) {
+<span class="nc" id="L356">        ctx.f.setWsCallCount(ctx.f.getWsCallCount() + 1);</span>
+<span class="nc" id="L357">        String dliStatus =</span>
+                ctx.appService
+<span class="nc" id="L359">                        .getDliService()</span>
+<span class="nc" id="L360">                        .cbltdli(</span>
+<span class="nc" id="L361">                                String.valueOf(ctx.f.getWsDliFunc()),</span>
+                                ctx.f,
+<span class="nc" id="L363">                                ctx.f.groupToString(ssaGroupName));</span>
+<span class="nc" id="L364">        ctx.link.getLkPauPcb().setLkPcbStatus(dliStatus);</span>
+<span class="nc" id="L365">        ctx.f.setWsDliStatus(ctx.link.getLkPauPcb().getLkPcbStatus());</span>
+<span class="nc" id="L366">    }</span>
+
+    /** Issue a DL/I call with no SSA argument and record the returned PCB status. */
+    private void callDliUnqualified(TaskContext ctx) {
+<span class="nc" id="L370">        ctx.f.setWsCallCount(ctx.f.getWsCallCount() + 1);</span>
+<span class="nc" id="L371">        String dliStatus =</span>
+<span class="nc" id="L372">                ctx.appService.getDliService().cbltdli(String.valueOf(ctx.f.getWsDliFunc()), ctx.f);</span>
+<span class="nc" id="L373">        ctx.link.getLkPauPcb().setLkPcbStatus(dliStatus);</span>
+<span class="nc" id="L374">        ctx.f.setWsDliStatus(ctx.link.getLkPauPcb().getLkPcbStatus());</span>
+<span class="nc" id="L375">    }</span>
+
+    /** COBOL paragraph: 6000-RETURN-SEGMENT */
+    private void _6000ReturnSegment(TaskContext ctx) {
+<span class="nc" id="L379">        ctx.f.copyBytes(&quot;WS-PL-SEGMENT&quot;, &quot;PAUSEG-REC&quot;);</span>
+<span class="nc" id="L380">        ctx.f.setWsPlKey(ctx.f.getPaAuthId());</span>
+<span class="nc" id="L381">        ctx.f.setWsPlStatus(&quot; &quot;);</span>
+<span class="nc" id="L382">        ctx.f.setWsPlMsg(&quot;Pending authorization retrieved.&quot;);</span>
+<span class="nc" id="L383">    }</span>
+
+    /** COBOL paragraph: 6100-NOT-FOUND */
+    private void _6100NotFound(TaskContext ctx) {
+<span class="nc" id="L387">        ctx.f.setWsPlStatus(&quot;GE&quot;);</span>
+<span class="nc" id="L388">        ctx.f.setWsPlMsg(&quot;No pending authorization for that id.&quot;);</span>
+<span class="nc" id="L389">        ctx.f.setWsPlSegment(&quot; &quot;);</span>
+<span class="nc" id="L390">    }</span>
+
+    /** COBOL paragraph: 6200-END-OF-LIST */
+    private void _6200EndOfList(TaskContext ctx) {
+<span class="nc" id="L394">        ctx.f.setWsPlStatus(&quot;GB&quot;);</span>
+<span class="nc" id="L395">        ctx.f.setWsPlMsg(&quot;End of pending authorization list.&quot;);</span>
+<span class="nc" id="L396">        ctx.f.setWsPlSegment(&quot; &quot;);</span>
+<span class="nc" id="L397">    }</span>
+
+    /** COBOL paragraph: 6900-DLI-ERROR */
+    private void _6900DliError(TaskContext ctx) {
+<span class="nc" id="L401">        ctx.f.setWsPlStatus(&quot;ER&quot;);</span>
+<span class="nc" id="L402">        ctx.f.setWsPlMsg(&quot; &quot;);</span>
+<span class="nc" id="L403">        ctx.f.setWsPlMsg(</span>
+<span class="nc" id="L404">                &quot;DL/I error status=&quot; + ctx.f.getWsDliStatus() + &quot; func=&quot; + ctx.f.getWsDliFunc());</span>
+<span class="nc" id="L405">        log.info(</span>
+                &quot;OUIMSPA DL/I ERROR - STATUS={} FUNC={} KEY={}&quot;,
+<span class="nc" id="L407">                ctx.f.getWsDliStatus(),</span>
+<span class="nc" id="L408">                ctx.f.getWsDliFunc(),</span>
+<span class="nc" id="L409">                ctx.f.getWsPlKey());</span>
+<span class="nc" id="L410">    }</span>
+
+    /** COBOL paragraph: 9000-FINALIZE */
+    private void _9000Finalize(TaskContext ctx) {
+<span class="nc" id="L414">        ctx.f.setWsPlDliStat(ctx.f.getWsDliStatus());</span>
+<span class="nc bnc" id="L415" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getWsPlStatus(), ctx.f.getOdliStOk())) {</span>
+<span class="nc" id="L416">            ctx.f.setString(&quot;CA-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L417">            ctx.f.setCaErrMsg(&quot; &quot;);</span>
+        } else {
+<span class="nc" id="L419">            ctx.f.setString(&quot;CA-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L420">            ctx.f.setCaErrMsg(ctx.f.getWsPlMsg());</span>
+        }
+<span class="nc" id="L422">        ctx.f.setCaWorkArea(ctx.f.getWsPauLink());</span>
+<span class="nc" id="L423">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OuimspaFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L436">        final OuimspaLinkParm link = new OuimspaLinkParm();</span>
+
+<span class="nc" id="L438">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L439">            this.appService = appService;</span>
+<span class="nc" id="L440">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L441">            this.f = new OuimspaFields(ws);</span>
+<span class="nc" id="L442">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

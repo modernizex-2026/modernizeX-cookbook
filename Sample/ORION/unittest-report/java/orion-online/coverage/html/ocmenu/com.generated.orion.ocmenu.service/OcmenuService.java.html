@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OcmenuService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCMENU Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ocmenu.service</a> &gt; <span class="el_source">OcmenuService.java</span></div><h1>OcmenuService.java</h1><pre class="source lang-java linenums">package com.generated.orion.ocmenu.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.common.linkage.OcmenuLinkParm;
+import com.generated.orion.ocmenu.accessor.OcmenuFields;
+import com.generated.orion.ocmenu.metadata.OcmenuBmsMetadata;
+import com.generated.orion.ocmenu.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OCMENU. */
+@Service
+<span class="nc" id="L22">public class OcmenuService implements AppProgram {</span>
+<span class="nc" id="L23">    private static final Logger log = LoggerFactory.getLogger(OcmenuService.class);</span>
+
+    /** Length in bytes of the ORION-COMMAREA passed across program transfers. */
+    private static final int COMMAREA_LENGTH = 692;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L34">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc" id="L35">        executeMainFlow(ctx);</span>
+<span class="nc" id="L36">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L40">        return &quot;OCMENU&quot;;</span>
+    }
+
+    @Override
+    public String getTransId() {
+<span class="nc" id="L45">        return &quot;ORMN&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L50">        return OcmenuBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L55">        OcmenuBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L56">    }</span>
+
+    @Override
+    public FieldMapping getFieldMapping(String mapName) {
+<span class="nc" id="L60">        return OcmenuBmsMetadata.getFieldMapping(mapName);</span>
+    }
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void executeMainFlow(TaskContext ctx) {
+<span class="nc" id="L65">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (ctx.appService.getEibcalen() == 0) {</span>
+<span class="nc" id="L67">            ctx.appService.xctl(ctx.f.getWsSgnonPgm(), null, 0);</span>
+<span class="nc" id="L68">            ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+        }
+<span class="nc" id="L70">        ctx.f.setOrionCommarea(Utility.groupToString(ctx.appService.getSerializedCommarea()));</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (ctx.f.getCaPgmContext() == 0) {</span>
+<span class="nc" id="L72">            sendInitialScreen(ctx);</span>
+        } else {
+<span class="nc" id="L74">            processUserInput(ctx);</span>
+        }
+<span class="nc" id="L76">        returnTransaction(ctx);</span>
+<span class="nc" id="L77">    }</span>
+
+    /** COBOL paragraph: 1000-SEND-INITIAL */
+    private void sendInitialScreen(TaskContext ctx) {
+<span class="nc" id="L81">        ctx.f.fillLowValues(&quot;MMENUAO&quot;);</span>
+<span class="nc" id="L82">        populateHeader(ctx);</span>
+<span class="nc" id="L83">        ctx.f.setErrmsgo(&quot;Select an option (1-10) and press ENTER.&quot;);</span>
+<span class="nc" id="L84">        ctx.appService.sendMap(</span>
+                &quot;MMENUA&quot;, ctx.f, ctx.f, /* erase */ true, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L86">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L87">        ctx.f.setCaPgmContext(1);</span>
+<span class="nc" id="L88">    }</span>
+
+    /** COBOL paragraph: 2000-PROCESS-INPUT */
+    private void processUserInput(TaskContext ctx) {
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;3&quot;)) {</span>
+<span class="nc" id="L93">            ctx.f.setCaPgmContext(0);</span>
+<span class="nc" id="L94">            ctx.appService.xctl(</span>
+<span class="nc" id="L95">                    ctx.f.getWsSgnonPgm(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L96">            ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;'&quot;)) {</span>
+<span class="nc" id="L98">            dispatchMenuOption(ctx);</span>
+        } else {
+<span class="nc" id="L100">            sendInitialScreen(ctx);</span>
+<span class="nc" id="L101">            ctx.f.setErrmsgo(ctx.f.getWsMsgInvalidKey());</span>
+<span class="nc" id="L102">            sendDataOnlyScreen(ctx);</span>
+        }
+<span class="nc" id="L104">    }</span>
+
+    /** COBOL paragraph: 2100-DISPATCH */
+    private void dispatchMenuOption(TaskContext ctx) {
+<span class="nc" id="L108">        ctx.appService.receiveMap(&quot;MMENUA&quot;, ctx.f);</span>
+<span class="nc" id="L109">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (Utility.isNumeric(ctx.f.getRawString(&quot;OPTIONI&quot;))) {</span>
+<span class="nc" id="L111">            ctx.f.setWsOption(Utility.parseNumeric(ctx.f.getOptioni()).intValue());</span>
+        } else {
+<span class="nc" id="L113">            ctx.f.setWsOption(0);</span>
+        }
+<span class="nc bnc" id="L115" title="All 11 branches missed.">        switch (ctx.f.getWsOption()) {</span>
+            case 1 -&gt; {
+<span class="nc" id="L117">                ctx.f.setWsXctlPgm(&quot;OCACCTV&quot;);</span>
+<span class="nc" id="L118">            }</span>
+            case 2 -&gt; {
+<span class="nc" id="L120">                ctx.f.setWsXctlPgm(&quot;OCACCTU&quot;);</span>
+<span class="nc" id="L121">            }</span>
+            case 3 -&gt; {
+<span class="nc" id="L123">                ctx.f.setWsXctlPgm(&quot;OCCARDL&quot;);</span>
+<span class="nc" id="L124">            }</span>
+            case 4 -&gt; {
+<span class="nc" id="L126">                ctx.f.setWsXctlPgm(&quot;OCCARDV&quot;);</span>
+<span class="nc" id="L127">            }</span>
+            case 5 -&gt; {
+<span class="nc" id="L129">                ctx.f.setWsXctlPgm(&quot;OCCARDU&quot;);</span>
+<span class="nc" id="L130">            }</span>
+            case 6 -&gt; {
+<span class="nc" id="L132">                ctx.f.setWsXctlPgm(&quot;OCCUSTV&quot;);</span>
+<span class="nc" id="L133">            }</span>
+            case 7 -&gt; {
+<span class="nc" id="L135">                ctx.f.setWsXctlPgm(&quot;OCTRANL&quot;);</span>
+<span class="nc" id="L136">            }</span>
+            case 8 -&gt; {
+<span class="nc" id="L138">                ctx.f.setWsXctlPgm(&quot;OCTRANA&quot;);</span>
+<span class="nc" id="L139">            }</span>
+            case 9 -&gt; {
+<span class="nc" id="L141">                ctx.f.setWsXctlPgm(&quot;OCBILLP&quot;);</span>
+<span class="nc" id="L142">            }</span>
+            case 10 -&gt; {
+<span class="nc" id="L144">                ctx.f.setWsXctlPgm(&quot;OCRPTMN&quot;);</span>
+<span class="nc" id="L145">            }</span>
+            default -&gt; {
+<span class="nc" id="L147">                ctx.f.setWsXctlPgm(&quot; &quot;);</span>
+            }
+        }
+<span class="nc bnc" id="L150" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getWsXctlPgm(), &quot; &quot;)) {</span>
+<span class="nc" id="L151">            sendInitialScreen(ctx);</span>
+<span class="nc" id="L152">            ctx.f.setErrmsgo(&quot;Invalid option.&quot;);</span>
+<span class="nc" id="L153">            sendDataOnlyScreen(ctx);</span>
+        } else {
+<span class="nc" id="L155">            ctx.f.setCaFromProgram(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L156">            ctx.f.setCaPgmContext(0);</span>
+<span class="nc" id="L157">            ctx.appService.xctl(</span>
+<span class="nc" id="L158">                    ctx.f.getWsXctlPgm(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L159">            ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+        }
+<span class="nc" id="L161">    }</span>
+
+    /** COBOL paragraph: 8000-POPULATE-HEADER */
+    private void populateHeader(TaskContext ctx) {
+<span class="nc" id="L165">        ctx.f.setTrnnameo(ctx.f.getWsTranid());</span>
+<span class="nc" id="L166">        ctx.f.setPgmnameo(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L167">        ctx.f.setTitleo(ctx.f.getWsHdrTitle());</span>
+<span class="nc" id="L168">        ctx.appService.askTime();</span>
+<span class="nc" id="L169">        com.appruntime.FormatTimeResult _ftResult =</span>
+<span class="nc" id="L170">                ctx.appService.formatTime(null, &quot;YYYYMMDD&quot;, &quot;-&quot;, &quot;:&quot;);</span>
+<span class="nc" id="L171">        ctx.f.setWsHdrDate(_ftResult.getDate());</span>
+<span class="nc" id="L172">        ctx.f.setWsHdrTime(_ftResult.getTime());</span>
+<span class="nc" id="L173">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L174">        ctx.f.setCurdateo(ctx.f.getWsHdrDate());</span>
+<span class="nc" id="L175">        ctx.f.setCurtimeo(ctx.f.getWsHdrTime());</span>
+<span class="nc" id="L176">    }</span>
+
+    /** COBOL paragraph: 8100-SEND-DATAONLY */
+    private void sendDataOnlyScreen(TaskContext ctx) {
+<span class="nc" id="L180">        populateHeader(ctx);</span>
+<span class="nc" id="L181">        ctx.appService.sendMap(</span>
+                &quot;MMENUA&quot;, ctx.f, ctx.f, /* erase */ false, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L183">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L184">    }</span>
+
+    /** COBOL paragraph: 9000-RETURN */
+    private void returnTransaction(TaskContext ctx) {
+<span class="nc" id="L188">        ctx.appService.returnTransid(</span>
+<span class="nc" id="L189">                ctx.f.getWsTranid(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L190">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OcmenuFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L203">        final OcmenuLinkParm link = new OcmenuLinkParm();</span>
+
+<span class="nc" id="L205">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L206">            this.appService = appService;</span>
+<span class="nc" id="L207">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L208">            this.f = new OcmenuFields(ws);</span>
+<span class="nc" id="L209">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

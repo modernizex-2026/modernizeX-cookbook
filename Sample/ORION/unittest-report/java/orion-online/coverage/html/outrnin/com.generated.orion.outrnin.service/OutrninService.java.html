@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OutrninService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUTRNIN Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.outrnin.service</a> &gt; <span class="el_source">OutrninService.java</span></div><h1>OutrninService.java</h1><pre class="source lang-java linenums">package com.generated.orion.outrnin.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.outrnin.accessor.OutrninFields;
+import com.generated.orion.outrnin.metadata.OutrninBmsMetadata;
+import com.generated.orion.outrnin.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OUTRNIN. */
+@Service
+<span class="nc" id="L20">public class OutrninService implements AppProgram {</span>
+<span class="nc" id="L21">    private static final Logger log = LoggerFactory.getLogger(OutrninService.class);</span>
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L29">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc bnc" id="L30" title="All 4 branches missed.">        if (ctx.appService.getEibcalen() &gt; 0 &amp;&amp; ctx.appService.getCommarea() != null) {</span>
+<span class="nc" id="L31">            Object _commarea = ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            if (_commarea instanceof Object[]) {</span>
+<span class="nc" id="L33">                Object[] _params = (Object[]) _commarea;</span>
+<span class="nc bnc" id="L34" title="All 4 branches missed.">                if (_params.length &gt; 0 &amp;&amp; _params[0] instanceof byte[]) {</span>
+<span class="nc" id="L35">                    ctx.f.writeBytes(&quot;KTRNIN-AREA&quot;, (byte[]) _params[0]);</span>
+<span class="nc bnc" id="L36" title="All 4 branches missed.">                } else if (_params.length &gt; 0 &amp;&amp; _params[0] != null) {</span>
+<span class="nc" id="L37">                    ctx.f.setGroup(&quot;KTRNIN-AREA&quot;, String.valueOf(_params[0]));</span>
+                }
+<span class="nc bnc" id="L39" title="All 2 branches missed.">            } else if (_commarea instanceof byte[]) {</span>
+<span class="nc" id="L40">                ctx.f.writeBytes(&quot;KTRNIN-AREA&quot;, (byte[]) _commarea);</span>
+            } else {
+<span class="nc" id="L42">                ctx.f.setGroup(&quot;KTRNIN-AREA&quot;, String.valueOf(_commarea));</span>
+            }
+        }
+        try {
+<span class="nc" id="L46">            runMainProgram(ctx);</span>
+        } finally {
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            if (ctx.appService.getEibcalen() &gt; 0) {</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                if (ctx.appService.getCommarea() instanceof Object[]) {</span>
+<span class="nc" id="L50">                    Object[] _params = (Object[]) ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                    if (_params.length &gt; 0) {</span>
+<span class="nc" id="L52">                        _params[0] =</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                                _params[0] instanceof byte[]</span>
+<span class="nc" id="L54">                                        ? (Object) ctx.f.sliceBytes(&quot;KTRNIN-AREA&quot;)</span>
+<span class="nc" id="L55">                                        : (Object) ctx.f.groupToString(&quot;KTRNIN-AREA&quot;);</span>
+                    }
+<span class="nc" id="L57">                } else {</span>
+<span class="nc" id="L58">                    ctx.appService.setCommarea(ctx.f.sliceBytes(&quot;KTRNIN-AREA&quot;));</span>
+                }
+            }
+        }
+<span class="nc" id="L62">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L66">        return &quot;OUTRNIN&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L71">        return OutrninBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L76">        OutrninBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L77">    }</span>
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainProgram(TaskContext ctx) {
+<span class="nc" id="L81">        initializeResponse(ctx);</span>
+<span class="nc" id="L82">        browseTransactions(ctx);</span>
+<span class="nc" id="L83">        finalizeProgram(ctx);</span>
+<span class="nc" id="L84">        return;</span>
+    }
+
+    /** COBOL paragraph: 1000-INIT-RESPONSE */
+    private void initializeResponse(TaskContext ctx) {
+<span class="nc" id="L89">        ctx.f.setString(&quot;KTI-RETURN-CD&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L90">        ctx.f.setKtiRowCount(0);</span>
+<span class="nc" id="L91">        ctx.f.setKtiScanCount(0);</span>
+<span class="nc" id="L92">        ctx.f.setKtiMatchCount(0);</span>
+<span class="nc" id="L93">        ctx.f.setKtiNetTotal(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L94">        ctx.f.setKtiMaxAmt(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L95">        ctx.f.setKtiMaxId(&quot; &quot;);</span>
+<span class="nc" id="L96">        ctx.f.setKtiPurchCnt(0);</span>
+<span class="nc" id="L97">        ctx.f.setKtiPurchSum(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L98">        ctx.f.setKtiPayCnt(0);</span>
+<span class="nc" id="L99">        ctx.f.setKtiPaySum(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L100">        ctx.f.setKtiFeeCnt(0);</span>
+<span class="nc" id="L101">        ctx.f.setKtiFeeSum(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L102">        ctx.f.setKtiIntCnt(0);</span>
+<span class="nc" id="L103">        ctx.f.setKtiIntSum(java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L104">        ctx.f.setKtiNextKey(&quot; &quot;);</span>
+<span class="nc" id="L105">        ctx.f.setString(&quot;KTI-MORE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L106">        ctx.f.setWsLastKey(&quot; &quot;);</span>
+<span class="nc" id="L107">        ctx.f.setString(&quot;WS-FIRST-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L108">        ctx.f.setString(&quot;WS-MATCH-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L109">        ctx.f.setWsEndFlg(&quot;N&quot;);</span>
+<span class="nc" id="L110">        ctx.f.setKtiRows(&quot;&quot;);</span>
+<span class="nc" id="L111">    }</span>
+
+    /** COBOL paragraph: 2000-BROWSE-TRANS */
+    private void browseTransactions(TaskContext ctx) {
+<span class="nc" id="L115">        startTransBrowse(ctx);</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        if (!ctx.f.getWsEndFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">            while (!ctx.f.getWsEndFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L118">                readNextTransaction(ctx);</span>
+            }
+<span class="nc" id="L120">            endTransBrowse(ctx);</span>
+        }
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        if (ctx.f.getKtiRowCount() &gt; 0) {</span>
+<span class="nc" id="L123">            ctx.f.setKtiNextKey(ctx.f.getWsLastKey());</span>
+        }
+<span class="nc" id="L125">    }</span>
+
+    /** COBOL paragraph: 2100-START-BROWSE */
+    private void startTransBrowse(TaskContext ctx) {
+<span class="nc" id="L129">        ctx.f.fillLowValues(&quot;TR-ID&quot;);</span>
+<span class="nc" id="L130">        ctx.appService.startBrowse(ctx.f.getWsTranfile(), String.valueOf(ctx.f.getTrId()), 0);</span>
+<span class="nc" id="L131">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+            /* CONTINUE */
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L135">            ctx.f.setString(&quot;WS-END-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L137">            ctx.f.setString(&quot;WS-END-FLG&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L139">            ctx.f.setString(&quot;WS-END-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L140">            ctx.f.setString(&quot;KTI-RETURN-CD&quot;, &quot;E&quot;);</span>
+        }
+<span class="nc" id="L142">    }</span>
+
+    /** COBOL paragraph: 2200-READ-NEXT */
+    private void readNextTransaction(TaskContext ctx) {
+<span class="nc" id="L146">        ctx.appService.readNext(ctx.f.getWsTranfile(), ctx.f);</span>
+<span class="nc" id="L147">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L149">            handleRecord(ctx);</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L151">            ctx.f.setString(&quot;WS-END-FLG&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L153">            ctx.f.setString(&quot;WS-END-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L154">            ctx.f.setString(&quot;KTI-RETURN-CD&quot;, &quot;E&quot;);</span>
+        }
+<span class="nc" id="L156">    }</span>
+
+    /** COBOL paragraph: 2250-HANDLE-RECORD */
+    private void handleRecord(TaskContext ctx) {
+<span class="nc" id="L160">        ctx.f.setKtiScanCount(ctx.f.getKtiScanCount() + 1);</span>
+<span class="nc" id="L161">        checkFilterMatch(ctx);</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        if (ctx.f.getWsMatchSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L163">            accumulateTotals(ctx);</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">            if ((ctx.f.getTrId().compareTo(ctx.f.getKtiStartKey()) &gt; 0)) {</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">                if (ctx.f.getKtiRowCount() &lt; ctx.f.getWsMaxRows()) {</span>
+<span class="nc" id="L166">                    storeRow(ctx);</span>
+                } else {
+<span class="nc" id="L168">                    ctx.f.setString(&quot;KTI-MORE-SW&quot;, &quot;Y&quot;);</span>
+                }
+            }
+        }
+<span class="nc" id="L172">    }</span>
+
+    /** COBOL paragraph: 2300-END-BROWSE */
+    private void endTransBrowse(TaskContext ctx) {
+<span class="nc" id="L176">        ctx.appService.endBrowse(ctx.f.getWsTranfile());</span>
+<span class="nc" id="L177">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L178">    }</span>
+
+    /** COBOL paragraph: 2400-FILTER-CHECK */
+    private void checkFilterMatch(TaskContext ctx) {
+<span class="nc" id="L182">        ctx.f.setString(&quot;WS-MATCH-SW&quot;, &quot;N&quot;);</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">        if (ctx.f.getKtiFilter().equals(&quot;C&quot;)) {</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">            if (Utility.fieldEquals(ctx.f.getTrCardNum(), ctx.f.getKtiCard())) {</span>
+<span class="nc" id="L185">                ctx.f.setString(&quot;WS-MATCH-SW&quot;, &quot;Y&quot;);</span>
+            }
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        } else if (ctx.f.getKtiFilter().equals(&quot;D&quot;)) {</span>
+<span class="nc" id="L188">            if ((Utility.padRight(String.valueOf(ctx.f.getTrProcTs()), 10)</span>
+<span class="nc" id="L189">                                    .substring(0, 10)</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">                                    .compareTo(ctx.f.getKtiDateFrom())</span>
+                            &gt;= 0)
+<span class="nc" id="L192">                    &amp;&amp; (Utility.padRight(String.valueOf(ctx.f.getTrProcTs()), 10)</span>
+<span class="nc" id="L193">                                    .substring(0, 10)</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">                                    .compareTo(ctx.f.getKtiDateTo())</span>
+                            &lt;= 0)) {
+<span class="nc" id="L196">                ctx.f.setString(&quot;WS-MATCH-SW&quot;, &quot;Y&quot;);</span>
+            }
+<span class="nc bnc" id="L198" title="All 2 branches missed.">        } else if (ctx.f.getKtiFilter().equals(&quot;M&quot;)) {</span>
+<span class="nc bnc" id="L199" title="All 2 branches missed.">            if (ctx.f.getTrMerchantId() == ctx.f.getKtiMerchId()) {</span>
+<span class="nc" id="L200">                ctx.f.setString(&quot;WS-MATCH-SW&quot;, &quot;Y&quot;);</span>
+            }
+<span class="nc bnc" id="L202" title="All 2 branches missed.">        } else if (ctx.f.getKtiFilter().equals(&quot;T&quot;)) {</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">            if (Utility.fieldEquals(ctx.f.getTrTypeCd(), ctx.f.getKtiFType())</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">                    &amp;&amp; ctx.f.getTrCatCd() == ctx.f.getKtiFCat()) {</span>
+<span class="nc" id="L205">                ctx.f.setString(&quot;WS-MATCH-SW&quot;, &quot;Y&quot;);</span>
+            }
+<span class="nc bnc" id="L207" title="All 2 branches missed.">        } else if (ctx.f.getKtiFilter().equals(&quot;A&quot;)) {</span>
+<span class="nc bnc" id="L208" title="All 2 branches missed.">            if ((ctx.f.getTrAmt().compareTo(ctx.f.getKtiAmtThresh()) &gt;= 0)) {</span>
+<span class="nc" id="L209">                ctx.f.setString(&quot;WS-MATCH-SW&quot;, &quot;Y&quot;);</span>
+            }
+        } else {
+            /* CONTINUE */
+        }
+<span class="nc" id="L214">    }</span>
+
+    /** COBOL paragraph: 2500-STORE-ROW */
+    private void storeRow(TaskContext ctx) {
+<span class="nc" id="L218">        ctx.f.setKtiRowCount(ctx.f.getKtiRowCount() + 1);</span>
+<span class="nc" id="L219">        ctx.f.setWsLastKey(ctx.f.getTrId());</span>
+<span class="nc" id="L220">        lookupDescription(ctx);</span>
+<span class="nc" id="L221">        ctx.f.setKtrId(ctx.f.getKtiRowCount(), ctx.f.getTrId());</span>
+<span class="nc" id="L222">        ctx.f.setKtrCard(ctx.f.getKtiRowCount(), ctx.f.getTrCardNum());</span>
+<span class="nc" id="L223">        ctx.f.setKtrTycat(ctx.f.getKtiRowCount(), ctx.f.getWsTycat());</span>
+<span class="nc" id="L224">        ctx.f.setKtrDesc(ctx.f.getKtiRowCount(), ctx.f.getWsDesc());</span>
+<span class="nc" id="L225">        ctx.f.setKtrMerch(ctx.f.getKtiRowCount(), ctx.f.getTrMerchantName());</span>
+<span class="nc" id="L226">        ctx.f.setKtrAmt(ctx.f.getKtiRowCount(), ctx.f.getTrAmt());</span>
+<span class="nc" id="L227">        ctx.f.setKtrDate(</span>
+<span class="nc" id="L228">                ctx.f.getKtiRowCount(),</span>
+<span class="nc" id="L229">                Utility.padRight(String.valueOf(ctx.f.getTrProcTs()), 10).substring(0, 10));</span>
+<span class="nc" id="L230">    }</span>
+
+    /** COBOL paragraph: 2600-LOOKUP-DESC */
+    private void lookupDescription(TaskContext ctx) {
+<span class="nc" id="L234">        ctx.f.setWsCatEd(ctx.f.getTrCatCd());</span>
+<span class="nc" id="L235">        ctx.f.setWsTycat(&quot; &quot;);</span>
+<span class="nc" id="L236">        ctx.f.setWsTycat(</span>
+<span class="nc" id="L237">                String.valueOf(ctx.f.getTrTypeCd()) + &quot;/&quot; + String.valueOf(ctx.f.getWsCatEd()));</span>
+<span class="nc" id="L238">        ctx.f.setWsDesc(&quot; &quot;);</span>
+<span class="nc" id="L239">        ctx.f.setTcTypeCd(ctx.f.getTrTypeCd());</span>
+<span class="nc" id="L240">        ctx.f.setTcCd(ctx.f.getTrCatCd());</span>
+<span class="nc" id="L241">        ctx.appService.readFile(</span>
+<span class="nc" id="L242">                ctx.f.getWsTcatfile(),</span>
+                ctx.f,
+<span class="nc" id="L244">                String.valueOf(ctx.f.getTcTypeCd()) + &quot;|&quot; + String.valueOf(ctx.f.getTcCd()),</span>
+                0);
+<span class="nc" id="L246">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L247" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L248">            ctx.f.setWsDesc(ctx.f.getTcDesc());</span>
+        } else {
+<span class="nc" id="L250">            lookupTransactionType(ctx);</span>
+        }
+<span class="nc" id="L252">    }</span>
+
+    /** COBOL paragraph: 2650-LOOKUP-TYPE */
+    private void lookupTransactionType(TaskContext ctx) {
+<span class="nc" id="L256">        ctx.f.setTtCd(ctx.f.getTrTypeCd());</span>
+<span class="nc" id="L257">        ctx.appService.readFile(ctx.f.getWsTtypfile(), ctx.f, String.valueOf(ctx.f.getTtCd()), 0);</span>
+<span class="nc" id="L258">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L259" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L260">            ctx.f.setWsDesc(ctx.f.getTtDesc());</span>
+        } else {
+<span class="nc" id="L262">            ctx.f.setWsDesc(&quot;UNKNOWN&quot;);</span>
+        }
+<span class="nc" id="L264">    }</span>
+
+    /** COBOL paragraph: 2700-ACCUMULATE */
+    private void accumulateTotals(TaskContext ctx) {
+<span class="nc" id="L268">        ctx.f.setKtiMatchCount(ctx.f.getKtiMatchCount() + 1);</span>
+<span class="nc" id="L269">        ctx.f.setKtiNetTotal(ctx.f.getKtiNetTotal().add(ctx.f.getTrAmt()));</span>
+<span class="nc bnc" id="L270" title="All 5 branches missed.">        switch (Utility.rtrim(ctx.f.getTrTypeCd())) {</span>
+            case &quot;PU&quot; -&gt; {
+<span class="nc" id="L272">                ctx.f.setKtiPurchCnt(ctx.f.getKtiPurchCnt() + 1);</span>
+<span class="nc" id="L273">                ctx.f.setKtiPurchSum(ctx.f.getKtiPurchSum().add(ctx.f.getTrAmt()));</span>
+<span class="nc" id="L274">            }</span>
+            case &quot;PY&quot; -&gt; {
+<span class="nc" id="L276">                ctx.f.setKtiPayCnt(ctx.f.getKtiPayCnt() + 1);</span>
+<span class="nc" id="L277">                ctx.f.setKtiPaySum(ctx.f.getKtiPaySum().add(ctx.f.getTrAmt()));</span>
+<span class="nc" id="L278">            }</span>
+            case &quot;FE&quot; -&gt; {
+<span class="nc" id="L280">                ctx.f.setKtiFeeCnt(ctx.f.getKtiFeeCnt() + 1);</span>
+<span class="nc" id="L281">                ctx.f.setKtiFeeSum(ctx.f.getKtiFeeSum().add(ctx.f.getTrAmt()));</span>
+<span class="nc" id="L282">            }</span>
+            case &quot;IN&quot; -&gt; {
+<span class="nc" id="L284">                ctx.f.setKtiIntCnt(ctx.f.getKtiIntCnt() + 1);</span>
+<span class="nc" id="L285">                ctx.f.setKtiIntSum(ctx.f.getKtiIntSum().add(ctx.f.getTrAmt()));</span>
+<span class="nc" id="L286">            }</span>
+            default -&gt; {
+                /* CONTINUE */
+            }
+        }
+<span class="nc bnc" id="L291" title="All 2 branches missed.">        if (ctx.f.getWsFirstSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L292">            ctx.f.setKtiMaxAmt(ctx.f.getTrAmt());</span>
+<span class="nc" id="L293">            ctx.f.setKtiMaxId(ctx.f.getTrId());</span>
+<span class="nc" id="L294">            ctx.f.setString(&quot;WS-FIRST-SW&quot;, &quot;N&quot;);</span>
+        } else {
+<span class="nc bnc" id="L296" title="All 2 branches missed.">            if ((ctx.f.getTrAmt().compareTo(ctx.f.getKtiMaxAmt()) &gt; 0)) {</span>
+<span class="nc" id="L297">                ctx.f.setKtiMaxAmt(ctx.f.getTrAmt());</span>
+<span class="nc" id="L298">                ctx.f.setKtiMaxId(ctx.f.getTrId());</span>
+            }
+        }
+<span class="nc" id="L301">    }</span>
+
+    /** COBOL paragraph: 3000-FINALIZE */
+    private void finalizeProgram(TaskContext ctx) {
+        /* CONTINUE */
+<span class="nc" id="L306">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OutrninFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L319">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L320">            this.appService = appService;</span>
+<span class="nc" id="L321">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L322">            this.f = new OutrninFields(ws);</span>
+<span class="nc" id="L323">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

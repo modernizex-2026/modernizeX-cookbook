@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OcpauinBmsMetadata.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCPAUIN Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ocpauin.metadata</a> &gt; <span class="el_source">OcpauinBmsMetadata.java</span></div><h1>OcpauinBmsMetadata.java</h1><pre class="source lang-java linenums">package com.generated.orion.ocpauin.metadata;
+
+import com.appruntime.AppRunner;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import java.util.*;
+
+/**
+ * BMS screen metadata for OCPAUIN.
+ * Contains button definitions, FSET fields, and field mappings.
+ */
+<span class="nc" id="L12">public class OcpauinBmsMetadata {</span>
+
+    public static List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="fc" id="L15">        return List.of(</span>
+            new ScreenResponse.ButtonDef(&quot;ENTER&quot;, &quot;ENTER=INQUIRE&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF3&quot;, &quot;PF3=BACK&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF4&quot;, &quot;PF4=CLEAR&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF8&quot;, &quot;PF8=NEXT&quot;, &quot;&quot;)
+        );
+    }
+
+    public static void registerFsetFields(AppRunner runner) {
+<span class="fc" id="L24">        runner.registerFsetFields(&quot;MPAUINA&quot;, Set.of(&quot;AUTHID&quot;));</span>
+<span class="fc" id="L25">    }</span>
+
+    /** Danh sách BMS map của program (cho smoke test / tooling). */
+    public static List&lt;String&gt; getMapNames() {
+<span class="nc" id="L29">        return List.of(&quot;MPAUINA&quot;);</span>
+    }
+
+    /** Classpath resource của WORKING-STORAGE layout (FieldStore đọc lúc runtime). */
+    public static String getLayoutResource() {
+<span class="nc" id="L34">        return &quot;layout/OCPAUIN_WS.xml&quot;;</span>
+    }
+
+    public static FieldMapping getFieldMapping(String mapName) {
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (&quot;MPAUINA&quot;.equalsIgnoreCase(mapName)) {</span>
+<span class="fc" id="L39">            return FieldMapping.builder()</span>
+<span class="fc" id="L40">                .addDataIn(&quot;AUTHID&quot;, &quot;authidi&quot;)</span>
+<span class="fc" id="L41">                .addDataIn(&quot;PAREQTS&quot;, &quot;pareqtsi&quot;)</span>
+<span class="fc" id="L42">                .addDataIn(&quot;PAACCT&quot;, &quot;paaccti&quot;)</span>
+<span class="fc" id="L43">                .addDataIn(&quot;PAAMT&quot;, &quot;paamti&quot;)</span>
+<span class="fc" id="L44">                .addDataIn(&quot;TRNNAME&quot;, &quot;trnnamei&quot;)</span>
+<span class="fc" id="L45">                .addDataIn(&quot;PADEC&quot;, &quot;padeci&quot;)</span>
+<span class="fc" id="L46">                .addDataIn(&quot;ERRMSG&quot;, &quot;errmsgi&quot;)</span>
+<span class="fc" id="L47">                .addDataIn(&quot;CURTIME&quot;, &quot;curtimei&quot;)</span>
+<span class="fc" id="L48">                .addDataIn(&quot;PAMERCH&quot;, &quot;pamerchi&quot;)</span>
+<span class="fc" id="L49">                .addDataIn(&quot;PACARD&quot;, &quot;pacardi&quot;)</span>
+<span class="fc" id="L50">                .addDataIn(&quot;TITLE&quot;, &quot;titlei&quot;)</span>
+<span class="fc" id="L51">                .addDataIn(&quot;PASTAT&quot;, &quot;pastati&quot;)</span>
+<span class="fc" id="L52">                .addDataIn(&quot;PGMNAME&quot;, &quot;pgmnamei&quot;)</span>
+<span class="fc" id="L53">                .addDataIn(&quot;CURDATE&quot;, &quot;curdatei&quot;)</span>
+<span class="fc" id="L54">                .addDataOut(&quot;AUTHID&quot;, &quot;authido&quot;)</span>
+<span class="fc" id="L55">                .addDataOut(&quot;PAREQTS&quot;, &quot;pareqtso&quot;)</span>
+<span class="fc" id="L56">                .addDataOut(&quot;PAACCT&quot;, &quot;paaccto&quot;)</span>
+<span class="fc" id="L57">                .addDataOut(&quot;PAAMT&quot;, &quot;paamto&quot;)</span>
+<span class="fc" id="L58">                .addDataOut(&quot;TRNNAME&quot;, &quot;trnnameo&quot;)</span>
+<span class="fc" id="L59">                .addDataOut(&quot;PADEC&quot;, &quot;padeco&quot;)</span>
+<span class="fc" id="L60">                .addDataOut(&quot;ERRMSG&quot;, &quot;errmsgo&quot;)</span>
+<span class="fc" id="L61">                .addDataOut(&quot;CURTIME&quot;, &quot;curtimeo&quot;)</span>
+<span class="fc" id="L62">                .addDataOut(&quot;PAMERCH&quot;, &quot;pamercho&quot;)</span>
+<span class="fc" id="L63">                .addDataOut(&quot;PACARD&quot;, &quot;pacardo&quot;)</span>
+<span class="fc" id="L64">                .addDataOut(&quot;TITLE&quot;, &quot;titleo&quot;)</span>
+<span class="fc" id="L65">                .addDataOut(&quot;PASTAT&quot;, &quot;pastato&quot;)</span>
+<span class="fc" id="L66">                .addDataOut(&quot;PGMNAME&quot;, &quot;pgmnameo&quot;)</span>
+<span class="fc" id="L67">                .addDataOut(&quot;CURDATE&quot;, &quot;curdateo&quot;)</span>
+<span class="fc" id="L68">                .addAttr(&quot;AUTHID&quot;, &quot;authida&quot;)</span>
+<span class="fc" id="L69">                .addAttr(&quot;PAREQTS&quot;, &quot;pareqtsa&quot;)</span>
+<span class="fc" id="L70">                .addAttr(&quot;PAACCT&quot;, &quot;paaccta&quot;)</span>
+<span class="fc" id="L71">                .addAttr(&quot;PAAMT&quot;, &quot;paamta&quot;)</span>
+<span class="fc" id="L72">                .addAttr(&quot;TRNNAME&quot;, &quot;trnnamea&quot;)</span>
+<span class="fc" id="L73">                .addAttr(&quot;PADEC&quot;, &quot;padeca&quot;)</span>
+<span class="fc" id="L74">                .addAttr(&quot;ERRMSG&quot;, &quot;errmsga&quot;)</span>
+<span class="fc" id="L75">                .addAttr(&quot;CURTIME&quot;, &quot;curtimea&quot;)</span>
+<span class="fc" id="L76">                .addAttr(&quot;PAMERCH&quot;, &quot;pamercha&quot;)</span>
+<span class="fc" id="L77">                .addAttr(&quot;PACARD&quot;, &quot;pacarda&quot;)</span>
+<span class="fc" id="L78">                .addAttr(&quot;TITLE&quot;, &quot;titlea&quot;)</span>
+<span class="fc" id="L79">                .addAttr(&quot;PASTAT&quot;, &quot;pastata&quot;)</span>
+<span class="fc" id="L80">                .addAttr(&quot;PGMNAME&quot;, &quot;pgmnamea&quot;)</span>
+<span class="fc" id="L81">                .addAttr(&quot;CURDATE&quot;, &quot;curdatea&quot;)</span>
+<span class="fc" id="L82">                .addLength(&quot;AUTHID&quot;, &quot;authidl&quot;)</span>
+<span class="fc" id="L83">                .addLength(&quot;PAREQTS&quot;, &quot;pareqtsl&quot;)</span>
+<span class="fc" id="L84">                .addLength(&quot;PAACCT&quot;, &quot;paacctl&quot;)</span>
+<span class="fc" id="L85">                .addLength(&quot;PAAMT&quot;, &quot;paamtl&quot;)</span>
+<span class="fc" id="L86">                .addLength(&quot;TRNNAME&quot;, &quot;trnnamel&quot;)</span>
+<span class="fc" id="L87">                .addLength(&quot;PADEC&quot;, &quot;padecl&quot;)</span>
+<span class="fc" id="L88">                .addLength(&quot;ERRMSG&quot;, &quot;errmsgl&quot;)</span>
+<span class="fc" id="L89">                .addLength(&quot;CURTIME&quot;, &quot;curtimel&quot;)</span>
+<span class="fc" id="L90">                .addLength(&quot;PAMERCH&quot;, &quot;pamerchl&quot;)</span>
+<span class="fc" id="L91">                .addLength(&quot;PACARD&quot;, &quot;pacardl&quot;)</span>
+<span class="fc" id="L92">                .addLength(&quot;TITLE&quot;, &quot;titlel&quot;)</span>
+<span class="fc" id="L93">                .addLength(&quot;PASTAT&quot;, &quot;pastatl&quot;)</span>
+<span class="fc" id="L94">                .addLength(&quot;PGMNAME&quot;, &quot;pgmnamel&quot;)</span>
+<span class="fc" id="L95">                .addLength(&quot;CURDATE&quot;, &quot;curdatel&quot;)</span>
+<span class="fc" id="L96">                .build();</span>
+        }
+<span class="fc" id="L98">        return FieldMapping.empty();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OccrdinBmsMetadata.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCCRDIN Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.occrdin.metadata</a> &gt; <span class="el_source">OccrdinBmsMetadata.java</span></div><h1>OccrdinBmsMetadata.java</h1><pre class="source lang-java linenums">package com.generated.orion.occrdin.metadata;
+
+import com.appruntime.AppRunner;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import java.util.*;
+
+/**
+ * BMS screen metadata for OCCRDIN.
+ * Contains button definitions, FSET fields, and field mappings.
+ */
+<span class="nc" id="L12">public class OccrdinBmsMetadata {</span>
+
+    public static List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="fc" id="L15">        return List.of(</span>
+            new ScreenResponse.ButtonDef(&quot;ENTER&quot;, &quot;ENTER=APPLY&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF7&quot;, &quot;PF7=TOP&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF8&quot;, &quot;PF8=FWD&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF3&quot;, &quot;PF3=MENU&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF12&quot;, &quot;PF12&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF4&quot;, &quot;PF4&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;CLEAR&quot;, &quot;Clear&quot;, &quot;&quot;)
+        );
+    }
+
+    public static void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L27">        runner.registerFsetFields(&quot;MCRDINA&quot;, Set.of(&quot;FILT&quot;));</span>
+<span class="nc" id="L28">    }</span>
+
+    /** Danh sách BMS map của program (cho smoke test / tooling). */
+    public static List&lt;String&gt; getMapNames() {
+<span class="nc" id="L32">        return List.of(&quot;MCRDINA&quot;);</span>
+    }
+
+    /** Classpath resource của WORKING-STORAGE layout (FieldStore đọc lúc runtime). */
+    public static String getLayoutResource() {
+<span class="nc" id="L37">        return &quot;layout/OCCRDIN_WS.xml&quot;;</span>
+    }
+
+    public static FieldMapping getFieldMapping(String mapName) {
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">        if (&quot;MCRDINA&quot;.equalsIgnoreCase(mapName)) {</span>
+<span class="fc" id="L42">            return FieldMapping.builder()</span>
+<span class="fc" id="L43">                .addDataIn(&quot;CNA10&quot;, &quot;cna10i&quot;)</span>
+<span class="fc" id="L44">                .addDataIn(&quot;CNA11&quot;, &quot;cna11i&quot;)</span>
+<span class="fc" id="L45">                .addDataIn(&quot;CNA12&quot;, &quot;cna12i&quot;)</span>
+<span class="fc" id="L46">                .addDataIn(&quot;CEX10&quot;, &quot;cex10i&quot;)</span>
+<span class="fc" id="L47">                .addDataIn(&quot;CEX11&quot;, &quot;cex11i&quot;)</span>
+<span class="fc" id="L48">                .addDataIn(&quot;CEX12&quot;, &quot;cex12i&quot;)</span>
+<span class="fc" id="L49">                .addDataIn(&quot;CEX13&quot;, &quot;cex13i&quot;)</span>
+<span class="fc" id="L50">                .addDataIn(&quot;CNA13&quot;, &quot;cna13i&quot;)</span>
+<span class="fc" id="L51">                .addDataIn(&quot;ERRMSG&quot;, &quot;errmsgi&quot;)</span>
+<span class="fc" id="L52">                .addDataIn(&quot;CURTIME&quot;, &quot;curtimei&quot;)</span>
+<span class="fc" id="L53">                .addDataIn(&quot;CNA5&quot;, &quot;cna5i&quot;)</span>
+<span class="fc" id="L54">                .addDataIn(&quot;CEX5&quot;, &quot;cex5i&quot;)</span>
+<span class="fc" id="L55">                .addDataIn(&quot;CNA4&quot;, &quot;cna4i&quot;)</span>
+<span class="fc" id="L56">                .addDataIn(&quot;CEX4&quot;, &quot;cex4i&quot;)</span>
+<span class="fc" id="L57">                .addDataIn(&quot;CNA3&quot;, &quot;cna3i&quot;)</span>
+<span class="fc" id="L58">                .addDataIn(&quot;CEX3&quot;, &quot;cex3i&quot;)</span>
+<span class="fc" id="L59">                .addDataIn(&quot;CNA2&quot;, &quot;cna2i&quot;)</span>
+<span class="fc" id="L60">                .addDataIn(&quot;CEX2&quot;, &quot;cex2i&quot;)</span>
+<span class="fc" id="L61">                .addDataIn(&quot;CNA1&quot;, &quot;cna1i&quot;)</span>
+<span class="fc" id="L62">                .addDataIn(&quot;CEX1&quot;, &quot;cex1i&quot;)</span>
+<span class="fc" id="L63">                .addDataIn(&quot;CNM9&quot;, &quot;cnm9i&quot;)</span>
+<span class="fc" id="L64">                .addDataIn(&quot;PAGENO&quot;, &quot;pagenoi&quot;)</span>
+<span class="fc" id="L65">                .addDataIn(&quot;CNM8&quot;, &quot;cnm8i&quot;)</span>
+<span class="fc" id="L66">                .addDataIn(&quot;CNM7&quot;, &quot;cnm7i&quot;)</span>
+<span class="fc" id="L67">                .addDataIn(&quot;FILT&quot;, &quot;filti&quot;)</span>
+<span class="fc" id="L68">                .addDataIn(&quot;CNM6&quot;, &quot;cnm6i&quot;)</span>
+<span class="fc" id="L69">                .addDataIn(&quot;CAC9&quot;, &quot;cac9i&quot;)</span>
+<span class="fc" id="L70">                .addDataIn(&quot;CNM5&quot;, &quot;cnm5i&quot;)</span>
+<span class="fc" id="L71">                .addDataIn(&quot;CAC8&quot;, &quot;cac8i&quot;)</span>
+<span class="fc" id="L72">                .addDataIn(&quot;FDESC&quot;, &quot;fdesci&quot;)</span>
+<span class="fc" id="L73">                .addDataIn(&quot;CNM4&quot;, &quot;cnm4i&quot;)</span>
+<span class="fc" id="L74">                .addDataIn(&quot;CAC7&quot;, &quot;cac7i&quot;)</span>
+<span class="fc" id="L75">                .addDataIn(&quot;CNM3&quot;, &quot;cnm3i&quot;)</span>
+<span class="fc" id="L76">                .addDataIn(&quot;CAC6&quot;, &quot;cac6i&quot;)</span>
+<span class="fc" id="L77">                .addDataIn(&quot;CNM2&quot;, &quot;cnm2i&quot;)</span>
+<span class="fc" id="L78">                .addDataIn(&quot;CAC5&quot;, &quot;cac5i&quot;)</span>
+<span class="fc" id="L79">                .addDataIn(&quot;CNM1&quot;, &quot;cnm1i&quot;)</span>
+<span class="fc" id="L80">                .addDataIn(&quot;CAC4&quot;, &quot;cac4i&quot;)</span>
+<span class="fc" id="L81">                .addDataIn(&quot;CNM13&quot;, &quot;cnm13i&quot;)</span>
+<span class="fc" id="L82">                .addDataIn(&quot;CAC3&quot;, &quot;cac3i&quot;)</span>
+<span class="fc" id="L83">                .addDataIn(&quot;CAC2&quot;, &quot;cac2i&quot;)</span>
+<span class="fc" id="L84">                .addDataIn(&quot;CAC1&quot;, &quot;cac1i&quot;)</span>
+<span class="fc" id="L85">                .addDataIn(&quot;CNM10&quot;, &quot;cnm10i&quot;)</span>
+<span class="fc" id="L86">                .addDataIn(&quot;CNM11&quot;, &quot;cnm11i&quot;)</span>
+<span class="fc" id="L87">                .addDataIn(&quot;CNM12&quot;, &quot;cnm12i&quot;)</span>
+<span class="fc" id="L88">                .addDataIn(&quot;PGMNAME&quot;, &quot;pgmnamei&quot;)</span>
+<span class="fc" id="L89">                .addDataIn(&quot;CURDATE&quot;, &quot;curdatei&quot;)</span>
+<span class="fc" id="L90">                .addDataIn(&quot;CAC12&quot;, &quot;cac12i&quot;)</span>
+<span class="fc" id="L91">                .addDataIn(&quot;CAC13&quot;, &quot;cac13i&quot;)</span>
+<span class="fc" id="L92">                .addDataIn(&quot;CST9&quot;, &quot;cst9i&quot;)</span>
+<span class="fc" id="L93">                .addDataIn(&quot;CAC10&quot;, &quot;cac10i&quot;)</span>
+<span class="fc" id="L94">                .addDataIn(&quot;CST8&quot;, &quot;cst8i&quot;)</span>
+<span class="fc" id="L95">                .addDataIn(&quot;CAC11&quot;, &quot;cac11i&quot;)</span>
+<span class="fc" id="L96">                .addDataIn(&quot;CST7&quot;, &quot;cst7i&quot;)</span>
+<span class="fc" id="L97">                .addDataIn(&quot;CST6&quot;, &quot;cst6i&quot;)</span>
+<span class="fc" id="L98">                .addDataIn(&quot;CST5&quot;, &quot;cst5i&quot;)</span>
+<span class="fc" id="L99">                .addDataIn(&quot;CST4&quot;, &quot;cst4i&quot;)</span>
+<span class="fc" id="L100">                .addDataIn(&quot;CST3&quot;, &quot;cst3i&quot;)</span>
+<span class="fc" id="L101">                .addDataIn(&quot;CST2&quot;, &quot;cst2i&quot;)</span>
+<span class="fc" id="L102">                .addDataIn(&quot;CST13&quot;, &quot;cst13i&quot;)</span>
+<span class="fc" id="L103">                .addDataIn(&quot;CST1&quot;, &quot;cst1i&quot;)</span>
+<span class="fc" id="L104">                .addDataIn(&quot;CST12&quot;, &quot;cst12i&quot;)</span>
+<span class="fc" id="L105">                .addDataIn(&quot;CST11&quot;, &quot;cst11i&quot;)</span>
+<span class="fc" id="L106">                .addDataIn(&quot;CST10&quot;, &quot;cst10i&quot;)</span>
+<span class="fc" id="L107">                .addDataIn(&quot;ACTCNT&quot;, &quot;actcnti&quot;)</span>
+<span class="fc" id="L108">                .addDataIn(&quot;CNA9&quot;, &quot;cna9i&quot;)</span>
+<span class="fc" id="L109">                .addDataIn(&quot;CEX9&quot;, &quot;cex9i&quot;)</span>
+<span class="fc" id="L110">                .addDataIn(&quot;CNA8&quot;, &quot;cna8i&quot;)</span>
+<span class="fc" id="L111">                .addDataIn(&quot;CEX8&quot;, &quot;cex8i&quot;)</span>
+<span class="fc" id="L112">                .addDataIn(&quot;CNA7&quot;, &quot;cna7i&quot;)</span>
+<span class="fc" id="L113">                .addDataIn(&quot;CEX7&quot;, &quot;cex7i&quot;)</span>
+<span class="fc" id="L114">                .addDataIn(&quot;CNA6&quot;, &quot;cna6i&quot;)</span>
+<span class="fc" id="L115">                .addDataIn(&quot;CEX6&quot;, &quot;cex6i&quot;)</span>
+<span class="fc" id="L116">                .addDataIn(&quot;TRNNAME&quot;, &quot;trnnamei&quot;)</span>
+<span class="fc" id="L117">                .addDataIn(&quot;INACNT&quot;, &quot;inacnti&quot;)</span>
+<span class="fc" id="L118">                .addDataIn(&quot;TITLE&quot;, &quot;titlei&quot;)</span>
+<span class="fc" id="L119">                .addDataOut(&quot;CNA10&quot;, &quot;cna10o&quot;)</span>
+<span class="fc" id="L120">                .addDataOut(&quot;CNA11&quot;, &quot;cna11o&quot;)</span>
+<span class="fc" id="L121">                .addDataOut(&quot;CNA12&quot;, &quot;cna12o&quot;)</span>
+<span class="fc" id="L122">                .addDataOut(&quot;CEX10&quot;, &quot;cex10o&quot;)</span>
+<span class="fc" id="L123">                .addDataOut(&quot;CEX11&quot;, &quot;cex11o&quot;)</span>
+<span class="fc" id="L124">                .addDataOut(&quot;CEX12&quot;, &quot;cex12o&quot;)</span>
+<span class="fc" id="L125">                .addDataOut(&quot;CEX13&quot;, &quot;cex13o&quot;)</span>
+<span class="fc" id="L126">                .addDataOut(&quot;CNA13&quot;, &quot;cna13o&quot;)</span>
+<span class="fc" id="L127">                .addDataOut(&quot;ERRMSG&quot;, &quot;errmsgo&quot;)</span>
+<span class="fc" id="L128">                .addDataOut(&quot;CURTIME&quot;, &quot;curtimeo&quot;)</span>
+<span class="fc" id="L129">                .addDataOut(&quot;CNA5&quot;, &quot;cna5o&quot;)</span>
+<span class="fc" id="L130">                .addDataOut(&quot;CEX5&quot;, &quot;cex5o&quot;)</span>
+<span class="fc" id="L131">                .addDataOut(&quot;CNA4&quot;, &quot;cna4o&quot;)</span>
+<span class="fc" id="L132">                .addDataOut(&quot;CEX4&quot;, &quot;cex4o&quot;)</span>
+<span class="fc" id="L133">                .addDataOut(&quot;CNA3&quot;, &quot;cna3o&quot;)</span>
+<span class="fc" id="L134">                .addDataOut(&quot;CEX3&quot;, &quot;cex3o&quot;)</span>
+<span class="fc" id="L135">                .addDataOut(&quot;CNA2&quot;, &quot;cna2o&quot;)</span>
+<span class="fc" id="L136">                .addDataOut(&quot;CEX2&quot;, &quot;cex2o&quot;)</span>
+<span class="fc" id="L137">                .addDataOut(&quot;CNA1&quot;, &quot;cna1o&quot;)</span>
+<span class="fc" id="L138">                .addDataOut(&quot;CEX1&quot;, &quot;cex1o&quot;)</span>
+<span class="fc" id="L139">                .addDataOut(&quot;CNM9&quot;, &quot;cnm9o&quot;)</span>
+<span class="fc" id="L140">                .addDataOut(&quot;PAGENO&quot;, &quot;pagenoo&quot;)</span>
+<span class="fc" id="L141">                .addDataOut(&quot;CNM8&quot;, &quot;cnm8o&quot;)</span>
+<span class="fc" id="L142">                .addDataOut(&quot;CNM7&quot;, &quot;cnm7o&quot;)</span>
+<span class="fc" id="L143">                .addDataOut(&quot;FILT&quot;, &quot;filto&quot;)</span>
+<span class="fc" id="L144">                .addDataOut(&quot;CNM6&quot;, &quot;cnm6o&quot;)</span>
+<span class="fc" id="L145">                .addDataOut(&quot;CAC9&quot;, &quot;cac9o&quot;)</span>
+<span class="fc" id="L146">                .addDataOut(&quot;CNM5&quot;, &quot;cnm5o&quot;)</span>
+<span class="fc" id="L147">                .addDataOut(&quot;CAC8&quot;, &quot;cac8o&quot;)</span>
+<span class="fc" id="L148">                .addDataOut(&quot;FDESC&quot;, &quot;fdesco&quot;)</span>
+<span class="fc" id="L149">                .addDataOut(&quot;CNM4&quot;, &quot;cnm4o&quot;)</span>
+<span class="fc" id="L150">                .addDataOut(&quot;CAC7&quot;, &quot;cac7o&quot;)</span>
+<span class="fc" id="L151">                .addDataOut(&quot;CNM3&quot;, &quot;cnm3o&quot;)</span>
+<span class="fc" id="L152">                .addDataOut(&quot;CAC6&quot;, &quot;cac6o&quot;)</span>
+<span class="fc" id="L153">                .addDataOut(&quot;CNM2&quot;, &quot;cnm2o&quot;)</span>
+<span class="fc" id="L154">                .addDataOut(&quot;CAC5&quot;, &quot;cac5o&quot;)</span>
+<span class="fc" id="L155">                .addDataOut(&quot;CNM1&quot;, &quot;cnm1o&quot;)</span>
+<span class="fc" id="L156">                .addDataOut(&quot;CAC4&quot;, &quot;cac4o&quot;)</span>
+<span class="fc" id="L157">                .addDataOut(&quot;CNM13&quot;, &quot;cnm13o&quot;)</span>
+<span class="fc" id="L158">                .addDataOut(&quot;CAC3&quot;, &quot;cac3o&quot;)</span>
+<span class="fc" id="L159">                .addDataOut(&quot;CAC2&quot;, &quot;cac2o&quot;)</span>
+<span class="fc" id="L160">                .addDataOut(&quot;CAC1&quot;, &quot;cac1o&quot;)</span>
+<span class="fc" id="L161">                .addDataOut(&quot;CNM10&quot;, &quot;cnm10o&quot;)</span>
+<span class="fc" id="L162">                .addDataOut(&quot;CNM11&quot;, &quot;cnm11o&quot;)</span>
+<span class="fc" id="L163">                .addDataOut(&quot;CNM12&quot;, &quot;cnm12o&quot;)</span>
+<span class="fc" id="L164">                .addDataOut(&quot;PGMNAME&quot;, &quot;pgmnameo&quot;)</span>
+<span class="fc" id="L165">                .addDataOut(&quot;CURDATE&quot;, &quot;curdateo&quot;)</span>
+<span class="fc" id="L166">                .addDataOut(&quot;CAC12&quot;, &quot;cac12o&quot;)</span>
+<span class="fc" id="L167">                .addDataOut(&quot;CAC13&quot;, &quot;cac13o&quot;)</span>
+<span class="fc" id="L168">                .addDataOut(&quot;CST9&quot;, &quot;cst9o&quot;)</span>
+<span class="fc" id="L169">                .addDataOut(&quot;CAC10&quot;, &quot;cac10o&quot;)</span>
+<span class="fc" id="L170">                .addDataOut(&quot;CST8&quot;, &quot;cst8o&quot;)</span>
+<span class="fc" id="L171">                .addDataOut(&quot;CAC11&quot;, &quot;cac11o&quot;)</span>
+<span class="fc" id="L172">                .addDataOut(&quot;CST7&quot;, &quot;cst7o&quot;)</span>
+<span class="fc" id="L173">                .addDataOut(&quot;CST6&quot;, &quot;cst6o&quot;)</span>
+<span class="fc" id="L174">                .addDataOut(&quot;CST5&quot;, &quot;cst5o&quot;)</span>
+<span class="fc" id="L175">                .addDataOut(&quot;CST4&quot;, &quot;cst4o&quot;)</span>
+<span class="fc" id="L176">                .addDataOut(&quot;CST3&quot;, &quot;cst3o&quot;)</span>
+<span class="fc" id="L177">                .addDataOut(&quot;CST2&quot;, &quot;cst2o&quot;)</span>
+<span class="fc" id="L178">                .addDataOut(&quot;CST13&quot;, &quot;cst13o&quot;)</span>
+<span class="fc" id="L179">                .addDataOut(&quot;CST1&quot;, &quot;cst1o&quot;)</span>
+<span class="fc" id="L180">                .addDataOut(&quot;CST12&quot;, &quot;cst12o&quot;)</span>
+<span class="fc" id="L181">                .addDataOut(&quot;CST11&quot;, &quot;cst11o&quot;)</span>
+<span class="fc" id="L182">                .addDataOut(&quot;CST10&quot;, &quot;cst10o&quot;)</span>
+<span class="fc" id="L183">                .addDataOut(&quot;ACTCNT&quot;, &quot;actcnto&quot;)</span>
+<span class="fc" id="L184">                .addDataOut(&quot;CNA9&quot;, &quot;cna9o&quot;)</span>
+<span class="fc" id="L185">                .addDataOut(&quot;CEX9&quot;, &quot;cex9o&quot;)</span>
+<span class="fc" id="L186">                .addDataOut(&quot;CNA8&quot;, &quot;cna8o&quot;)</span>
+<span class="fc" id="L187">                .addDataOut(&quot;CEX8&quot;, &quot;cex8o&quot;)</span>
+<span class="fc" id="L188">                .addDataOut(&quot;CNA7&quot;, &quot;cna7o&quot;)</span>
+<span class="fc" id="L189">                .addDataOut(&quot;CEX7&quot;, &quot;cex7o&quot;)</span>
+<span class="fc" id="L190">                .addDataOut(&quot;CNA6&quot;, &quot;cna6o&quot;)</span>
+<span class="fc" id="L191">                .addDataOut(&quot;CEX6&quot;, &quot;cex6o&quot;)</span>
+<span class="fc" id="L192">                .addDataOut(&quot;TRNNAME&quot;, &quot;trnnameo&quot;)</span>
+<span class="fc" id="L193">                .addDataOut(&quot;INACNT&quot;, &quot;inacnto&quot;)</span>
+<span class="fc" id="L194">                .addDataOut(&quot;TITLE&quot;, &quot;titleo&quot;)</span>
+<span class="fc" id="L195">                .addAttr(&quot;CNA10&quot;, &quot;cna10a&quot;)</span>
+<span class="fc" id="L196">                .addAttr(&quot;CNA11&quot;, &quot;cna11a&quot;)</span>
+<span class="fc" id="L197">                .addAttr(&quot;CNA12&quot;, &quot;cna12a&quot;)</span>
+<span class="fc" id="L198">                .addAttr(&quot;CEX10&quot;, &quot;cex10a&quot;)</span>
+<span class="fc" id="L199">                .addAttr(&quot;CEX11&quot;, &quot;cex11a&quot;)</span>
+<span class="fc" id="L200">                .addAttr(&quot;CEX12&quot;, &quot;cex12a&quot;)</span>
+<span class="fc" id="L201">                .addAttr(&quot;CEX13&quot;, &quot;cex13a&quot;)</span>
+<span class="fc" id="L202">                .addAttr(&quot;CNA13&quot;, &quot;cna13a&quot;)</span>
+<span class="fc" id="L203">                .addAttr(&quot;ERRMSG&quot;, &quot;errmsga&quot;)</span>
+<span class="fc" id="L204">                .addAttr(&quot;CURTIME&quot;, &quot;curtimea&quot;)</span>
+<span class="fc" id="L205">                .addAttr(&quot;CNA5&quot;, &quot;cna5a&quot;)</span>
+<span class="fc" id="L206">                .addAttr(&quot;CEX5&quot;, &quot;cex5a&quot;)</span>
+<span class="fc" id="L207">                .addAttr(&quot;CNA4&quot;, &quot;cna4a&quot;)</span>
+<span class="fc" id="L208">                .addAttr(&quot;CEX4&quot;, &quot;cex4a&quot;)</span>
+<span class="fc" id="L209">                .addAttr(&quot;CNA3&quot;, &quot;cna3a&quot;)</span>
+<span class="fc" id="L210">                .addAttr(&quot;CEX3&quot;, &quot;cex3a&quot;)</span>
+<span class="fc" id="L211">                .addAttr(&quot;CNA2&quot;, &quot;cna2a&quot;)</span>
+<span class="fc" id="L212">                .addAttr(&quot;CEX2&quot;, &quot;cex2a&quot;)</span>
+<span class="fc" id="L213">                .addAttr(&quot;CNA1&quot;, &quot;cna1a&quot;)</span>
+<span class="fc" id="L214">                .addAttr(&quot;CEX1&quot;, &quot;cex1a&quot;)</span>
+<span class="fc" id="L215">                .addAttr(&quot;CNM9&quot;, &quot;cnm9a&quot;)</span>
+<span class="fc" id="L216">                .addAttr(&quot;PAGENO&quot;, &quot;pagenoa&quot;)</span>
+<span class="fc" id="L217">                .addAttr(&quot;CNM8&quot;, &quot;cnm8a&quot;)</span>
+<span class="fc" id="L218">                .addAttr(&quot;CNM7&quot;, &quot;cnm7a&quot;)</span>
+<span class="fc" id="L219">                .addAttr(&quot;FILT&quot;, &quot;filta&quot;)</span>
+<span class="fc" id="L220">                .addAttr(&quot;CNM6&quot;, &quot;cnm6a&quot;)</span>
+<span class="fc" id="L221">                .addAttr(&quot;CAC9&quot;, &quot;cac9a&quot;)</span>
+<span class="fc" id="L222">                .addAttr(&quot;CNM5&quot;, &quot;cnm5a&quot;)</span>
+<span class="fc" id="L223">                .addAttr(&quot;CAC8&quot;, &quot;cac8a&quot;)</span>
+<span class="fc" id="L224">                .addAttr(&quot;FDESC&quot;, &quot;fdesca&quot;)</span>
+<span class="fc" id="L225">                .addAttr(&quot;CNM4&quot;, &quot;cnm4a&quot;)</span>
+<span class="fc" id="L226">                .addAttr(&quot;CAC7&quot;, &quot;cac7a&quot;)</span>
+<span class="fc" id="L227">                .addAttr(&quot;CNM3&quot;, &quot;cnm3a&quot;)</span>
+<span class="fc" id="L228">                .addAttr(&quot;CAC6&quot;, &quot;cac6a&quot;)</span>
+<span class="fc" id="L229">                .addAttr(&quot;CNM2&quot;, &quot;cnm2a&quot;)</span>
+<span class="fc" id="L230">                .addAttr(&quot;CAC5&quot;, &quot;cac5a&quot;)</span>
+<span class="fc" id="L231">                .addAttr(&quot;CNM1&quot;, &quot;cnm1a&quot;)</span>
+<span class="fc" id="L232">                .addAttr(&quot;CAC4&quot;, &quot;cac4a&quot;)</span>
+<span class="fc" id="L233">                .addAttr(&quot;CNM13&quot;, &quot;cnm13a&quot;)</span>
+<span class="fc" id="L234">                .addAttr(&quot;CAC3&quot;, &quot;cac3a&quot;)</span>
+<span class="fc" id="L235">                .addAttr(&quot;CAC2&quot;, &quot;cac2a&quot;)</span>
+<span class="fc" id="L236">                .addAttr(&quot;CAC1&quot;, &quot;cac1a&quot;)</span>
+<span class="fc" id="L237">                .addAttr(&quot;CNM10&quot;, &quot;cnm10a&quot;)</span>
+<span class="fc" id="L238">                .addAttr(&quot;CNM11&quot;, &quot;cnm11a&quot;)</span>
+<span class="fc" id="L239">                .addAttr(&quot;CNM12&quot;, &quot;cnm12a&quot;)</span>
+<span class="fc" id="L240">                .addAttr(&quot;PGMNAME&quot;, &quot;pgmnamea&quot;)</span>
+<span class="fc" id="L241">                .addAttr(&quot;CURDATE&quot;, &quot;curdatea&quot;)</span>
+<span class="fc" id="L242">                .addAttr(&quot;CAC12&quot;, &quot;cac12a&quot;)</span>
+<span class="fc" id="L243">                .addAttr(&quot;CAC13&quot;, &quot;cac13a&quot;)</span>
+<span class="fc" id="L244">                .addAttr(&quot;CST9&quot;, &quot;cst9a&quot;)</span>
+<span class="fc" id="L245">                .addAttr(&quot;CAC10&quot;, &quot;cac10a&quot;)</span>
+<span class="fc" id="L246">                .addAttr(&quot;CST8&quot;, &quot;cst8a&quot;)</span>
+<span class="fc" id="L247">                .addAttr(&quot;CAC11&quot;, &quot;cac11a&quot;)</span>
+<span class="fc" id="L248">                .addAttr(&quot;CST7&quot;, &quot;cst7a&quot;)</span>
+<span class="fc" id="L249">                .addAttr(&quot;CST6&quot;, &quot;cst6a&quot;)</span>
+<span class="fc" id="L250">                .addAttr(&quot;CST5&quot;, &quot;cst5a&quot;)</span>
+<span class="fc" id="L251">                .addAttr(&quot;CST4&quot;, &quot;cst4a&quot;)</span>
+<span class="fc" id="L252">                .addAttr(&quot;CST3&quot;, &quot;cst3a&quot;)</span>
+<span class="fc" id="L253">                .addAttr(&quot;CST2&quot;, &quot;cst2a&quot;)</span>
+<span class="fc" id="L254">                .addAttr(&quot;CST13&quot;, &quot;cst13a&quot;)</span>
+<span class="fc" id="L255">                .addAttr(&quot;CST1&quot;, &quot;cst1a&quot;)</span>
+<span class="fc" id="L256">                .addAttr(&quot;CST12&quot;, &quot;cst12a&quot;)</span>
+<span class="fc" id="L257">                .addAttr(&quot;CST11&quot;, &quot;cst11a&quot;)</span>
+<span class="fc" id="L258">                .addAttr(&quot;CST10&quot;, &quot;cst10a&quot;)</span>
+<span class="fc" id="L259">                .addAttr(&quot;ACTCNT&quot;, &quot;actcnta&quot;)</span>
+<span class="fc" id="L260">                .addAttr(&quot;CNA9&quot;, &quot;cna9a&quot;)</span>
+<span class="fc" id="L261">                .addAttr(&quot;CEX9&quot;, &quot;cex9a&quot;)</span>
+<span class="fc" id="L262">                .addAttr(&quot;CNA8&quot;, &quot;cna8a&quot;)</span>
+<span class="fc" id="L263">                .addAttr(&quot;CEX8&quot;, &quot;cex8a&quot;)</span>
+<span class="fc" id="L264">                .addAttr(&quot;CNA7&quot;, &quot;cna7a&quot;)</span>
+<span class="fc" id="L265">                .addAttr(&quot;CEX7&quot;, &quot;cex7a&quot;)</span>
+<span class="fc" id="L266">                .addAttr(&quot;CNA6&quot;, &quot;cna6a&quot;)</span>
+<span class="fc" id="L267">                .addAttr(&quot;CEX6&quot;, &quot;cex6a&quot;)</span>
+<span class="fc" id="L268">                .addAttr(&quot;TRNNAME&quot;, &quot;trnnamea&quot;)</span>
+<span class="fc" id="L269">                .addAttr(&quot;INACNT&quot;, &quot;inacnta&quot;)</span>
+<span class="fc" id="L270">                .addAttr(&quot;TITLE&quot;, &quot;titlea&quot;)</span>
+<span class="fc" id="L271">                .addLength(&quot;CNA10&quot;, &quot;cna10l&quot;)</span>
+<span class="fc" id="L272">                .addLength(&quot;CNA11&quot;, &quot;cna11l&quot;)</span>
+<span class="fc" id="L273">                .addLength(&quot;CNA12&quot;, &quot;cna12l&quot;)</span>
+<span class="fc" id="L274">                .addLength(&quot;CEX10&quot;, &quot;cex10l&quot;)</span>
+<span class="fc" id="L275">                .addLength(&quot;CEX11&quot;, &quot;cex11l&quot;)</span>
+<span class="fc" id="L276">                .addLength(&quot;CEX12&quot;, &quot;cex12l&quot;)</span>
+<span class="fc" id="L277">                .addLength(&quot;CEX13&quot;, &quot;cex13l&quot;)</span>
+<span class="fc" id="L278">                .addLength(&quot;CNA13&quot;, &quot;cna13l&quot;)</span>
+<span class="fc" id="L279">                .addLength(&quot;ERRMSG&quot;, &quot;errmsgl&quot;)</span>
+<span class="fc" id="L280">                .addLength(&quot;CURTIME&quot;, &quot;curtimel&quot;)</span>
+<span class="fc" id="L281">                .addLength(&quot;CNA5&quot;, &quot;cna5l&quot;)</span>
+<span class="fc" id="L282">                .addLength(&quot;CEX5&quot;, &quot;cex5l&quot;)</span>
+<span class="fc" id="L283">                .addLength(&quot;CNA4&quot;, &quot;cna4l&quot;)</span>
+<span class="fc" id="L284">                .addLength(&quot;CEX4&quot;, &quot;cex4l&quot;)</span>
+<span class="fc" id="L285">                .addLength(&quot;CNA3&quot;, &quot;cna3l&quot;)</span>
+<span class="fc" id="L286">                .addLength(&quot;CEX3&quot;, &quot;cex3l&quot;)</span>
+<span class="fc" id="L287">                .addLength(&quot;CNA2&quot;, &quot;cna2l&quot;)</span>
+<span class="fc" id="L288">                .addLength(&quot;CEX2&quot;, &quot;cex2l&quot;)</span>
+<span class="fc" id="L289">                .addLength(&quot;CNA1&quot;, &quot;cna1l&quot;)</span>
+<span class="fc" id="L290">                .addLength(&quot;CEX1&quot;, &quot;cex1l&quot;)</span>
+<span class="fc" id="L291">                .addLength(&quot;CNM9&quot;, &quot;cnm9l&quot;)</span>
+<span class="fc" id="L292">                .addLength(&quot;PAGENO&quot;, &quot;pagenol&quot;)</span>
+<span class="fc" id="L293">                .addLength(&quot;CNM8&quot;, &quot;cnm8l&quot;)</span>
+<span class="fc" id="L294">                .addLength(&quot;CNM7&quot;, &quot;cnm7l&quot;)</span>
+<span class="fc" id="L295">                .addLength(&quot;FILT&quot;, &quot;filtl&quot;)</span>
+<span class="fc" id="L296">                .addLength(&quot;CNM6&quot;, &quot;cnm6l&quot;)</span>
+<span class="fc" id="L297">                .addLength(&quot;CAC9&quot;, &quot;cac9l&quot;)</span>
+<span class="fc" id="L298">                .addLength(&quot;CNM5&quot;, &quot;cnm5l&quot;)</span>
+<span class="fc" id="L299">                .addLength(&quot;CAC8&quot;, &quot;cac8l&quot;)</span>
+<span class="fc" id="L300">                .addLength(&quot;FDESC&quot;, &quot;fdescl&quot;)</span>
+<span class="fc" id="L301">                .addLength(&quot;CNM4&quot;, &quot;cnm4l&quot;)</span>
+<span class="fc" id="L302">                .addLength(&quot;CAC7&quot;, &quot;cac7l&quot;)</span>
+<span class="fc" id="L303">                .addLength(&quot;CNM3&quot;, &quot;cnm3l&quot;)</span>
+<span class="fc" id="L304">                .addLength(&quot;CAC6&quot;, &quot;cac6l&quot;)</span>
+<span class="fc" id="L305">                .addLength(&quot;CNM2&quot;, &quot;cnm2l&quot;)</span>
+<span class="fc" id="L306">                .addLength(&quot;CAC5&quot;, &quot;cac5l&quot;)</span>
+<span class="fc" id="L307">                .addLength(&quot;CNM1&quot;, &quot;cnm1l&quot;)</span>
+<span class="fc" id="L308">                .addLength(&quot;CAC4&quot;, &quot;cac4l&quot;)</span>
+<span class="fc" id="L309">                .addLength(&quot;CNM13&quot;, &quot;cnm13l&quot;)</span>
+<span class="fc" id="L310">                .addLength(&quot;CAC3&quot;, &quot;cac3l&quot;)</span>
+<span class="fc" id="L311">                .addLength(&quot;CAC2&quot;, &quot;cac2l&quot;)</span>
+<span class="fc" id="L312">                .addLength(&quot;CAC1&quot;, &quot;cac1l&quot;)</span>
+<span class="fc" id="L313">                .addLength(&quot;CNM10&quot;, &quot;cnm10l&quot;)</span>
+<span class="fc" id="L314">                .addLength(&quot;CNM11&quot;, &quot;cnm11l&quot;)</span>
+<span class="fc" id="L315">                .addLength(&quot;CNM12&quot;, &quot;cnm12l&quot;)</span>
+<span class="fc" id="L316">                .addLength(&quot;PGMNAME&quot;, &quot;pgmnamel&quot;)</span>
+<span class="fc" id="L317">                .addLength(&quot;CURDATE&quot;, &quot;curdatel&quot;)</span>
+<span class="fc" id="L318">                .addLength(&quot;CAC12&quot;, &quot;cac12l&quot;)</span>
+<span class="fc" id="L319">                .addLength(&quot;CAC13&quot;, &quot;cac13l&quot;)</span>
+<span class="fc" id="L320">                .addLength(&quot;CST9&quot;, &quot;cst9l&quot;)</span>
+<span class="fc" id="L321">                .addLength(&quot;CAC10&quot;, &quot;cac10l&quot;)</span>
+<span class="fc" id="L322">                .addLength(&quot;CST8&quot;, &quot;cst8l&quot;)</span>
+<span class="fc" id="L323">                .addLength(&quot;CAC11&quot;, &quot;cac11l&quot;)</span>
+<span class="fc" id="L324">                .addLength(&quot;CST7&quot;, &quot;cst7l&quot;)</span>
+<span class="fc" id="L325">                .addLength(&quot;CST6&quot;, &quot;cst6l&quot;)</span>
+<span class="fc" id="L326">                .addLength(&quot;CST5&quot;, &quot;cst5l&quot;)</span>
+<span class="fc" id="L327">                .addLength(&quot;CST4&quot;, &quot;cst4l&quot;)</span>
+<span class="fc" id="L328">                .addLength(&quot;CST3&quot;, &quot;cst3l&quot;)</span>
+<span class="fc" id="L329">                .addLength(&quot;CST2&quot;, &quot;cst2l&quot;)</span>
+<span class="fc" id="L330">                .addLength(&quot;CST13&quot;, &quot;cst13l&quot;)</span>
+<span class="fc" id="L331">                .addLength(&quot;CST1&quot;, &quot;cst1l&quot;)</span>
+<span class="fc" id="L332">                .addLength(&quot;CST12&quot;, &quot;cst12l&quot;)</span>
+<span class="fc" id="L333">                .addLength(&quot;CST11&quot;, &quot;cst11l&quot;)</span>
+<span class="fc" id="L334">                .addLength(&quot;CST10&quot;, &quot;cst10l&quot;)</span>
+<span class="fc" id="L335">                .addLength(&quot;ACTCNT&quot;, &quot;actcntl&quot;)</span>
+<span class="fc" id="L336">                .addLength(&quot;CNA9&quot;, &quot;cna9l&quot;)</span>
+<span class="fc" id="L337">                .addLength(&quot;CEX9&quot;, &quot;cex9l&quot;)</span>
+<span class="fc" id="L338">                .addLength(&quot;CNA8&quot;, &quot;cna8l&quot;)</span>
+<span class="fc" id="L339">                .addLength(&quot;CEX8&quot;, &quot;cex8l&quot;)</span>
+<span class="fc" id="L340">                .addLength(&quot;CNA7&quot;, &quot;cna7l&quot;)</span>
+<span class="fc" id="L341">                .addLength(&quot;CEX7&quot;, &quot;cex7l&quot;)</span>
+<span class="fc" id="L342">                .addLength(&quot;CNA6&quot;, &quot;cna6l&quot;)</span>
+<span class="fc" id="L343">                .addLength(&quot;CEX6&quot;, &quot;cex6l&quot;)</span>
+<span class="fc" id="L344">                .addLength(&quot;TRNNAME&quot;, &quot;trnnamel&quot;)</span>
+<span class="fc" id="L345">                .addLength(&quot;INACNT&quot;, &quot;inacntl&quot;)</span>
+<span class="fc" id="L346">                .addLength(&quot;TITLE&quot;, &quot;titlel&quot;)</span>
+<span class="fc" id="L347">                .build();</span>
+        }
+<span class="nc" id="L349">        return FieldMapping.empty();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

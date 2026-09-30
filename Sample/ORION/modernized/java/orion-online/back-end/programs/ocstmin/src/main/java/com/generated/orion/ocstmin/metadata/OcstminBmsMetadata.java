@@ -1,0 +1,220 @@
+package com.generated.orion.ocstmin.metadata;
+
+import com.appruntime.AppRunner;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+
+import java.util.*;
+
+/**
+ * BMS screen metadata for OCSTMIN. Contains button definitions, FSET fields, and field mappings.
+ */
+public class OcstminBmsMetadata {
+
+    public static List<ScreenResponse.ButtonDef> getButtonDefs() {
+        return List.of(
+                new ScreenResponse.ButtonDef("ENTER", "ENTER=PROCESS", ""),
+                new ScreenResponse.ButtonDef("PF3", "PF3=BACK", ""),
+                new ScreenResponse.ButtonDef("PF4", "PF4=CLEAR", ""),
+                new ScreenResponse.ButtonDef("PF7", "PF7", ""),
+                new ScreenResponse.ButtonDef("PF8", "PF8", ""));
+    }
+
+    public static void registerFsetFields(AppRunner runner) {
+        runner.registerFsetFields("MSTMINA", Set.of("FRACCT", "FRCYC"));
+    }
+
+    /** Danh sách BMS map của program (cho smoke test / tooling). */
+    public static List<String> getMapNames() {
+        return List.of("MSTMINA");
+    }
+
+    /** Classpath resource của WORKING-STORAGE layout (FieldStore đọc lúc runtime). */
+    public static String getLayoutResource() {
+        return "layout/OCSTMIN_WS.xml";
+    }
+
+    public static FieldMapping getFieldMapping(String mapName) {
+        if ("MSTMINA".equalsIgnoreCase(mapName)) {
+            return FieldMapping.builder()
+                    .addDataIn("SD2", "sd2i")
+                    .addDataIn("FRCYC", "frcyci")
+                    .addDataIn("SD1", "sd1i")
+                    .addDataIn("SD4", "sd4i")
+                    .addDataIn("SD3", "sd3i")
+                    .addDataIn("SD6", "sd6i")
+                    .addDataIn("SD5", "sd5i")
+                    .addDataIn("FRACCT", "fraccti")
+                    .addDataIn("SO1", "so1i")
+                    .addDataIn("ERRMSG", "errmsgi")
+                    .addDataIn("CURTIME", "curtimei")
+                    .addDataIn("SM1", "sm1i")
+                    .addDataIn("SO3", "so3i")
+                    .addDataIn("SO2", "so2i")
+                    .addDataIn("SM3", "sm3i")
+                    .addDataIn("SO5", "so5i")
+                    .addDataIn("SM2", "sm2i")
+                    .addDataIn("SO4", "so4i")
+                    .addDataIn("SM5", "sm5i")
+                    .addDataIn("SM4", "sm4i")
+                    .addDataIn("SO6", "so6i")
+                    .addDataIn("SM6", "sm6i")
+                    .addDataIn("SC1", "sc1i")
+                    .addDataIn("SA1", "sa1i")
+                    .addDataIn("SC3", "sc3i")
+                    .addDataIn("SC2", "sc2i")
+                    .addDataIn("SA3", "sa3i")
+                    .addDataIn("SC5", "sc5i")
+                    .addDataIn("SA2", "sa2i")
+                    .addDataIn("SC4", "sc4i")
+                    .addDataIn("SA5", "sa5i")
+                    .addDataIn("SA4", "sa4i")
+                    .addDataIn("SC6", "sc6i")
+                    .addDataIn("SA6", "sa6i")
+                    .addDataIn("TRNNAME", "trnnamei")
+                    .addDataIn("SL2", "sl2i")
+                    .addDataIn("SL1", "sl1i")
+                    .addDataIn("TITLE", "titlei")
+                    .addDataIn("SL4", "sl4i")
+                    .addDataIn("SL3", "sl3i")
+                    .addDataIn("SL6", "sl6i")
+                    .addDataIn("PGMNAME", "pgmnamei")
+                    .addDataIn("SL5", "sl5i")
+                    .addDataIn("CURDATE", "curdatei")
+                    .addDataOut("SD2", "sd2o")
+                    .addDataOut("FRCYC", "frcyco")
+                    .addDataOut("SD1", "sd1o")
+                    .addDataOut("SD4", "sd4o")
+                    .addDataOut("SD3", "sd3o")
+                    .addDataOut("SD6", "sd6o")
+                    .addDataOut("SD5", "sd5o")
+                    .addDataOut("FRACCT", "fraccto")
+                    .addDataOut("SO1", "so1o")
+                    .addDataOut("ERRMSG", "errmsgo")
+                    .addDataOut("CURTIME", "curtimeo")
+                    .addDataOut("SM1", "sm1o")
+                    .addDataOut("SO3", "so3o")
+                    .addDataOut("SO2", "so2o")
+                    .addDataOut("SM3", "sm3o")
+                    .addDataOut("SO5", "so5o")
+                    .addDataOut("SM2", "sm2o")
+                    .addDataOut("SO4", "so4o")
+                    .addDataOut("SM5", "sm5o")
+                    .addDataOut("SM4", "sm4o")
+                    .addDataOut("SO6", "so6o")
+                    .addDataOut("SM6", "sm6o")
+                    .addDataOut("SC1", "sc1o")
+                    .addDataOut("SA1", "sa1o")
+                    .addDataOut("SC3", "sc3o")
+                    .addDataOut("SC2", "sc2o")
+                    .addDataOut("SA3", "sa3o")
+                    .addDataOut("SC5", "sc5o")
+                    .addDataOut("SA2", "sa2o")
+                    .addDataOut("SC4", "sc4o")
+                    .addDataOut("SA5", "sa5o")
+                    .addDataOut("SA4", "sa4o")
+                    .addDataOut("SC6", "sc6o")
+                    .addDataOut("SA6", "sa6o")
+                    .addDataOut("TRNNAME", "trnnameo")
+                    .addDataOut("SL2", "sl2o")
+                    .addDataOut("SL1", "sl1o")
+                    .addDataOut("TITLE", "titleo")
+                    .addDataOut("SL4", "sl4o")
+                    .addDataOut("SL3", "sl3o")
+                    .addDataOut("SL6", "sl6o")
+                    .addDataOut("PGMNAME", "pgmnameo")
+                    .addDataOut("SL5", "sl5o")
+                    .addDataOut("CURDATE", "curdateo")
+                    .addAttr("SD2", "sd2a")
+                    .addAttr("FRCYC", "frcyca")
+                    .addAttr("SD1", "sd1a")
+                    .addAttr("SD4", "sd4a")
+                    .addAttr("SD3", "sd3a")
+                    .addAttr("SD6", "sd6a")
+                    .addAttr("SD5", "sd5a")
+                    .addAttr("FRACCT", "fraccta")
+                    .addAttr("SO1", "so1a")
+                    .addAttr("ERRMSG", "errmsga")
+                    .addAttr("CURTIME", "curtimea")
+                    .addAttr("SM1", "sm1a")
+                    .addAttr("SO3", "so3a")
+                    .addAttr("SO2", "so2a")
+                    .addAttr("SM3", "sm3a")
+                    .addAttr("SO5", "so5a")
+                    .addAttr("SM2", "sm2a")
+                    .addAttr("SO4", "so4a")
+                    .addAttr("SM5", "sm5a")
+                    .addAttr("SM4", "sm4a")
+                    .addAttr("SO6", "so6a")
+                    .addAttr("SM6", "sm6a")
+                    .addAttr("SC1", "sc1a")
+                    .addAttr("SA1", "sa1a")
+                    .addAttr("SC3", "sc3a")
+                    .addAttr("SC2", "sc2a")
+                    .addAttr("SA3", "sa3a")
+                    .addAttr("SC5", "sc5a")
+                    .addAttr("SA2", "sa2a")
+                    .addAttr("SC4", "sc4a")
+                    .addAttr("SA5", "sa5a")
+                    .addAttr("SA4", "sa4a")
+                    .addAttr("SC6", "sc6a")
+                    .addAttr("SA6", "sa6a")
+                    .addAttr("TRNNAME", "trnnamea")
+                    .addAttr("SL2", "sl2a")
+                    .addAttr("SL1", "sl1a")
+                    .addAttr("TITLE", "titlea")
+                    .addAttr("SL4", "sl4a")
+                    .addAttr("SL3", "sl3a")
+                    .addAttr("SL6", "sl6a")
+                    .addAttr("PGMNAME", "pgmnamea")
+                    .addAttr("SL5", "sl5a")
+                    .addAttr("CURDATE", "curdatea")
+                    .addLength("SD2", "sd2l")
+                    .addLength("FRCYC", "frcycl")
+                    .addLength("SD1", "sd1l")
+                    .addLength("SD4", "sd4l")
+                    .addLength("SD3", "sd3l")
+                    .addLength("SD6", "sd6l")
+                    .addLength("SD5", "sd5l")
+                    .addLength("FRACCT", "fracctl")
+                    .addLength("SO1", "so1l")
+                    .addLength("ERRMSG", "errmsgl")
+                    .addLength("CURTIME", "curtimel")
+                    .addLength("SM1", "sm1l")
+                    .addLength("SO3", "so3l")
+                    .addLength("SO2", "so2l")
+                    .addLength("SM3", "sm3l")
+                    .addLength("SO5", "so5l")
+                    .addLength("SM2", "sm2l")
+                    .addLength("SO4", "so4l")
+                    .addLength("SM5", "sm5l")
+                    .addLength("SM4", "sm4l")
+                    .addLength("SO6", "so6l")
+                    .addLength("SM6", "sm6l")
+                    .addLength("SC1", "sc1l")
+                    .addLength("SA1", "sa1l")
+                    .addLength("SC3", "sc3l")
+                    .addLength("SC2", "sc2l")
+                    .addLength("SA3", "sa3l")
+                    .addLength("SC5", "sc5l")
+                    .addLength("SA2", "sa2l")
+                    .addLength("SC4", "sc4l")
+                    .addLength("SA5", "sa5l")
+                    .addLength("SA4", "sa4l")
+                    .addLength("SC6", "sc6l")
+                    .addLength("SA6", "sa6l")
+                    .addLength("TRNNAME", "trnnamel")
+                    .addLength("SL2", "sl2l")
+                    .addLength("SL1", "sl1l")
+                    .addLength("TITLE", "titlel")
+                    .addLength("SL4", "sl4l")
+                    .addLength("SL3", "sl3l")
+                    .addLength("SL6", "sl6l")
+                    .addLength("PGMNAME", "pgmnamel")
+                    .addLength("SL5", "sl5l")
+                    .addLength("CURDATE", "curdatel")
+                    .build();
+        }
+        return FieldMapping.empty();
+    }
+}

@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OuimpService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUIMP Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ouimp.service</a> &gt; <span class="el_source">OuimpService.java</span></div><h1>OuimpService.java</h1><pre class="source lang-java linenums">package com.generated.orion.ouimp.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.ouimp.accessor.OuimpFields;
+import com.generated.orion.ouimp.metadata.OuimpBmsMetadata;
+import com.generated.orion.ouimp.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OUIMP. */
+@Service
+<span class="nc" id="L20">public class OuimpService implements AppProgram {</span>
+<span class="nc" id="L21">    private static final Logger log = LoggerFactory.getLogger(OuimpService.class);</span>
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L29">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc bnc" id="L30" title="All 4 branches missed.">        if (ctx.appService.getEibcalen() &gt; 0 &amp;&amp; ctx.appService.getCommarea() != null) {</span>
+<span class="nc" id="L31">            Object _commarea = ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            if (_commarea instanceof Object[]) {</span>
+<span class="nc" id="L33">                Object[] _params = (Object[]) _commarea;</span>
+<span class="nc bnc" id="L34" title="All 4 branches missed.">                if (_params.length &gt; 0 &amp;&amp; _params[0] instanceof byte[]) {</span>
+<span class="nc" id="L35">                    ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _params[0]);</span>
+<span class="nc bnc" id="L36" title="All 4 branches missed.">                } else if (_params.length &gt; 0 &amp;&amp; _params[0] != null) {</span>
+<span class="nc" id="L37">                    ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_params[0]));</span>
+                }
+<span class="nc bnc" id="L39" title="All 2 branches missed.">            } else if (_commarea instanceof byte[]) {</span>
+<span class="nc" id="L40">                ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _commarea);</span>
+            } else {
+<span class="nc" id="L42">                ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_commarea));</span>
+            }
+        }
+        try {
+<span class="nc" id="L46">            executeMainProgram(ctx);</span>
+        } finally {
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            if (ctx.appService.getEibcalen() &gt; 0) {</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                if (ctx.appService.getCommarea() instanceof Object[]) {</span>
+<span class="nc" id="L50">                    Object[] _params = (Object[]) ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                    if (_params.length &gt; 0) {</span>
+<span class="nc" id="L52">                        _params[0] =</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                                _params[0] instanceof byte[]</span>
+<span class="nc" id="L54">                                        ? (Object) ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;)</span>
+<span class="nc" id="L55">                                        : (Object) ctx.f.groupToString(&quot;ORION-COMMAREA&quot;);</span>
+                    }
+<span class="nc" id="L57">                } else {</span>
+<span class="nc" id="L58">                    ctx.appService.setCommarea(ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;));</span>
+                }
+            }
+        }
+<span class="nc" id="L62">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L66">        return &quot;OUIMP&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L71">        return OuimpBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L76">        OuimpBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L77">    }</span>
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void executeMainProgram(TaskContext ctx) {
+<span class="nc" id="L81">        ctx.f.aliasGroup(&quot;KIM-PARM&quot;, &quot;CA-WORK-AREA&quot;);</span>
+<span class="nc" id="L82">        initializeWorkingStorage(ctx);</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (!Utility.fieldEquals(ctx.f.getKimStatus(), &quot;99&quot;)) {</span>
+<span class="nc" id="L84">            positionBrowseCursor(ctx);</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">            if (ctx.f.getWsBrowseSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L86" title="All 4 branches missed.">                while (!isEndOfFile(ctx) &amp;&amp; !Utility.fieldEquals(ctx.f.getWsCapped(), &quot;Y&quot;)) {</span>
+<span class="nc" id="L87">                    processImportLoopIteration(ctx);</span>
+                }
+<span class="nc" id="L89">                peekNextRecord(ctx);</span>
+<span class="nc" id="L90">                endBrowseOperation(ctx);</span>
+            }
+        }
+<span class="nc" id="L93">        finalizeImportStatus(ctx);</span>
+<span class="nc" id="L94">        return;</span>
+    }
+
+    /** COBOL paragraph: 1000-INIT */
+    private void initializeWorkingStorage(TaskContext ctx) {
+<span class="nc" id="L99">        ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L100">        ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L101">        ctx.f.setWsCapped(&quot;N&quot;);</span>
+<span class="nc" id="L102">        ctx.f.setKimStatus(&quot;00&quot;);</span>
+<span class="nc" id="L103">        ctx.f.setKimMsg(&quot; &quot;);</span>
+<span class="nc" id="L104">        ctx.f.setKimRead(0);</span>
+<span class="nc" id="L105">        ctx.f.setKimAdded(0);</span>
+<span class="nc" id="L106">        ctx.f.setKimUpdated(0);</span>
+<span class="nc" id="L107">        ctx.f.setKimAccepted(0);</span>
+<span class="nc" id="L108">        ctx.f.setKimRejected(0);</span>
+<span class="nc" id="L109">        ctx.f.setKimSkipped(0);</span>
+<span class="nc" id="L110">        ctx.f.setKimErrors(0);</span>
+<span class="nc" id="L111">        ctx.f.setKimLastReason(&quot; &quot;);</span>
+<span class="nc" id="L112">        ctx.f.setKimLastKey(&quot; &quot;);</span>
+<span class="nc" id="L113">        ctx.f.setKimNextKey(&quot; &quot;);</span>
+<span class="nc" id="L114">        ctx.f.setKimMore(&quot;N&quot;);</span>
+<span class="nc" id="L115">        ctx.f.setWsMax(ctx.f.getKimMax());</span>
+<span class="nc" id="L116">    }</span>
+
+    /** COBOL paragraph: 2000-POSITION */
+    private void positionBrowseCursor(TaskContext ctx) {
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getKimStartKey(), &quot; &quot;)</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">                || ctx.f.isAllLowValues(&quot;KIM-START-KEY&quot;)) {</span>
+<span class="nc" id="L122">            ctx.f.fillLowValues(&quot;IMP-KEY&quot;);</span>
+        } else {
+<span class="nc" id="L124">            ctx.f.setImpKey(ctx.f.getKimStartKey());</span>
+        }
+<span class="nc" id="L126">        ctx.appService.startBrowse(ctx.f.getWsImpfile(), String.valueOf(ctx.f.getImpKey()), 0);</span>
+<span class="nc" id="L127">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L129">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L131">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L133">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L135">            ctx.f.setKimStatus(&quot;99&quot;);</span>
+<span class="nc" id="L136">            ctx.f.setKimMsg(&quot;IMPFILE STARTBR FAILED&quot;);</span>
+        }
+<span class="nc" id="L138">    }</span>
+
+    /** COBOL paragraph: 3000-IMPORT-LOOP */
+    private void processImportLoopIteration(TaskContext ctx) {
+<span class="nc" id="L142">        readNextImportLine(ctx);</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        if (!isEndOfFile(ctx)) {</span>
+<span class="nc" id="L144">            processImportLine(ctx);</span>
+<span class="nc bnc" id="L145" title="All 4 branches missed.">            if (ctx.f.getWsMax() &gt; 0 &amp;&amp; ctx.f.getKimRead() &gt;= ctx.f.getWsMax()) {</span>
+<span class="nc" id="L146">                ctx.f.setWsCapped(&quot;Y&quot;);</span>
+            }
+        }
+<span class="nc" id="L149">    }</span>
+
+    /** COBOL paragraph: 3100-READ-LINE */
+    private void readNextImportLine(TaskContext ctx) {
+<span class="nc" id="L153">        ctx.appService.readNext(ctx.f.getWsImpfile(), ctx.f);</span>
+<span class="nc" id="L154">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+            /* CONTINUE */
+<span class="nc bnc" id="L157" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L158">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L160">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L161">            ctx.f.setKimErrors(ctx.f.getKimErrors() + 1);</span>
+<span class="nc" id="L162">            ctx.f.setKimMsg(&quot;IMPFILE READNEXT FAILED&quot;);</span>
+        }
+<span class="nc" id="L164">    }</span>
+
+    /** COBOL paragraph: 3200-PROCESS-LINE */
+    private void processImportLine(TaskContext ctx) {
+<span class="nc" id="L168">        ctx.f.setKimRead(ctx.f.getKimRead() + 1);</span>
+<span class="nc" id="L169">        parseImportLine(ctx);</span>
+<span class="nc" id="L170">        ctx.f.setWsTypeChk(String.valueOf(ctx.f.getWsFType()).trim());</span>
+<span class="nc bnc" id="L171" title="All 4 branches missed.">        switch (Utility.rtrim(ctx.f.getWsTypeChk())) {</span>
+            case &quot;RECTYPE&quot; -&gt; {
+<span class="nc" id="L173">                ctx.f.setKimSkipped(ctx.f.getKimSkipped() + 1);</span>
+<span class="nc" id="L174">            }</span>
+            case &quot;CUST&quot; -&gt; {
+<span class="nc" id="L176">                ctx.f.setKimSkipped(ctx.f.getKimSkipped() + 1);</span>
+<span class="nc" id="L177">            }</span>
+            case &quot;ACCT&quot; -&gt; {
+<span class="nc" id="L179">                validateImportRecord(ctx);</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">                if (isValid(ctx)) {</span>
+<span class="nc" id="L181">                    applyAccountUpdate(ctx);</span>
+                } else {
+<span class="nc" id="L183">                    recordRejection(ctx);</span>
+                }
+<span class="nc" id="L185">            }</span>
+            default -&gt; {
+<span class="nc" id="L187">                ctx.f.setWsRejReason(&quot;UNKNOWN RECTYPE&quot;);</span>
+<span class="nc" id="L188">                recordRejection(ctx);</span>
+            }
+        }
+<span class="nc" id="L191">    }</span>
+
+    /** COBOL paragraph: 3300-PARSE-LINE */
+    private void parseImportLine(TaskContext ctx) {
+<span class="nc" id="L195">        ctx.f.setWsFields(&quot; &quot;);</span>
+<span class="nc" id="L196">        ctx.f.setWsFldCnt(0);</span>
+<span class="nc" id="L197">    }</span>
+
+    /** COBOL paragraph: 3400-VALIDATE */
+    private void validateImportRecord(TaskContext ctx) {
+<span class="nc" id="L201">        ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L202">        ctx.f.setWsRejReason(&quot; &quot;);</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">        if (ctx.f.getWsFldCnt() &lt; 13) {</span>
+<span class="nc" id="L204">            ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L205">            ctx.f.setWsRejReason(&quot;TOO FEW FIELDS&quot;);</span>
+        }
+<span class="nc bnc" id="L207" title="All 2 branches missed.">        if (isValid(ctx)) {</span>
+<span class="nc" id="L208">            validateAccountId(ctx);</span>
+        }
+<span class="nc bnc" id="L210" title="All 2 branches missed.">        if (isValid(ctx)) {</span>
+<span class="nc" id="L211">            validateStatusFlag(ctx);</span>
+        }
+<span class="nc bnc" id="L213" title="All 2 branches missed.">        if (isValid(ctx)) {</span>
+<span class="nc" id="L214">            validateAmountFields(ctx);</span>
+        }
+<span class="nc bnc" id="L216" title="All 2 branches missed.">        if (isValid(ctx)) {</span>
+<span class="nc" id="L217">            validateDateFields(ctx);</span>
+        }
+<span class="nc" id="L219">    }</span>
+
+    /** COBOL paragraph: 3410-CHK-ID */
+    private void validateAccountId(TaskContext ctx) {
+<span class="nc bnc" id="L223" title="All 2 branches missed.">        if (Utility.testNumval(String.valueOf(ctx.f.getWsFId())) != 0) {</span>
+<span class="nc" id="L224">            ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L225">            ctx.f.setWsRejReason(&quot;INVALID ACCOUNT ID&quot;);</span>
+        } else {
+<span class="nc" id="L227">            ctx.f.setWsNId(Utility.parseNumeric(String.valueOf(ctx.f.getWsFId())).longValue());</span>
+<span class="nc bnc" id="L228" title="All 2 branches missed.">            if (ctx.f.getWsNId() == 0) {</span>
+<span class="nc" id="L229">                ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L230">                ctx.f.setWsRejReason(&quot;ACCOUNT ID IS ZERO&quot;);</span>
+            }
+        }
+<span class="nc" id="L233">    }</span>
+
+    /** COBOL paragraph: 3420-CHK-STATUS */
+    private void validateStatusFlag(TaskContext ctx) {
+<span class="nc" id="L237">        ctx.f.setWsStatusChk(String.valueOf(ctx.f.getWsFStatus()).trim());</span>
+<span class="nc bnc" id="L238" title="All 2 branches missed.">        if (!Utility.fieldEquals(ctx.f.getWsStatusChk(), &quot;Y&quot;)</span>
+<span class="nc bnc" id="L239" title="All 2 branches missed.">                &amp;&amp; !Utility.fieldEquals(ctx.f.getWsStatusChk(), &quot;N&quot;)) {</span>
+<span class="nc" id="L240">            ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L241">            ctx.f.setWsRejReason(&quot;STATUS NOT Y OR N&quot;);</span>
+        }
+<span class="nc" id="L243">    }</span>
+
+    /** COBOL paragraph: 3430-CHK-AMOUNTS */
+    private void validateAmountFields(TaskContext ctx) {
+<span class="nc bnc" id="L247" title="All 2 branches missed.">        if (Utility.testNumval(String.valueOf(ctx.f.getWsFBal())) != 0) {</span>
+<span class="nc" id="L248">            ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L249">            ctx.f.setWsRejReason(&quot;INVALID BALANCE&quot;);</span>
+        } else {
+<span class="nc" id="L251">            ctx.f.setWsNBal(Utility.parseNumeric(String.valueOf(ctx.f.getWsFBal())));</span>
+        }
+<span class="nc bnc" id="L253" title="All 2 branches missed.">        if (isValid(ctx)) {</span>
+<span class="nc bnc" id="L254" title="All 2 branches missed.">            if (Utility.testNumval(String.valueOf(ctx.f.getWsFCrlim())) != 0) {</span>
+<span class="nc" id="L255">                ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L256">                ctx.f.setWsRejReason(&quot;INVALID CREDIT LIMIT&quot;);</span>
+            } else {
+<span class="nc" id="L258">                ctx.f.setWsNCrlim(Utility.parseNumeric(String.valueOf(ctx.f.getWsFCrlim())));</span>
+            }
+        }
+<span class="nc bnc" id="L261" title="All 2 branches missed.">        if (isValid(ctx)) {</span>
+<span class="nc bnc" id="L262" title="All 2 branches missed.">            if (Utility.testNumval(String.valueOf(ctx.f.getWsFCslim())) != 0) {</span>
+<span class="nc" id="L263">                ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L264">                ctx.f.setWsRejReason(&quot;INVALID CASH LIMIT&quot;);</span>
+            } else {
+<span class="nc" id="L266">                ctx.f.setWsNCslim(Utility.parseNumeric(String.valueOf(ctx.f.getWsFCslim())));</span>
+            }
+        }
+<span class="nc bnc" id="L269" title="All 2 branches missed.">        if (isValid(ctx)) {</span>
+<span class="nc bnc" id="L270" title="All 2 branches missed.">            if (Utility.testNumval(String.valueOf(ctx.f.getWsFCycr())) != 0) {</span>
+<span class="nc" id="L271">                ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L272">                ctx.f.setWsRejReason(&quot;INVALID CYC CREDIT&quot;);</span>
+            } else {
+<span class="nc" id="L274">                ctx.f.setWsNCycr(Utility.parseNumeric(String.valueOf(ctx.f.getWsFCycr())));</span>
+            }
+        }
+<span class="nc bnc" id="L277" title="All 2 branches missed.">        if (isValid(ctx)) {</span>
+<span class="nc bnc" id="L278" title="All 2 branches missed.">            if (Utility.testNumval(String.valueOf(ctx.f.getWsFCydr())) != 0) {</span>
+<span class="nc" id="L279">                ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L280">                ctx.f.setWsRejReason(&quot;INVALID CYC DEBIT&quot;);</span>
+            } else {
+<span class="nc" id="L282">                ctx.f.setWsNCydr(Utility.parseNumeric(String.valueOf(ctx.f.getWsFCydr())));</span>
+            }
+        }
+<span class="nc" id="L285">    }</span>
+
+    /** COBOL paragraph: 3440-CHK-DATES */
+    private void validateDateFields(TaskContext ctx) {
+<span class="nc" id="L289">        ctx.f.setWsDtIn(ctx.f.getWsFOpen());</span>
+<span class="nc" id="L290">        validateDateFormat(ctx);</span>
+<span class="nc bnc" id="L291" title="All 2 branches missed.">        if (!isDateValid(ctx)) {</span>
+<span class="nc" id="L292">            ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L293">            ctx.f.setWsRejReason(&quot;INVALID OPEN DATE&quot;);</span>
+        }
+<span class="nc bnc" id="L295" title="All 2 branches missed.">        if (isValid(ctx)) {</span>
+<span class="nc" id="L296">            ctx.f.setWsDtIn(ctx.f.getWsFExpiry());</span>
+<span class="nc" id="L297">            validateDateFormat(ctx);</span>
+<span class="nc bnc" id="L298" title="All 2 branches missed.">            if (!isDateValid(ctx)) {</span>
+<span class="nc" id="L299">                ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L300">                ctx.f.setWsRejReason(&quot;INVALID EXPIRY DATE&quot;);</span>
+            }
+        }
+<span class="nc bnc" id="L303" title="All 2 branches missed.">        if (isValid(ctx)) {</span>
+<span class="nc" id="L304">            ctx.f.setWsDtIn(ctx.f.getWsFReiss());</span>
+<span class="nc" id="L305">            validateDateFormat(ctx);</span>
+<span class="nc bnc" id="L306" title="All 2 branches missed.">            if (!isDateValid(ctx)) {</span>
+<span class="nc" id="L307">                ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L308">                ctx.f.setWsRejReason(&quot;INVALID REISSUE DATE&quot;);</span>
+            }
+        }
+<span class="nc" id="L311">    }</span>
+
+    /** COBOL paragraph: 3450-CHK-DATE */
+    private void validateDateFormat(TaskContext ctx) {
+<span class="nc" id="L315">        ctx.f.setWsDtOk(&quot;N&quot;);</span>
+<span class="nc" id="L316">        ctx.f.setWsDt(String.valueOf(ctx.f.getWsDtIn()).trim());</span>
+<span class="nc bnc" id="L317" title="All 2 branches missed.">        if (Utility.fieldEquals(</span>
+<span class="nc" id="L318">                        Utility.padRight(String.valueOf(ctx.f.getWsDt()), 5).substring(4, 5), &quot;-&quot;)</span>
+<span class="nc bnc" id="L319" title="All 2 branches missed.">                &amp;&amp; Utility.fieldEquals(</span>
+<span class="nc" id="L320">                        Utility.padRight(String.valueOf(ctx.f.getWsDt()), 8).substring(7, 8),</span>
+                        &quot;-&quot;)) {
+<span class="nc bnc" id="L322" title="All 2 branches missed.">            if (Utility.isNumeric(</span>
+<span class="nc" id="L323">                            String.valueOf(</span>
+<span class="nc" id="L324">                                    Utility.padRight(String.valueOf(ctx.f.getWsDt()), 4)</span>
+<span class="nc" id="L325">                                            .substring(0, 4)))</span>
+<span class="nc bnc" id="L326" title="All 2 branches missed.">                    &amp;&amp; Utility.isNumeric(</span>
+<span class="nc" id="L327">                            String.valueOf(</span>
+<span class="nc" id="L328">                                    Utility.padRight(String.valueOf(ctx.f.getWsDt()), 7)</span>
+<span class="nc" id="L329">                                            .substring(5, 7)))</span>
+<span class="nc bnc" id="L330" title="All 2 branches missed.">                    &amp;&amp; Utility.isNumeric(</span>
+<span class="nc" id="L331">                            String.valueOf(</span>
+<span class="nc" id="L332">                                    Utility.padRight(String.valueOf(ctx.f.getWsDt()), 10)</span>
+<span class="nc" id="L333">                                            .substring(8, 10)))) {</span>
+<span class="nc" id="L334">                ctx.f.setWsDtOk(&quot;Y&quot;);</span>
+            }
+        }
+<span class="nc" id="L337">    }</span>
+
+    /** COBOL paragraph: 3600-APPLY-ACCT */
+    private void applyAccountUpdate(TaskContext ctx) {
+<span class="nc" id="L341">        ctx.f.setAcId(ctx.f.getWsNId());</span>
+<span class="nc" id="L342">        ctx.appService.readFileForUpdate(</span>
+<span class="nc" id="L343">                ctx.f.getWsAcctfile(), ctx.f, String.valueOf(ctx.f.getAcId()), 0);</span>
+<span class="nc" id="L344">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L345" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L346">            ctx.f.setString(&quot;WS-EXIST-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L347" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L348">            ctx.f.setWsExistSw(&quot;N&quot;);</span>
+        } else {
+<span class="nc" id="L350">            ctx.f.setWsRejReason(&quot;READ ERROR&quot;);</span>
+<span class="nc" id="L351">            recordRejection(ctx);</span>
+<span class="nc" id="L352">            return;</span>
+        }
+<span class="nc" id="L354">        buildAccountRecord(ctx);</span>
+<span class="nc bnc" id="L355" title="All 2 branches missed.">        if (ctx.f.getWsExistSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L356">            ctx.appService.rewriteFile(ctx.f.getWsAcctfile(), ctx.f);</span>
+<span class="nc" id="L357">            ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L358" title="All 2 branches missed.">            if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L359">                ctx.f.setKimUpdated(ctx.f.getKimUpdated() + 1);</span>
+<span class="nc" id="L360">                ctx.f.setKimAccepted(ctx.f.getKimAccepted() + 1);</span>
+            } else {
+<span class="nc" id="L362">                ctx.f.setWsRejReason(&quot;REWRITE FAILED&quot;);</span>
+<span class="nc" id="L363">                recordRejection(ctx);</span>
+            }
+        } else {
+<span class="nc" id="L366">            ctx.appService.writeFile(</span>
+<span class="nc" id="L367">                    ctx.f.getWsAcctfile(), ctx.f, String.valueOf(ctx.f.getAcId()), 0);</span>
+<span class="nc" id="L368">            ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L369" title="All 2 branches missed.">            if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L370">                ctx.f.setKimAdded(ctx.f.getKimAdded() + 1);</span>
+<span class="nc" id="L371">                ctx.f.setKimAccepted(ctx.f.getKimAccepted() + 1);</span>
+            } else {
+<span class="nc" id="L373">                ctx.f.setWsRejReason(&quot;WRITE FAILED&quot;);</span>
+<span class="nc" id="L374">                recordRejection(ctx);</span>
+            }
+        }
+<span class="nc" id="L377">    }</span>
+
+    /** COBOL paragraph: 3610-BUILD-REC */
+    private void buildAccountRecord(TaskContext ctx) {
+<span class="nc" id="L381">        ctx.f.setAcctRec(&quot; &quot;);</span>
+<span class="nc" id="L382">        ctx.f.setAcId(ctx.f.getWsNId());</span>
+<span class="nc" id="L383">        ctx.f.setAcActiveStatus(ctx.f.getWsStatusChk());</span>
+<span class="nc" id="L384">        ctx.f.setAcCurrBal(ctx.f.getWsNBal());</span>
+<span class="nc" id="L385">        ctx.f.setAcCreditLimit(ctx.f.getWsNCrlim());</span>
+<span class="nc" id="L386">        ctx.f.setAcCashLimit(ctx.f.getWsNCslim());</span>
+<span class="nc" id="L387">        ctx.f.setAcOpenDate(String.valueOf(ctx.f.getWsFOpen()).trim());</span>
+<span class="nc" id="L388">        ctx.f.setAcExpiryDate(String.valueOf(ctx.f.getWsFExpiry()).trim());</span>
+<span class="nc" id="L389">        ctx.f.setAcReissueDate(String.valueOf(ctx.f.getWsFReiss()).trim());</span>
+<span class="nc" id="L390">        ctx.f.setAcCycCredit(ctx.f.getWsNCycr());</span>
+<span class="nc" id="L391">        ctx.f.setAcCycDebit(ctx.f.getWsNCydr());</span>
+<span class="nc" id="L392">        ctx.f.setAcAddrZip(String.valueOf(ctx.f.getWsFZip()).trim());</span>
+<span class="nc" id="L393">        ctx.f.setAcGroupId(String.valueOf(ctx.f.getWsFGroup()).trim());</span>
+<span class="nc" id="L394">    }</span>
+
+    /** COBOL paragraph: 3700-REJECT */
+    private void recordRejection(TaskContext ctx) {
+<span class="nc" id="L398">        ctx.f.setKimRejected(ctx.f.getKimRejected() + 1);</span>
+<span class="nc" id="L399">        ctx.f.setKimLastReason(ctx.f.getWsRejReason());</span>
+<span class="nc" id="L400">        ctx.f.setKimLastKey(ctx.f.getImpKey());</span>
+<span class="nc" id="L401">    }</span>
+
+    /** COBOL paragraph: 4000-PEEK-NEXT */
+    private void peekNextRecord(TaskContext ctx) {
+<span class="nc bnc" id="L405" title="All 2 branches missed.">        if (isEndOfFile(ctx)) {</span>
+<span class="nc" id="L406">            ctx.f.setKimMore(&quot;N&quot;);</span>
+<span class="nc" id="L407">            return;</span>
+        }
+<span class="nc" id="L409">        ctx.appService.readNext(ctx.f.getWsImpfile(), ctx.f);</span>
+<span class="nc" id="L410">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L411" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L412">            ctx.f.setKimMore(&quot;Y&quot;);</span>
+<span class="nc" id="L413">            ctx.f.setKimNextKey(ctx.f.getImpKey());</span>
+<span class="nc bnc" id="L414" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L415">            ctx.f.setKimMore(&quot;N&quot;);</span>
+        } else {
+<span class="nc" id="L417">            ctx.f.setKimMore(&quot;N&quot;);</span>
+<span class="nc" id="L418">            ctx.f.setKimErrors(ctx.f.getKimErrors() + 1);</span>
+        }
+<span class="nc" id="L420">    }</span>
+
+    /** COBOL paragraph: 5000-END-BROWSE */
+    private void endBrowseOperation(TaskContext ctx) {
+<span class="nc" id="L424">        ctx.appService.endBrowse(ctx.f.getWsImpfile());</span>
+<span class="nc" id="L425">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L426">    }</span>
+
+    /** COBOL paragraph: 6000-SET-STATUS */
+    private void finalizeImportStatus(TaskContext ctx) {
+<span class="nc bnc" id="L430" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getKimStatus(), &quot;99&quot;)) {</span>
+<span class="nc" id="L431">            return;</span>
+        }
+<span class="nc bnc" id="L433" title="All 2 branches missed.">        if (ctx.f.getKimRead() == 0) {</span>
+<span class="nc" id="L434">            ctx.f.setKimStatus(&quot;10&quot;);</span>
+<span class="nc" id="L435">            ctx.f.setKimMsg(&quot;IMPORT FEED IS EMPTY&quot;);</span>
+        } else {
+<span class="nc" id="L437">            ctx.f.setKimStatus(&quot;00&quot;);</span>
+<span class="nc" id="L438">            ctx.f.setKimMsg(&quot;ACCOUNT IMPORT COMPLETE&quot;);</span>
+        }
+<span class="nc" id="L440">    }</span>
+
+    /** True when the current import record has passed all validation checks. */
+    private boolean isValid(TaskContext ctx) {
+<span class="nc" id="L444">        return ctx.f.getWsValidSw().equals(&quot;Y&quot;);</span>
+    }
+
+    /** True when the import file browse has reached end-of-file. */
+    private boolean isEndOfFile(TaskContext ctx) {
+<span class="nc" id="L449">        return ctx.f.getWsEofSw().equals(&quot;Y&quot;);</span>
+    }
+
+    /** True when a parsed date field is in valid CCYY-MM-DD format. */
+    private boolean isDateValid(TaskContext ctx) {
+<span class="nc" id="L454">        return Utility.fieldEquals(ctx.f.getWsDtOk(), &quot;Y&quot;);</span>
+    }
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OuimpFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L468">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L469">            this.appService = appService;</span>
+<span class="nc" id="L470">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L471">            this.f = new OuimpFields(ws);</span>
+<span class="nc" id="L472">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

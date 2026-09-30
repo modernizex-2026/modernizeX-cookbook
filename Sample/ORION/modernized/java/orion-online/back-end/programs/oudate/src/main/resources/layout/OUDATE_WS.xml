@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : OUDATE_WS
+-->
+<dataLayout name="OUDATE_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="8">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="SQLCODE" offset="4" size="4" javaType="int" value="0" usage="BINARY"/>
+  </group>
+  <group name="WS-WORK" offset="0" size="31">
+    <field name="WS-CURR" offset="0" size="21" javaType="String"/>
+    <field name="WS-Y" offset="21" size="4" javaType="int"/>
+    <field name="WS-M" offset="25" size="2" javaType="int"/>
+    <field name="WS-D" offset="27" size="2" javaType="int"/>
+    <field name="WS-DIM" offset="29" size="2" javaType="int"/>
+  </group>
+  <group name="WS-DATE-N" offset="0" size="21" redefines="WS-WORK">
+    <field name="FILLER-0" offset="0" size="21" javaType="String"/>
+  </group>
+  <group name="WS-EDIT-DATE" offset="0" size="10">
+    <field name="WS-ED-Y" offset="0" size="4" javaType="int"/>
+    <field name="FILLER-4" offset="4" size="1" javaType="String" value="-"/>
+    <field name="WS-ED-M" offset="5" size="2" javaType="int"/>
+    <field name="FILLER-7" offset="7" size="1" javaType="String" value="-"/>
+    <field name="WS-ED-D" offset="8" size="2" javaType="int"/>
+  </group>
+  <group name="KDATE-PARM" offset="0" size="26">
+    <field name="KD-FUNC" offset="0" size="4" javaType="String"/>
+    <field name="KD-DATE-IN" offset="4" size="10" javaType="String"/>
+    <field name="KD-DATE-OUT" offset="14" size="10" javaType="String"/>
+    <field name="KD-STATUS" offset="24" size="2" javaType="String"/>
+  </group>
+</dataLayout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OccustaBmsMetadata.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCCUSTA Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.occusta.metadata</a> &gt; <span class="el_source">OccustaBmsMetadata.java</span></div><h1>OccustaBmsMetadata.java</h1><pre class="source lang-java linenums">package com.generated.orion.occusta.metadata;
+
+import com.appruntime.AppRunner;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import java.util.*;
+
+/**
+ * BMS screen metadata for OCCUSTA.
+ * Contains button definitions, FSET fields, and field mappings.
+ */
+<span class="nc" id="L12">public class OccustaBmsMetadata {</span>
+
+    public static List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L15">        return List.of(</span>
+            new ScreenResponse.ButtonDef(&quot;ENTER&quot;, &quot;ENTER=PROCESS&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF3&quot;, &quot;PF3=BACK&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF4&quot;, &quot;PF4=CLEAR&quot;, &quot;&quot;)
+        );
+    }
+
+    public static void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L23">        runner.registerFsetFields(&quot;MCUSTAA&quot;, Set.of(&quot;CUSTID&quot;, &quot;CUFNAM&quot;, &quot;CULNAM&quot;, &quot;CUADDR&quot;, &quot;CUCITY&quot;, &quot;CUSSN&quot;, &quot;CUFICO&quot;));</span>
+<span class="nc" id="L24">    }</span>
+
+    /** Danh sách BMS map của program (cho smoke test / tooling). */
+    public static List&lt;String&gt; getMapNames() {
+<span class="nc" id="L28">        return List.of(&quot;MCUSTAA&quot;);</span>
+    }
+
+    /** Classpath resource của WORKING-STORAGE layout (FieldStore đọc lúc runtime). */
+    public static String getLayoutResource() {
+<span class="nc" id="L33">        return &quot;layout/OCCUSTA_WS.xml&quot;;</span>
+    }
+
+    public static FieldMapping getFieldMapping(String mapName) {
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if (&quot;MCUSTAA&quot;.equalsIgnoreCase(mapName)) {</span>
+<span class="nc" id="L38">            return FieldMapping.builder()</span>
+<span class="nc" id="L39">                .addDataIn(&quot;CUADDR&quot;, &quot;cuaddri&quot;)</span>
+<span class="nc" id="L40">                .addDataIn(&quot;CUFICO&quot;, &quot;cuficoi&quot;)</span>
+<span class="nc" id="L41">                .addDataIn(&quot;CUSSN&quot;, &quot;cussni&quot;)</span>
+<span class="nc" id="L42">                .addDataIn(&quot;CUFNAM&quot;, &quot;cufnami&quot;)</span>
+<span class="nc" id="L43">                .addDataIn(&quot;CULNAM&quot;, &quot;culnami&quot;)</span>
+<span class="nc" id="L44">                .addDataIn(&quot;CUSTID&quot;, &quot;custidi&quot;)</span>
+<span class="nc" id="L45">                .addDataIn(&quot;TRNNAME&quot;, &quot;trnnamei&quot;)</span>
+<span class="nc" id="L46">                .addDataIn(&quot;ERRMSG&quot;, &quot;errmsgi&quot;)</span>
+<span class="nc" id="L47">                .addDataIn(&quot;CURTIME&quot;, &quot;curtimei&quot;)</span>
+<span class="nc" id="L48">                .addDataIn(&quot;TITLE&quot;, &quot;titlei&quot;)</span>
+<span class="nc" id="L49">                .addDataIn(&quot;PGMNAME&quot;, &quot;pgmnamei&quot;)</span>
+<span class="nc" id="L50">                .addDataIn(&quot;CURDATE&quot;, &quot;curdatei&quot;)</span>
+<span class="nc" id="L51">                .addDataIn(&quot;CUCITY&quot;, &quot;cucityi&quot;)</span>
+<span class="nc" id="L52">                .addDataOut(&quot;CUADDR&quot;, &quot;cuaddro&quot;)</span>
+<span class="nc" id="L53">                .addDataOut(&quot;CUFICO&quot;, &quot;cuficoo&quot;)</span>
+<span class="nc" id="L54">                .addDataOut(&quot;CUSSN&quot;, &quot;cussno&quot;)</span>
+<span class="nc" id="L55">                .addDataOut(&quot;CUFNAM&quot;, &quot;cufnamo&quot;)</span>
+<span class="nc" id="L56">                .addDataOut(&quot;CULNAM&quot;, &quot;culnamo&quot;)</span>
+<span class="nc" id="L57">                .addDataOut(&quot;CUSTID&quot;, &quot;custido&quot;)</span>
+<span class="nc" id="L58">                .addDataOut(&quot;TRNNAME&quot;, &quot;trnnameo&quot;)</span>
+<span class="nc" id="L59">                .addDataOut(&quot;ERRMSG&quot;, &quot;errmsgo&quot;)</span>
+<span class="nc" id="L60">                .addDataOut(&quot;CURTIME&quot;, &quot;curtimeo&quot;)</span>
+<span class="nc" id="L61">                .addDataOut(&quot;TITLE&quot;, &quot;titleo&quot;)</span>
+<span class="nc" id="L62">                .addDataOut(&quot;PGMNAME&quot;, &quot;pgmnameo&quot;)</span>
+<span class="nc" id="L63">                .addDataOut(&quot;CURDATE&quot;, &quot;curdateo&quot;)</span>
+<span class="nc" id="L64">                .addDataOut(&quot;CUCITY&quot;, &quot;cucityo&quot;)</span>
+<span class="nc" id="L65">                .addAttr(&quot;CUADDR&quot;, &quot;cuaddra&quot;)</span>
+<span class="nc" id="L66">                .addAttr(&quot;CUFICO&quot;, &quot;cuficoa&quot;)</span>
+<span class="nc" id="L67">                .addAttr(&quot;CUSSN&quot;, &quot;cussna&quot;)</span>
+<span class="nc" id="L68">                .addAttr(&quot;CUFNAM&quot;, &quot;cufnama&quot;)</span>
+<span class="nc" id="L69">                .addAttr(&quot;CULNAM&quot;, &quot;culnama&quot;)</span>
+<span class="nc" id="L70">                .addAttr(&quot;CUSTID&quot;, &quot;custida&quot;)</span>
+<span class="nc" id="L71">                .addAttr(&quot;TRNNAME&quot;, &quot;trnnamea&quot;)</span>
+<span class="nc" id="L72">                .addAttr(&quot;ERRMSG&quot;, &quot;errmsga&quot;)</span>
+<span class="nc" id="L73">                .addAttr(&quot;CURTIME&quot;, &quot;curtimea&quot;)</span>
+<span class="nc" id="L74">                .addAttr(&quot;TITLE&quot;, &quot;titlea&quot;)</span>
+<span class="nc" id="L75">                .addAttr(&quot;PGMNAME&quot;, &quot;pgmnamea&quot;)</span>
+<span class="nc" id="L76">                .addAttr(&quot;CURDATE&quot;, &quot;curdatea&quot;)</span>
+<span class="nc" id="L77">                .addAttr(&quot;CUCITY&quot;, &quot;cucitya&quot;)</span>
+<span class="nc" id="L78">                .addLength(&quot;CUADDR&quot;, &quot;cuaddrl&quot;)</span>
+<span class="nc" id="L79">                .addLength(&quot;CUFICO&quot;, &quot;cuficol&quot;)</span>
+<span class="nc" id="L80">                .addLength(&quot;CUSSN&quot;, &quot;cussnl&quot;)</span>
+<span class="nc" id="L81">                .addLength(&quot;CUFNAM&quot;, &quot;cufnaml&quot;)</span>
+<span class="nc" id="L82">                .addLength(&quot;CULNAM&quot;, &quot;culnaml&quot;)</span>
+<span class="nc" id="L83">                .addLength(&quot;CUSTID&quot;, &quot;custidl&quot;)</span>
+<span class="nc" id="L84">                .addLength(&quot;TRNNAME&quot;, &quot;trnnamel&quot;)</span>
+<span class="nc" id="L85">                .addLength(&quot;ERRMSG&quot;, &quot;errmsgl&quot;)</span>
+<span class="nc" id="L86">                .addLength(&quot;CURTIME&quot;, &quot;curtimel&quot;)</span>
+<span class="nc" id="L87">                .addLength(&quot;TITLE&quot;, &quot;titlel&quot;)</span>
+<span class="nc" id="L88">                .addLength(&quot;PGMNAME&quot;, &quot;pgmnamel&quot;)</span>
+<span class="nc" id="L89">                .addLength(&quot;CURDATE&quot;, &quot;curdatel&quot;)</span>
+<span class="nc" id="L90">                .addLength(&quot;CUCITY&quot;, &quot;cucityl&quot;)</span>
+<span class="nc" id="L91">                .build();</span>
+        }
+<span class="nc" id="L93">        return FieldMapping.empty();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

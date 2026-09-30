@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OdtranlDaoImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ODTRANL Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.odtranl.dao.impl</a> &gt; <span class="el_source">OdtranlDaoImpl.java</span></div><h1>OdtranlDaoImpl.java</h1><pre class="source lang-java linenums">package com.generated.orion.odtranl.dao.impl;
+
+import com.appruntime.SqlPaging;
+import com.generated.orion.odtranl.dao.OdtranlDao;
+import com.generated.orion.odtranl.support.SqlStatements;
+import java.lang.Integer;
+import java.lang.Object;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.ThreadLocal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+/**
+ * JdbcTemplate implementation for ODTRANL DAO.
+ * ← EXEC SQL — uses JdbcTemplate with SqlStatements constants.
+ */
+@Repository
+<span class="nc" id="L23">public class OdtranlDaoImpl implements OdtranlDao {</span>
+    /**
+     * Chunk size — override bằng -Dcobol.cursor.fetch-size=N.
+     */
+<span class="nc" id="L27">    private static final int CURSOR_FETCH_SIZE = Integer.getInteger(&quot;cobol.cursor.fetch-size&quot;, 500);</span>
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    /**
+     * Chunk hiện tại của cursor (per-request) — KHÔNG materialize toàn bộ result set.
+     */
+<span class="nc" id="L35">    private final ThreadLocal&lt;Map&lt;String, List&lt;Map&lt;String, Object&gt;&gt;&gt;&gt; cursorData = ThreadLocal.withInitial(HashMap::new);</span>
+
+    /**
+     * Vị trí row trong chunk hiện tại (per-request).
+     */
+<span class="nc" id="L40">    private final ThreadLocal&lt;Map&lt;String, Integer&gt;&gt; cursorPosition = ThreadLocal.withInitial(HashMap::new);</span>
+
+    /**
+     * WHERE params lưu ở OPEN — FETCH dùng lại khi nạp chunk kế.
+     */
+<span class="nc" id="L45">    private final ThreadLocal&lt;Map&lt;String, Object[]&gt;&gt; cursorParams = ThreadLocal.withInitial(HashMap::new);</span>
+
+    /**
+     * OFFSET tuyệt đối của chunk hiện tại.
+     */
+<span class="nc" id="L50">    private final ThreadLocal&lt;Map&lt;String, Integer&gt;&gt; cursorOffset = ThreadLocal.withInitial(HashMap::new);</span>
+
+    /**
+     * ← SQL_001: SELECT TR_ID, TR_AMT, TR_TYPE_CD FROM ORION.TRAN WHERE TR_CARD_NUM = ? ORDER BY ...
+     */
+    @Override
+    public Map&lt;String, Object&gt; openTrancsr(Object... params) {
+<span class="nc" id="L57">        cursorParams.get().put(&quot;TRANCSR&quot;, params);</span>
+<span class="nc" id="L58">        cursorOffset.get().put(&quot;TRANCSR&quot;, 0);</span>
+<span class="nc" id="L59">        List&lt;Map&lt;String, Object&gt;&gt; rows = SqlPaging.page(jdbcTemplate, SqlStatements.SQL_001, params, CURSOR_FETCH_SIZE, 0);</span>
+<span class="nc" id="L60">        cursorData.get().put(&quot;TRANCSR&quot;, rows);</span>
+<span class="nc" id="L61">        cursorPosition.get().put(&quot;TRANCSR&quot;, 0);</span>
+<span class="nc" id="L62">        Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L63">        result.put(&quot;SQLCODE&quot;, 0);</span>
+<span class="nc" id="L64">        return result;</span>
+    }
+
+    /**
+     * ← SQL_002: CLOSE TRANCSR (cursor state in DAO)
+     */
+    @Override
+    public Map&lt;String, Object&gt; closeTrancsr(Object... params) {
+<span class="nc" id="L72">        cursorData.get().remove(&quot;TRANCSR&quot;);</span>
+<span class="nc" id="L73">        cursorPosition.get().remove(&quot;TRANCSR&quot;);</span>
+<span class="nc" id="L74">        cursorParams.get().remove(&quot;TRANCSR&quot;);</span>
+<span class="nc" id="L75">        cursorOffset.get().remove(&quot;TRANCSR&quot;);</span>
+<span class="nc" id="L76">        Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L77">        result.put(&quot;SQLCODE&quot;, 0);</span>
+<span class="nc" id="L78">        return result;</span>
+    }
+
+    /**
+     * ← SQL_003: FETCH TRANCSR (cursor state in DAO)
+     */
+    @Override
+    public Map&lt;String, Object&gt; fetchTrancsr(Object... params) {
+<span class="nc" id="L86">        List&lt;Map&lt;String, Object&gt;&gt; rows = cursorData.get().get(&quot;TRANCSR&quot;);</span>
+<span class="nc" id="L87">        int pos = cursorPosition.get().getOrDefault(&quot;TRANCSR&quot;, 0);</span>
+<span class="nc bnc" id="L88" title="All 6 branches missed.">        if (rows != null &amp;&amp; pos &gt;= rows.size() &amp;&amp; rows.size() == CURSOR_FETCH_SIZE) {</span>
+<span class="nc" id="L89">            int off = cursorOffset.get().getOrDefault(&quot;TRANCSR&quot;, 0) + CURSOR_FETCH_SIZE;</span>
+<span class="nc" id="L90">            rows = SqlPaging.page(jdbcTemplate, SqlStatements.SQL_001, cursorParams.get().get(&quot;TRANCSR&quot;), CURSOR_FETCH_SIZE, off);</span>
+<span class="nc" id="L91">            cursorData.get().put(&quot;TRANCSR&quot;, rows);</span>
+<span class="nc" id="L92">            cursorOffset.get().put(&quot;TRANCSR&quot;, off);</span>
+<span class="nc" id="L93">            pos = 0;</span>
+        }
+<span class="nc bnc" id="L95" title="All 4 branches missed.">        if (rows != null &amp;&amp; pos &lt; rows.size()) {</span>
+<span class="nc" id="L96">            cursorPosition.get().put(&quot;TRANCSR&quot;, pos + 1);</span>
+<span class="nc" id="L97">            return rows.get(pos);</span>
+        } else {
+<span class="nc" id="L99">            Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L100">            result.put(&quot;SQLCODE&quot;, 100);</span>
+<span class="nc" id="L101">            return result;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

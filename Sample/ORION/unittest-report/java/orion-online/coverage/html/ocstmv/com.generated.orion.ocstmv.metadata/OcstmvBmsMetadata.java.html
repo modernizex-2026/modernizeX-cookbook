@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OcstmvBmsMetadata.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCSTMV Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ocstmv.metadata</a> &gt; <span class="el_source">OcstmvBmsMetadata.java</span></div><h1>OcstmvBmsMetadata.java</h1><pre class="source lang-java linenums">package com.generated.orion.ocstmv.metadata;
+
+import com.appruntime.AppRunner;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import java.util.*;
+
+/**
+ * BMS screen metadata for OCSTMV.
+ * Contains button definitions, FSET fields, and field mappings.
+ */
+<span class="nc" id="L12">public class OcstmvBmsMetadata {</span>
+
+    public static List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L15">        return List.of(</span>
+            new ScreenResponse.ButtonDef(&quot;ENTER&quot;, &quot;ENTER=PROCESS&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF3&quot;, &quot;PF3=BACK&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF4&quot;, &quot;PF4=CLEAR&quot;, &quot;&quot;)
+        );
+    }
+
+    public static void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L23">        runner.registerFsetFields(&quot;MSTMVA&quot;, Set.of(&quot;ACCTID&quot;, &quot;STCYC&quot;));</span>
+<span class="nc" id="L24">    }</span>
+
+    /** Danh sách BMS map của program (cho smoke test / tooling). */
+    public static List&lt;String&gt; getMapNames() {
+<span class="nc" id="L28">        return List.of(&quot;MSTMVA&quot;);</span>
+    }
+
+    /** Classpath resource của WORKING-STORAGE layout (FieldStore đọc lúc runtime). */
+    public static String getLayoutResource() {
+<span class="nc" id="L33">        return &quot;layout/OCSTMV_WS.xml&quot;;</span>
+    }
+
+    public static FieldMapping getFieldMapping(String mapName) {
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if (&quot;MSTMVA&quot;.equalsIgnoreCase(mapName)) {</span>
+<span class="nc" id="L38">            return FieldMapping.builder()</span>
+<span class="nc" id="L39">                .addDataIn(&quot;TRNNAME&quot;, &quot;trnnamei&quot;)</span>
+<span class="nc" id="L40">                .addDataIn(&quot;ACCTID&quot;, &quot;acctidi&quot;)</span>
+<span class="nc" id="L41">                .addDataIn(&quot;STCYC&quot;, &quot;stcyci&quot;)</span>
+<span class="nc" id="L42">                .addDataIn(&quot;ERRMSG&quot;, &quot;errmsgi&quot;)</span>
+<span class="nc" id="L43">                .addDataIn(&quot;CURTIME&quot;, &quot;curtimei&quot;)</span>
+<span class="nc" id="L44">                .addDataIn(&quot;STCLOSE&quot;, &quot;stclosei&quot;)</span>
+<span class="nc" id="L45">                .addDataIn(&quot;STMIN&quot;, &quot;stmini&quot;)</span>
+<span class="nc" id="L46">                .addDataIn(&quot;TITLE&quot;, &quot;titlei&quot;)</span>
+<span class="nc" id="L47">                .addDataIn(&quot;STDUE&quot;, &quot;stduei&quot;)</span>
+<span class="nc" id="L48">                .addDataIn(&quot;STOPEN&quot;, &quot;stopeni&quot;)</span>
+<span class="nc" id="L49">                .addDataIn(&quot;PGMNAME&quot;, &quot;pgmnamei&quot;)</span>
+<span class="nc" id="L50">                .addDataIn(&quot;CURDATE&quot;, &quot;curdatei&quot;)</span>
+<span class="nc" id="L51">                .addDataOut(&quot;TRNNAME&quot;, &quot;trnnameo&quot;)</span>
+<span class="nc" id="L52">                .addDataOut(&quot;ACCTID&quot;, &quot;acctido&quot;)</span>
+<span class="nc" id="L53">                .addDataOut(&quot;STCYC&quot;, &quot;stcyco&quot;)</span>
+<span class="nc" id="L54">                .addDataOut(&quot;ERRMSG&quot;, &quot;errmsgo&quot;)</span>
+<span class="nc" id="L55">                .addDataOut(&quot;CURTIME&quot;, &quot;curtimeo&quot;)</span>
+<span class="nc" id="L56">                .addDataOut(&quot;STCLOSE&quot;, &quot;stcloseo&quot;)</span>
+<span class="nc" id="L57">                .addDataOut(&quot;STMIN&quot;, &quot;stmino&quot;)</span>
+<span class="nc" id="L58">                .addDataOut(&quot;TITLE&quot;, &quot;titleo&quot;)</span>
+<span class="nc" id="L59">                .addDataOut(&quot;STDUE&quot;, &quot;stdueo&quot;)</span>
+<span class="nc" id="L60">                .addDataOut(&quot;STOPEN&quot;, &quot;stopeno&quot;)</span>
+<span class="nc" id="L61">                .addDataOut(&quot;PGMNAME&quot;, &quot;pgmnameo&quot;)</span>
+<span class="nc" id="L62">                .addDataOut(&quot;CURDATE&quot;, &quot;curdateo&quot;)</span>
+<span class="nc" id="L63">                .addAttr(&quot;TRNNAME&quot;, &quot;trnnamea&quot;)</span>
+<span class="nc" id="L64">                .addAttr(&quot;ACCTID&quot;, &quot;acctida&quot;)</span>
+<span class="nc" id="L65">                .addAttr(&quot;STCYC&quot;, &quot;stcyca&quot;)</span>
+<span class="nc" id="L66">                .addAttr(&quot;ERRMSG&quot;, &quot;errmsga&quot;)</span>
+<span class="nc" id="L67">                .addAttr(&quot;CURTIME&quot;, &quot;curtimea&quot;)</span>
+<span class="nc" id="L68">                .addAttr(&quot;STCLOSE&quot;, &quot;stclosea&quot;)</span>
+<span class="nc" id="L69">                .addAttr(&quot;STMIN&quot;, &quot;stmina&quot;)</span>
+<span class="nc" id="L70">                .addAttr(&quot;TITLE&quot;, &quot;titlea&quot;)</span>
+<span class="nc" id="L71">                .addAttr(&quot;STDUE&quot;, &quot;stduea&quot;)</span>
+<span class="nc" id="L72">                .addAttr(&quot;STOPEN&quot;, &quot;stopena&quot;)</span>
+<span class="nc" id="L73">                .addAttr(&quot;PGMNAME&quot;, &quot;pgmnamea&quot;)</span>
+<span class="nc" id="L74">                .addAttr(&quot;CURDATE&quot;, &quot;curdatea&quot;)</span>
+<span class="nc" id="L75">                .addLength(&quot;TRNNAME&quot;, &quot;trnnamel&quot;)</span>
+<span class="nc" id="L76">                .addLength(&quot;ACCTID&quot;, &quot;acctidl&quot;)</span>
+<span class="nc" id="L77">                .addLength(&quot;STCYC&quot;, &quot;stcycl&quot;)</span>
+<span class="nc" id="L78">                .addLength(&quot;ERRMSG&quot;, &quot;errmsgl&quot;)</span>
+<span class="nc" id="L79">                .addLength(&quot;CURTIME&quot;, &quot;curtimel&quot;)</span>
+<span class="nc" id="L80">                .addLength(&quot;STCLOSE&quot;, &quot;stclosel&quot;)</span>
+<span class="nc" id="L81">                .addLength(&quot;STMIN&quot;, &quot;stminl&quot;)</span>
+<span class="nc" id="L82">                .addLength(&quot;TITLE&quot;, &quot;titlel&quot;)</span>
+<span class="nc" id="L83">                .addLength(&quot;STDUE&quot;, &quot;stduel&quot;)</span>
+<span class="nc" id="L84">                .addLength(&quot;STOPEN&quot;, &quot;stopenl&quot;)</span>
+<span class="nc" id="L85">                .addLength(&quot;PGMNAME&quot;, &quot;pgmnamel&quot;)</span>
+<span class="nc" id="L86">                .addLength(&quot;CURDATE&quot;, &quot;curdatel&quot;)</span>
+<span class="nc" id="L87">                .build();</span>
+        }
+<span class="nc" id="L89">        return FieldMapping.empty();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OucusinService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUCUSIN Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.oucusin.service</a> &gt; <span class="el_source">OucusinService.java</span></div><h1>OucusinService.java</h1><pre class="source lang-java linenums">package com.generated.orion.oucusin.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.oucusin.accessor.OucusinFields;
+import com.generated.orion.oucusin.metadata.OucusinBmsMetadata;
+import com.generated.orion.oucusin.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OUCUSIN. */
+@Service
+<span class="nc" id="L20">public class OucusinService implements AppProgram {</span>
+<span class="nc" id="L21">    private static final Logger log = LoggerFactory.getLogger(OucusinService.class);</span>
+
+    /** Pad length used when comparing/truncating zip-code fields by prefix length. */
+    private static final int ZIP_FIELD_PAD_LENGTH = 256;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L32">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc bnc" id="L33" title="All 4 branches missed.">        if (ctx.appService.getEibcalen() &gt; 0 &amp;&amp; ctx.appService.getCommarea() != null) {</span>
+<span class="nc" id="L34">            Object _commarea = ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">            if (_commarea instanceof Object[]) {</span>
+<span class="nc" id="L36">                Object[] _params = (Object[]) _commarea;</span>
+<span class="nc bnc" id="L37" title="All 4 branches missed.">                if (_params.length &gt; 0 &amp;&amp; _params[0] instanceof byte[]) {</span>
+<span class="nc" id="L38">                    ctx.f.writeBytes(&quot;KCUSIN-AREA&quot;, (byte[]) _params[0]);</span>
+<span class="nc bnc" id="L39" title="All 4 branches missed.">                } else if (_params.length &gt; 0 &amp;&amp; _params[0] != null) {</span>
+<span class="nc" id="L40">                    ctx.f.setGroup(&quot;KCUSIN-AREA&quot;, String.valueOf(_params[0]));</span>
+                }
+<span class="nc bnc" id="L42" title="All 2 branches missed.">            } else if (_commarea instanceof byte[]) {</span>
+<span class="nc" id="L43">                ctx.f.writeBytes(&quot;KCUSIN-AREA&quot;, (byte[]) _commarea);</span>
+            } else {
+<span class="nc" id="L45">                ctx.f.setGroup(&quot;KCUSIN-AREA&quot;, String.valueOf(_commarea));</span>
+            }
+        }
+        try {
+<span class="nc" id="L49">            runMainProgram(ctx);</span>
+        } finally {
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            if (ctx.appService.getEibcalen() &gt; 0) {</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                if (ctx.appService.getCommarea() instanceof Object[]) {</span>
+<span class="nc" id="L53">                    Object[] _params = (Object[]) ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">                    if (_params.length &gt; 0) {</span>
+<span class="nc" id="L55">                        _params[0] =</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">                                _params[0] instanceof byte[]</span>
+<span class="nc" id="L57">                                        ? (Object) ctx.f.sliceBytes(&quot;KCUSIN-AREA&quot;)</span>
+<span class="nc" id="L58">                                        : (Object) ctx.f.groupToString(&quot;KCUSIN-AREA&quot;);</span>
+                    }
+<span class="nc" id="L60">                } else {</span>
+<span class="nc" id="L61">                    ctx.appService.setCommarea(ctx.f.sliceBytes(&quot;KCUSIN-AREA&quot;));</span>
+                }
+            }
+        }
+<span class="nc" id="L65">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L69">        return &quot;OUCUSIN&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L74">        return OucusinBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L79">        OucusinBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L80">    }</span>
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainProgram(TaskContext ctx) {
+<span class="nc" id="L84">        initializeResponse(ctx);</span>
+<span class="nc" id="L85">        browseCustomers(ctx);</span>
+<span class="nc" id="L86">        finalizeSummary(ctx);</span>
+<span class="nc" id="L87">        return;</span>
+    }
+
+    /** COBOL paragraph: 1000-INIT-RESPONSE */
+    private void initializeResponse(TaskContext ctx) {
+<span class="nc" id="L92">        ctx.f.setString(&quot;KUI-RETURN-CD&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L93">        ctx.f.setKuiRowCount(0);</span>
+<span class="nc" id="L94">        ctx.f.setKuiScanCount(0);</span>
+<span class="nc" id="L95">        ctx.f.setKuiMatchCount(0);</span>
+<span class="nc" id="L96">        ctx.f.setKuiFicoTot(0);</span>
+<span class="nc" id="L97">        ctx.f.setKuiFicoAvg(0);</span>
+<span class="nc" id="L98">        ctx.f.setKuiFicoMin(999);</span>
+<span class="nc" id="L99">        ctx.f.setKuiFicoMax(0);</span>
+<span class="nc" id="L100">        ctx.f.setKuiNextKey(0);</span>
+<span class="nc" id="L101">        ctx.f.setString(&quot;KUI-MORE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L102">        ctx.f.setWsLastKey(0);</span>
+<span class="nc" id="L103">        ctx.f.setString(&quot;WS-MATCH-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L104">        ctx.f.setWsEndFlg(&quot;N&quot;);</span>
+<span class="nc" id="L105">        ctx.f.setKuiRows(&quot;&quot;);</span>
+<span class="nc" id="L106">    }</span>
+
+    /** COBOL paragraph: 2000-BROWSE-CUSTOMERS */
+    private void browseCustomers(TaskContext ctx) {
+<span class="nc" id="L110">        startCustomerBrowse(ctx);</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        if (!ctx.f.getWsEndFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">            while (!ctx.f.getWsEndFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L113">                readNextCustomer(ctx);</span>
+            }
+<span class="nc" id="L115">            endCustomerBrowse(ctx);</span>
+        }
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        if (ctx.f.getKuiRowCount() &gt; 0) {</span>
+<span class="nc" id="L118">            ctx.f.setKuiNextKey(ctx.f.getWsLastKey());</span>
+        }
+<span class="nc" id="L120">    }</span>
+
+    /** COBOL paragraph: 2100-START-BROWSE */
+    private void startCustomerBrowse(TaskContext ctx) {
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        if (ctx.f.getKuiFilter().equals(&quot;I&quot;)) {</span>
+<span class="nc" id="L125">            ctx.f.setCuId(ctx.f.getKuiIdFrom());</span>
+        } else {
+<span class="nc" id="L127">            ctx.f.setCuId(0);</span>
+        }
+<span class="nc" id="L129">        ctx.appService.startBrowse(ctx.f.getWsCustfile(), String.valueOf(ctx.f.getCuId()), 0);</span>
+<span class="nc" id="L130">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+            /* CONTINUE */
+<span class="nc bnc" id="L133" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L134">            markEndOfBrowse(ctx);</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L136">            markEndOfBrowse(ctx);</span>
+        } else {
+<span class="nc" id="L138">            markEndOfBrowse(ctx);</span>
+<span class="nc" id="L139">            ctx.f.setString(&quot;KUI-RETURN-CD&quot;, &quot;E&quot;);</span>
+        }
+<span class="nc" id="L141">    }</span>
+
+    /** COBOL paragraph: 2200-READ-NEXT */
+    private void readNextCustomer(TaskContext ctx) {
+<span class="nc" id="L145">        ctx.appService.readNext(ctx.f.getWsCustfile(), ctx.f);</span>
+<span class="nc" id="L146">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L148">            evaluateCustomerRecord(ctx);</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L150">            markEndOfBrowse(ctx);</span>
+        } else {
+<span class="nc" id="L152">            markEndOfBrowse(ctx);</span>
+<span class="nc" id="L153">            ctx.f.setString(&quot;KUI-RETURN-CD&quot;, &quot;E&quot;);</span>
+        }
+<span class="nc" id="L155">    }</span>
+
+    /** COBOL paragraph: 2250-HANDLE-RECORD */
+    private void evaluateCustomerRecord(TaskContext ctx) {
+<span class="nc" id="L159">        ctx.f.setKuiScanCount(ctx.f.getKuiScanCount() + 1);</span>
+<span class="nc bnc" id="L160" title="All 4 branches missed.">        if (ctx.f.getKuiFilter().equals(&quot;I&quot;) &amp;&amp; ctx.f.getCuId() &gt; ctx.f.getKuiIdTo()) {</span>
+<span class="nc" id="L161">            markEndOfBrowse(ctx);</span>
+        } else {
+<span class="nc" id="L163">            checkCustomerFilter(ctx);</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">            if (ctx.f.getWsMatchSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L165">                ctx.f.setKuiMatchCount(ctx.f.getKuiMatchCount() + 1);</span>
+<span class="nc" id="L166">                ctx.f.setKuiFicoTot(ctx.f.getKuiFicoTot() + ctx.f.getCuFicoScore());</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">                if (ctx.f.getCuFicoScore() &lt; ctx.f.getKuiFicoMin()) {</span>
+<span class="nc" id="L168">                    ctx.f.setKuiFicoMin(ctx.f.getCuFicoScore());</span>
+                }
+<span class="nc bnc" id="L170" title="All 2 branches missed.">                if (ctx.f.getCuFicoScore() &gt; ctx.f.getKuiFicoMax()) {</span>
+<span class="nc" id="L171">                    ctx.f.setKuiFicoMax(ctx.f.getCuFicoScore());</span>
+                }
+<span class="nc bnc" id="L173" title="All 2 branches missed.">                if (ctx.f.getCuId() &gt; ctx.f.getKuiStartKey()) {</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">                    if (ctx.f.getKuiRowCount() &lt; ctx.f.getWsMaxRows()) {</span>
+<span class="nc" id="L175">                        storeMatchedRow(ctx);</span>
+                    } else {
+<span class="nc" id="L177">                        ctx.f.setString(&quot;KUI-MORE-SW&quot;, &quot;Y&quot;);</span>
+                    }
+                }
+            }
+        }
+<span class="nc" id="L182">    }</span>
+
+    /** COBOL paragraph: 2300-END-BROWSE */
+    private void endCustomerBrowse(TaskContext ctx) {
+<span class="nc" id="L186">        ctx.appService.endBrowse(ctx.f.getWsCustfile());</span>
+<span class="nc" id="L187">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L188">    }</span>
+
+    /** COBOL paragraph: 2400-FILTER-CHECK */
+    private void checkCustomerFilter(TaskContext ctx) {
+<span class="nc" id="L192">        ctx.f.setString(&quot;WS-MATCH-SW&quot;, &quot;N&quot;);</span>
+<span class="nc bnc" id="L193" title="All 2 branches missed.">        if (ctx.f.getKuiFilter().equals(&quot;I&quot;)) {</span>
+<span class="nc bnc" id="L194" title="All 4 branches missed.">            if (ctx.f.getCuId() &gt;= ctx.f.getKuiIdFrom() &amp;&amp; ctx.f.getCuId() &lt;= ctx.f.getKuiIdTo()) {</span>
+<span class="nc" id="L195">                markMatchFound(ctx);</span>
+            }
+<span class="nc bnc" id="L197" title="All 2 branches missed.">        } else if (ctx.f.getKuiFilter().equals(&quot;F&quot;)) {</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">            if (ctx.f.getCuFicoScore() &gt;= ctx.f.getKuiFicoFrom()</span>
+<span class="nc bnc" id="L199" title="All 2 branches missed.">                    &amp;&amp; ctx.f.getCuFicoScore() &lt;= ctx.f.getKuiFicoTo()) {</span>
+<span class="nc" id="L200">                markMatchFound(ctx);</span>
+            }
+<span class="nc bnc" id="L202" title="All 2 branches missed.">        } else if (ctx.f.getKuiFilter().equals(&quot;S&quot;)) {</span>
+<span class="nc" id="L203">            checkStateZipMatch(ctx);</span>
+        } else {
+            /* CONTINUE */
+        }
+<span class="nc" id="L207">    }</span>
+
+    /** COBOL paragraph: 2450-CHECK-STATE-ZIP */
+    private void checkStateZipMatch(TaskContext ctx) {
+<span class="nc bnc" id="L211" title="All 2 branches missed.">        if (!Utility.fieldEquals(ctx.f.getCuAddrState(), ctx.f.getKuiState())) {</span>
+<span class="nc" id="L212">            return;</span>
+        }
+<span class="nc" id="L214">        ctx.f.setWsZiplen(0);</span>
+<span class="nc bnc" id="L215" title="All 2 branches missed.">        for (ctx.f.setWsI(1); ctx.f.getWsI() &lt;= 10; ctx.f.setWsI(ctx.f.getWsI() + 1)) {</span>
+<span class="nc bnc" id="L216" title="All 2 branches missed.">            if (!Utility.fieldEquals(</span>
+<span class="nc" id="L217">                    Utility.padRight(String.valueOf(ctx.f.getKuiZip()), ZIP_FIELD_PAD_LENGTH)</span>
+<span class="nc" id="L218">                            .substring(ctx.f.getWsI() - 1, ctx.f.getWsI() - 1 + 1),</span>
+                    &quot; &quot;)) {
+<span class="nc" id="L220">                ctx.f.setWsZiplen(ctx.f.getWsI());</span>
+            }
+        }
+<span class="nc bnc" id="L223" title="All 2 branches missed.">        if (ctx.f.getWsZiplen() == 0) {</span>
+<span class="nc" id="L224">            markMatchFound(ctx);</span>
+        } else {
+<span class="nc bnc" id="L226" title="All 2 branches missed.">            if (Utility.fieldEquals(</span>
+<span class="nc" id="L227">                    Utility.padRight(String.valueOf(ctx.f.getCuAddrZip()), ZIP_FIELD_PAD_LENGTH)</span>
+<span class="nc" id="L228">                            .substring(0, ctx.f.getWsZiplen()),</span>
+<span class="nc" id="L229">                    Utility.padRight(String.valueOf(ctx.f.getKuiZip()), ZIP_FIELD_PAD_LENGTH)</span>
+<span class="nc" id="L230">                            .substring(0, ctx.f.getWsZiplen()))) {</span>
+<span class="nc" id="L231">                markMatchFound(ctx);</span>
+            }
+        }
+<span class="nc" id="L234">    }</span>
+
+    /** COBOL paragraph: 2500-STORE-ROW */
+    private void storeMatchedRow(TaskContext ctx) {
+<span class="nc" id="L238">        ctx.f.setKuiRowCount(ctx.f.getKuiRowCount() + 1);</span>
+<span class="nc" id="L239">        ctx.f.setWsLastKey(ctx.f.getCuId());</span>
+<span class="nc" id="L240">        buildCustomerName(ctx);</span>
+<span class="nc" id="L241">        ctx.f.setKurId(ctx.f.getKuiRowCount(), ctx.f.getCuId());</span>
+<span class="nc" id="L242">        ctx.f.setKurName(ctx.f.getKuiRowCount(), ctx.f.getWsName());</span>
+<span class="nc" id="L243">        ctx.f.setKurState(ctx.f.getKuiRowCount(), ctx.f.getCuAddrState());</span>
+<span class="nc" id="L244">        ctx.f.setKurZip(ctx.f.getKuiRowCount(), ctx.f.getCuAddrZip());</span>
+<span class="nc" id="L245">        ctx.f.setKurFico(ctx.f.getKuiRowCount(), ctx.f.getCuFicoScore());</span>
+<span class="nc" id="L246">    }</span>
+
+    /** COBOL paragraph: 2600-BUILD-NAME */
+    private void buildCustomerName(TaskContext ctx) {
+<span class="nc" id="L250">        ctx.f.setWsName(&quot; &quot;);</span>
+        {
+<span class="nc" id="L252">            StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L253">            sb.append(String.valueOf(ctx.f.getCuFirstName()).split(String.valueOf(&quot;  &quot;), 2)[0]);</span>
+<span class="nc" id="L254">            sb.append(String.valueOf(&quot; &quot;));</span>
+<span class="nc" id="L255">            sb.append(String.valueOf(ctx.f.getCuLastName()).split(String.valueOf(&quot;  &quot;), 2)[0]);</span>
+<span class="nc" id="L256">            ctx.f.setWsName(sb.toString());</span>
+        }
+<span class="nc" id="L258">    }</span>
+
+    /** COBOL paragraph: 3000-FINALIZE */
+    private void finalizeSummary(TaskContext ctx) {
+<span class="nc bnc" id="L262" title="All 2 branches missed.">        if (ctx.f.getKuiMatchCount() &gt; 0) {</span>
+<span class="nc" id="L263">            ctx.f.setKuiFicoAvg(</span>
+                    (int)
+                            ((int)
+<span class="nc" id="L266">                                    Math.round(</span>
+                                            (double)
+<span class="nc" id="L268">                                                    ((ctx.f.getKuiFicoTot()</span>
+<span class="nc" id="L269">                                                            / ctx.f.getKuiMatchCount())))));</span>
+        } else {
+<span class="nc" id="L271">            ctx.f.setKuiFicoAvg(0);</span>
+<span class="nc" id="L272">            ctx.f.setKuiFicoMin(0);</span>
+        }
+<span class="nc" id="L274">    }</span>
+
+    /** Signal end-of-browse so the customer-scan loop terminates. */
+    private void markEndOfBrowse(TaskContext ctx) {
+<span class="nc" id="L278">        ctx.f.setString(&quot;WS-END-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L279">    }</span>
+
+    /** Mark the current customer record as matching the active filter. */
+    private void markMatchFound(TaskContext ctx) {
+<span class="nc" id="L283">        ctx.f.setString(&quot;WS-MATCH-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L284">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OucusinFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L297">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L298">            this.appService = appService;</span>
+<span class="nc" id="L299">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L300">            this.f = new OucusinFields(ws);</span>
+<span class="nc" id="L301">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

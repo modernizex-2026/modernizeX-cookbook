@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : OUTRNIN_WS
+-->
+<dataLayout name="OUTRNIN_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="8">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="SQLCODE" offset="4" size="4" javaType="int" value="0" usage="BINARY"/>
+  </group>
+  <group name="WS-PROGRAM-VARS" offset="0" size="8">
+    <field name="WS-PGMNAME" offset="0" size="8" javaType="String" value="OUTRNIN"/>
+  </group>
+  <group name="WS-WORK-FIELDS" offset="0" size="51">
+    <field name="WS-MAX-ROWS" offset="0" size="2" javaType="int" value="6"/>
+    <field name="WS-LAST-KEY" offset="2" size="16" javaType="String" value="SPACES"/>
+    <field name="WS-CAT-ED" offset="18" size="4" javaType="int" value="ZEROS"/>
+    <field name="WS-TYCAT" offset="22" size="7" javaType="String" value="SPACES"/>
+    <field name="WS-DESC" offset="29" size="20" javaType="String" value="SPACES"/>
+    <field name="WS-FIRST-SW" offset="49" size="1" javaType="String" value="Y"/>
+    <field name="WS-MATCH-SW" offset="50" size="1" javaType="String" value="N"/>
+  </group>
+  <group name="WS-TYPE-CONSTS" offset="0" size="8">
+    <field name="WS-T-PURCH" offset="0" size="2" javaType="String" value="PU"/>
+    <field name="WS-T-PAY" offset="2" size="2" javaType="String" value="PY"/>
+    <field name="WS-T-FEE" offset="4" size="2" javaType="String" value="FE"/>
+    <field name="WS-T-INT" offset="6" size="2" javaType="String" value="IN"/>
+  </group>
+  <group name="WS-CICS-RESP" offset="0" size="8">
+    <field name="WS-RESP-CD" offset="0" size="4" javaType="int" signed="true" value="ZEROS" usage="BINARY"/>
+    <field name="WS-REAS-CD" offset="4" size="4" javaType="int" signed="true" value="ZEROS" usage="BINARY"/>
+  </group>
+  <group name="WS-SWITCHES" offset="0" size="3">
+    <field name="WS-ERR-FLG" offset="0" size="1" javaType="String" value="N"/>
+    <field name="WS-END-FLG" offset="1" size="1" javaType="String" value="N"/>
+    <field name="WS-FOUND-FLG" offset="2" size="1" javaType="String" value="N"/>
+  </group>
+  <group name="WS-FILE-NAMES" offset="0" size="96">
+    <field name="WS-ACCTFILE" offset="0" size="8" javaType="String" value="ACCTFILE"/>
+    <field name="WS-CARDFILE" offset="8" size="8" javaType="String" value="CARDFILE"/>
+    <field name="WS-CUSTFILE" offset="16" size="8" javaType="String" value="CUSTFILE"/>
+    <field name="WS-XREFFILE" offset="24" size="8" javaType="String" value="XREFFILE"/>
+    <field name="WS-TRANFILE" offset="32" size="8" javaType="String" value="TRANFILE"/>
+    <field name="WS-TTYPFILE" offset="40" size="8" javaType="String" value="TTYPFILE"/>
+    <field name="WS-TCATFILE" offset="48" size="8" javaType="String" value="TCATFILE"/>
+    <field name="WS-DGRPFILE" offset="56" size="8" javaType="String" value="DGRPFILE"/>
+    <field name="WS-USRSEC" offset="64" size="8" javaType="String" value="USRSEC  "/>
+    <field name="WS-BILLFILE" offset="72" size="8" javaType="String" value="BILLFILE"/>
+    <field name="WS-STMTFILE" offset="80" size="8" javaType="String" value="STMTFILE"/>
+    <field name="WS-CTRLFILE" offset="88" size="8" javaType="String" value="CTRLFILE"/>
+  </group>
+  <group name="WS-WORK" offset="0" size="26">
+    <field name="WS-CNT" offset="0" size="7" javaType="int" value="ZEROS"/>
+    <field name="WS-IDX" offset="7" size="4" javaType="int" value="ZEROS"/>
+    <field name="WS-AMT" offset="11" size="15" javaType="BigDecimal" signed="true" scale="2" value="ZEROS"/>
+  </group>
+  <group name="WS-EDIT" offset="0" size="43">
+    <field name="WS-ED-AMT" offset="0" size="16" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" editPicture="-,---,---,--9.99" integerDigits="10" insertCommas="true" hasTrailingNine="true"/>
+    <field name="WS-ED-BAL" offset="16" size="16" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" editPicture="-,---,---,--9.99" integerDigits="10" insertCommas="true" hasTrailingNine="true"/>
+    <field name="WS-ED-ID" offset="32" size="11" javaType="long" editFormat="ZERO_SUPPRESS" editPicture="ZZZZZZZZZZ9" integerDigits="11" hasTrailingNine="true"/>
+  </group>
+  <group name="TRAN-REC" offset="0" size="350">
+    <field name="TR-ID" offset="0" size="16" javaType="String"/>
+    <field name="TR-TYPE-CD" offset="16" size="2" javaType="String"/>
+    <field name="TR-CAT-CD" offset="18" size="4" javaType="int"/>
+    <field name="TR-SOURCE" offset="22" size="10" javaType="String"/>
+    <field name="TR-DESC" offset="32" size="100" javaType="String"/>
+    <field name="TR-AMT" offset="132" size="11" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="TR-MERCHANT-ID" offset="143" size="9" javaType="int"/>
+    <field name="TR-MERCHANT-NAME" offset="152" size="50" javaType="String"/>
+    <field name="TR-MERCHANT-CITY" offset="202" size="50" javaType="String"/>
+    <field name="TR-MERCHANT-ZIP" offset="252" size="10" javaType="String"/>
+    <field name="TR-CARD-NUM" offset="262" size="16" javaType="String"/>
+    <field name="TR-ORIG-TS" offset="278" size="26" javaType="String"/>
+    <field name="TR-PROC-TS" offset="304" size="26" javaType="String"/>
+    <field name="FILLER-330" offset="330" size="20" javaType="String"/>
+  </group>
+  <group name="TTYP-REC" offset="0" size="60">
+    <field name="TT-CD" offset="0" size="2" javaType="String"/>
+    <field name="TT-DESC" offset="2" size="50" javaType="String"/>
+    <field name="FILLER-52" offset="52" size="8" javaType="String"/>
+  </group>
+  <group name="TCAT-REC" offset="0" size="60">
+    <group name="TC-KEY" offset="0" size="6">
+      <field name="TC-TYPE-CD" offset="0" size="2" javaType="String"/>
+      <field name="TC-CD" offset="2" size="4" javaType="int"/>
+    </group>
+    <field name="TC-DESC" offset="6" size="50" javaType="String"/>
+    <field name="FILLER-56" offset="56" size="4" javaType="String"/>
+  </group>
+  <group name="KTRNIN-AREA" offset="0" size="845">
+    <group name="KTI-REQUEST" offset="0" size="79">
+      <field name="KTI-FILTER" offset="0" size="1" javaType="String"/>
+      <field name="KTI-CARD" offset="1" size="16" javaType="String"/>
+      <field name="KTI-DATE-FROM" offset="17" size="10" javaType="String"/>
+      <field name="KTI-DATE-TO" offset="27" size="10" javaType="String"/>
+      <field name="KTI-MERCH-ID" offset="37" size="9" javaType="int"/>
+      <field name="KTI-F-TYPE" offset="46" size="2" javaType="String"/>
+      <field name="KTI-F-CAT" offset="48" size="4" javaType="int"/>
+      <field name="KTI-AMT-THRESH" offset="52" size="11" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KTI-START-KEY" offset="63" size="16" javaType="String"/>
+    </group>
+    <group name="KTI-RESPONSE" offset="79" size="166">
+      <field name="KTI-RETURN-CD" offset="79" size="1" javaType="String"/>
+      <field name="KTI-ROW-COUNT" offset="80" size="2" javaType="int"/>
+      <field name="KTI-MORE-SW" offset="82" size="1" javaType="String"/>
+      <field name="KTI-NEXT-KEY" offset="83" size="16" javaType="String"/>
+      <field name="KTI-SCAN-COUNT" offset="99" size="7" javaType="int"/>
+      <field name="KTI-MATCH-COUNT" offset="106" size="7" javaType="int"/>
+      <field name="KTI-NET-TOTAL" offset="113" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KTI-MAX-AMT" offset="128" size="13" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KTI-MAX-ID" offset="141" size="16" javaType="String"/>
+      <field name="KTI-PURCH-CNT" offset="157" size="7" javaType="int"/>
+      <field name="KTI-PURCH-SUM" offset="164" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KTI-PAY-CNT" offset="179" size="7" javaType="int"/>
+      <field name="KTI-PAY-SUM" offset="186" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KTI-FEE-CNT" offset="201" size="7" javaType="int"/>
+      <field name="KTI-FEE-SUM" offset="208" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KTI-INT-CNT" offset="223" size="7" javaType="int"/>
+      <field name="KTI-INT-SUM" offset="230" size="15" javaType="BigDecimal" signed="true" scale="2"/>
+    </group>
+    <group name="KTI-ROWS" offset="245" size="600">
+      <group name="KTI-ROW" offset="245" size="600" occurs="6" elementSize="100">
+        <field name="KTR-ID" offset="245" size="16" javaType="String"/>
+        <field name="KTR-CARD" offset="261" size="16" javaType="String"/>
+        <field name="KTR-TYCAT" offset="277" size="7" javaType="String"/>
+        <field name="KTR-DESC" offset="284" size="20" javaType="String"/>
+        <field name="KTR-MERCH" offset="304" size="20" javaType="String"/>
+        <field name="KTR-AMT" offset="324" size="11" javaType="BigDecimal" signed="true" scale="2"/>
+        <field name="KTR-DATE" offset="335" size="10" javaType="String"/>
+      </group>
+    </group>
+  </group>
+</dataLayout>

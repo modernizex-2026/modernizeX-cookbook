@@ -1,0 +1,12 @@
+# TLS overlay — HTTPS termination tại nginx FE. Cách dùng:
+#   1) Đặt cert: ./certs/server.crt + ./certs/server.key
+#      (tự ký nhanh: openssl req -x509 -newkey rsa:2048 -nodes -days 365 \
+#         -keyout certs/server.key -out certs/server.crt -subj "/CN=localhost")
+#   2) docker compose -f docker-compose.yml -f docker-compose.tls.yml up --build
+# FE phục vụ HTTPS :${FE_TLS_PORT:-8443}; cổng HTTP không publish nữa (!override).
+services:
+  frontend:
+    ports: !override ["${FE_TLS_PORT:-8443}:443"]
+    volumes:
+      - ./certs:/etc/nginx/certs:ro
+      - ./front-end/nginx-tls.conf:/etc/nginx/conf.d/default.conf:ro

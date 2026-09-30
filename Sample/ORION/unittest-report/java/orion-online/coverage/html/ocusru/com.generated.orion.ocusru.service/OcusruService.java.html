@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OcusruService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCUSRU Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ocusru.service</a> &gt; <span class="el_source">OcusruService.java</span></div><h1>OcusruService.java</h1><pre class="source lang-java linenums">package com.generated.orion.ocusru.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.common.linkage.OcusruLinkParm;
+import com.generated.orion.ocusru.accessor.OcusruFields;
+import com.generated.orion.ocusru.metadata.OcusruBmsMetadata;
+import com.generated.orion.ocusru.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OCUSRU. */
+@Service
+<span class="nc" id="L22">public class OcusruService implements AppProgram {</span>
+<span class="nc" id="L23">    private static final Logger log = LoggerFactory.getLogger(OcusruService.class);</span>
+
+    private static final int COMMAREA_LENGTH = 692;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L33">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc" id="L34">        dispatchMainLine(ctx);</span>
+<span class="nc" id="L35">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L39">        return &quot;OCUSRU&quot;;</span>
+    }
+
+    @Override
+    public String getTransId() {
+<span class="nc" id="L44">        return &quot;ORUP&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L49">        return OcusruBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L54">        OcusruBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L55">    }</span>
+
+    @Override
+    public FieldMapping getFieldMapping(String mapName) {
+<span class="nc" id="L59">        return OcusruBmsMetadata.getFieldMapping(mapName);</span>
+    }
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void dispatchMainLine(TaskContext ctx) {
+<span class="nc" id="L64">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (ctx.appService.getEibcalen() == 0) {</span>
+<span class="nc" id="L66">            ctx.f.setOrionCommarea(&quot;&quot;);</span>
+<span class="nc" id="L67">            sendInitialScreen(ctx);</span>
+        } else {
+<span class="nc" id="L69">            ctx.f.setOrionCommarea(Utility.groupToString(ctx.appService.getSerializedCommarea()));</span>
+<span class="nc" id="L70">            ctx.f.copyBytes(&quot;WS-STATE-AREA&quot;, &quot;CA-WORK-AREA&quot;);</span>
+<span class="nc" id="L71">            ctx.f.setCaErrMsg(&quot; &quot;);</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (ctx.f.getCaPgmContext() == 0) {</span>
+<span class="nc" id="L73">                sendInitialScreen(ctx);</span>
+            } else {
+<span class="nc" id="L75">                processUserInput(ctx);</span>
+            }
+        }
+<span class="nc" id="L78">        returnToCics(ctx);</span>
+<span class="nc" id="L79">    }</span>
+
+    /** COBOL paragraph: 1000-SEND-INITIAL */
+    private void sendInitialScreen(TaskContext ctx) {
+<span class="nc" id="L83">        ctx.f.fillLowValues(&quot;MUSRUAO&quot;);</span>
+<span class="nc" id="L84">        ctx.f.setString(&quot;WS-STAGE&quot;, &quot;0&quot;);</span>
+<span class="nc" id="L85">        ctx.f.setWsSvUserid(&quot; &quot;);</span>
+<span class="nc" id="L86">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L87">        ctx.f.setErrmsgo(&quot;Enter a user id and press ENTER.&quot;);</span>
+<span class="nc" id="L88">        ctx.appService.sendMap(</span>
+                &quot;MUSRUA&quot;, ctx.f, ctx.f, /* erase */ true, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L90">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L91">        ctx.f.setCaPgmContext(1);</span>
+<span class="nc" id="L92">    }</span>
+
+    /** COBOL paragraph: 2000-PROCESS-INPUT */
+    private void processUserInput(TaskContext ctx) {
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;3&quot;)) {</span>
+<span class="nc" id="L97">            transferToAdminMenu(ctx);</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;4&quot;)) {</span>
+<span class="nc" id="L99">            sendInitialScreen(ctx);</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;'&quot;)) {</span>
+<span class="nc" id="L101">            handleEnterKey(ctx);</span>
+        } else {
+<span class="nc" id="L103">            sendInitialScreen(ctx);</span>
+<span class="nc" id="L104">            ctx.f.setErrmsgo(ctx.f.getWsMsgInvalidKey());</span>
+<span class="nc" id="L105">            sendDataOnlyScreen(ctx);</span>
+        }
+<span class="nc" id="L107">    }</span>
+
+    /** COBOL paragraph: 2100-HANDLE-ENTER */
+    private void handleEnterKey(TaskContext ctx) {
+<span class="nc" id="L111">        receiveUserMap(ctx);</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (ctx.f.getWsStage().equals(&quot;0&quot;)) {</span>
+<span class="nc" id="L113">            fetchUserRecord(ctx);</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        } else if (ctx.f.getWsStage().equals(&quot;1&quot;)) {</span>
+<span class="nc" id="L115">            applyUserUpdate(ctx);</span>
+        } else {
+<span class="nc" id="L117">            sendInitialScreen(ctx);</span>
+        }
+<span class="nc" id="L119">    }</span>
+
+    /** COBOL paragraph: 2110-RECEIVE-MAP */
+    private void receiveUserMap(TaskContext ctx) {
+<span class="nc" id="L123">        ctx.appService.receiveMap(&quot;MUSRUA&quot;, ctx.f);</span>
+<span class="nc" id="L124">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L125">    }</span>
+
+    /** COBOL paragraph: 2200-FETCH-USER */
+    private void fetchUserRecord(TaskContext ctx) {
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        if (isFieldBlank(ctx, ctx.f.getUseridi(), &quot;USERIDI&quot;)) {</span>
+<span class="nc" id="L130">            ctx.f.setErrmsgo(ctx.f.getWsMsgRequired());</span>
+<span class="nc" id="L131">            sendDataOnlyScreen(ctx);</span>
+        } else {
+<span class="nc" id="L133">            ctx.f.setUsId(ctx.f.getUseridi());</span>
+<span class="nc" id="L134">            readUserRecord(ctx);</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">            if (ctx.f.getWsFoundFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L136">                showUserDetails(ctx);</span>
+            } else {
+<span class="nc" id="L138">                ctx.f.setErrmsgo(&quot;User not found.&quot;);</span>
+<span class="nc" id="L139">                sendDataOnlyScreen(ctx);</span>
+            }
+        }
+<span class="nc" id="L142">    }</span>
+
+    /** COBOL paragraph: 2210-SHOW-USER */
+    private void showUserDetails(TaskContext ctx) {
+<span class="nc" id="L146">        ctx.f.setWsSvUserid(ctx.f.getUsId());</span>
+<span class="nc" id="L147">        ctx.f.setUserido(ctx.f.getUsId());</span>
+<span class="nc" id="L148">        ctx.f.setUsfnamo(ctx.f.getUsFirstName());</span>
+<span class="nc" id="L149">        ctx.f.setUslnamo(ctx.f.getUsLastName());</span>
+<span class="nc" id="L150">        ctx.f.setUspwdo(ctx.f.getUsPassword());</span>
+<span class="nc" id="L151">        ctx.f.setUstypeo(ctx.f.getUsType());</span>
+<span class="nc" id="L152">        ctx.f.setString(&quot;WS-STAGE&quot;, &quot;1&quot;);</span>
+<span class="nc" id="L153">        ctx.f.setErrmsgo(&quot;Modify fields and press ENTER to update.&quot;);</span>
+<span class="nc" id="L154">        sendDataOnlyScreen(ctx);</span>
+<span class="nc" id="L155">    }</span>
+
+    /** COBOL paragraph: 2300-APPLY-UPDATE */
+    private void applyUserUpdate(TaskContext ctx) {
+<span class="nc" id="L159">        validateUserInput(ctx);</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        if (ctx.f.getWsEditFlg().equals(&quot;N&quot;)) {</span>
+<span class="nc" id="L161">            repopulateScreenFields(ctx);</span>
+<span class="nc" id="L162">            sendDataOnlyScreen(ctx);</span>
+        } else {
+<span class="nc" id="L164">            updateUserRecord(ctx);</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">            if (ctx.f.getWsErrFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L166">                repopulateScreenFields(ctx);</span>
+<span class="nc" id="L167">                sendDataOnlyScreen(ctx);</span>
+            } else {
+<span class="nc" id="L169">                confirmUserUpdate(ctx);</span>
+            }
+        }
+<span class="nc" id="L172">    }</span>
+
+    /** COBOL paragraph: 2310-VALIDATE-INPUT */
+    private void validateUserInput(TaskContext ctx) {
+<span class="nc" id="L176">        ctx.f.setString(&quot;WS-EDIT-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">        if (isFieldBlank(ctx, ctx.f.getUsfnami(), &quot;USFNAMI&quot;)) {</span>
+<span class="nc" id="L178">            failValidation(ctx, &quot;First name is required.&quot;);</span>
+<span class="nc" id="L179">            return;</span>
+        }
+<span class="nc bnc" id="L181" title="All 2 branches missed.">        if (isFieldBlank(ctx, ctx.f.getUslnami(), &quot;USLNAMI&quot;)) {</span>
+<span class="nc" id="L182">            failValidation(ctx, &quot;Last name is required.&quot;);</span>
+<span class="nc" id="L183">            return;</span>
+        }
+<span class="nc bnc" id="L185" title="All 2 branches missed.">        if (isFieldBlank(ctx, ctx.f.getUspwdi(), &quot;USPWDI&quot;)) {</span>
+<span class="nc" id="L186">            failValidation(ctx, &quot;Password is required.&quot;);</span>
+<span class="nc" id="L187">            return;</span>
+        }
+<span class="nc" id="L189">        ctx.f.setWsTypeIn(ctx.f.getUstypei());</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">        if (!Utility.fieldEquals(ctx.f.getWsTypeIn(), &quot;A&quot;)</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">                &amp;&amp; !Utility.fieldEquals(ctx.f.getWsTypeIn(), &quot;U&quot;)) {</span>
+<span class="nc" id="L192">            failValidation(ctx, &quot;Type must be A (admin) or U (user).&quot;);</span>
+        }
+<span class="nc" id="L194">    }</span>
+
+    /** COBOL paragraph: 3000-READ-USER */
+    private void readUserRecord(TaskContext ctx) {
+<span class="nc" id="L198">        ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L199">        ctx.appService.readFile(ctx.f.getWsUsrsec(), ctx.f, String.valueOf(ctx.f.getUsId()), 0);</span>
+<span class="nc" id="L200">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L201" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L202">            ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L204">            ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+        } else {
+<span class="nc" id="L206">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L207">            ctx.f.setErrmsgo(&quot;Error reading user file.&quot;);</span>
+        }
+<span class="nc" id="L209">    }</span>
+
+    /** COBOL paragraph: 3100-UPDATE-USER */
+    private void updateUserRecord(TaskContext ctx) {
+<span class="nc" id="L213">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L214">        ctx.f.setUsId(ctx.f.getWsSvUserid());</span>
+<span class="nc" id="L215">        ctx.appService.readFileForUpdate(</span>
+<span class="nc" id="L216">                ctx.f.getWsUsrsec(), ctx.f, String.valueOf(ctx.f.getUsId()), 0);</span>
+<span class="nc" id="L217">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L219">            rewriteUserRecord(ctx);</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L221">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L222">            ctx.f.setErrmsgo(&quot;User no longer exists.&quot;);</span>
+        } else {
+<span class="nc" id="L224">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L225">            ctx.f.setErrmsgo(&quot;Error reading user for update.&quot;);</span>
+        }
+<span class="nc" id="L227">    }</span>
+
+    /** COBOL paragraph: 3110-REWRITE-USER */
+    private void rewriteUserRecord(TaskContext ctx) {
+<span class="nc" id="L231">        ctx.f.setUsFirstName(ctx.f.getUsfnami());</span>
+<span class="nc" id="L232">        ctx.f.setUsLastName(ctx.f.getUslnami());</span>
+<span class="nc" id="L233">        ctx.f.setUsPassword(ctx.f.getUspwdi());</span>
+<span class="nc" id="L234">        ctx.f.setUsType(ctx.f.getWsTypeIn());</span>
+<span class="nc" id="L235">        ctx.appService.rewriteFile(ctx.f.getWsUsrsec(), ctx.f);</span>
+<span class="nc" id="L236">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L237" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() != 0) {</span>
+<span class="nc" id="L238">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L239">            ctx.f.setErrmsgo(&quot;Error updating user file.&quot;);</span>
+        }
+<span class="nc" id="L241">    }</span>
+
+    /** COBOL paragraph: 4000-REPOPULATE */
+    private void repopulateScreenFields(TaskContext ctx) {
+<span class="nc" id="L245">        ctx.f.setUserido(ctx.f.getWsSvUserid());</span>
+<span class="nc" id="L246">        ctx.f.setUsfnamo(ctx.f.getUsfnami());</span>
+<span class="nc" id="L247">        ctx.f.setUslnamo(ctx.f.getUslnami());</span>
+<span class="nc" id="L248">        ctx.f.setUspwdo(ctx.f.getUspwdi());</span>
+<span class="nc" id="L249">        ctx.f.setUstypeo(ctx.f.getUstypei());</span>
+<span class="nc" id="L250">    }</span>
+
+    /** COBOL paragraph: 4100-CONFIRM-UPDATE */
+    private void confirmUserUpdate(TaskContext ctx) {
+<span class="nc" id="L254">        ctx.f.fillLowValues(&quot;MUSRUAO&quot;);</span>
+<span class="nc" id="L255">        ctx.f.setString(&quot;WS-STAGE&quot;, &quot;0&quot;);</span>
+<span class="nc" id="L256">        ctx.f.setWsSvUserid(&quot; &quot;);</span>
+<span class="nc" id="L257">        ctx.f.setErrmsgo(&quot;User updated successfully.&quot;);</span>
+<span class="nc" id="L258">        sendDataOnlyScreen(ctx);</span>
+<span class="nc" id="L259">    }</span>
+
+    /** COBOL paragraph: 7000-XCTL-ADMEN */
+    private void transferToAdminMenu(TaskContext ctx) {
+<span class="nc" id="L263">        ctx.f.setCaFromProgram(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L264">        ctx.f.setCaFromTranid(ctx.f.getWsTranid());</span>
+<span class="nc" id="L265">        ctx.f.setCaPgmContext(0);</span>
+<span class="nc" id="L266">        ctx.f.copyBytes(&quot;CA-WORK-AREA&quot;, &quot;WS-STATE-AREA&quot;);</span>
+<span class="nc" id="L267">        ctx.appService.xctl(</span>
+<span class="nc" id="L268">                ctx.f.getWsAdmenPgm(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L269">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L270">    }</span>
+
+    /** COBOL paragraph: 8000-POPULATE-HEADER */
+    private void populateScreenHeader(TaskContext ctx) {
+<span class="nc" id="L274">        ctx.f.setTrnnameo(ctx.f.getWsTranid());</span>
+<span class="nc" id="L275">        ctx.f.setPgmnameo(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L276">        ctx.f.setTitleo(ctx.f.getWsHdrTitle());</span>
+<span class="nc" id="L277">        captureCurrentDateTime(ctx);</span>
+<span class="nc" id="L278">        ctx.f.setCurdateo(ctx.f.getWsHdrDate());</span>
+<span class="nc" id="L279">        ctx.f.setCurtimeo(ctx.f.getWsHdrTime());</span>
+<span class="nc" id="L280">    }</span>
+
+    /** COBOL paragraph: 8100-SEND-DATAONLY */
+    private void sendDataOnlyScreen(TaskContext ctx) {
+<span class="nc" id="L284">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L285">        ctx.appService.sendMap(</span>
+                &quot;MUSRUA&quot;, ctx.f, ctx.f, /* erase */ false, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L287">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L288">    }</span>
+
+    /** COBOL paragraph: 8500-GET-DATE-TIME */
+    private void captureCurrentDateTime(TaskContext ctx) {
+<span class="nc" id="L292">        ctx.appService.askTime();</span>
+<span class="nc" id="L293">        com.appruntime.FormatTimeResult _ftResult =</span>
+<span class="nc" id="L294">                ctx.appService.formatTime(null, &quot;YYYYMMDD&quot;, &quot;-&quot;, &quot;:&quot;);</span>
+<span class="nc" id="L295">        ctx.f.setWsHdrDate(_ftResult.getDate());</span>
+<span class="nc" id="L296">        ctx.f.setWsHdrTime(_ftResult.getTime());</span>
+<span class="nc" id="L297">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L298">    }</span>
+
+    /** COBOL paragraph: 9000-RETURN */
+    private void returnToCics(TaskContext ctx) {
+<span class="nc" id="L302">        ctx.f.copyBytes(&quot;CA-WORK-AREA&quot;, &quot;WS-STATE-AREA&quot;);</span>
+<span class="nc" id="L303">        ctx.appService.returnTransid(</span>
+<span class="nc" id="L304">                ctx.f.getWsTranid(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L305">    }</span>
+
+    /** Check whether a screen input field was left blank (spaces or low-values). */
+    private boolean isFieldBlank(TaskContext ctx, String fieldValue, String fieldName) {
+<span class="nc bnc" id="L309" title="All 4 branches missed.">        return Utility.fieldEquals(fieldValue, &quot; &quot;) || ctx.f.isAllLowValues(fieldName);</span>
+    }
+
+    /** Mark validation as failed and set the error message shown to the user. */
+    private void failValidation(TaskContext ctx, String message) {
+<span class="nc" id="L314">        ctx.f.setString(&quot;WS-EDIT-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L315">        ctx.f.setErrmsgo(message);</span>
+<span class="nc" id="L316">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OcusruFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L329">        final OcusruLinkParm link = new OcusruLinkParm();</span>
+
+<span class="nc" id="L331">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L332">            this.appService = appService;</span>
+<span class="nc" id="L333">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L334">            this.f = new OcusruFields(ws);</span>
+<span class="nc" id="L335">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

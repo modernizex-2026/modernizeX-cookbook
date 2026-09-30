@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OcusrlService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCUSRL Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ocusrl.service</a> &gt; <span class="el_source">OcusrlService.java</span></div><h1>OcusrlService.java</h1><pre class="source lang-java linenums">package com.generated.orion.ocusrl.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.common.linkage.OcusrlLinkParm;
+import com.generated.orion.ocusrl.accessor.OcusrlFields;
+import com.generated.orion.ocusrl.metadata.OcusrlBmsMetadata;
+import com.generated.orion.ocusrl.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OCUSRL. */
+@Service
+<span class="nc" id="L22">public class OcusrlService implements AppProgram {</span>
+<span class="nc" id="L23">    private static final Logger log = LoggerFactory.getLogger(OcusrlService.class);</span>
+
+    private static final int COMMAREA_LENGTH = 692;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L33">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc" id="L34">        runMainProgram(ctx);</span>
+<span class="nc" id="L35">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L39">        return &quot;OCUSRL&quot;;</span>
+    }
+
+    @Override
+    public String getTransId() {
+<span class="nc" id="L44">        return &quot;ORUL&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L49">        return OcusrlBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L54">        OcusrlBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L55">    }</span>
+
+    @Override
+    public FieldMapping getFieldMapping(String mapName) {
+<span class="nc" id="L59">        return OcusrlBmsMetadata.getFieldMapping(mapName);</span>
+    }
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainProgram(TaskContext ctx) {
+<span class="nc" id="L64">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (ctx.appService.getEibcalen() == 0) {</span>
+<span class="nc" id="L66">            ctx.f.setOrionCommarea(&quot;&quot;);</span>
+<span class="nc" id="L67">            sendInitialUserListScreen(ctx);</span>
+        } else {
+<span class="nc" id="L69">            ctx.f.setOrionCommarea(Utility.groupToString(ctx.appService.getSerializedCommarea()));</span>
+<span class="nc" id="L70">            ctx.f.copyBytes(&quot;WS-STATE-AREA&quot;, &quot;CA-WORK-AREA&quot;);</span>
+<span class="nc" id="L71">            ctx.f.setCaErrMsg(&quot; &quot;);</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (ctx.f.getCaPgmContext() == 0) {</span>
+<span class="nc" id="L73">                sendInitialUserListScreen(ctx);</span>
+            } else {
+<span class="nc" id="L75">                processUserInput(ctx);</span>
+            }
+        }
+<span class="nc" id="L78">        returnToCics(ctx);</span>
+<span class="nc" id="L79">    }</span>
+
+    /** COBOL paragraph: 1000-SEND-INITIAL */
+    private void sendInitialUserListScreen(TaskContext ctx) {
+<span class="nc" id="L83">        ctx.f.fillLowValues(&quot;MUSRLAO&quot;);</span>
+<span class="nc" id="L84">        ctx.f.fillLowValues(&quot;WS-START-KEY&quot;);</span>
+<span class="nc" id="L85">        ctx.f.setString(&quot;WS-SKIP-FIRST&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L86">        buildUserListPage(ctx);</span>
+<span class="nc" id="L87">        populateScreenHeader(ctx);</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (ctx.f.getWsRowCount() == 0) {</span>
+<span class="nc" id="L89">            ctx.f.setErrmsgo(&quot;No users found.&quot;);</span>
+        } else {
+<span class="nc" id="L91">            ctx.f.setErrmsgo(&quot;PF8 next page  PF7 top  PF3 exit.&quot;);</span>
+        }
+<span class="nc" id="L93">        ctx.appService.sendMap(</span>
+                &quot;MUSRLA&quot;, ctx.f, ctx.f, /* erase */ true, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L95">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L96">        ctx.f.setCaPgmContext(1);</span>
+<span class="nc" id="L97">    }</span>
+
+    /** COBOL paragraph: 2000-PROCESS-INPUT */
+    private void processUserInput(TaskContext ctx) {
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;3&quot;)) {</span>
+<span class="nc" id="L102">            transferToAdminMenu(ctx);</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;7&quot;)) {</span>
+<span class="nc" id="L104">            displayTopOfList(ctx);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;8&quot;)) {</span>
+<span class="nc" id="L106">            displayNextPage(ctx);</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;'&quot;)) {</span>
+<span class="nc" id="L108">            displayTopOfList(ctx);</span>
+        } else {
+<span class="nc" id="L110">            ctx.f.setErrmsgo(ctx.f.getWsMsgInvalidKey());</span>
+<span class="nc" id="L111">            sendDataOnlyScreen(ctx);</span>
+        }
+<span class="nc" id="L113">    }</span>
+
+    /** COBOL paragraph: 2100-PAGE-TOP */
+    private void displayTopOfList(TaskContext ctx) {
+<span class="nc" id="L117">        ctx.f.fillLowValues(&quot;MUSRLAO&quot;);</span>
+<span class="nc" id="L118">        ctx.f.fillLowValues(&quot;WS-START-KEY&quot;);</span>
+<span class="nc" id="L119">        ctx.f.setString(&quot;WS-SKIP-FIRST&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L120">        buildUserListPage(ctx);</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">        if (ctx.f.getWsRowCount() == 0) {</span>
+<span class="nc" id="L122">            ctx.f.setErrmsgo(&quot;No users found.&quot;);</span>
+        } else {
+<span class="nc" id="L124">            ctx.f.setErrmsgo(&quot;Top of list. PF8 next page.&quot;);</span>
+        }
+<span class="nc" id="L126">        sendDataOnlyScreen(ctx);</span>
+<span class="nc" id="L127">    }</span>
+
+    /** COBOL paragraph: 2150-PAGE-NEXT */
+    private void displayNextPage(TaskContext ctx) {
+<span class="nc" id="L131">        ctx.f.fillLowValues(&quot;MUSRLAO&quot;);</span>
+<span class="nc" id="L132">        ctx.f.setWsStartKey(ctx.f.getWsLastKey());</span>
+<span class="nc" id="L133">        ctx.f.setString(&quot;WS-SKIP-FIRST&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L134">        buildUserListPage(ctx);</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        if (ctx.f.getWsRowCount() == 0) {</span>
+<span class="nc" id="L136">            ctx.f.setErrmsgo(&quot;No more users to display.&quot;);</span>
+        } else {
+<span class="nc" id="L138">            ctx.f.setErrmsgo(&quot;PF8 next page  PF7 top  PF3 exit.&quot;);</span>
+        }
+<span class="nc" id="L140">        sendDataOnlyScreen(ctx);</span>
+<span class="nc" id="L141">    }</span>
+
+    /** COBOL paragraph: 2200-LIST-PAGE */
+    private void buildUserListPage(TaskContext ctx) {
+<span class="nc" id="L145">        clearOutputRows(ctx);</span>
+<span class="nc" id="L146">        ctx.f.setWsRowCount(0);</span>
+<span class="nc" id="L147">        ctx.f.setWsEndFlg(&quot;N&quot;);</span>
+<span class="nc" id="L148">        ctx.f.setUsId(ctx.f.getWsStartKey());</span>
+<span class="nc" id="L149">        startBrowseUserFile(ctx);</span>
+<span class="nc bnc" id="L150" title="All 4 branches missed.">        if (ctx.f.getWsErrFlg().equals(&quot;Y&quot;) || ctx.f.getWsEndFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L151">            return;</span>
+        }
+<span class="nc bnc" id="L153" title="All 2 branches missed.">        if (ctx.f.getWsSkipFirst().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L154">            skipFirstRecord(ctx);</span>
+        }
+<span class="nc" id="L156">        for (ctx.f.setWsRowIdx(1);</span>
+<span class="nc bnc" id="L157" title="All 4 branches missed.">                !(ctx.f.getWsRowIdx() &gt; 4 || ctx.f.getWsEndFlg().equals(&quot;Y&quot;));</span>
+<span class="nc" id="L158">                ctx.f.setWsRowIdx(ctx.f.getWsRowIdx() + 1)) {</span>
+<span class="nc" id="L159">            readNextUserRecord(ctx);</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">            if (ctx.f.getWsFoundFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L161">                storeUserRow(ctx);</span>
+            }
+        }
+<span class="nc" id="L164">        endBrowseUserFile(ctx);</span>
+<span class="nc" id="L165">    }</span>
+
+    /** COBOL paragraph: 2210-CLEAR-ROWS */
+    private void clearOutputRows(TaskContext ctx) {
+<span class="nc" id="L169">        ctx.f.setUsr1o(&quot; &quot;);</span>
+<span class="nc" id="L170">        ctx.f.setUnm1o(&quot; &quot;);</span>
+<span class="nc" id="L171">        ctx.f.setUty1o(&quot; &quot;);</span>
+<span class="nc" id="L172">        ctx.f.setUsr2o(&quot; &quot;);</span>
+<span class="nc" id="L173">        ctx.f.setUnm2o(&quot; &quot;);</span>
+<span class="nc" id="L174">        ctx.f.setUty2o(&quot; &quot;);</span>
+<span class="nc" id="L175">        ctx.f.setUsr3o(&quot; &quot;);</span>
+<span class="nc" id="L176">        ctx.f.setUnm3o(&quot; &quot;);</span>
+<span class="nc" id="L177">        ctx.f.setUty3o(&quot; &quot;);</span>
+<span class="nc" id="L178">        ctx.f.setUsr4o(&quot; &quot;);</span>
+<span class="nc" id="L179">        ctx.f.setUnm4o(&quot; &quot;);</span>
+<span class="nc" id="L180">        ctx.f.setUty4o(&quot; &quot;);</span>
+<span class="nc" id="L181">    }</span>
+
+    /** COBOL paragraph: 2220-STARTBR */
+    private void startBrowseUserFile(TaskContext ctx) {
+<span class="nc" id="L185">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L186">        ctx.appService.startBrowse(ctx.f.getWsUsrsec(), String.valueOf(ctx.f.getUsId()), 0);</span>
+<span class="nc" id="L187">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+            /* CONTINUE */
+<span class="nc bnc" id="L190" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L191">            ctx.f.setWsEndFlg(&quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L193">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L194">            ctx.f.setErrmsgo(&quot;Error starting user browse.&quot;);</span>
+        }
+<span class="nc" id="L196">    }</span>
+
+    /** COBOL paragraph: 2230-SKIP-ONE */
+    private void skipFirstRecord(TaskContext ctx) {
+<span class="nc" id="L200">        ctx.appService.readNext(ctx.f.getWsUsrsec(), ctx.f);</span>
+<span class="nc" id="L201">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L202" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L203">            ctx.f.setWsEndFlg(&quot;Y&quot;);</span>
+        }
+<span class="nc" id="L205">    }</span>
+
+    /** COBOL paragraph: 2240-READ-NEXT */
+    private void readNextUserRecord(TaskContext ctx) {
+<span class="nc" id="L209">        ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L210">        ctx.appService.readNext(ctx.f.getWsUsrsec(), ctx.f);</span>
+<span class="nc" id="L211">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L213">            ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L215">            ctx.f.setWsEndFlg(&quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L217">            ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L218">            ctx.f.setErrmsgo(&quot;Error reading user file.&quot;);</span>
+<span class="nc" id="L219">            ctx.f.setWsEndFlg(&quot;Y&quot;);</span>
+        }
+<span class="nc" id="L221">    }</span>
+
+    /** COBOL paragraph: 2250-STORE-ROW */
+    private void storeUserRow(TaskContext ctx) {
+<span class="nc" id="L225">        buildFullName(ctx);</span>
+<span class="nc" id="L226">        ctx.f.setWsRowCount(ctx.f.getWsRowCount() + 1);</span>
+<span class="nc" id="L227">        ctx.f.setWsLastKey(ctx.f.getUsId());</span>
+<span class="nc bnc" id="L228" title="All 5 branches missed.">        switch (ctx.f.getWsRowIdx()) {</span>
+            case 1 -&gt; {
+<span class="nc" id="L230">                ctx.f.setUsr1o(ctx.f.getUsId());</span>
+<span class="nc" id="L231">                ctx.f.setUnm1o(ctx.f.getWsFullname());</span>
+<span class="nc" id="L232">                ctx.f.setUty1o(ctx.f.getUsType());</span>
+<span class="nc" id="L233">            }</span>
+            case 2 -&gt; {
+<span class="nc" id="L235">                ctx.f.setUsr2o(ctx.f.getUsId());</span>
+<span class="nc" id="L236">                ctx.f.setUnm2o(ctx.f.getWsFullname());</span>
+<span class="nc" id="L237">                ctx.f.setUty2o(ctx.f.getUsType());</span>
+<span class="nc" id="L238">            }</span>
+            case 3 -&gt; {
+<span class="nc" id="L240">                ctx.f.setUsr3o(ctx.f.getUsId());</span>
+<span class="nc" id="L241">                ctx.f.setUnm3o(ctx.f.getWsFullname());</span>
+<span class="nc" id="L242">                ctx.f.setUty3o(ctx.f.getUsType());</span>
+<span class="nc" id="L243">            }</span>
+            case 4 -&gt; {
+<span class="nc" id="L245">                ctx.f.setUsr4o(ctx.f.getUsId());</span>
+<span class="nc" id="L246">                ctx.f.setUnm4o(ctx.f.getWsFullname());</span>
+<span class="nc" id="L247">                ctx.f.setUty4o(ctx.f.getUsType());</span>
+<span class="nc" id="L248">            }</span>
+            default -&gt; {
+                /* CONTINUE */
+            }
+        }
+<span class="nc" id="L253">    }</span>
+
+    /** COBOL paragraph: 2255-BUILD-NAME */
+    private void buildFullName(TaskContext ctx) {
+<span class="nc" id="L257">        ctx.f.setWsFullname(&quot; &quot;);</span>
+        {
+<span class="nc" id="L259">            StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L260">            sb.append(String.valueOf(ctx.f.getUsFirstName()).split(String.valueOf(&quot; &quot;), 2)[0]);</span>
+<span class="nc" id="L261">            sb.append(String.valueOf(&quot; &quot;));</span>
+<span class="nc" id="L262">            sb.append(String.valueOf(ctx.f.getUsLastName()).split(String.valueOf(&quot; &quot;), 2)[0]);</span>
+<span class="nc" id="L263">            ctx.f.setWsFullname(sb.toString());</span>
+        }
+<span class="nc" id="L265">    }</span>
+
+    /** COBOL paragraph: 2260-ENDBR */
+    private void endBrowseUserFile(TaskContext ctx) {
+<span class="nc" id="L269">        ctx.appService.endBrowse(ctx.f.getWsUsrsec());</span>
+<span class="nc" id="L270">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L271">    }</span>
+
+    /** COBOL paragraph: 7000-XCTL-ADMEN */
+    private void transferToAdminMenu(TaskContext ctx) {
+<span class="nc" id="L275">        ctx.f.setCaFromProgram(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L276">        ctx.f.setCaFromTranid(ctx.f.getWsTranid());</span>
+<span class="nc" id="L277">        ctx.f.setCaPgmContext(0);</span>
+<span class="nc" id="L278">        ctx.f.copyBytes(&quot;CA-WORK-AREA&quot;, &quot;WS-STATE-AREA&quot;);</span>
+<span class="nc" id="L279">        ctx.appService.xctl(</span>
+<span class="nc" id="L280">                ctx.f.getWsAdmenPgm(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L281">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L282">    }</span>
+
+    /** COBOL paragraph: 8000-POPULATE-HEADER */
+    private void populateScreenHeader(TaskContext ctx) {
+<span class="nc" id="L286">        ctx.f.setTrnnameo(ctx.f.getWsTranid());</span>
+<span class="nc" id="L287">        ctx.f.setPgmnameo(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L288">        ctx.f.setTitleo(ctx.f.getWsHdrTitle());</span>
+<span class="nc" id="L289">        populateCurrentDateTime(ctx);</span>
+<span class="nc" id="L290">        ctx.f.setCurdateo(ctx.f.getWsHdrDate());</span>
+<span class="nc" id="L291">        ctx.f.setCurtimeo(ctx.f.getWsHdrTime());</span>
+<span class="nc" id="L292">    }</span>
+
+    /** COBOL paragraph: 8100-SEND-DATAONLY */
+    private void sendDataOnlyScreen(TaskContext ctx) {
+<span class="nc" id="L296">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L297">        ctx.appService.sendMap(</span>
+                &quot;MUSRLA&quot;, ctx.f, ctx.f, /* erase */ false, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L299">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L300">    }</span>
+
+    /** COBOL paragraph: 8500-GET-DATE-TIME */
+    private void populateCurrentDateTime(TaskContext ctx) {
+<span class="nc" id="L304">        ctx.appService.askTime();</span>
+<span class="nc" id="L305">        com.appruntime.FormatTimeResult _ftResult =</span>
+<span class="nc" id="L306">                ctx.appService.formatTime(null, &quot;YYYYMMDD&quot;, &quot;-&quot;, &quot;:&quot;);</span>
+<span class="nc" id="L307">        ctx.f.setWsHdrDate(_ftResult.getDate());</span>
+<span class="nc" id="L308">        ctx.f.setWsHdrTime(_ftResult.getTime());</span>
+<span class="nc" id="L309">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L310">    }</span>
+
+    /** COBOL paragraph: 9000-RETURN */
+    private void returnToCics(TaskContext ctx) {
+<span class="nc" id="L314">        ctx.f.copyBytes(&quot;CA-WORK-AREA&quot;, &quot;WS-STATE-AREA&quot;);</span>
+<span class="nc" id="L315">        ctx.appService.returnTransid(</span>
+<span class="nc" id="L316">                ctx.f.getWsTranid(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L317">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OcusrlFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L330">        final OcusrlLinkParm link = new OcusrlLinkParm();</span>
+
+<span class="nc" id="L332">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L333">            this.appService = appService;</span>
+<span class="nc" id="L334">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L335">            this.f = new OcusrlFields(ws);</span>
+<span class="nc" id="L336">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

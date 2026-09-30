@@ -1,0 +1,39 @@
+# Turn-key: docker compose up --build
+#   • backend/frontend BUILD TRONG Docker (multi-stage mvn + npm) — không cần toolchain ngoài host.
+#   • DB init/seed: mọi file ./db-schema/*.sql chạy ở LẦN START ĐẦU của container db
+#     (postgres initdb contract). Reset để chạy lại init: docker compose down -v
+#   • Flyway (baseline-on-migrate) tự xử lý schema đã init sẵn — không xung đột migration.
+#   • Port host override bằng env (không sửa file): BACKEND_PORT=18080 FE_PORT=9999 docker compose up
+#     — port TRONG container cố định (nginx proxy qua network nội bộ), chỉ đổi phía host,
+#     nên nhiều app generated chạy song song được trên cùng máy.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: orion
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+      - ./db-schema:/docker-entrypoint-initdb.d:ro
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U postgres"], interval: 3s, retries: 20 }
+  backend:
+    build: { context: ., dockerfile: Dockerfile.backend }
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/orion
+      DB_USERNAME: ${DB_USERNAME:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+    ports: ["${BACKEND_PORT:-8080}:8080"]
+    depends_on: { db: { condition: service_healthy } }
+    # curl có sẵn trong eclipse-temurin:21-jre; actuator chỉ expose health (application.yml)
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/actuator/health"]
+      interval: 5s
+      retries: 30
+      start_period: 15s
+  frontend:
+    build: ./front-end
+    ports: ["${FE_PORT:-8088}:80"]
+    depends_on: { backend: { condition: service_healthy } }
+volumes:
+  dbdata:

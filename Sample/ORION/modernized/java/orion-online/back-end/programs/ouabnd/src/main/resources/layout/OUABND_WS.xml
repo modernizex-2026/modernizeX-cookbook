@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : OUABND_WS
+-->
+<dataLayout name="OUABND_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="136">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="WS-RESP-CD" offset="4" size="4" javaType="int" signed="true" value="ZEROS" usage="BINARY"/>
+    <field name="WS-ABEND-MSG" offset="8" size="120" javaType="String"/>
+    <field name="WS-ABCODE" offset="128" size="4" javaType="String" value="OABN"/>
+    <field name="SQLCODE" offset="132" size="4" javaType="int" value="0" usage="BINARY"/>
+  </group>
+  <group name="KABND-PARM" offset="0" size="126">
+    <field name="KA-PROGRAM" offset="0" size="8" javaType="String"/>
+    <field name="KA-PARAGRAPH" offset="8" size="30" javaType="String"/>
+    <field name="KA-RESP-CD" offset="38" size="4" javaType="int" signed="true" usage="BINARY"/>
+    <field name="KA-REAS-CD" offset="42" size="4" javaType="int" signed="true" usage="BINARY"/>
+    <field name="KA-DETAIL" offset="46" size="80" javaType="String"/>
+  </group>
+</dataLayout>

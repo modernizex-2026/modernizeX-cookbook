@@ -1,0 +1,83 @@
+/* base.css — LỚP TOKEN DÙNG CHUNG (R9.5). Nguồn duy nhất: resources/frontend/core/.
+ *
+ * Cả hai nhánh (web SCREEN SECTION và online BMS/CICS) nạp file này, nên một component trong
+ * UI kit dùng chung chỉ cần tham chiếu `var(--scr-…)` là chạy được ở cả hai bên.
+ * Giá trị giữ NGUYÊN VĂN như design-tokens.css của nhánh web trước R9.5 — đây là thao tác TÁCH
+ * FILE, không phải đổi thiết kế: không đổi màu, không đổi thang số.
+ *
+ * Lớp class trình bày (.scr-*, .btn, .dialog…) KHÔNG ở đây — nó vẫn thuộc về từng nhánh.
+ *
+ * LUẬT CỨNG: file này CHỈ được chứa custom property (--x: y). Một khai báo CSS thật
+ * (font-size, color, margin…) đặt ở đây sẽ áp lên CẢ HAI nhánh và đổi giao diện bên kia —
+ * đúng lỗi đã xảy ra và bị ảnh chụp A/B bắt: `font-size: 14px` trên :root của nhánh web
+ * lọt sang online làm mọi màn co lại (16px → 14px).
+ */
+
+:root {
+
+  /* â”€â”€ Color palette â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  --color-primary: #312E81;
+  --color-primary-hover: #272554;
+  --color-primary-active: #1E1B4B;
+  --color-on-primary: #ffffff;
+  --color-border-gray: rgba(49, 46, 129, 0.3);
+  --color-outline-bg: #ffffff;
+  --color-outline-text: #44474e;
+  --color-outline-hover-bg: #f5f6fa;
+  --color-white: #ffffff;
+
+  --scr-primary: var(--color-primary);
+  --scr-primary-hover: var(--color-primary-hover);
+  --scr-primary-active: var(--color-primary-active);
+  --scr-success: #059669; /* green â€” approve, confirm */
+  --scr-success-hover: #047857;
+  --scr-danger: #dc2626; /* red â€” delete, destructive */
+  --scr-danger-hover: #b91c1c;
+  --scr-warning: #d97706; /* amber â€” pending, caution */
+  --scr-warning-hover: #b45309;
+  --scr-info: #0284c7; /* blue â€” informational */
+  --scr-inbound: #1a3668; /* dark navy â€” inbound orders */
+  --scr-outbound: #93b6ff; /* light blue â€” outbound orders */
+
+  /* Neutral scale */
+  --scr-bg-page: #f8f9fa;
+  --scr-bg-card: var(--color-white);
+  --scr-bg-muted: #f3f4f6;
+  --scr-bg-hover: #f3f4f6; /* row hover */
+  --scr-border: #D9DDE4;
+  --scr-border-strong: var(--color-border-gray);
+  --scr-text: #1f2937;
+  --scr-text-muted: #6b7280;
+  --scr-text-label: #4b5563;
+
+  /* Table-specific */
+  --scr-table-header-bg: #1e3a5f;
+  --scr-table-header-fg: var(--color-white);
+  --scr-table-row-even: #f9fafb;
+  --scr-table-cell-display-bg: #e5e7eb;
+  --scr-table-cell-input-border: #e2e8f0;
+  --scr-table-cell-radius: 4px;
+
+  /* Status */
+  --scr-status-success-bg: #dcfce7;
+  --scr-status-success-fg: #166534;
+  --scr-status-warning-bg: #fef9c3;
+  --scr-status-warning-fg: #854d0e;
+  --scr-status-danger-bg: #fef2f2;
+  --scr-status-danger-fg: #991b1b;
+  --scr-status-info-bg: #dbeafe;
+  --scr-status-info-fg: #1e40af;
+
+  /* â”€â”€ Typography â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  --scr-font-ui: 'Noto Sans JP', 'Meiryo UI', 'Yu Gothic UI', 'Hiragino Sans', sans-serif;
+  --scr-font-mono: var(--scr-font-ui);
+
+  /* â”€â”€ Sizing / rhythm â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  --scr-radius-sm: 4px;
+  --scr-radius: 6px;
+  --scr-radius-lg: 8px;
+  --scr-radius-xl: 12px;
+  --scr-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --scr-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --scr-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.2);
+}

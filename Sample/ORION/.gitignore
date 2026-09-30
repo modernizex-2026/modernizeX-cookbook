@@ -1,0 +1,15 @@
+# Build outputs and tool run state — regenerate with mvn / the ModernizeX tools
+target/
+node_modules/
+dist/
+*.class
+*.jar
+*.exec
+*.log
+**/_logs/*.ok
+**/_logs/*.started
+**/_logs/run-status.json
+*.stale
+.DS_Store
+.idea/
+*.iml

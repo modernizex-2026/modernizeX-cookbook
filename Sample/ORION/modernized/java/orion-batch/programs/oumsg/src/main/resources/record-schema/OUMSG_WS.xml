@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : OUMSG_WS
+-->
+<dataLayout name="OUMSG_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="5">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="WS-FLAG" offset="4" size="1" javaType="String" value="N"/>
+  </group>
+  <group name="KMSG-PARM">
+    <field name="KM-CODE" size="6" javaType="String"/>
+    <field name="KM-TEXT" size="80" javaType="String"/>
+    <field name="KM-STATUS" size="2" javaType="String"/>
+  </group>
+</dataLayout>

@@ -1,0 +1,99 @@
+/* Modern web theme for migrated CICS screens — light card, 80x24 grid, semantic colors. */
+* { box-sizing: border-box; }
+body { margin: 0; background: #f0f2f5; color: #202124; font-family: 'Courier New', monospace; font-size: 14px; min-height: 100vh; }
+/* Centered page container (80ch + padding). */
+.app { width: calc(80ch + 40px); max-width: 100%; margin: 0 auto; padding: 32px 0 24px; }
+/* Header (blue gradient). */
+.bar { display: flex; align-items: center; justify-content: space-between;
+       background: linear-gradient(135deg, #1a73e8 0%, #1557b0 100%); color: #fff;
+       padding: 14px 24px; border-radius: 12px 12px 0 0;
+       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+       box-shadow: 0 2px 8px rgba(26,115,232,.25); }
+.app-title { font-size: 18px; font-weight: 700; letter-spacing: .3px; cursor: pointer; }
+.bar label { font-size: 13px; opacity: .92; }
+.prog { font-family: inherit; font-size: 13px; background: rgba(255,255,255,.18); color: #fff;
+        border: none; padding: 5px 12px; border-radius: 16px; margin-left: 6px; cursor: pointer; }
+.prog option { color: #202124; }
+/* Terminal screen — white card, 3270 grid. */
+.screen { display: grid; grid-template-columns: repeat(80, 1ch); grid-template-rows: repeat(24, 1.2em);
+          line-height: 1.2em; padding: 20px; background: #fff; border-radius: 0 0 12px 12px;
+          box-shadow: 0 4px 16px rgba(60,64,67,.1), 0 1px 4px rgba(60,64,67,.06); overflow: hidden; }
+.fld { min-width: 0; white-space: pre; overflow: hidden; text-overflow: clip;
+       font-family: inherit; font-size: inherit; line-height: 1.2em; }
+.fld.out { color: #202124; }
+.fld.in  { background: #f8f9fa; color: #202124; border: none; border-bottom: 1.5px solid #dadce0;
+           outline: none; padding: 0; transition: border-color .2s, background-color .2s; }
+.fld.in:focus { border-bottom-color: #1a73e8; background-color: #f0f6ff; }
+/* Typed record-list (geometry-detected list region) rendered as an HTML table. */
+/* Record-list table. Metrics (font/line-height/padding) are tuned to sit inside the 80x24
+   terminal grid — do NOT adopt the shared DataTable's fixed-layout/sticky-header/large
+   paddings here (they break the character-cell alignment). Only metric-neutral polish is
+   borrowed from it: zebra striping, row hover, header underline. */
+.rec-list { border-collapse: collapse; align-self: start; background: #fff; font-family: inherit;
+            font-size: 12px; line-height: 1.4em; z-index: 1; }
+.rec-list th { background: #e8f0fe; color: #1557b0; font-weight: 600; padding: 2px 6px;
+               border: 1px solid #dadce0; border-bottom: 2px solid #aecbfa;
+               text-align: left; font-family: -apple-system, sans-serif; font-size: 11px; }
+.rec-list td { padding: 1px 6px; border: 1px solid #eef0f3; white-space: pre; }
+.rec-list tbody tr:nth-child(even) td { background: #f8f9fb; }
+.rec-list tbody tr:hover td { background: #f0f6ff; }
+.rec-in { width: 2ch; border: none; border-bottom: 1px solid #dadce0; background: #f8f9fa;
+          font-family: inherit; font-size: 12px; padding: 0; }
+.rec-in:focus { border-bottom-color: #1a73e8; background: #f0f6ff; outline: none; }
+/* 3270 attribute colors (light palette, from the legacy theme). */
+.attr-bright { color: #202124; font-weight: 600; }
+.attr-dark { color: #9aa0a6; }
+.attr-red { color: #d93025; } .attr-blue { color: #1a73e8; } .attr-green { color: #188038; }
+.attr-yellow { color: #b45309; } .attr-pink { color: #c2185b; } .attr-turquoise { color: #0097a7; }
+.attr-reverse { filter: invert(1); }
+.attr-underline { text-decoration: underline; }
+.attr-blink { animation: bmsblink 1s step-end infinite; }
+@keyframes bmsblink { 50% { opacity: 0; } }
+/* Status line + error (toast style). */
+.msg { margin-top: 12px; background: #fef7e0; color: #92400e; padding: 10px 16px; border-radius: 8px;
+       font-size: 13px; font-family: -apple-system, sans-serif; border: 1px solid #fde68a; }
+.err { margin-top: 12px; background: #fce8e6; color: #c5221f; padding: 10px 16px; border-radius: 8px;
+       font-size: 13px; font-family: -apple-system, sans-serif; border: 1px solid #f4c7c3; }
+/* PF-key button bar (modern pills). */
+.pf { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+.pf button { background: #fff; color: #1a73e8; border: 1.5px solid #dadce0; padding: 8px 20px;
+             border-radius: 24px; font-family: -apple-system, sans-serif; font-size: 13px; font-weight: 500;
+             cursor: pointer; transition: all .2s ease; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.pf button:hover { background: #e8f0fe; border-color: #1a73e8; box-shadow: 0 2px 8px rgba(26,115,232,.2); transform: translateY(-1px); }
+.pf button:disabled { opacity: .5; cursor: default; transform: none; box-shadow: none; }
+/* Footer. */
+.app-footer { margin-top: 20px; padding: 14px 0; text-align: center; color: #9aa0a6; font-size: 12px;
+             font-family: -apple-system, sans-serif; border-top: 1px solid #e8eaed; }
+/* Transaction-entry gateway (default landing). */
+.entry-card { background: #fff; border-radius: 0 0 12px 12px; padding: 56px 40px; text-align: center;
+             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+             box-shadow: 0 4px 16px rgba(60,64,67,.1), 0 1px 4px rgba(60,64,67,.06); }
+.entry-title { font-size: 20px; font-weight: 700; color: #1a73e8; letter-spacing: .3px; }
+.entry-sub { color: #5f6368; font-size: 13px; margin-top: 6px; margin-bottom: 32px; }
+.entry-form { display: inline-flex; gap: 10px; align-items: center; }
+.entry-form label { font-size: 14px; color: #202124; }
+.entry-input { font-family: 'Courier New', monospace; font-size: 16px; text-transform: uppercase;
+              letter-spacing: 3px; width: 130px; text-align: center; padding: 8px 10px;
+              border: 1.5px solid #dadce0; border-radius: 8px; outline: none; transition: all .2s; }
+.entry-input:focus { border-color: #1a73e8; background: #f0f6ff; }
+.entry-go { background: #1a73e8; color: #fff; border: none; padding: 9px 22px; border-radius: 24px;
+           font-size: 13px; font-weight: 600; cursor: pointer; transition: background .2s; }
+.entry-go:hover { background: #1557b0; }
+.entry-err { color: #c5221f; font-size: 13px; margin-top: 12px; min-height: 18px; }
+.entry-avail { margin-top: 32px; border-top: 1px solid #e8eaed; padding-top: 24px; }
+.entry-avail-label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+                    color: #9aa0a6; margin-bottom: 14px; }
+.entry-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.entry-chip { background: #f8f9fa; border: 1px solid #e8eaed; border-radius: 8px; padding: 8px 14px;
+             cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px;
+             min-width: 64px; transition: all .15s; }
+.entry-chip:hover { background: #e8f0fe; border-color: #1a73e8; }
+.entry-chip b { color: #1a73e8; font-size: 13px; font-family: 'Courier New', monospace; }
+.entry-chip span { color: #5f6368; font-size: 10px; }
+
+/* bms-online-modernize: 1280×720 shell */
+.app { width: 100%; max-width: var(--screen-max-width, 100%); margin: 0 auto;
+  min-height: 100vh; padding: 24px clamp(16px, 3vw, 40px); box-sizing: border-box; }
+
+/* bms-online-modernize: theme (dark-mode + presets) */
+@media (prefers-color-scheme: dark) { body { background: #0b1220; color: var(--color-text); } }

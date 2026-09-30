@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OuxrefService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUXREF Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ouxref.service</a> &gt; <span class="el_source">OuxrefService.java</span></div><h1>OuxrefService.java</h1><pre class="source lang-java linenums">package com.generated.orion.ouxref.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.ouxref.accessor.OuxrefFields;
+import com.generated.orion.ouxref.metadata.OuxrefBmsMetadata;
+import com.generated.orion.ouxref.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OUXREF. */
+@Service
+<span class="nc" id="L20">public class OuxrefService implements AppProgram {</span>
+<span class="nc" id="L21">    private static final Logger log = LoggerFactory.getLogger(OuxrefService.class);</span>
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L29">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc bnc" id="L30" title="All 4 branches missed.">        if (ctx.appService.getEibcalen() &gt; 0 &amp;&amp; ctx.appService.getCommarea() != null) {</span>
+<span class="nc" id="L31">            Object _commarea = ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            if (_commarea instanceof Object[]) {</span>
+<span class="nc" id="L33">                Object[] _params = (Object[]) _commarea;</span>
+<span class="nc bnc" id="L34" title="All 4 branches missed.">                if (_params.length &gt; 0 &amp;&amp; _params[0] instanceof byte[]) {</span>
+<span class="nc" id="L35">                    ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _params[0]);</span>
+<span class="nc bnc" id="L36" title="All 4 branches missed.">                } else if (_params.length &gt; 0 &amp;&amp; _params[0] != null) {</span>
+<span class="nc" id="L37">                    ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_params[0]));</span>
+                }
+<span class="nc bnc" id="L39" title="All 2 branches missed.">            } else if (_commarea instanceof byte[]) {</span>
+<span class="nc" id="L40">                ctx.f.writeBytes(&quot;ORION-COMMAREA&quot;, (byte[]) _commarea);</span>
+            } else {
+<span class="nc" id="L42">                ctx.f.setGroup(&quot;ORION-COMMAREA&quot;, String.valueOf(_commarea));</span>
+            }
+        }
+        try {
+<span class="nc" id="L46">            runMainProgram(ctx);</span>
+        } finally {
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            if (ctx.appService.getEibcalen() &gt; 0) {</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                if (ctx.appService.getCommarea() instanceof Object[]) {</span>
+<span class="nc" id="L50">                    Object[] _params = (Object[]) ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                    if (_params.length &gt; 0) {</span>
+<span class="nc" id="L52">                        _params[0] =</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                                _params[0] instanceof byte[]</span>
+<span class="nc" id="L54">                                        ? (Object) ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;)</span>
+<span class="nc" id="L55">                                        : (Object) ctx.f.groupToString(&quot;ORION-COMMAREA&quot;);</span>
+                    }
+<span class="nc" id="L57">                } else {</span>
+<span class="nc" id="L58">                    ctx.appService.setCommarea(ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;));</span>
+                }
+            }
+        }
+<span class="nc" id="L62">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L66">        return &quot;OUXREF&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L71">        return OuxrefBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L76">        OuxrefBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L77">    }</span>
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainProgram(TaskContext ctx) {
+<span class="nc" id="L81">        ctx.f.aliasGroup(&quot;KUX-PARM&quot;, &quot;CA-WORK-AREA&quot;);</span>
+<span class="nc" id="L82">        initializeProgram(ctx);</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (!Utility.fieldEquals(ctx.f.getKuxStatus(), &quot;99&quot;)) {</span>
+<span class="nc" id="L84">            positionCardBrowse(ctx);</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">            if (ctx.f.getWsBrowseSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">                while (!(ctx.f.getWsEofSw().equals(&quot;Y&quot;)</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">                        || Utility.fieldEquals(ctx.f.getWsCapped(), &quot;Y&quot;))) {</span>
+<span class="nc" id="L88">                    readAndProcessCards(ctx);</span>
+                }
+<span class="nc" id="L90">                peekNextCard(ctx);</span>
+<span class="nc" id="L91">                endCardBrowse(ctx);</span>
+            }
+        }
+<span class="nc" id="L94">        setFinalStatus(ctx);</span>
+<span class="nc" id="L95">        return;</span>
+    }
+
+    /** COBOL paragraph: 1000-INIT */
+    private void initializeProgram(TaskContext ctx) {
+<span class="nc" id="L100">        ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L101">        ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L102">        ctx.f.setWsCapped(&quot;N&quot;);</span>
+<span class="nc" id="L103">        ctx.f.setWsSaveCust(0);</span>
+<span class="nc" id="L104">        ctx.f.setKuxStatus(&quot;00&quot;);</span>
+<span class="nc" id="L105">        ctx.f.setKuxMsg(&quot; &quot;);</span>
+<span class="nc" id="L106">        ctx.f.setKuxRead(0);</span>
+<span class="nc" id="L107">        ctx.f.setKuxWritten(0);</span>
+<span class="nc" id="L108">        ctx.f.setKuxUpdated(0);</span>
+<span class="nc" id="L109">        ctx.f.setKuxSkipAcct(0);</span>
+<span class="nc" id="L110">        ctx.f.setKuxSkipXref(0);</span>
+<span class="nc" id="L111">        ctx.f.setKuxSkipCust(0);</span>
+<span class="nc" id="L112">        ctx.f.setKuxErrors(0);</span>
+<span class="nc" id="L113">        ctx.f.setKuxNextCard(&quot; &quot;);</span>
+<span class="nc" id="L114">        ctx.f.setKuxMore(&quot;N&quot;);</span>
+<span class="nc" id="L115">        ctx.f.setWsMax(ctx.f.getKuxMax());</span>
+<span class="nc bnc" id="L116" title="All 3 branches missed.">        switch (Utility.rtrim(ctx.f.getKuxMode())) {</span>
+            case &quot;REBL&quot; -&gt; {
+<span class="nc" id="L118">                ctx.f.setString(&quot;WS-MODE-SW&quot;, &quot;R&quot;);</span>
+<span class="nc" id="L119">            }</span>
+            case &quot;VALD&quot; -&gt; {
+<span class="nc" id="L121">                ctx.f.setString(&quot;WS-MODE-SW&quot;, &quot;V&quot;);</span>
+<span class="nc" id="L122">            }</span>
+            default -&gt; {
+<span class="nc" id="L124">                ctx.f.setKuxStatus(&quot;99&quot;);</span>
+<span class="nc" id="L125">                ctx.f.setKuxMsg(&quot;INVALID MODE - USE REBL OR VALD&quot;);</span>
+            }
+        }
+<span class="nc" id="L128">    }</span>
+
+    /** COBOL paragraph: 2000-POSITION */
+    private void positionCardBrowse(TaskContext ctx) {
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getKuxStartCard(), &quot; &quot;)</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">                || ctx.f.isAllLowValues(&quot;KUX-START-CARD&quot;)) {</span>
+<span class="nc" id="L134">            ctx.f.fillLowValues(&quot;CD-NUM&quot;);</span>
+        } else {
+<span class="nc" id="L136">            ctx.f.setCdNum(ctx.f.getKuxStartCard());</span>
+        }
+<span class="nc" id="L138">        ctx.appService.startBrowse(ctx.f.getWsCardfile(), String.valueOf(ctx.f.getCdNum()), 0);</span>
+<span class="nc" id="L139">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L141">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L143">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L144">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L146">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L147">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L149">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L150">            ctx.f.setKuxStatus(&quot;99&quot;);</span>
+<span class="nc" id="L151">            ctx.f.setKuxMsg(&quot;CARDFILE STARTBR FAILED&quot;);</span>
+        }
+<span class="nc" id="L153">    }</span>
+
+    /** COBOL paragraph: 3000-READ-LOOP */
+    private void readAndProcessCards(TaskContext ctx) {
+<span class="nc" id="L157">        readNextCard(ctx);</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">        if (!ctx.f.getWsEofSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L159">            processCard(ctx);</span>
+<span class="nc bnc" id="L160" title="All 4 branches missed.">            if (ctx.f.getWsMax() &gt; 0 &amp;&amp; ctx.f.getKuxRead() &gt;= ctx.f.getWsMax()) {</span>
+<span class="nc" id="L161">                ctx.f.setWsCapped(&quot;Y&quot;);</span>
+            }
+        }
+<span class="nc" id="L164">    }</span>
+
+    /** COBOL paragraph: 3100-READ-CARD */
+    private void readNextCard(TaskContext ctx) {
+<span class="nc" id="L168">        ctx.appService.readNext(ctx.f.getWsCardfile(), ctx.f);</span>
+<span class="nc" id="L169">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+            /* CONTINUE */
+<span class="nc bnc" id="L172" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L173">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L175">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L176">            ctx.f.setKuxErrors(ctx.f.getKuxErrors() + 1);</span>
+<span class="nc" id="L177">            ctx.f.setKuxMsg(&quot;CARDFILE READNEXT FAILED&quot;);</span>
+        }
+<span class="nc" id="L179">    }</span>
+
+    /** COBOL paragraph: 3200-PROCESS-CARD */
+    private void processCard(TaskContext ctx) {
+<span class="nc" id="L183">        ctx.f.setKuxRead(ctx.f.getKuxRead() + 1);</span>
+<span class="nc" id="L184">        ctx.f.setString(&quot;WS-CARD-SW&quot;, &quot;O&quot;);</span>
+<span class="nc" id="L185">        ctx.f.setWsSaveCust(0);</span>
+<span class="nc" id="L186">        validateAccount(ctx);</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        if (ctx.f.getWsCardSw().equals(&quot;O&quot;)) {</span>
+<span class="nc" id="L188">            readCrossReference(ctx);</span>
+        }
+<span class="nc bnc" id="L190" title="All 2 branches missed.">        if (ctx.f.getWsCardSw().equals(&quot;O&quot;)) {</span>
+<span class="nc" id="L191">            validateCustomer(ctx);</span>
+        }
+<span class="nc bnc" id="L193" title="All 2 branches missed.">        if (ctx.f.getWsCardSw().equals(&quot;O&quot;)) {</span>
+<span class="nc" id="L194">            applyCardUpdate(ctx);</span>
+        }
+<span class="nc" id="L196">    }</span>
+
+    /** COBOL paragraph: 3300-VAL-ACCT */
+    private void validateAccount(TaskContext ctx) {
+<span class="nc" id="L200">        ctx.f.setAcId(ctx.f.getCdAcctId());</span>
+<span class="nc" id="L201">        ctx.appService.readFile(ctx.f.getWsAcctfile(), ctx.f, String.valueOf(ctx.f.getAcId()), 0);</span>
+<span class="nc" id="L202">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+            /* CONTINUE */
+<span class="nc bnc" id="L205" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L206">            ctx.f.setKuxSkipAcct(ctx.f.getKuxSkipAcct() + 1);</span>
+<span class="nc" id="L207">            ctx.f.setString(&quot;WS-CARD-SW&quot;, &quot;S&quot;);</span>
+        } else {
+<span class="nc" id="L209">            ctx.f.setKuxErrors(ctx.f.getKuxErrors() + 1);</span>
+<span class="nc" id="L210">            ctx.f.setString(&quot;WS-CARD-SW&quot;, &quot;S&quot;);</span>
+        }
+<span class="nc" id="L212">    }</span>
+
+    /** COBOL paragraph: 3400-READ-XREF */
+    private void readCrossReference(TaskContext ctx) {
+<span class="nc" id="L216">        ctx.f.setXrCardNum(ctx.f.getCdNum());</span>
+<span class="nc" id="L217">        ctx.appService.readFile(</span>
+<span class="nc" id="L218">                ctx.f.getWsXreffile(), ctx.f, String.valueOf(ctx.f.getXrCardNum()), 0);</span>
+<span class="nc" id="L219">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L221">            ctx.f.setWsSaveCust(ctx.f.getXrCustId());</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L223">            ctx.f.setKuxSkipXref(ctx.f.getKuxSkipXref() + 1);</span>
+<span class="nc" id="L224">            ctx.f.setString(&quot;WS-CARD-SW&quot;, &quot;S&quot;);</span>
+        } else {
+<span class="nc" id="L226">            ctx.f.setKuxErrors(ctx.f.getKuxErrors() + 1);</span>
+<span class="nc" id="L227">            ctx.f.setString(&quot;WS-CARD-SW&quot;, &quot;S&quot;);</span>
+        }
+<span class="nc" id="L229">    }</span>
+
+    /** COBOL paragraph: 3500-VAL-CUST */
+    private void validateCustomer(TaskContext ctx) {
+<span class="nc" id="L233">        ctx.f.setCuId(ctx.f.getWsSaveCust());</span>
+<span class="nc" id="L234">        ctx.appService.readFile(ctx.f.getWsCustfile(), ctx.f, String.valueOf(ctx.f.getCuId()), 0);</span>
+<span class="nc" id="L235">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L236" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+            /* CONTINUE */
+<span class="nc bnc" id="L238" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L239">            ctx.f.setKuxSkipCust(ctx.f.getKuxSkipCust() + 1);</span>
+<span class="nc" id="L240">            ctx.f.setString(&quot;WS-CARD-SW&quot;, &quot;S&quot;);</span>
+        } else {
+<span class="nc" id="L242">            ctx.f.setKuxErrors(ctx.f.getKuxErrors() + 1);</span>
+<span class="nc" id="L243">            ctx.f.setString(&quot;WS-CARD-SW&quot;, &quot;S&quot;);</span>
+        }
+<span class="nc" id="L245">    }</span>
+
+    /** COBOL paragraph: 3600-APPLY */
+    private void applyCardUpdate(TaskContext ctx) {
+<span class="nc bnc" id="L249" title="All 2 branches missed.">        if (ctx.f.getWsModeSw().equals(&quot;V&quot;)) {</span>
+<span class="nc" id="L250">            ctx.f.setKuxUpdated(ctx.f.getKuxUpdated() + 1);</span>
+        } else {
+<span class="nc" id="L252">            rewriteCrossReference(ctx);</span>
+        }
+<span class="nc" id="L254">    }</span>
+
+    /** COBOL paragraph: 3700-REWRITE-XREF */
+    private void rewriteCrossReference(TaskContext ctx) {
+<span class="nc" id="L258">        ctx.f.setXrCardNum(ctx.f.getCdNum());</span>
+<span class="nc" id="L259">        ctx.appService.readFileForUpdate(</span>
+<span class="nc" id="L260">                ctx.f.getWsXreffile(), ctx.f, String.valueOf(ctx.f.getXrCardNum()), 0);</span>
+<span class="nc" id="L261">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L262" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L263">            ctx.f.setXrAcctId(ctx.f.getCdAcctId());</span>
+<span class="nc" id="L264">            ctx.f.setXrCustId(ctx.f.getWsSaveCust());</span>
+<span class="nc" id="L265">            ctx.appService.rewriteFile(ctx.f.getWsXreffile(), ctx.f);</span>
+<span class="nc" id="L266">            ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L267" title="All 2 branches missed.">            if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L268">                ctx.f.setKuxUpdated(ctx.f.getKuxUpdated() + 1);</span>
+            } else {
+<span class="nc" id="L270">                ctx.f.setKuxErrors(ctx.f.getKuxErrors() + 1);</span>
+            }
+<span class="nc bnc" id="L272" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L273">            writeCrossReference(ctx);</span>
+        } else {
+<span class="nc" id="L275">            ctx.f.setKuxErrors(ctx.f.getKuxErrors() + 1);</span>
+        }
+<span class="nc" id="L277">    }</span>
+
+    /** COBOL paragraph: 3800-WRITE-XREF */
+    private void writeCrossReference(TaskContext ctx) {
+<span class="nc" id="L281">        ctx.f.setXrefRec(&quot; &quot;);</span>
+<span class="nc" id="L282">        ctx.f.setXrCardNum(ctx.f.getCdNum());</span>
+<span class="nc" id="L283">        ctx.f.setXrAcctId(ctx.f.getCdAcctId());</span>
+<span class="nc" id="L284">        ctx.f.setXrCustId(ctx.f.getWsSaveCust());</span>
+<span class="nc" id="L285">        ctx.appService.writeFile(</span>
+<span class="nc" id="L286">                ctx.f.getWsXreffile(), ctx.f, String.valueOf(ctx.f.getXrCardNum()), 0);</span>
+<span class="nc" id="L287">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L288" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L289">            ctx.f.setKuxWritten(ctx.f.getKuxWritten() + 1);</span>
+<span class="nc bnc" id="L290" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 14) {</span>
+<span class="nc" id="L291">            ctx.f.setKuxErrors(ctx.f.getKuxErrors() + 1);</span>
+        } else {
+<span class="nc" id="L293">            ctx.f.setKuxErrors(ctx.f.getKuxErrors() + 1);</span>
+        }
+<span class="nc" id="L295">    }</span>
+
+    /** COBOL paragraph: 4000-PEEK-NEXT */
+    private void peekNextCard(TaskContext ctx) {
+<span class="nc bnc" id="L299" title="All 2 branches missed.">        if (ctx.f.getWsEofSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L300">            ctx.f.setKuxMore(&quot;N&quot;);</span>
+<span class="nc" id="L301">            return;</span>
+        }
+<span class="nc" id="L303">        ctx.appService.readNext(ctx.f.getWsCardfile(), ctx.f);</span>
+<span class="nc" id="L304">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L305" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L306">            ctx.f.setKuxMore(&quot;Y&quot;);</span>
+<span class="nc" id="L307">            ctx.f.setKuxNextCard(ctx.f.getCdNum());</span>
+<span class="nc bnc" id="L308" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L309">            ctx.f.setKuxMore(&quot;N&quot;);</span>
+        } else {
+<span class="nc" id="L311">            ctx.f.setKuxMore(&quot;N&quot;);</span>
+<span class="nc" id="L312">            ctx.f.setKuxErrors(ctx.f.getKuxErrors() + 1);</span>
+        }
+<span class="nc" id="L314">    }</span>
+
+    /** COBOL paragraph: 5000-END-BROWSE */
+    private void endCardBrowse(TaskContext ctx) {
+<span class="nc" id="L318">        ctx.appService.endBrowse(ctx.f.getWsCardfile());</span>
+<span class="nc" id="L319">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L320">    }</span>
+
+    /** COBOL paragraph: 6000-SET-STATUS */
+    private void setFinalStatus(TaskContext ctx) {
+<span class="nc bnc" id="L324" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getKuxStatus(), &quot;99&quot;)) {</span>
+<span class="nc" id="L325">            return;</span>
+        }
+<span class="nc bnc" id="L327" title="All 2 branches missed.">        if (ctx.f.getKuxRead() == 0) {</span>
+<span class="nc" id="L328">            ctx.f.setKuxStatus(&quot;10&quot;);</span>
+<span class="nc" id="L329">            ctx.f.setKuxMsg(&quot;NO CARDS PROCESSED&quot;);</span>
+        } else {
+<span class="nc" id="L331">            ctx.f.setKuxStatus(&quot;00&quot;);</span>
+<span class="nc bnc" id="L332" title="All 2 branches missed.">            if (ctx.f.getWsModeSw().equals(&quot;V&quot;)) {</span>
+<span class="nc" id="L333">                ctx.f.setKuxMsg(&quot;XREF VALIDATION COMPLETE&quot;);</span>
+            } else {
+<span class="nc" id="L335">                ctx.f.setKuxMsg(&quot;XREF REBUILD COMPLETE&quot;);</span>
+            }
+        }
+<span class="nc" id="L338">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OuxrefFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L351">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L352">            this.appService = appService;</span>
+<span class="nc" id="L353">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L354">            this.f = new OuxrefFields(ws);</span>
+<span class="nc" id="L355">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

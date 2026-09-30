@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OudateService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUDATE Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.oudate.service</a> &gt; <span class="el_source">OudateService.java</span></div><h1>OudateService.java</h1><pre class="source lang-java linenums">package com.generated.orion.oudate.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.oudate.accessor.OudateFields;
+import com.generated.orion.oudate.metadata.OudateBmsMetadata;
+import com.generated.orion.oudate.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OUDATE. */
+@Service
+<span class="nc" id="L20">public class OudateService implements AppProgram {</span>
+<span class="nc" id="L21">    private static final Logger log = LoggerFactory.getLogger(OudateService.class);</span>
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L29">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc bnc" id="L30" title="All 4 branches missed.">        if (ctx.appService.getEibcalen() &gt; 0 &amp;&amp; ctx.appService.getCommarea() != null) {</span>
+<span class="nc" id="L31">            Object _commarea = ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            if (_commarea instanceof Object[]) {</span>
+<span class="nc" id="L33">                Object[] _params = (Object[]) _commarea;</span>
+<span class="nc bnc" id="L34" title="All 4 branches missed.">                if (_params.length &gt; 0 &amp;&amp; _params[0] instanceof byte[]) {</span>
+<span class="nc" id="L35">                    ctx.f.writeBytes(&quot;KDATE-PARM&quot;, (byte[]) _params[0]);</span>
+<span class="nc bnc" id="L36" title="All 4 branches missed.">                } else if (_params.length &gt; 0 &amp;&amp; _params[0] != null) {</span>
+<span class="nc" id="L37">                    ctx.f.setGroup(&quot;KDATE-PARM&quot;, String.valueOf(_params[0]));</span>
+                }
+<span class="nc bnc" id="L39" title="All 2 branches missed.">            } else if (_commarea instanceof byte[]) {</span>
+<span class="nc" id="L40">                ctx.f.writeBytes(&quot;KDATE-PARM&quot;, (byte[]) _commarea);</span>
+            } else {
+<span class="nc" id="L42">                ctx.f.setGroup(&quot;KDATE-PARM&quot;, String.valueOf(_commarea));</span>
+            }
+        }
+        try {
+<span class="nc" id="L46">            dispatchByFunctionCode(ctx);</span>
+        } finally {
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            if (ctx.appService.getEibcalen() &gt; 0) {</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                if (ctx.appService.getCommarea() instanceof Object[]) {</span>
+<span class="nc" id="L50">                    Object[] _params = (Object[]) ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                    if (_params.length &gt; 0) {</span>
+<span class="nc" id="L52">                        _params[0] =</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                                _params[0] instanceof byte[]</span>
+<span class="nc" id="L54">                                        ? (Object) ctx.f.sliceBytes(&quot;KDATE-PARM&quot;)</span>
+<span class="nc" id="L55">                                        : (Object) ctx.f.groupToString(&quot;KDATE-PARM&quot;);</span>
+                    }
+<span class="nc" id="L57">                } else {</span>
+<span class="nc" id="L58">                    ctx.appService.setCommarea(ctx.f.sliceBytes(&quot;KDATE-PARM&quot;));</span>
+                }
+            }
+        }
+<span class="nc" id="L62">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L66">        return &quot;OUDATE&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L71">        return OudateBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L76">        OudateBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L77">    }</span>
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void dispatchByFunctionCode(TaskContext ctx) {
+<span class="nc" id="L81">        ctx.f.setKdStatus(&quot;00&quot;);</span>
+<span class="nc bnc" id="L82" title="All 4 branches missed.">        switch (Utility.rtrim(ctx.f.getKdFunc())) {</span>
+            case &quot;TODY&quot; -&gt; {
+<span class="nc" id="L84">                populateTodayDate(ctx);</span>
+<span class="nc" id="L85">            }</span>
+            case &quot;VALD&quot; -&gt; {
+<span class="nc" id="L87">                validateDateInput(ctx);</span>
+<span class="nc" id="L88">            }</span>
+            case &quot;FMT&quot; -&gt; {
+<span class="nc" id="L90">                ctx.f.setKdDateOut(ctx.f.getKdDateIn());</span>
+<span class="nc" id="L91">            }</span>
+            default -&gt; {
+<span class="nc" id="L93">                ctx.f.setKdStatus(&quot;99&quot;);</span>
+            }
+        }
+<span class="nc" id="L96">        return;</span>
+    }
+
+    /** COBOL paragraph: 1000-TODAY */
+    private void populateTodayDate(TaskContext ctx) {
+<span class="nc" id="L101">        ctx.f.setWsCurr(</span>
+<span class="nc" id="L102">                (java.time.LocalDateTime.now()</span>
+<span class="nc" id="L103">                                .format(</span>
+<span class="nc" id="L104">                                        java.time.format.DateTimeFormatter.ofPattern(</span>
+                                                &quot;yyyyMMddHHmmss&quot;))
+                        + &quot;00+0000&quot;));
+<span class="nc" id="L107">        ctx.f.setWsEdY(</span>
+<span class="nc" id="L108">                Utility.parseNumeric(extractDateSegment(ctx.f.getWsCurr(), 4, 0, 4)).intValue());</span>
+<span class="nc" id="L109">        ctx.f.setWsEdM(</span>
+<span class="nc" id="L110">                Utility.parseNumeric(extractDateSegment(ctx.f.getWsCurr(), 6, 4, 6)).intValue());</span>
+<span class="nc" id="L111">        ctx.f.setWsEdD(</span>
+<span class="nc" id="L112">                Utility.parseNumeric(extractDateSegment(ctx.f.getWsCurr(), 8, 6, 8)).intValue());</span>
+<span class="nc" id="L113">        ctx.f.copyBytes(&quot;KD-DATE-OUT&quot;, &quot;WS-EDIT-DATE&quot;);</span>
+<span class="nc" id="L114">    }</span>
+
+    /** COBOL paragraph: 2000-VALIDATE */
+    private void validateDateInput(TaskContext ctx) {
+<span class="nc" id="L118">        ctx.f.setKdDateOut(ctx.f.getKdDateIn());</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">        if (!Utility.isNumeric(extractDateSegment(ctx.f.getKdDateIn(), 4, 0, 4))</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">                || !Utility.isNumeric(extractDateSegment(ctx.f.getKdDateIn(), 7, 5, 7))</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">                || !Utility.isNumeric(extractDateSegment(ctx.f.getKdDateIn(), 10, 8, 10))) {</span>
+<span class="nc" id="L122">            ctx.f.setKdStatus(&quot;99&quot;);</span>
+<span class="nc" id="L123">            exitValidation(ctx);</span>
+<span class="nc" id="L124">            return;</span>
+        }
+<span class="nc" id="L126">        ctx.f.setWsY(</span>
+<span class="nc" id="L127">                Utility.parseNumeric(extractDateSegment(ctx.f.getKdDateIn(), 4, 0, 4)).intValue());</span>
+<span class="nc" id="L128">        ctx.f.setWsM(</span>
+<span class="nc" id="L129">                Utility.parseNumeric(extractDateSegment(ctx.f.getKdDateIn(), 7, 5, 7)).intValue());</span>
+<span class="nc" id="L130">        ctx.f.setWsD(</span>
+<span class="nc" id="L131">                Utility.parseNumeric(extractDateSegment(ctx.f.getKdDateIn(), 10, 8, 10))</span>
+<span class="nc" id="L132">                        .intValue());</span>
+<span class="nc bnc" id="L133" title="All 4 branches missed.">        if (ctx.f.getWsM() &lt; 1 || ctx.f.getWsM() &gt; 12) {</span>
+<span class="nc" id="L134">            ctx.f.setKdStatus(&quot;99&quot;);</span>
+<span class="nc" id="L135">            exitValidation(ctx);</span>
+<span class="nc" id="L136">            return;</span>
+        }
+<span class="nc bnc" id="L138" title="All 6 branches missed.">        switch (ctx.f.getWsM()) {</span>
+            case 2 -&gt; {
+<span class="nc" id="L140">                ctx.f.setWsDim(29);</span>
+<span class="nc" id="L141">            }</span>
+            case 4 -&gt; {
+<span class="nc" id="L143">                ctx.f.setWsDim(30);</span>
+<span class="nc" id="L144">            }</span>
+            case 6 -&gt; {
+<span class="nc" id="L146">                ctx.f.setWsDim(30);</span>
+<span class="nc" id="L147">            }</span>
+            case 9 -&gt; {
+<span class="nc" id="L149">                ctx.f.setWsDim(30);</span>
+<span class="nc" id="L150">            }</span>
+            case 11 -&gt; {
+<span class="nc" id="L152">                ctx.f.setWsDim(30);</span>
+<span class="nc" id="L153">            }</span>
+            default -&gt; {
+<span class="nc" id="L155">                ctx.f.setWsDim(31);</span>
+            }
+        }
+<span class="nc bnc" id="L158" title="All 4 branches missed.">        if (ctx.f.getWsD() &lt; 1 || ctx.f.getWsD() &gt; ctx.f.getWsDim()) {</span>
+<span class="nc" id="L159">            ctx.f.setKdStatus(&quot;99&quot;);</span>
+        }
+<span class="nc" id="L161">    }</span>
+
+    /** COBOL paragraph: 2000-EXIT */
+    private void exitValidation(TaskContext ctx) {
+<span class="nc" id="L165">        return;</span>
+    }
+
+    /** Slice a fixed-width date segment out of a right-padded source string. */
+    private String extractDateSegment(String source, int padLength, int start, int end) {
+<span class="nc" id="L170">        return Utility.padRight(String.valueOf(source), padLength).substring(start, end);</span>
+    }
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OudateFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L184">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L185">            this.appService = appService;</span>
+<span class="nc" id="L186">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L187">            this.f = new OudateFields(ws);</span>
+<span class="nc" id="L188">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

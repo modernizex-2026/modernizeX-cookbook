@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OumsgService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">oumsg</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.oumsg.service</a> &gt; <span class="el_source">OumsgService.java</span></div><h1>OumsgService.java</h1><pre class="source lang-java linenums">package com.generated.orion.oumsg.service;
+
+import com.generated.orion.oumsg.domain.OumsgFieldAccess;
+import com.generated.orion.oumsg.domain.WorkingStorage;
+import com.generated.orion.runtime.BatchServiceBase;
+import com.generated.orion.runtime.DatasetEnums.*;
+import com.generated.orion.runtime.ProgramExitSignal;
+import com.generated.orion.runtime.io.AbstractDatasets;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
+/** Business logic service generated from COBOL program OUMSG. */
+@Service
+@Scope(&quot;prototype&quot;)
+<span class="fc" id="L16">public class OumsgService extends BatchServiceBase {</span>
+<span class="fc" id="L17">    private final OumsgFieldAccess ws = new OumsgFieldAccess(new WorkingStorage());</span>
+
+    /**
+     * Program entry point — runs the first COBOL paragraph via runChain. Base class run() wraps
+     * this in StopRun/Abort/Exception handling.
+     */
+    @Override
+    protected void mainProcess() {
+        // Import anchors for types referenced by emitted paragraph bodies:
+        // StopRunSignal, JobAbortException, ParagraphJumpSignal, ProgramExitSignal
+<span class="nc" id="L27">        runChain(this::resolveKmStatusMessage);</span>
+<span class="nc" id="L28">    }</span>
+
+    /**
+     * Returns COBOL COMPLETION-CODE after run() completes. Used by Tasklet to propagate exit code
+     * into StepExecutionContext.
+     */
+    @Override
+    public int getCompletionCode() {
+<span class="fc" id="L36">        return ws.getCompletionCode();</span>
+    }
+
+    /**
+     * Set COBOL COMPLETION-CODE. Called by base class run() on Abort (255) / Exception (12) paths.
+     */
+    @Override
+    protected void setCompletionCode(int code) {
+<span class="nc" id="L44">        ws.setCompletionCode(code);</span>
+<span class="nc" id="L45">    }</span>
+
+    /**
+     * Returns this program's FileSet (or null if no files declared). Base class run() uses this for
+     * commit/rollback/closeAll lifecycle.
+     */
+    @Override
+    protected AbstractDatasets getFileSet() {
+<span class="fc" id="L53">        return null;</span>
+    }
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void resolveKmStatusMessage() {
+<span class="fc" id="L58">        ws.setKmStatus(&quot;00&quot;);</span>
+<span class="fc bfc" id="L59" title="All 8 branches covered.">        switch (String.valueOf(ws.getKmCode()).stripTrailing()) {</span>
+            case &quot;I0001&quot; -&gt; {
+<span class="fc" id="L61">                ws.setKmText(&quot;Operation completed successfully.&quot;);</span>
+<span class="fc" id="L62">            }</span>
+            case &quot;E0001&quot; -&gt; {
+<span class="fc" id="L64">                ws.setKmText(&quot;Record not found.&quot;);</span>
+<span class="fc" id="L65">            }</span>
+            case &quot;E0002&quot; -&gt; {
+<span class="fc" id="L67">                ws.setKmText(&quot;Duplicate record.&quot;);</span>
+<span class="fc" id="L68">            }</span>
+            case &quot;E0003&quot; -&gt; {
+<span class="fc" id="L70">                ws.setKmText(&quot;Please enter required fields.&quot;);</span>
+<span class="fc" id="L71">            }</span>
+            case &quot;E0004&quot; -&gt; {
+<span class="fc" id="L73">                ws.setKmText(&quot;Invalid data entered.&quot;);</span>
+<span class="fc" id="L74">            }</span>
+            case &quot;E0005&quot; -&gt; {
+<span class="fc" id="L76">                ws.setKmText(&quot;File access error.&quot;);</span>
+<span class="fc" id="L77">            }</span>
+            case &quot;W0001&quot; -&gt; {
+<span class="fc" id="L79">                ws.setKmText(&quot;No records to display.&quot;);</span>
+<span class="fc" id="L80">            }</span>
+            default -&gt; {
+<span class="fc" id="L82">                ws.setKmText(ws.getKmCode());</span>
+<span class="fc" id="L83">                ws.setKmStatus(&quot;01&quot;);</span>
+            }
+        }
+<span class="fc" id="L86">        throw new ProgramExitSignal();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

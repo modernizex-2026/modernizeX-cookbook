@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OcsgnonService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCSGNON Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ocsgnon.service</a> &gt; <span class="el_source">OcsgnonService.java</span></div><h1>OcsgnonService.java</h1><pre class="source lang-java linenums">package com.generated.orion.ocsgnon.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.common.linkage.OcsgnonLinkParm;
+import com.generated.orion.ocsgnon.accessor.OcsgnonFields;
+import com.generated.orion.ocsgnon.metadata.OcsgnonBmsMetadata;
+import com.generated.orion.ocsgnon.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OCSGNON. */
+@Service
+<span class="nc" id="L22">public class OcsgnonService implements AppProgram {</span>
+<span class="nc" id="L23">    private static final Logger log = LoggerFactory.getLogger(OcsgnonService.class);</span>
+
+    /** Length in bytes of the ORION-COMMAREA passed on XCTL/RETURN. */
+    private static final int COMMAREA_LENGTH = 692;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L34">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc" id="L35">        executeMainLine(ctx);</span>
+<span class="nc" id="L36">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L40">        return &quot;OCSGNON&quot;;</span>
+    }
+
+    @Override
+    public String getTransId() {
+<span class="nc" id="L45">        return &quot;ORSN&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L50">        return OcsgnonBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L55">        OcsgnonBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L56">    }</span>
+
+    @Override
+    public FieldMapping getFieldMapping(String mapName) {
+<span class="nc" id="L60">        return OcsgnonBmsMetadata.getFieldMapping(mapName);</span>
+    }
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void executeMainLine(TaskContext ctx) {
+<span class="nc" id="L65">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (ctx.appService.getEibcalen() == 0) {</span>
+<span class="nc" id="L67">            ctx.f.setOrionCommarea(&quot;&quot;);</span>
+<span class="nc" id="L68">            sendInitialScreen(ctx);</span>
+        } else {
+<span class="nc" id="L70">            ctx.f.setOrionCommarea(Utility.groupToString(ctx.appService.getSerializedCommarea()));</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (ctx.f.getCaPgmContext() == 0) {</span>
+<span class="nc" id="L72">                sendInitialScreen(ctx);</span>
+            } else {
+<span class="nc" id="L74">                processInput(ctx);</span>
+            }
+        }
+<span class="nc" id="L77">        returnTransaction(ctx);</span>
+<span class="nc" id="L78">    }</span>
+
+    /** COBOL paragraph: 1000-SEND-INITIAL */
+    private void sendInitialScreen(TaskContext ctx) {
+<span class="nc" id="L82">        ctx.f.fillLowValues(&quot;MSGNONAO&quot;);</span>
+<span class="nc" id="L83">        populateHeader(ctx);</span>
+<span class="nc" id="L84">        ctx.f.setErrmsgo(&quot;Please sign on.&quot;);</span>
+<span class="nc" id="L85">        ctx.appService.sendMap(</span>
+                &quot;MSGNONA&quot;, ctx.f, ctx.f, /* erase */ true, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L87">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L88">        ctx.f.setCaPgmContext(1);</span>
+<span class="nc" id="L89">    }</span>
+
+    /** COBOL paragraph: 2000-PROCESS-INPUT */
+    private void processInput(TaskContext ctx) {
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;3&quot;)) {</span>
+<span class="nc" id="L94">            signOff(ctx);</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;'&quot;)) {</span>
+<span class="nc" id="L96">            validateUser(ctx);</span>
+        } else {
+<span class="nc" id="L98">            sendInitialScreen(ctx);</span>
+<span class="nc" id="L99">            ctx.f.setErrmsgo(ctx.f.getWsMsgInvalidKey());</span>
+<span class="nc" id="L100">            sendDataOnly(ctx);</span>
+        }
+<span class="nc" id="L102">    }</span>
+
+    /** COBOL paragraph: 2100-VALIDATE-USER */
+    private void validateUser(TaskContext ctx) {
+<span class="nc" id="L106">        ctx.appService.receiveMap(&quot;MSGNONA&quot;, ctx.f);</span>
+<span class="nc" id="L107">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L108" title="All 4 branches missed.">        if (Utility.fieldEquals(ctx.f.getUseridi(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;USERIDI&quot;)) {</span>
+<span class="nc" id="L109">            ctx.f.setErrmsgo(ctx.f.getWsMsgRequired());</span>
+<span class="nc" id="L110">            sendDataOnly(ctx);</span>
+        } else {
+<span class="nc" id="L112">            ctx.f.setUsId(ctx.f.getUseridi());</span>
+<span class="nc" id="L113">            readUser(ctx);</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">            if (ctx.f.getWsFoundFlg().equals(&quot;N&quot;)) {</span>
+<span class="nc" id="L115">                ctx.f.setErrmsgo(&quot;User not found.&quot;);</span>
+<span class="nc" id="L116">                sendDataOnly(ctx);</span>
+            } else {
+<span class="nc bnc" id="L118" title="All 2 branches missed.">                if (Utility.fieldEquals(ctx.f.getUsPassword(), ctx.f.getPasswdi())) {</span>
+<span class="nc" id="L119">                    transferToMenu(ctx);</span>
+                } else {
+<span class="nc" id="L121">                    ctx.f.setErrmsgo(&quot;Invalid password.&quot;);</span>
+<span class="nc" id="L122">                    sendDataOnly(ctx);</span>
+                }
+            }
+        }
+<span class="nc" id="L126">    }</span>
+
+    /** COBOL paragraph: 3000-READ-USER */
+    private void readUser(TaskContext ctx) {
+<span class="nc" id="L130">        ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L131">        ctx.appService.readFile(ctx.f.getWsUsrsec(), ctx.f, String.valueOf(ctx.f.getUsId()), 0);</span>
+<span class="nc" id="L132">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L134">            ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;Y&quot;);</span>
+        }
+<span class="nc" id="L136">    }</span>
+
+    /** COBOL paragraph: 4000-TRANSFER-TO-MENU */
+    private void transferToMenu(TaskContext ctx) {
+<span class="nc" id="L140">        ctx.f.setCaUserId(ctx.f.getUsId());</span>
+<span class="nc" id="L141">        ctx.f.setCaUserType(ctx.f.getUsType());</span>
+<span class="nc" id="L142">        ctx.f.setCaFromProgram(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L143">        ctx.f.setCaPgmContext(0);</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        if (ctx.f.getCaUserType().equals(&quot;A&quot;)) {</span>
+<span class="nc" id="L145">            ctx.appService.xctl(</span>
+<span class="nc" id="L146">                    ctx.f.getWsAdmenPgm(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L147">            ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+        } else {
+<span class="nc" id="L149">            ctx.appService.xctl(</span>
+<span class="nc" id="L150">                    ctx.f.getWsMenuPgm(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L151">            ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+        }
+<span class="nc" id="L153">    }</span>
+
+    /** COBOL paragraph: 7000-SIGN-OFF */
+    private void signOff(TaskContext ctx) {
+<span class="nc" id="L157">        ctx.appService.sendText(String.valueOf(ctx.f), true, true);</span>
+<span class="nc" id="L158">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L159">        ctx.appService.returnProgram();</span>
+<span class="nc" id="L160">    }</span>
+
+    /** COBOL paragraph: 8000-POPULATE-HEADER */
+    private void populateHeader(TaskContext ctx) {
+<span class="nc" id="L164">        ctx.f.setTrnnameo(ctx.f.getWsTranid());</span>
+<span class="nc" id="L165">        ctx.f.setPgmnameo(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L166">        ctx.f.setTitleo(ctx.f.getWsHdrTitle());</span>
+<span class="nc" id="L167">        ctx.appService.askTime();</span>
+<span class="nc" id="L168">        com.appruntime.FormatTimeResult _ftResult =</span>
+<span class="nc" id="L169">                ctx.appService.formatTime(null, &quot;YYYYMMDD&quot;, &quot;-&quot;, &quot;:&quot;);</span>
+<span class="nc" id="L170">        ctx.f.setWsHdrDate(_ftResult.getDate());</span>
+<span class="nc" id="L171">        ctx.f.setWsHdrTime(_ftResult.getTime());</span>
+<span class="nc" id="L172">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L173">        ctx.f.setCurdateo(ctx.f.getWsHdrDate());</span>
+<span class="nc" id="L174">        ctx.f.setCurtimeo(ctx.f.getWsHdrTime());</span>
+<span class="nc" id="L175">    }</span>
+
+    /** COBOL paragraph: 8100-SEND-DATAONLY */
+    private void sendDataOnly(TaskContext ctx) {
+<span class="nc" id="L179">        populateHeader(ctx);</span>
+<span class="nc" id="L180">        ctx.appService.sendMap(</span>
+                &quot;MSGNONA&quot;, ctx.f, ctx.f, /* erase */ false, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L182">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L183">    }</span>
+
+    /** COBOL paragraph: 9000-RETURN */
+    private void returnTransaction(TaskContext ctx) {
+<span class="nc" id="L187">        ctx.appService.returnTransid(</span>
+<span class="nc" id="L188">                ctx.f.getWsTranid(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L189">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OcsgnonFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L202">        final OcsgnonLinkParm link = new OcsgnonLinkParm();</span>
+
+<span class="nc" id="L204">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L205">            this.appService = appService;</span>
+<span class="nc" id="L206">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L207">            this.f = new OcsgnonFields(ws);</span>
+<span class="nc" id="L208">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

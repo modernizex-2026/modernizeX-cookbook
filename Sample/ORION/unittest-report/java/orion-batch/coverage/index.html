@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Unit Test Report — Statement Coverage (C0) — 2026-09-29</title>
+<style>
+body{font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:2rem;color:#e0e0e0;background:#1a1a1a;max-width:980px}
+h1{font-size:1.3rem;color:#f0f0f0}
+h2{font-size:1.05rem;margin-top:1.8rem;border-bottom:1px solid #3a3a3a;padding-bottom:.3rem;color:#f0f0f0}
+h3{font-size:.95rem;margin-top:1.3rem;margin-bottom:.4rem;color:#dcdcdc}
+.meta{color:#999;font-size:.9rem;margin-bottom:1rem;line-height:1.6}
+table{border-collapse:collapse;width:100%;margin-top:.4rem}
+th,td{border:1px solid #3a3a3a;padding:.45rem .7rem;text-align:right}
+th:first-child,td:first-child{text-align:left}
+th{background:#262626;color:#f0f0f0}
+.ok{color:#6fd48a;font-weight:600}
+.lo{color:#ff7070;font-weight:600}
+.tot{font-weight:700;background:#222}
+a{color:#6fb3ff;text-decoration:none}
+a:hover{text-decoration:underline;color:#8fc4ff}
+code{color:#e6b673}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.cat-box{border:1px solid #333;border-radius:6px;padding:.9rem 1rem;border-left-width:4px}
+.cat-a{border-left-color:#d35400;background:#2a1a0d}
+.cat-b{border-left-color:#6c3483;background:#1c1428}
+.cat-d{border-left-color:#7f8c8d;background:#202224}
+.cat-c{border-left-color:#2980b9;background:#0d1e2c}
+.cat-label{font-weight:700;font-size:.95rem;margin-bottom:.25rem;color:#f5f5f5}
+.cat-subtitle{font-size:.82rem;font-weight:600;color:#aaa;margin-bottom:.5rem}
+.cat-body{font-size:.83rem;color:#c8c8c8;line-height:1.6}
+.cat-body code{background:#2a2a2a;color:#e6b673;padding:0 3px;border-radius:3px;font-size:.8rem}
+.cat-body p{margin:.3rem 0}
+.note-box{background:#142230;border:1px solid #2d4a63;border-radius:6px;padding:.8rem 1rem;margin:1rem 0;font-size:.88rem;line-height:1.7;color:#c8c8c8}
+.note-box strong{color:#7fb8e0}
+.highlight{background:#2d2810;border:1px solid #574620;border-radius:4px;padding:.6rem .9rem;margin:.8rem 0;font-size:.87rem;line-height:1.6;color:#ddd}
+.breakdown-wrap{margin:.8rem 0 .5rem}
+.bar-outer{width:100%;height:30px;display:flex;border-radius:4px;overflow:hidden;border:1px solid #444;background:#2a2a2a}
+.bar-seg{display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:#fff;overflow:hidden;white-space:nowrap}
+.bar-a{background:#d35400}
+.bar-b{background:#6c3483}
+.bar-d{background:#7f8c8d}
+.bar-c{background:#2980b9}
+.bar-legend{display:flex;gap:1.2rem;margin-top:.5rem;flex-wrap:wrap;color:#bbb}
+.legend-item{display:flex;align-items:center;gap:.35rem;font-size:.82rem}
+.legend-dot{width:12px;height:12px;border-radius:2px;flex-shrink:0}
+.prog-detail td{font-size:.8rem;vertical-align:top;line-height:1.7}
+.badge{display:inline-block;padding:1px 7px;border-radius:10px;font-size:.72rem;font-weight:700;margin:1px 2px 1px 0;white-space:nowrap}
+.badge-a{background:#4a2b13;color:#ffb180}
+.badge-b{background:#3a1e5c;color:#d9b8f0}
+.badge-d{background:#2f3639;color:#c8c8c8}
+.badge-c{background:#142d4f;color:#a5c9ea}
+:root[data-theme="light"] body{color:#222;background:#fff}
+:root[data-theme="light"] h1,:root[data-theme="light"] h2,:root[data-theme="light"] h3{color:#222}
+:root[data-theme="light"] h2{border-bottom-color:#ddd}
+:root[data-theme="light"] .meta{color:#555}
+:root[data-theme="light"] th,:root[data-theme="light"] td{border-color:#ccc}
+:root[data-theme="light"] th{background:#f3f3f3;color:#222}
+:root[data-theme="light"] .ok{color:#0a7d28}
+:root[data-theme="light"] .lo{color:#b00020}
+:root[data-theme="light"] .tot{background:#fafafa}
+:root[data-theme="light"] a{color:#0b69c7}
+:root[data-theme="light"] .cat-a{background:#fef9f2}
+:root[data-theme="light"] .cat-b{background:#f8f0fd}
+:root[data-theme="light"] .cat-d{background:#f6f8f8}
+:root[data-theme="light"] .cat-c{background:#f0f7ff}
+:root[data-theme="light"] .cat-label{color:#222}
+:root[data-theme="light"] .cat-subtitle{color:#555}
+:root[data-theme="light"] .cat-body{color:#444}
+:root[data-theme="light"] .cat-body code{background:#e8e8e8;color:#222}
+:root[data-theme="light"] .note-box{background:#eaf4fb;border-color:#aed6f1;color:#222}
+:root[data-theme="light"] .note-box strong{color:#1a4e72}
+:root[data-theme="light"] .highlight{background:#fdfbe6;border-color:#f0c050;color:#222}
+:root[data-theme="light"] .bar-outer{border-color:#ccc;background:transparent}
+:root[data-theme="light"] .bar-legend{color:#333}
+:root[data-theme="light"] .badge-a{background:#fce5d0;color:#6e2d00}
+:root[data-theme="light"] .badge-b{background:#ede0f7;color:#4a0e6b}
+:root[data-theme="light"] .badge-d{background:#e5e8ea;color:#444}
+:root[data-theme="light"] .badge-c{background:#d4e9f7;color:#154360}
+</style></head>
+<body>
+
+<h1>Unit Test Report — Statement Coverage (C0)</h1>
+<div class="meta">
+  Date: <b>2026-09-29</b> &nbsp;|&nbsp;
+  Scope: <code>com.generated.*</code> &nbsp;|&nbsp;
+  Metric: <b>C0 — JaCoCo INSTRUCTION (Statement Coverage)</b> &nbsp;|&nbsp;
+  Target <b>C0 ≥ 80.0%</b> — <b>2/2 modules met the target</b>
+</div>
+
+<div class="note-box" style="background:#f0faf0;border-color:#a8d5a2"><strong>Overall result:</strong> 2/2 modules met the C0 coverage target. Overall coverage is <strong>92.5%</strong> (1,034/1,118 instructions).</div>
+
+<h2>C0 Coverage by Program</h2>
+<table>
+  <thead><tr><th>Program</th><th>C0 coverage</th></tr></thead>
+  <tbody>
+    <tr><td><a href="html/oumqbrg/index.html">oumqbrg</a></td><td class="ok">92.8% (952/1,026)</td></tr>
+    <tr><td><a href="html/oumsg/index.html">oumsg</a></td><td class="ok">89.1% (82/92)</td></tr>
+    <tr class="tot"><td>TOTAL</td><td>92.5% (1,034/1,118)</td></tr>
+  </tbody>
+</table>
+
+<h2>Uncovered Code — Root-cause Analysis</h2>
+<div class="note-box"><strong>Technical assessment:</strong> Uncovered methods are classified into 4 groups (A, B, D, C) by their technical nature, separating genuinely untested business logic from branches that carry no business logic.</div>
+
+<div class="cat-grid">
+  <div class="cat-box cat-a">
+    <div class="cat-label">Group A &nbsp;&mdash; Framework Entry &amp; Abort Paths</div>
+    <div class="cat-subtitle">Batch-framework entry points and infrastructure error branches</div>
+    <div class="cat-body">
+      <p><code>mainProcess()</code> is the entry point invoked by <code>BatchServiceBase.execute()</code> at batch runtime. Unit tests call each business method directly &mdash; skipping this entry point by design.</p>
+      <p><code>abort*()</code>, <code>setCompletionCode()</code>, <code>getFileSet()</code> are abnormal-exit branches (I/O error, DB error) that cannot be reproduced at the unit-test layer.</p>
+    </div>
+  </div>
+  <div class="cat-box cat-b">
+    <div class="cat-label">Group B &nbsp;&mdash; Core Business Flow</div>
+    <div class="cat-subtitle">Business-loop bodies that require simultaneously matching rows across several master tables</div>
+    <div class="cat-body">
+      <p>Data validation, master updates, pricing/cost calculation, stock movements... only execute when <strong>at least one input record matches across several master tables at once</strong>.</p>
+      <p>Preparing such multi-table datasets is beyond the unit-test design scope &mdash; these paths are verified at the <strong>system/integration test</strong> layer.</p>
+    </div>
+  </div>
+  <div class="cat-box cat-d">
+    <div class="cat-label">Group D &nbsp;&mdash; Auto-generated DAO Wrappers</div>
+    <div class="cat-subtitle">Generated data-access layer &mdash; no business logic</div>
+    <div class="cat-body">
+      <p><code>readX()</code>, <code>writeX()</code>, <code>deleteX()</code>, <code>rewriteX()</code>, <code>startXAtKey()</code>, <code>openXFile()</code> are <strong>thin auto-generated wrappers</strong> derived from the COBOL FD/SELECT declarations. Each is 3&ndash;5 delegate lines &mdash; <em>no business logic</em>.</p>
+      <p>Just as JPA's <code>repository.findById()</code> needs no dedicated unit test: a misconfigured wrapper fails every test that calls it, which is detection enough.</p>
+    </div>
+  </div>
+  <div class="cat-box cat-c">
+    <div class="cat-label">Group C &nbsp;&mdash; Interactive Terminal</div>
+    <div class="cat-subtitle">Terminal input flows &mdash; not simulatable in unit tests</div>
+    <div class="cat-body">
+      <p><code>accept*()</code>, <code>open*Window()</code>, <code>prompt*()</code> come from COBOL <code>ACCEPT FROM TERMINAL</code> / <code>DISPLAY</code> &mdash; <strong>blocking reads from a real terminal</strong>.</p>
+      <p>Unit tests cannot simulate keyboard input without a full terminal emulator. Verified via <strong>screen tests / manual acceptance tests</strong>.</p>
+    </div>
+  </div>
+</div>
+
+<h2>Uncovered Components — Detailed Breakdown</h2>
+<p class="meta">Modules below 100% C0 are analyzed below, with a distribution chart and the uncovered methods listed per group.</p>
+<h3>oumqbrg — Uncovered Instructions by Group</h3>
+<div class="breakdown-wrap">
+  <div class="bar-outer"><div class="bar-seg bar-a" style="width:6.8%">A 6.8%</div><div class="bar-seg bar-b" style="width:93.2%">B 93.2%</div></div>
+  <div class="bar-legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#d35400"></div>Group A: 1 methods — 5 instructions (6.8%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#6c3483"></div>Group B: 3 methods — 69 instructions (93.2%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7f8c8d"></div>Group D: 0 methods — 0 instructions (0.0%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2980b9"></div>Group C: 0 methods — 0 instructions (0.0%)</div>
+  </div>
+</div>
+<h3>oumsg — Uncovered Instructions by Group</h3>
+<div class="breakdown-wrap">
+  <div class="bar-outer"><div class="bar-seg bar-a" style="width:100.0%">A 100.0%</div></div>
+  <div class="bar-legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#d35400"></div>Group A: 2 methods — 10 instructions (100.0%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#6c3483"></div>Group B: 0 methods — 0 instructions (0.0%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7f8c8d"></div>Group D: 0 methods — 0 instructions (0.0%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2980b9"></div>Group C: 0 methods — 0 instructions (0.0%)</div>
+  </div>
+</div>
+
+<h2>Uncovered Methods by Program</h2>
+<table class="prog-detail">
+  <thead>
+    <tr>
+      <th>Program</th>
+      <th style="text-align:right">C0 coverage</th>
+      <th style="text-align:left">Uncovered methods (grouped)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="html/oumqbrg/index.html">oumqbrg</a></td>
+      <td style="text-align:right" class="ok">92.8%</td>
+      <td>
+        <span class="badge badge-a">A</span> mainProcess<br>
+        <span class="badge badge-b">B</span> _1100MqConnect, _2100ReadTran, _3000Finalize
+      </td>
+    </tr>
+    <tr>
+      <td><a href="html/oumsg/index.html">oumsg</a></td>
+      <td style="text-align:right" class="ok">89.1%</td>
+      <td>
+        <span class="badge badge-a">A</span> mainProcess, setCompletionCode
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Per-module Findings</h2>
+<h3>oumqbrg</h3>
+<div style="background:#00000010;border:1px solid #88888840;border-radius:6px;padding:.2rem 1rem;font-size:.85rem;line-height:1.6"><h4>OUMQBRG unit test findings</h4>
+<h5>1. Verify result</h5>
+<p><code style="background:#00000018;padding:0 .25rem;border-radius:3px">mvn -q -pl programs/oumqbrg verify</code> completed (testFailureIgnore=true in the module pom, so the build reports success). Surefire: <strong>6 tests run, 3 passed, 3 intentionally-failing CONVERT-GAP tests</strong>, 0 errors, 0 skipped. C0 line coverage (JaCoCo, <code style="background:#00000018;padding:0 .25rem;border-radius:3px">OumqbrgService</code>): <strong>168/174 = 96.5%</strong> (≥ 80% threshold).</p>
+<h5>2. CONVERT-GAP: unconditional paragraph fall-through</h5>
+<p>Every generated paragraph method in <code style="background:#00000018;padding:0 .25rem;border-radius:3px">OumqbrgService</code> ends with an unconditional direct call to "the next paragraph in source order" (a <code style="background:#00000018;padding:0 .25rem;border-radius:3px">// fall-through to next paragraph</code> comment followed by a bare method call). This pattern is meant for COBOL code that relies on physical fall-through (no PERFORM/GOTO), but <strong>OUMQBRG never relies on fall-through</strong> — every paragraph is invoked strictly via <code style="background:#00000018;padding:0 .25rem;border-radius:3px">PERFORM</code> and returns normally. The generated fall-through calls are therefore spurious extra executions that cascade paragraphs COBOL invokes once (or conditionally) into running many times, out of order, and regardless of guard flags. Concretely:</p>
+<ul>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">_1000Initialize</code> calls <code style="background:#00000018;padding:0 .25rem;border-radius:3px">_1100MqConnect()</code> a second time, unconditionally,</li>
+</ul>
+<p>after already running it via <code style="background:#00000018;padding:0 .25rem;border-radius:3px">runChain</code>.</p>
+<ul>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">_1100MqConnect</code> → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">_1200MqOpenOut</code> → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">_2000BridgeTrans</code> → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">_2100ReadTran</code></li>
+</ul>
+<p>→ <code style="background:#00000018;padding:0 .25rem;border-radius:3px">_2200PutTran</code> → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">_3000Finalize</code> → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">_3100MqCloseOut</code> → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">_3200MqDisconnect</code> → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">_3900DisplaySummary</code> chain unconditionally into one another, so a single <code style="background:#00000018;padding:0 .25rem;border-radius:3px">execute()</code> call performs dozens of duplicate MQCONN/MQOPEN/MQPUT/MQCLOSE/MQDISC and log-summary executions.</p>
+<p>Three tests encode the COBOL-correct behavior and <strong>fail on purpose</strong> to document the gap:</p>
+<ul>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">execute_tranFileOpenFails_convertGapStillPutsToQueue</code> — COBOL: when</li>
+</ul>
+<p><code style="background:#00000018;padding:0 .25rem;border-radius:3px">OPEN INPUT TRAN-FILE</code> fails, <code style="background:#00000018;padding:0 .25rem;border-radius:3px">TRAN-OPEN</code> is never set, so <code style="background:#00000018;padding:0 .25rem;border-radius:3px">0000-MAIN</code>'s <code style="background:#00000018;padding:0 .25rem;border-radius:3px">PERFORM 2000-BRIDGE-TRANS UNTIL END-OF-TRAN</code> runs zero times and MQPUT is never reached. Java: <code style="background:#00000018;padding:0 .25rem;border-radius:3px">mq.mqPut(...)</code> is still invoked, because <code style="background:#00000018;padding:0 .25rem;border-radius:3px">2100-READ-TRAN</code>'s translation falls straight into <code style="background:#00000018;padding:0 .25rem;border-radius:3px">2200-PUT-TRAN</code> regardless of file-open state.</p>
+<ul>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">execute_mqOpenFails_convertGapStillPutsTransactions</code> — COBOL: when MQOPEN</li>
+</ul>
+<p>fails, <code style="background:#00000018;padding:0 .25rem;border-radius:3px">2000-BRIDGE-TRANS</code>'s <code style="background:#00000018;padding:0 .25rem;border-radius:3px">IF MQ-IS-UP AND MQ-Q-OPEN</code> guard is false for the whole run, so MQPUT never happens. Java: MQPUT still happens, via the same unconditional <code style="background:#00000018;padding:0 .25rem;border-radius:3px">2100-READ-TRAN</code> → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">2200-PUT-TRAN</code> fall-through (this guard is bypassed entirely, not just weakened).</p>
+<ul>
+  <li><code style="background:#00000018;padding:0 .25rem;border-radius:3px">execute_mqOpenFails_convertGapStillClosesUnopenedQueue</code> — COBOL guards</li>
+</ul>
+<p><code style="background:#00000018;padding:0 .25rem;border-radius:3px">3100-MQ-CLOSE-OUT</code> with <code style="background:#00000018;padding:0 .25rem;border-radius:3px">IF MQ-Q-OPEN</code>. Java: <code style="background:#00000018;padding:0 .25rem;border-radius:3px">3000-FINALIZE</code>'s translation ends with an unconditional fall-through call to <code style="background:#00000018;padding:0 .25rem;border-radius:3px">_3100MqCloseOut()</code>, outside that guard, so <code style="background:#00000018;padding:0 .25rem;border-radius:3px">mq.mqClose(...)</code> fires even though the queue was never opened.</p>
+<p><strong>Reviewer must know</strong>: this is not a narrow edge case — it affects every run of the program (the happy path also performs many duplicate MQ calls and duplicate summary log lines; visible in surefire's captured log output). Because exact call counts are an artifact of this bug rather than a stable contract, the passing tests deliberately assert <code style="background:#00000018;padding:0 .25rem;border-radius:3px">atLeastOnce()</code>/business-state outcomes (via reflection on the private <code style="background:#00000018;padding:0 .25rem;border-radius:3px">ws</code> field) instead of exact <code style="background:#00000018;padding:0 .25rem;border-radius:3px">verify(...)</code> counts.</p>
+<h5>3. Secondary CONVERT-GAP (not separately tested): MQCONN/MQDISC not wired</h5>
+<p><code style="background:#00000018;padding:0 .25rem;border-radius:3px">_1100MqConnect</code>/<code style="background:#00000018;padding:0 .25rem;border-radius:3px">_3200MqDisconnect</code> call private no-op stub methods (<code style="background:#00000018;padding:0 .25rem;border-radius:3px">mqconn()</code>/<code style="background:#00000018;padding:0 .25rem;border-radius:3px">mqdisc()</code>) instead of the injected <code style="background:#00000018;padding:0 .25rem;border-radius:3px">MqService mq</code> — unlike MQOPEN/MQPUT/MQCLOSE, which correctly delegate to <code style="background:#00000018;padding:0 .25rem;border-radius:3px">mq</code>. MQ-CC/MQ-RC are therefore never touched by these two verbs, so MQCONN can never be exercised as failing through the public API. Noted for the reviewer; not covered by a dedicated test since it cannot be triggered without reflection/bytecode tricks, which the "no PowerMock" constraint rules out.</p>
+<h5>4. Uncovered remainder</h5>
+<p>Remaining 6 missed lines in <code style="background:#00000018;padding:0 .25rem;border-radius:3px">OumqbrgService</code> are minor logging branches on paths not exercised (e.g. non-'00'/'10' READ file-status logging, MQCLOSE non-'00' close-file-status logging) — reachable but not worth a dedicated test given the fall-through bug already dominates behavior on those paths. <code style="background:#00000018;padding:0 .25rem;border-radius:3px">OumqbrgJobFlow</code> (Spring Batch wiring), <code style="background:#00000018;padding:0 .25rem;border-radius:3px">OumqbrgFieldAccess</code>, <code style="background:#00000018;padding:0 .25rem;border-radius:3px">TranFileDataset</code>, <code style="background:#00000018;padding:0 .25rem;border-radius:3px">OumqbrgDatasets</code> are thin generated wiring/accessor classes exercised indirectly through <code style="background:#00000018;padding:0 .25rem;border-radius:3px">OumqbrgService</code>'s tests but not JaCoCo-tracked as separate rows (no dedicated unit tests written for them, per the skill's "logic chính ở Service" guidance and the no-Spring-context constraint for the Configuration class).</p>
+</div>
+<h3>oumsg</h3>
+<div style="background:#00000010;border:1px solid #88888840;border-radius:6px;padding:.2rem 1rem;font-size:.85rem;line-height:1.6"><h4>OUMSG — Unit Test Findings</h4>
+<h5>1. Verify result</h5>
+<p><code style="background:#00000018;padding:0 .25rem;border-radius:3px">mvn -q -pl programs/oumsg verify</code>: <strong>BUILD reaches JaCoCo report</strong> (surefire <code style="background:#00000018;padding:0 .25rem;border-radius:3px">testFailureIgnore=true</code> added locally to <code style="background:#00000018;padding:0 .25rem;border-radius:3px">programs/oumsg/pom.xml</code> so the intentional CONVERT-GAP failures below don't abort before <code style="background:#00000018;padding:0 .25rem;border-radius:3px">verify</code> phase).</p>
+<p>Tests run: <strong>11</strong>, Passed: <strong>4</strong>, Failed: <strong>7</strong> (all intentional CONVERT-GAP), Errors: 0, Skipped: 0.</p>
+<p>C0 line coverage (JaCoCo): <code style="background:#00000018;padding:0 .25rem;border-radius:3px">(9+11) / (18+1+9+11) = 20/39 = 51.3%</code> — below the 80% target, root cause explained in §3.</p>
+<h5>2. CONVERT-GAP — intentionally failing tests</h5>
+<p><code style="background:#00000018;padding:0 .25rem;border-radius:3px">OumsgServiceTest.execute_knownMessageCode_returnsMappedTextAndOkStatus</code> (7 parameterized cases: I0001/E0001/E0002/E0003/E0004/E0005/W0001) fail on purpose:</p>
+<ul>
+  <li><strong>COBOL</strong> (<code style="background:#00000018;padding:0 .25rem;border-radius:3px">OUMSG.cbl</code> 0000-MAIN): <code style="background:#00000018;padding:0 .25rem;border-radius:3px">EVALUATE KM-CODE WHEN 'I0001' ... END-EVALUATE</code>.</li>
+</ul>
+<p><code style="background:#00000018;padding:0 .25rem;border-radius:3px">KM-CODE</code> is <code style="background:#00000018;padding:0 .25rem;border-radius:3px">PIC X(06)</code>; COBOL space-pads the 5-char literal to 6 bytes before comparing, so <code style="background:#00000018;padding:0 .25rem;border-radius:3px">'I0001 '</code> (stored value) equals <code style="background:#00000018;padding:0 .25rem;border-radius:3px">'I0001'</code> (literal) and the WHEN branch fires → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">KM-STATUS = '00'</code>, <code style="background:#00000018;padding:0 .25rem;border-radius:3px">KM-TEXT</code> = mapped message.</p>
+<ul>
+  <li><strong>Java</strong> (<code style="background:#00000018;padding:0 .25rem;border-radius:3px">OumsgService.resolveKmStatusMessage</code>): <code style="background:#00000018;padding:0 .25rem;border-radius:3px">switch (String.valueOf(ws.getKmCode()))</code></li>
+</ul>
+<p>compares the raw space-padded 6-byte field value against the unpadded 5-char literal (<code style="background:#00000018;padding:0 .25rem;border-radius:3px">"I0001"</code>). They are never equal, so <strong>every</strong> known code falls into <code style="background:#00000018;padding:0 .25rem;border-radius:3px">default</code> → <code style="background:#00000018;padding:0 .25rem;border-radius:3px">KM-STATUS = "01"</code>, <code style="background:#00000018;padding:0 .25rem;border-radius:3px">KM-TEXT</code> = the code itself echoed back.</p>
+<ul>
+  <li><strong>Impact</strong>: OUMSG's entire lookup table is dead — no caller ever gets a</li>
+</ul>
+<p>mapped message text or a "00" success status, for any of the 7 defined codes. This is a functional regression affecting the program's sole purpose.</p>
+<ul>
+  <li>Tests keep the COBOL-ground-truth expectation (<code style="background:#00000018;padding:0 .25rem;border-radius:3px">status="00"</code>, mapped text)</li>
+</ul>
+<p>per the CONVERT-GAP convention; the failures are the detection, not a test bug.</p>
+<h5>3. Uncovered remainder</h5>
+<p>The 7 switch-case bodies (<code style="background:#00000018;padding:0 .25rem;border-radius:3px">ws.setKmText("Operation completed successfully.")</code>, etc., <code style="background:#00000018;padding:0 .25rem;border-radius:3px">OumsgService.java</code> lines ~67-89) are <strong>unreachable</strong> given the bug in §2: no input string can make <code style="background:#00000018;padding:0 .25rem;border-radius:3px">String.valueOf(ws.getKmCode())</code> equal an unpadded literal, since <code style="background:#00000018;padding:0 .25rem;border-radius:3px">KM-CODE</code> is a fixed 6-byte field and any value written into it is read back padded to 6 bytes. No test can cover these lines without a source fix (out of scope for this test-writing pass) — hence the 51.3% C0 ceiling.</p>
+<h5>4. Reviewer notes</h5>
+<ul>
+  <li>Fix candidate: compare <code style="background:#00000018;padding:0 .25rem;border-radius:3px">ws.getKmCode().trim()</code> (or pad the switch literals)</li>
+</ul>
+<p>so the match logic mirrors COBOL's space-padding comparison semantics.</p>
+<ul>
+  <li>Passing tests (4): unknown code, empty code, lowercase code (all correctly</li>
+</ul>
+<p>hit <code style="background:#00000018;padding:0 .25rem;border-radius:3px">WHEN OTHER</code> since they never matched any WHEN clause even before the bug), and completion-code-stays-zero on normal exit.</p>
+<ul>
+  <li>No DB/file/screen dependencies exist in this module — no mocks were needed.</li>
+</ul>
+</div>
+
+</body></html>

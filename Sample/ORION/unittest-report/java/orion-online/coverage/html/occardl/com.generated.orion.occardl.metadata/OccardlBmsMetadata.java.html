@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OccardlBmsMetadata.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCCARDL Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.occardl.metadata</a> &gt; <span class="el_source">OccardlBmsMetadata.java</span></div><h1>OccardlBmsMetadata.java</h1><pre class="source lang-java linenums">package com.generated.orion.occardl.metadata;
+
+import com.appruntime.AppRunner;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import java.util.*;
+
+/**
+ * BMS screen metadata for OCCARDL.
+ * Contains button definitions, FSET fields, and field mappings.
+ */
+<span class="nc" id="L12">public class OccardlBmsMetadata {</span>
+
+    public static List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="fc" id="L15">        return List.of(</span>
+            new ScreenResponse.ButtonDef(&quot;ENTER&quot;, &quot;ENTER=PROCESS&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF3&quot;, &quot;PF3=BACK&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF4&quot;, &quot;PF4=CLEAR&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF12&quot;, &quot;PF12&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;CLEAR&quot;, &quot;Clear&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF7&quot;, &quot;PF7&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF8&quot;, &quot;PF8&quot;, &quot;&quot;)
+        );
+    }
+
+    public static void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L27">        runner.registerFsetFields(&quot;MCARDLA&quot;, Set.of(&quot;ACCTID&quot;));</span>
+<span class="nc" id="L28">    }</span>
+
+    /** Danh sách BMS map của program (cho smoke test / tooling). */
+    public static List&lt;String&gt; getMapNames() {
+<span class="nc" id="L32">        return List.of(&quot;MCARDLA&quot;);</span>
+    }
+
+    /** Classpath resource của WORKING-STORAGE layout (FieldStore đọc lúc runtime). */
+    public static String getLayoutResource() {
+<span class="nc" id="L37">        return &quot;layout/OCCARDL_WS.xml&quot;;</span>
+    }
+
+    public static FieldMapping getFieldMapping(String mapName) {
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">        if (&quot;MCARDLA&quot;.equalsIgnoreCase(mapName)) {</span>
+<span class="fc" id="L42">            return FieldMapping.builder()</span>
+<span class="fc" id="L43">                .addDataIn(&quot;STAT1&quot;, &quot;stat1i&quot;)</span>
+<span class="fc" id="L44">                .addDataIn(&quot;STAT2&quot;, &quot;stat2i&quot;)</span>
+<span class="fc" id="L45">                .addDataIn(&quot;STAT3&quot;, &quot;stat3i&quot;)</span>
+<span class="fc" id="L46">                .addDataIn(&quot;CARD4&quot;, &quot;card4i&quot;)</span>
+<span class="fc" id="L47">                .addDataIn(&quot;CARD5&quot;, &quot;card5i&quot;)</span>
+<span class="fc" id="L48">                .addDataIn(&quot;CARD2&quot;, &quot;card2i&quot;)</span>
+<span class="fc" id="L49">                .addDataIn(&quot;CARD3&quot;, &quot;card3i&quot;)</span>
+<span class="fc" id="L50">                .addDataIn(&quot;CARD1&quot;, &quot;card1i&quot;)</span>
+<span class="fc" id="L51">                .addDataIn(&quot;TRNNAME&quot;, &quot;trnnamei&quot;)</span>
+<span class="fc" id="L52">                .addDataIn(&quot;ACCTID&quot;, &quot;acctidi&quot;)</span>
+<span class="fc" id="L53">                .addDataIn(&quot;ERRMSG&quot;, &quot;errmsgi&quot;)</span>
+<span class="fc" id="L54">                .addDataIn(&quot;CURTIME&quot;, &quot;curtimei&quot;)</span>
+<span class="fc" id="L55">                .addDataIn(&quot;STAT4&quot;, &quot;stat4i&quot;)</span>
+<span class="fc" id="L56">                .addDataIn(&quot;STAT5&quot;, &quot;stat5i&quot;)</span>
+<span class="fc" id="L57">                .addDataIn(&quot;TITLE&quot;, &quot;titlei&quot;)</span>
+<span class="fc" id="L58">                .addDataIn(&quot;PGMNAME&quot;, &quot;pgmnamei&quot;)</span>
+<span class="fc" id="L59">                .addDataIn(&quot;CURDATE&quot;, &quot;curdatei&quot;)</span>
+<span class="fc" id="L60">                .addDataOut(&quot;STAT1&quot;, &quot;stat1o&quot;)</span>
+<span class="fc" id="L61">                .addDataOut(&quot;STAT2&quot;, &quot;stat2o&quot;)</span>
+<span class="fc" id="L62">                .addDataOut(&quot;STAT3&quot;, &quot;stat3o&quot;)</span>
+<span class="fc" id="L63">                .addDataOut(&quot;CARD4&quot;, &quot;card4o&quot;)</span>
+<span class="fc" id="L64">                .addDataOut(&quot;CARD5&quot;, &quot;card5o&quot;)</span>
+<span class="fc" id="L65">                .addDataOut(&quot;CARD2&quot;, &quot;card2o&quot;)</span>
+<span class="fc" id="L66">                .addDataOut(&quot;CARD3&quot;, &quot;card3o&quot;)</span>
+<span class="fc" id="L67">                .addDataOut(&quot;CARD1&quot;, &quot;card1o&quot;)</span>
+<span class="fc" id="L68">                .addDataOut(&quot;TRNNAME&quot;, &quot;trnnameo&quot;)</span>
+<span class="fc" id="L69">                .addDataOut(&quot;ACCTID&quot;, &quot;acctido&quot;)</span>
+<span class="fc" id="L70">                .addDataOut(&quot;ERRMSG&quot;, &quot;errmsgo&quot;)</span>
+<span class="fc" id="L71">                .addDataOut(&quot;CURTIME&quot;, &quot;curtimeo&quot;)</span>
+<span class="fc" id="L72">                .addDataOut(&quot;STAT4&quot;, &quot;stat4o&quot;)</span>
+<span class="fc" id="L73">                .addDataOut(&quot;STAT5&quot;, &quot;stat5o&quot;)</span>
+<span class="fc" id="L74">                .addDataOut(&quot;TITLE&quot;, &quot;titleo&quot;)</span>
+<span class="fc" id="L75">                .addDataOut(&quot;PGMNAME&quot;, &quot;pgmnameo&quot;)</span>
+<span class="fc" id="L76">                .addDataOut(&quot;CURDATE&quot;, &quot;curdateo&quot;)</span>
+<span class="fc" id="L77">                .addAttr(&quot;STAT1&quot;, &quot;stat1a&quot;)</span>
+<span class="fc" id="L78">                .addAttr(&quot;STAT2&quot;, &quot;stat2a&quot;)</span>
+<span class="fc" id="L79">                .addAttr(&quot;STAT3&quot;, &quot;stat3a&quot;)</span>
+<span class="fc" id="L80">                .addAttr(&quot;CARD4&quot;, &quot;card4a&quot;)</span>
+<span class="fc" id="L81">                .addAttr(&quot;CARD5&quot;, &quot;card5a&quot;)</span>
+<span class="fc" id="L82">                .addAttr(&quot;CARD2&quot;, &quot;card2a&quot;)</span>
+<span class="fc" id="L83">                .addAttr(&quot;CARD3&quot;, &quot;card3a&quot;)</span>
+<span class="fc" id="L84">                .addAttr(&quot;CARD1&quot;, &quot;card1a&quot;)</span>
+<span class="fc" id="L85">                .addAttr(&quot;TRNNAME&quot;, &quot;trnnamea&quot;)</span>
+<span class="fc" id="L86">                .addAttr(&quot;ACCTID&quot;, &quot;acctida&quot;)</span>
+<span class="fc" id="L87">                .addAttr(&quot;ERRMSG&quot;, &quot;errmsga&quot;)</span>
+<span class="fc" id="L88">                .addAttr(&quot;CURTIME&quot;, &quot;curtimea&quot;)</span>
+<span class="fc" id="L89">                .addAttr(&quot;STAT4&quot;, &quot;stat4a&quot;)</span>
+<span class="fc" id="L90">                .addAttr(&quot;STAT5&quot;, &quot;stat5a&quot;)</span>
+<span class="fc" id="L91">                .addAttr(&quot;TITLE&quot;, &quot;titlea&quot;)</span>
+<span class="fc" id="L92">                .addAttr(&quot;PGMNAME&quot;, &quot;pgmnamea&quot;)</span>
+<span class="fc" id="L93">                .addAttr(&quot;CURDATE&quot;, &quot;curdatea&quot;)</span>
+<span class="fc" id="L94">                .addLength(&quot;STAT1&quot;, &quot;stat1l&quot;)</span>
+<span class="fc" id="L95">                .addLength(&quot;STAT2&quot;, &quot;stat2l&quot;)</span>
+<span class="fc" id="L96">                .addLength(&quot;STAT3&quot;, &quot;stat3l&quot;)</span>
+<span class="fc" id="L97">                .addLength(&quot;CARD4&quot;, &quot;card4l&quot;)</span>
+<span class="fc" id="L98">                .addLength(&quot;CARD5&quot;, &quot;card5l&quot;)</span>
+<span class="fc" id="L99">                .addLength(&quot;CARD2&quot;, &quot;card2l&quot;)</span>
+<span class="fc" id="L100">                .addLength(&quot;CARD3&quot;, &quot;card3l&quot;)</span>
+<span class="fc" id="L101">                .addLength(&quot;CARD1&quot;, &quot;card1l&quot;)</span>
+<span class="fc" id="L102">                .addLength(&quot;TRNNAME&quot;, &quot;trnnamel&quot;)</span>
+<span class="fc" id="L103">                .addLength(&quot;ACCTID&quot;, &quot;acctidl&quot;)</span>
+<span class="fc" id="L104">                .addLength(&quot;ERRMSG&quot;, &quot;errmsgl&quot;)</span>
+<span class="fc" id="L105">                .addLength(&quot;CURTIME&quot;, &quot;curtimel&quot;)</span>
+<span class="fc" id="L106">                .addLength(&quot;STAT4&quot;, &quot;stat4l&quot;)</span>
+<span class="fc" id="L107">                .addLength(&quot;STAT5&quot;, &quot;stat5l&quot;)</span>
+<span class="fc" id="L108">                .addLength(&quot;TITLE&quot;, &quot;titlel&quot;)</span>
+<span class="fc" id="L109">                .addLength(&quot;PGMNAME&quot;, &quot;pgmnamel&quot;)</span>
+<span class="fc" id="L110">                .addLength(&quot;CURDATE&quot;, &quot;curdatel&quot;)</span>
+<span class="fc" id="L111">                .build();</span>
+        }
+<span class="nc" id="L113">        return FieldMapping.empty();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

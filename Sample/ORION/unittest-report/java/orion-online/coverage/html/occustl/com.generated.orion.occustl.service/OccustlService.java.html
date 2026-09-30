@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OccustlService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCCUSTL Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.occustl.service</a> &gt; <span class="el_source">OccustlService.java</span></div><h1>OccustlService.java</h1><pre class="source lang-java linenums">package com.generated.orion.occustl.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.RuntimeConstants;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.common.linkage.OccustlLinkParm;
+import com.generated.orion.occustl.accessor.OccustlFields;
+import com.generated.orion.occustl.metadata.OccustlBmsMetadata;
+import com.generated.orion.occustl.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OCCUSTL. */
+@Service
+<span class="nc" id="L23">public class OccustlService implements AppProgram {</span>
+<span class="nc" id="L24">    private static final Logger log = LoggerFactory.getLogger(OccustlService.class);</span>
+
+    private static final int COMMAREA_LENGTH = 692;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L34">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc" id="L35">        executeMainFlow(ctx);</span>
+<span class="nc" id="L36">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L40">        return &quot;OCCUSTL&quot;;</span>
+    }
+
+    @Override
+    public String getTransId() {
+<span class="nc" id="L45">        return &quot;ORLC&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L50">        return OccustlBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L55">        OccustlBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L56">    }</span>
+
+    @Override
+    public FieldMapping getFieldMapping(String mapName) {
+<span class="nc" id="L60">        return OccustlBmsMetadata.getFieldMapping(mapName);</span>
+    }
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void executeMainFlow(TaskContext ctx) {
+<span class="nc" id="L65">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L66">        ctx.f.setCaErrMsg(&quot; &quot;);</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        if (ctx.appService.getEibcalen() == 0) {</span>
+<span class="nc" id="L68">            ctx.f.setOrionCommarea(&quot;&quot;);</span>
+<span class="nc" id="L69">            sendInitialScreen(ctx);</span>
+        } else {
+<span class="nc" id="L71">            ctx.f.setOrionCommarea(Utility.groupToString(ctx.appService.getSerializedCommarea()));</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (ctx.f.getCaPgmContext() == 0) {</span>
+<span class="nc" id="L73">                sendInitialScreen(ctx);</span>
+            } else {
+<span class="nc" id="L75">                dispatchUserInput(ctx);</span>
+            }
+        }
+<span class="nc" id="L78">        returnToCics(ctx);</span>
+<span class="nc" id="L79">    }</span>
+
+    /** COBOL paragraph: 1000-SEND-INITIAL */
+    private void sendInitialScreen(TaskContext ctx) {
+<span class="nc" id="L83">        ctx.f.fillLowValues(&quot;MCUSTLAO&quot;);</span>
+<span class="nc" id="L84">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L85">        clearCustomerRows(ctx);</span>
+<span class="nc" id="L86">        ctx.f.setWsNextStart(0);</span>
+<span class="nc" id="L87">        ctx.f.setCaWorkArea(</span>
+<span class="nc" id="L88">                Utility.setSubstring(</span>
+<span class="nc" id="L89">                        String.valueOf(ctx.f.getCaWorkArea()),</span>
+                        1,
+                        9,
+<span class="nc" id="L92">                        String.valueOf(ctx.f.getWsNextStart())));</span>
+<span class="nc" id="L93">        ctx.f.setErrmsgo(ctx.f.getWsMPrompt());</span>
+<span class="nc" id="L94">        ctx.f.setFrcustl((short) -1);</span>
+<span class="nc" id="L95">        ctx.appService.sendMap(</span>
+                &quot;MCUSTLA&quot;, ctx.f, ctx.f, /* erase */ true, /* freekb */ false, /* cursor */ true);
+<span class="nc" id="L97">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L98">        ctx.f.setCaPgmContext(1);</span>
+<span class="nc" id="L99">    }</span>
+
+    /** COBOL paragraph: 2000-PROCESS-INPUT */
+    private void dispatchUserInput(TaskContext ctx) {
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;3&quot;)) {</span>
+<span class="nc" id="L104">            transferToMenuProgram(ctx);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;4&quot;)) {</span>
+<span class="nc" id="L106">            sendInitialScreen(ctx);</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;8&quot;)) {</span>
+<span class="nc" id="L108">            pageForwardList(ctx);</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;'&quot;)) {</span>
+<span class="nc" id="L110">            listCustomersFromStart(ctx);</span>
+        } else {
+<span class="nc" id="L112">            sendInitialScreen(ctx);</span>
+<span class="nc" id="L113">            ctx.f.setErrmsgo(ctx.f.getWsMsgInvalidKey());</span>
+<span class="nc" id="L114">            sendDataOnlyScreen(ctx);</span>
+        }
+<span class="nc" id="L116">    }</span>
+
+    /** COBOL paragraph: 2100-LIST-FROM-START */
+    private void listCustomersFromStart(TaskContext ctx) {
+<span class="nc" id="L120">        ctx.appService.receiveMap(&quot;MCUSTLA&quot;, ctx.f);</span>
+<span class="nc" id="L121">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 36) {</span>
+<span class="nc" id="L123">            ctx.f.fillLowValues(&quot;MCUSTLAI&quot;);</span>
+        }
+<span class="nc" id="L125">        ctx.f.setWsNcIn(ctx.f.getFrcusti());</span>
+<span class="nc" id="L126">        ctx.f.setWsNcIn(</span>
+<span class="nc" id="L127">                String.valueOf(ctx.f.getWsNcIn())</span>
+<span class="nc" id="L128">                        .replace(String.valueOf(RuntimeConstants.LOW_VALUES), String.valueOf(&quot; &quot;)));</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getWsNcIn(), &quot; &quot;)) {</span>
+<span class="nc" id="L130">            ctx.f.setWsPageStart(0);</span>
+        } else {
+<span class="nc" id="L132">            ctx.f.setWsNcLen(9);</span>
+<span class="nc" id="L133">            parseNumericStartKey(ctx);</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">            if (ctx.f.getWsValidSw().equals(&quot;N&quot;)) {</span>
+<span class="nc" id="L135">                ctx.f.setErrmsgo(ctx.f.getWsMBadStart());</span>
+<span class="nc" id="L136">                ctx.f.setFrcustl((short) -1);</span>
+<span class="nc" id="L137">                sendDataOnlyScreen(ctx);</span>
+<span class="nc" id="L138">                return;</span>
+            }
+<span class="nc" id="L140">            ctx.f.setWsPageStart(Utility.toCobolInt(ctx.f.getWsNcValue(), 9));</span>
+        }
+<span class="nc" id="L142">        browseCustomerPage(ctx);</span>
+<span class="nc" id="L143">        buildRowCountSummary(ctx);</span>
+<span class="nc" id="L144">        ctx.f.setFrcustl((short) -1);</span>
+<span class="nc" id="L145">        sendDataOnlyScreen(ctx);</span>
+<span class="nc" id="L146">    }</span>
+
+    /** COBOL paragraph: 2200-PAGE-FWD */
+    private void pageForwardList(TaskContext ctx) {
+<span class="nc bnc" id="L150" title="All 2 branches missed.">        if (Utility.isNumeric(</span>
+<span class="nc" id="L151">                String.valueOf(</span>
+<span class="nc" id="L152">                        Utility.padRight(String.valueOf(ctx.f.getCaWorkArea()), 9)</span>
+<span class="nc" id="L153">                                .substring(0, 9)))) {</span>
+<span class="nc" id="L154">            ctx.f.setWsPageStart(</span>
+<span class="nc" id="L155">                    Utility.parseNumeric(</span>
+<span class="nc" id="L156">                                    Utility.padRight(String.valueOf(ctx.f.getCaWorkArea()), 9)</span>
+<span class="nc" id="L157">                                            .substring(0, 9))</span>
+<span class="nc" id="L158">                            .intValue());</span>
+        } else {
+<span class="nc" id="L160">            ctx.f.setWsPageStart(0);</span>
+        }
+<span class="nc" id="L162">        browseCustomerPage(ctx);</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">        if (ctx.f.getWsRowCnt() == 0) {</span>
+<span class="nc" id="L164">            ctx.f.setErrmsgo(ctx.f.getWsMEndFile());</span>
+        } else {
+<span class="nc" id="L166">            buildRowCountSummary(ctx);</span>
+        }
+<span class="nc" id="L168">        ctx.f.setFrcustl((short) -1);</span>
+<span class="nc" id="L169">        sendDataOnlyScreen(ctx);</span>
+<span class="nc" id="L170">    }</span>
+
+    /** COBOL paragraph: 2300-BUILD-SUMMARY */
+    private void buildRowCountSummary(TaskContext ctx) {
+<span class="nc bnc" id="L174" title="All 2 branches missed.">        if (ctx.f.getWsRowCnt() == 0) {</span>
+<span class="nc" id="L175">            ctx.f.setErrmsgo(ctx.f.getWsMNoneFound());</span>
+        } else {
+<span class="nc" id="L177">            ctx.f.setWsCntEd(ctx.f.getWsRowCnt());</span>
+<span class="nc" id="L178">            ctx.f.setErrmsgo(&quot; &quot;);</span>
+            {
+<span class="nc" id="L180">                StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L181">                sb.append(String.valueOf(ctx.f.getString(&quot;WS-CNT-ED&quot;)));</span>
+<span class="nc" id="L182">                sb.append(String.valueOf(ctx.f.getWsMSuffix()));</span>
+<span class="nc" id="L183">                ctx.f.setErrmsgo(sb.toString());</span>
+            }
+        }
+<span class="nc" id="L186">    }</span>
+
+    /** COBOL paragraph: 3000-BROWSE-PAGE */
+    private void browseCustomerPage(TaskContext ctx) {
+<span class="nc" id="L190">        ctx.f.setWsRowCnt(0);</span>
+<span class="nc" id="L191">        ctx.f.setWsEndFlg(&quot;N&quot;);</span>
+<span class="nc" id="L192">        ctx.f.setString(&quot;WS-BROWSE-STARTED&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L193">        clearCustomerRows(ctx);</span>
+<span class="nc" id="L194">        startCustomerBrowse(ctx);</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">        if (ctx.f.getWsBrowseStarted().equals(&quot;Y&quot;)) {</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">            while (!(ctx.f.getWsEndFlg().equals(&quot;Y&quot;)</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">                    || ctx.f.getWsRowCnt() &gt;= ctx.f.getWsMaxRows())) {</span>
+<span class="nc" id="L198">                readNextCustomerRow(ctx);</span>
+            }
+<span class="nc" id="L200">            endCustomerBrowse(ctx);</span>
+        }
+<span class="nc bnc" id="L202" title="All 2 branches missed.">        if (ctx.f.getWsRowCnt() &gt; 0) {</span>
+<span class="nc" id="L203">            ctx.f.setWsNextStart((ctx.f.getWsLastKey() + 1));</span>
+<span class="nc" id="L204">            ctx.f.setCaWorkArea(</span>
+<span class="nc" id="L205">                    Utility.setSubstring(</span>
+<span class="nc" id="L206">                            String.valueOf(ctx.f.getCaWorkArea()),</span>
+                            1,
+                            9,
+<span class="nc" id="L209">                            String.valueOf(ctx.f.getWsNextStart())));</span>
+        }
+<span class="nc" id="L211">    }</span>
+
+    /** COBOL paragraph: 3050-CLEAR-ROWS */
+    private void clearCustomerRows(TaskContext ctx) {
+<span class="nc" id="L215">        ctx.f.setCul1o(&quot; &quot;);</span>
+<span class="nc" id="L216">        ctx.f.setCun1o(&quot; &quot;);</span>
+<span class="nc" id="L217">        ctx.f.setCuf1o(&quot; &quot;);</span>
+<span class="nc" id="L218">        ctx.f.setCul2o(&quot; &quot;);</span>
+<span class="nc" id="L219">        ctx.f.setCun2o(&quot; &quot;);</span>
+<span class="nc" id="L220">        ctx.f.setCuf2o(&quot; &quot;);</span>
+<span class="nc" id="L221">        ctx.f.setCul3o(&quot; &quot;);</span>
+<span class="nc" id="L222">        ctx.f.setCun3o(&quot; &quot;);</span>
+<span class="nc" id="L223">        ctx.f.setCuf3o(&quot; &quot;);</span>
+<span class="nc" id="L224">        ctx.f.setCul4o(&quot; &quot;);</span>
+<span class="nc" id="L225">        ctx.f.setCun4o(&quot; &quot;);</span>
+<span class="nc" id="L226">        ctx.f.setCuf4o(&quot; &quot;);</span>
+<span class="nc" id="L227">    }</span>
+
+    /** COBOL paragraph: 3100-START-BROWSE */
+    private void startCustomerBrowse(TaskContext ctx) {
+<span class="nc" id="L231">        ctx.f.setCuId(ctx.f.getWsPageStart());</span>
+<span class="nc" id="L232">        ctx.appService.startBrowse(ctx.f.getWsCustfile(), String.valueOf(ctx.f.getCuId()), 0);</span>
+<span class="nc" id="L233">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L234" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L235">            ctx.f.setString(&quot;WS-BROWSE-STARTED&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L236" title="All 4 branches missed.">        } else if (ctx.f.getWsRespCd() == 13 || ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L237">            ctx.f.setString(&quot;WS-BROWSE-STARTED&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L238">            ctx.f.setString(&quot;WS-END-FLG&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L240">            ctx.f.setString(&quot;WS-BROWSE-STARTED&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L241">            ctx.f.setString(&quot;WS-END-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L242">            ctx.f.setErrmsgo(ctx.f.getWsMBrowseErr());</span>
+        }
+<span class="nc" id="L244">    }</span>
+
+    /** COBOL paragraph: 3200-READ-NEXT */
+    private void readNextCustomerRow(TaskContext ctx) {
+<span class="nc" id="L248">        ctx.appService.readNext(ctx.f.getWsCustfile(), ctx.f);</span>
+<span class="nc" id="L249">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L250" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L251">            ctx.f.setWsRowCnt(ctx.f.getWsRowCnt() + 1);</span>
+<span class="nc" id="L252">            ctx.f.setWsLastKey(ctx.f.getCuId());</span>
+<span class="nc" id="L253">            populateCustomerRow(ctx);</span>
+<span class="nc bnc" id="L254" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L255">            ctx.f.setString(&quot;WS-END-FLG&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L257">            ctx.f.setString(&quot;WS-END-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L258">            ctx.f.setErrmsgo(ctx.f.getWsMBrowseErr());</span>
+        }
+<span class="nc" id="L260">    }</span>
+
+    /** COBOL paragraph: 3300-END-BROWSE */
+    private void endCustomerBrowse(TaskContext ctx) {
+<span class="nc" id="L264">        ctx.appService.endBrowse(ctx.f.getWsCustfile());</span>
+<span class="nc" id="L265">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L266">    }</span>
+
+    /** COBOL paragraph: 4000-MOVE-ROW */
+    private void populateCustomerRow(TaskContext ctx) {
+<span class="nc" id="L270">        ctx.f.setWsNameLine(&quot; &quot;);</span>
+        {
+<span class="nc" id="L272">            StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L273">            sb.append(String.valueOf(ctx.f.getCuLastName()).split(String.valueOf(&quot;  &quot;), 2)[0]);</span>
+<span class="nc" id="L274">            sb.append(String.valueOf(&quot;, &quot;));</span>
+<span class="nc" id="L275">            sb.append(String.valueOf(ctx.f.getCuFirstName()).split(String.valueOf(&quot;  &quot;), 2)[0]);</span>
+<span class="nc" id="L276">            ctx.f.setWsNameLine(sb.toString());</span>
+        }
+<span class="nc bnc" id="L278" title="All 5 branches missed.">        switch (ctx.f.getWsRowCnt()) {</span>
+            case 1 -&gt; {
+<span class="nc" id="L280">                ctx.f.setCul1o(String.format(&quot;%09d&quot;, ctx.f.getCuId()));</span>
+<span class="nc" id="L281">                ctx.f.setCun1o(ctx.f.getWsNameLine());</span>
+<span class="nc" id="L282">                ctx.f.setCuf1o(String.format(&quot;%03d&quot;, ctx.f.getCuFicoScore()));</span>
+<span class="nc" id="L283">            }</span>
+            case 2 -&gt; {
+<span class="nc" id="L285">                ctx.f.setCul2o(String.format(&quot;%09d&quot;, ctx.f.getCuId()));</span>
+<span class="nc" id="L286">                ctx.f.setCun2o(ctx.f.getWsNameLine());</span>
+<span class="nc" id="L287">                ctx.f.setCuf2o(String.format(&quot;%03d&quot;, ctx.f.getCuFicoScore()));</span>
+<span class="nc" id="L288">            }</span>
+            case 3 -&gt; {
+<span class="nc" id="L290">                ctx.f.setCul3o(String.format(&quot;%09d&quot;, ctx.f.getCuId()));</span>
+<span class="nc" id="L291">                ctx.f.setCun3o(ctx.f.getWsNameLine());</span>
+<span class="nc" id="L292">                ctx.f.setCuf3o(String.format(&quot;%03d&quot;, ctx.f.getCuFicoScore()));</span>
+<span class="nc" id="L293">            }</span>
+            case 4 -&gt; {
+<span class="nc" id="L295">                ctx.f.setCul4o(String.format(&quot;%09d&quot;, ctx.f.getCuId()));</span>
+<span class="nc" id="L296">                ctx.f.setCun4o(ctx.f.getWsNameLine());</span>
+<span class="nc" id="L297">                ctx.f.setCuf4o(String.format(&quot;%03d&quot;, ctx.f.getCuFicoScore()));</span>
+<span class="nc" id="L298">            }</span>
+            default -&gt; {
+                /* CONTINUE */
+            }
+        }
+<span class="nc" id="L303">    }</span>
+
+    /** COBOL paragraph: 6000-PARSE-NUM */
+    private void parseNumericStartKey(TaskContext ctx) {
+<span class="nc" id="L307">        ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L308">        ctx.f.setWsNcValue(0);</span>
+<span class="nc" id="L309">        ctx.f.setWsNcDigits(0);</span>
+<span class="nc" id="L310">        ctx.f.setWsNcIn(</span>
+<span class="nc" id="L311">                String.valueOf(ctx.f.getWsNcIn())</span>
+<span class="nc" id="L312">                        .replace(String.valueOf(RuntimeConstants.LOW_VALUES), String.valueOf(&quot; &quot;)));</span>
+<span class="nc" id="L313">        for (ctx.f.setWsNcPos(1);</span>
+<span class="nc bnc" id="L314" title="All 2 branches missed.">                ctx.f.getWsNcPos() &lt;= ctx.f.getWsNcLen();</span>
+<span class="nc" id="L315">                ctx.f.setWsNcPos(ctx.f.getWsNcPos() + 1)) {</span>
+<span class="nc" id="L316">            ctx.f.setWsNcChar(</span>
+<span class="nc" id="L317">                    Utility.padRight(String.valueOf(ctx.f.getWsNcIn()), 256)</span>
+<span class="nc" id="L318">                            .substring(ctx.f.getWsNcPos() - 1, ctx.f.getWsNcPos() - 1 + 1));</span>
+<span class="nc bnc" id="L319" title="All 2 branches missed.">            if (Utility.fieldEquals(ctx.f.getWsNcChar(), &quot; &quot;)) {</span>
+                /* CONTINUE */
+<span class="nc bnc" id="L321" title="All 2 branches missed.">            } else if ((ctx.f.getWsNcChar().compareTo(&quot;0&quot;) &gt;= 0)</span>
+<span class="nc bnc" id="L322" title="All 2 branches missed.">                    &amp;&amp; (ctx.f.getWsNcChar().compareTo(&quot;9&quot;) &lt;= 0)) {</span>
+<span class="nc" id="L323">                ctx.f.setWsNcDigit(Utility.parseNumeric(ctx.f.getWsNcChar()).intValue());</span>
+<span class="nc" id="L324">                ctx.f.setWsNcValue(((ctx.f.getWsNcValue() * (long) 10) + ctx.f.getWsNcDigit()));</span>
+<span class="nc" id="L325">                ctx.f.setWsNcDigits(ctx.f.getWsNcDigits() + 1);</span>
+            } else {
+<span class="nc" id="L327">                ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+            }
+        }
+<span class="nc bnc" id="L330" title="All 2 branches missed.">        if (ctx.f.getWsNcDigits() == 0) {</span>
+<span class="nc" id="L331">            ctx.f.setString(&quot;WS-VALID-SW&quot;, &quot;N&quot;);</span>
+        }
+<span class="nc" id="L333">    }</span>
+
+    /** COBOL paragraph: 7000-XCTL-MENU */
+    private void transferToMenuProgram(TaskContext ctx) {
+<span class="nc" id="L337">        ctx.f.setCaFromProgram(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L338">        ctx.f.setCaFromTranid(ctx.f.getWsTranid());</span>
+<span class="nc" id="L339">        ctx.f.setCaPgmContext(0);</span>
+<span class="nc" id="L340">        ctx.appService.xctl(</span>
+<span class="nc" id="L341">                ctx.f.getWsMenuPgm(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L342">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L343">    }</span>
+
+    /** COBOL paragraph: 8000-POPULATE-HEADER */
+    private void populateScreenHeader(TaskContext ctx) {
+<span class="nc" id="L347">        ctx.f.setTrnnameo(ctx.f.getWsTranid());</span>
+<span class="nc" id="L348">        ctx.f.setPgmnameo(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L349">        ctx.f.setTitleo(ctx.f.getWsHdrTitle());</span>
+<span class="nc" id="L350">        refreshHeaderDateTime(ctx);</span>
+<span class="nc" id="L351">        ctx.f.setCurdateo(ctx.f.getWsHdrDate());</span>
+<span class="nc" id="L352">        ctx.f.setCurtimeo(ctx.f.getWsHdrTime());</span>
+<span class="nc" id="L353">    }</span>
+
+    /** COBOL paragraph: 8100-SEND-DATAONLY */
+    private void sendDataOnlyScreen(TaskContext ctx) {
+<span class="nc" id="L357">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L358">        ctx.appService.sendMap(</span>
+                &quot;MCUSTLA&quot;, ctx.f, ctx.f, /* erase */ false, /* freekb */ false, /* cursor */ true);
+<span class="nc" id="L360">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L361">    }</span>
+
+    /** COBOL paragraph: 8500-GET-DATE-TIME */
+    private void refreshHeaderDateTime(TaskContext ctx) {
+<span class="nc" id="L365">        ctx.appService.askTime();</span>
+<span class="nc" id="L366">        com.appruntime.FormatTimeResult _ftResult =</span>
+<span class="nc" id="L367">                ctx.appService.formatTime(null, &quot;YYYYMMDD&quot;, &quot;-&quot;, &quot;:&quot;);</span>
+<span class="nc" id="L368">        ctx.f.setWsHdrDate(_ftResult.getDate());</span>
+<span class="nc" id="L369">        ctx.f.setWsHdrTime(_ftResult.getTime());</span>
+<span class="nc" id="L370">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L371">    }</span>
+
+    /** COBOL paragraph: 9000-RETURN */
+    private void returnToCics(TaskContext ctx) {
+<span class="nc" id="L375">        ctx.appService.returnTransid(</span>
+<span class="nc" id="L376">                ctx.f.getWsTranid(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L377">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OccustlFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L390">        final OccustlLinkParm link = new OccustlLinkParm();</span>
+
+<span class="nc" id="L392">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L393">            this.appService = appService;</span>
+<span class="nc" id="L394">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L395">            this.f = new OccustlFields(ws);</span>
+<span class="nc" id="L396">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

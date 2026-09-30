@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OcacctlBmsMetadata.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCACCTL Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ocacctl.metadata</a> &gt; <span class="el_source">OcacctlBmsMetadata.java</span></div><h1>OcacctlBmsMetadata.java</h1><pre class="source lang-java linenums">package com.generated.orion.ocacctl.metadata;
+
+import com.appruntime.AppRunner;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import java.util.*;
+
+/**
+ * BMS screen metadata for OCACCTL.
+ * Contains button definitions, FSET fields, and field mappings.
+ */
+<span class="nc" id="L12">public class OcacctlBmsMetadata {</span>
+
+    public static List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L15">        return List.of(</span>
+            new ScreenResponse.ButtonDef(&quot;ENTER&quot;, &quot;ENTER=PROCESS&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF3&quot;, &quot;PF3=BACK&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF4&quot;, &quot;PF4=CLEAR&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF8&quot;, &quot;PF8&quot;, &quot;&quot;)
+        );
+    }
+
+    public static void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L24">        runner.registerFsetFields(&quot;MACCTLA&quot;, Set.of(&quot;FRACCT&quot;));</span>
+<span class="nc" id="L25">    }</span>
+
+    /** Danh sách BMS map của program (cho smoke test / tooling). */
+    public static List&lt;String&gt; getMapNames() {
+<span class="nc" id="L29">        return List.of(&quot;MACCTLA&quot;);</span>
+    }
+
+    /** Classpath resource của WORKING-STORAGE layout (FieldStore đọc lúc runtime). */
+    public static String getLayoutResource() {
+<span class="nc" id="L34">        return &quot;layout/OCACCTL_WS.xml&quot;;</span>
+    }
+
+    public static FieldMapping getFieldMapping(String mapName) {
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if (&quot;MACCTLA&quot;.equalsIgnoreCase(mapName)) {</span>
+<span class="nc" id="L39">            return FieldMapping.builder()</span>
+<span class="nc" id="L40">                .addDataIn(&quot;FRACCT&quot;, &quot;fraccti&quot;)</span>
+<span class="nc" id="L41">                .addDataIn(&quot;ACB4&quot;, &quot;acb4i&quot;)</span>
+<span class="nc" id="L42">                .addDataIn(&quot;ACB5&quot;, &quot;acb5i&quot;)</span>
+<span class="nc" id="L43">                .addDataIn(&quot;ACB2&quot;, &quot;acb2i&quot;)</span>
+<span class="nc" id="L44">                .addDataIn(&quot;ACB3&quot;, &quot;acb3i&quot;)</span>
+<span class="nc" id="L45">                .addDataIn(&quot;ACB1&quot;, &quot;acb1i&quot;)</span>
+<span class="nc" id="L46">                .addDataIn(&quot;TRNNAME&quot;, &quot;trnnamei&quot;)</span>
+<span class="nc" id="L47">                .addDataIn(&quot;ACL4&quot;, &quot;acl4i&quot;)</span>
+<span class="nc" id="L48">                .addDataIn(&quot;ERRMSG&quot;, &quot;errmsgi&quot;)</span>
+<span class="nc" id="L49">                .addDataIn(&quot;CURTIME&quot;, &quot;curtimei&quot;)</span>
+<span class="nc" id="L50">                .addDataIn(&quot;ACL5&quot;, &quot;acl5i&quot;)</span>
+<span class="nc" id="L51">                .addDataIn(&quot;ACL2&quot;, &quot;acl2i&quot;)</span>
+<span class="nc" id="L52">                .addDataIn(&quot;ACL3&quot;, &quot;acl3i&quot;)</span>
+<span class="nc" id="L53">                .addDataIn(&quot;ACL1&quot;, &quot;acl1i&quot;)</span>
+<span class="nc" id="L54">                .addDataIn(&quot;TITLE&quot;, &quot;titlei&quot;)</span>
+<span class="nc" id="L55">                .addDataIn(&quot;ACS5&quot;, &quot;acs5i&quot;)</span>
+<span class="nc" id="L56">                .addDataIn(&quot;ACS3&quot;, &quot;acs3i&quot;)</span>
+<span class="nc" id="L57">                .addDataIn(&quot;PGMNAME&quot;, &quot;pgmnamei&quot;)</span>
+<span class="nc" id="L58">                .addDataIn(&quot;ACS4&quot;, &quot;acs4i&quot;)</span>
+<span class="nc" id="L59">                .addDataIn(&quot;CURDATE&quot;, &quot;curdatei&quot;)</span>
+<span class="nc" id="L60">                .addDataIn(&quot;ACS1&quot;, &quot;acs1i&quot;)</span>
+<span class="nc" id="L61">                .addDataIn(&quot;ACS2&quot;, &quot;acs2i&quot;)</span>
+<span class="nc" id="L62">                .addDataOut(&quot;FRACCT&quot;, &quot;fraccto&quot;)</span>
+<span class="nc" id="L63">                .addDataOut(&quot;ACB4&quot;, &quot;acb4o&quot;)</span>
+<span class="nc" id="L64">                .addDataOut(&quot;ACB5&quot;, &quot;acb5o&quot;)</span>
+<span class="nc" id="L65">                .addDataOut(&quot;ACB2&quot;, &quot;acb2o&quot;)</span>
+<span class="nc" id="L66">                .addDataOut(&quot;ACB3&quot;, &quot;acb3o&quot;)</span>
+<span class="nc" id="L67">                .addDataOut(&quot;ACB1&quot;, &quot;acb1o&quot;)</span>
+<span class="nc" id="L68">                .addDataOut(&quot;TRNNAME&quot;, &quot;trnnameo&quot;)</span>
+<span class="nc" id="L69">                .addDataOut(&quot;ACL4&quot;, &quot;acl4o&quot;)</span>
+<span class="nc" id="L70">                .addDataOut(&quot;ERRMSG&quot;, &quot;errmsgo&quot;)</span>
+<span class="nc" id="L71">                .addDataOut(&quot;CURTIME&quot;, &quot;curtimeo&quot;)</span>
+<span class="nc" id="L72">                .addDataOut(&quot;ACL5&quot;, &quot;acl5o&quot;)</span>
+<span class="nc" id="L73">                .addDataOut(&quot;ACL2&quot;, &quot;acl2o&quot;)</span>
+<span class="nc" id="L74">                .addDataOut(&quot;ACL3&quot;, &quot;acl3o&quot;)</span>
+<span class="nc" id="L75">                .addDataOut(&quot;ACL1&quot;, &quot;acl1o&quot;)</span>
+<span class="nc" id="L76">                .addDataOut(&quot;TITLE&quot;, &quot;titleo&quot;)</span>
+<span class="nc" id="L77">                .addDataOut(&quot;ACS5&quot;, &quot;acs5o&quot;)</span>
+<span class="nc" id="L78">                .addDataOut(&quot;ACS3&quot;, &quot;acs3o&quot;)</span>
+<span class="nc" id="L79">                .addDataOut(&quot;PGMNAME&quot;, &quot;pgmnameo&quot;)</span>
+<span class="nc" id="L80">                .addDataOut(&quot;ACS4&quot;, &quot;acs4o&quot;)</span>
+<span class="nc" id="L81">                .addDataOut(&quot;CURDATE&quot;, &quot;curdateo&quot;)</span>
+<span class="nc" id="L82">                .addDataOut(&quot;ACS1&quot;, &quot;acs1o&quot;)</span>
+<span class="nc" id="L83">                .addDataOut(&quot;ACS2&quot;, &quot;acs2o&quot;)</span>
+<span class="nc" id="L84">                .addAttr(&quot;FRACCT&quot;, &quot;fraccta&quot;)</span>
+<span class="nc" id="L85">                .addAttr(&quot;ACB4&quot;, &quot;acb4a&quot;)</span>
+<span class="nc" id="L86">                .addAttr(&quot;ACB5&quot;, &quot;acb5a&quot;)</span>
+<span class="nc" id="L87">                .addAttr(&quot;ACB2&quot;, &quot;acb2a&quot;)</span>
+<span class="nc" id="L88">                .addAttr(&quot;ACB3&quot;, &quot;acb3a&quot;)</span>
+<span class="nc" id="L89">                .addAttr(&quot;ACB1&quot;, &quot;acb1a&quot;)</span>
+<span class="nc" id="L90">                .addAttr(&quot;TRNNAME&quot;, &quot;trnnamea&quot;)</span>
+<span class="nc" id="L91">                .addAttr(&quot;ACL4&quot;, &quot;acl4a&quot;)</span>
+<span class="nc" id="L92">                .addAttr(&quot;ERRMSG&quot;, &quot;errmsga&quot;)</span>
+<span class="nc" id="L93">                .addAttr(&quot;CURTIME&quot;, &quot;curtimea&quot;)</span>
+<span class="nc" id="L94">                .addAttr(&quot;ACL5&quot;, &quot;acl5a&quot;)</span>
+<span class="nc" id="L95">                .addAttr(&quot;ACL2&quot;, &quot;acl2a&quot;)</span>
+<span class="nc" id="L96">                .addAttr(&quot;ACL3&quot;, &quot;acl3a&quot;)</span>
+<span class="nc" id="L97">                .addAttr(&quot;ACL1&quot;, &quot;acl1a&quot;)</span>
+<span class="nc" id="L98">                .addAttr(&quot;TITLE&quot;, &quot;titlea&quot;)</span>
+<span class="nc" id="L99">                .addAttr(&quot;ACS5&quot;, &quot;acs5a&quot;)</span>
+<span class="nc" id="L100">                .addAttr(&quot;ACS3&quot;, &quot;acs3a&quot;)</span>
+<span class="nc" id="L101">                .addAttr(&quot;PGMNAME&quot;, &quot;pgmnamea&quot;)</span>
+<span class="nc" id="L102">                .addAttr(&quot;ACS4&quot;, &quot;acs4a&quot;)</span>
+<span class="nc" id="L103">                .addAttr(&quot;CURDATE&quot;, &quot;curdatea&quot;)</span>
+<span class="nc" id="L104">                .addAttr(&quot;ACS1&quot;, &quot;acs1a&quot;)</span>
+<span class="nc" id="L105">                .addAttr(&quot;ACS2&quot;, &quot;acs2a&quot;)</span>
+<span class="nc" id="L106">                .addLength(&quot;FRACCT&quot;, &quot;fracctl&quot;)</span>
+<span class="nc" id="L107">                .addLength(&quot;ACB4&quot;, &quot;acb4l&quot;)</span>
+<span class="nc" id="L108">                .addLength(&quot;ACB5&quot;, &quot;acb5l&quot;)</span>
+<span class="nc" id="L109">                .addLength(&quot;ACB2&quot;, &quot;acb2l&quot;)</span>
+<span class="nc" id="L110">                .addLength(&quot;ACB3&quot;, &quot;acb3l&quot;)</span>
+<span class="nc" id="L111">                .addLength(&quot;ACB1&quot;, &quot;acb1l&quot;)</span>
+<span class="nc" id="L112">                .addLength(&quot;TRNNAME&quot;, &quot;trnnamel&quot;)</span>
+<span class="nc" id="L113">                .addLength(&quot;ACL4&quot;, &quot;acl4l&quot;)</span>
+<span class="nc" id="L114">                .addLength(&quot;ERRMSG&quot;, &quot;errmsgl&quot;)</span>
+<span class="nc" id="L115">                .addLength(&quot;CURTIME&quot;, &quot;curtimel&quot;)</span>
+<span class="nc" id="L116">                .addLength(&quot;ACL5&quot;, &quot;acl5l&quot;)</span>
+<span class="nc" id="L117">                .addLength(&quot;ACL2&quot;, &quot;acl2l&quot;)</span>
+<span class="nc" id="L118">                .addLength(&quot;ACL3&quot;, &quot;acl3l&quot;)</span>
+<span class="nc" id="L119">                .addLength(&quot;ACL1&quot;, &quot;acl1l&quot;)</span>
+<span class="nc" id="L120">                .addLength(&quot;TITLE&quot;, &quot;titlel&quot;)</span>
+<span class="nc" id="L121">                .addLength(&quot;ACS5&quot;, &quot;acs5l&quot;)</span>
+<span class="nc" id="L122">                .addLength(&quot;ACS3&quot;, &quot;acs3l&quot;)</span>
+<span class="nc" id="L123">                .addLength(&quot;PGMNAME&quot;, &quot;pgmnamel&quot;)</span>
+<span class="nc" id="L124">                .addLength(&quot;ACS4&quot;, &quot;acs4l&quot;)</span>
+<span class="nc" id="L125">                .addLength(&quot;CURDATE&quot;, &quot;curdatel&quot;)</span>
+<span class="nc" id="L126">                .addLength(&quot;ACS1&quot;, &quot;acs1l&quot;)</span>
+<span class="nc" id="L127">                .addLength(&quot;ACS2&quot;, &quot;acs2l&quot;)</span>
+<span class="nc" id="L128">                .build();</span>
+        }
+<span class="nc" id="L130">        return FieldMapping.empty();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

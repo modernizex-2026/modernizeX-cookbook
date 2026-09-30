@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OdtranaDaoImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ODTRANA Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.odtrana.dao.impl</a> &gt; <span class="el_source">OdtranaDaoImpl.java</span></div><h1>OdtranaDaoImpl.java</h1><pre class="source lang-java linenums">package com.generated.orion.odtrana.dao.impl;
+
+import com.generated.orion.odtrana.dao.OdtranaDao;
+import com.generated.orion.odtrana.support.SqlStatements;
+import java.lang.Object;
+import java.lang.Override;
+import java.lang.String;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+/**
+ * JdbcTemplate implementation for ODTRANA DAO.
+ * ← EXEC SQL — uses JdbcTemplate with SqlStatements constants.
+ */
+@Repository
+<span class="nc" id="L22">public class OdtranaDaoImpl implements OdtranaDao {</span>
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    /**
+     * ← SQL_001: SELECT CD_ACTIVE_STATUS FROM ORION.CARD WHERE CD_NUM = ?
+     */
+    @Override
+    public Map&lt;String, Object&gt; selectOrionCard(Object... params) {
+        try {
+<span class="nc" id="L32">            return jdbcTemplate.queryForMap(SqlStatements.SQL_001, params);</span>
+<span class="nc" id="L33">        } catch (EmptyResultDataAccessException ex) {</span>
+<span class="nc" id="L34">            Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L35">            result.put(&quot;SQLCODE&quot;, 100);</span>
+<span class="nc" id="L36">            return result;</span>
+        }
+    }
+
+    /**
+     * ← SQL_002: SELECT TT_DESC FROM ORION.TTYP WHERE TT_CD = ?
+     */
+    @Override
+    public Map&lt;String, Object&gt; selectOrionTtyp(Object... params) {
+        try {
+<span class="nc" id="L46">            return jdbcTemplate.queryForMap(SqlStatements.SQL_002, params);</span>
+<span class="nc" id="L47">        } catch (EmptyResultDataAccessException ex) {</span>
+<span class="nc" id="L48">            Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L49">            result.put(&quot;SQLCODE&quot;, 100);</span>
+<span class="nc" id="L50">            return result;</span>
+        }
+    }
+
+    /**
+     * ← SQL_003: SELECT CT_LAST_VALUE FROM ORION.CTRL WHERE CT_KEY = ?
+     */
+    @Override
+    public Map&lt;String, Object&gt; selectOrionCtrl(Object... params) {
+        try {
+<span class="nc" id="L60">            return jdbcTemplate.queryForMap(SqlStatements.SQL_003, params);</span>
+<span class="nc" id="L61">        } catch (EmptyResultDataAccessException ex) {</span>
+<span class="nc" id="L62">            Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L63">            result.put(&quot;SQLCODE&quot;, 100);</span>
+<span class="nc" id="L64">            return result;</span>
+        }
+    }
+
+    /**
+     * ← SQL_004: UPDATE ORION.CTRL SET CT_LAST_VALUE = ? WHERE CT_KEY = ?
+     */
+    @Override
+    public Map&lt;String, Object&gt; updateOrionCtrl(Object... params) {
+        try {
+<span class="nc" id="L74">            int affected = jdbcTemplate.update(SqlStatements.SQL_004, params);</span>
+<span class="nc" id="L75">            Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">            result.put(&quot;SQLCODE&quot;, affected == 0 ? 100 : 0);</span>
+<span class="nc" id="L77">            result.put(&quot;AFFECTED_ROWS&quot;, affected);</span>
+<span class="nc" id="L78">            return result;</span>
+<span class="nc" id="L79">        } catch (DataAccessException ex) {</span>
+<span class="nc" id="L80">            return sqlErrorResult(sqlCodeFor(ex));</span>
+        }
+    }
+
+    /**
+     * ← SQL_005: INSERT INTO ORION.TRAN ( TR_ID, TR_TYPE_CD, TR_CAT_CD, TR_SOURCE, TR_DESC, TR_AM...
+     */
+    @Override
+    public Map&lt;String, Object&gt; insertOrionTran(Object... params) {
+        try {
+<span class="nc" id="L90">            int affected = jdbcTemplate.update(SqlStatements.SQL_005, params);</span>
+<span class="nc" id="L91">            Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L92">            result.put(&quot;SQLCODE&quot;, 0);</span>
+<span class="nc" id="L93">            result.put(&quot;AFFECTED_ROWS&quot;, affected);</span>
+<span class="nc" id="L94">            return result;</span>
+<span class="nc" id="L95">        } catch (DataAccessException ex) {</span>
+<span class="nc" id="L96">            return sqlErrorResult(sqlCodeFor(ex));</span>
+        }
+    }
+
+    /**
+     * DB2 SQLCODE from standard SQLSTATE of the root SQLException.
+     * 23505→-803 unique · 23502→-407 not-null · 23503→-530 FK ·
+     * 23513/23514→-545 check · else -904 (generic error).
+     */
+    private static int sqlCodeFor(DataAccessException ex) {
+<span class="nc" id="L106">        Throwable c = ex.getMostSpecificCause();</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        String state = c instanceof SQLException ? ((SQLException) c).getSQLState() : null;</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">        if (state == null) {</span>
+<span class="nc" id="L109">            return -904;</span>
+        }
+<span class="nc bnc" id="L111" title="All 5 branches missed.">        switch (state) {</span>
+<span class="nc" id="L112">            case &quot;23505&quot;: return -803;</span>
+<span class="nc" id="L113">            case &quot;23502&quot;: return -407;</span>
+<span class="nc" id="L114">            case &quot;23503&quot;: return -530;</span>
+            case &quot;23513&quot;:
+<span class="nc" id="L116">            case &quot;23514&quot;: return -545;</span>
+<span class="nc" id="L117">            default: return -904;</span>
+        }
+    }
+
+    /**
+     * DB2-style error result — SQLCODE set, no rows affected.
+     */
+    private static Map&lt;String, Object&gt; sqlErrorResult(int sqlcode) {
+<span class="nc" id="L125">        Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L126">        result.put(&quot;SQLCODE&quot;, sqlcode);</span>
+<span class="nc" id="L127">        result.put(&quot;AFFECTED_ROWS&quot;, 0);</span>
+<span class="nc" id="L128">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

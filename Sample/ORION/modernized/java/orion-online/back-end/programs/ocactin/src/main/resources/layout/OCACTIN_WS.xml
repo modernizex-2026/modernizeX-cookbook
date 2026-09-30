@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : OCACTIN_WS
+-->
+<dataLayout name="OCACTIN_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="8">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="SQLCODE" offset="4" size="4" javaType="int" value="0" usage="BINARY"/>
+  </group>
+  <group name="WS-PROGRAM-VARS" offset="0" size="28">
+    <field name="WS-PGMNAME" offset="0" size="8" javaType="String" value="OCACTIN"/>
+    <field name="WS-TRANID" offset="8" size="4" javaType="String" value="ORAI"/>
+    <field name="WS-MENU-PGM" offset="12" size="8" javaType="String" value="OCMENU"/>
+    <field name="WS-SUB-PGM" offset="20" size="8" javaType="String" value="OUACTIN"/>
+  </group>
+  <group name="WS-WORK-FLAGS" offset="0" size="1">
+    <field name="WS-VALID-SW" offset="0" size="1" javaType="String" value="Y"/>
+  </group>
+  <group name="WS-STATE" offset="0" size="60">
+    <field name="WS-ST-FILTER" offset="0" size="1" javaType="String"/>
+    <field name="WS-ST-NEXT-KEY" offset="1" size="11" javaType="long"/>
+    <field name="WS-ST-PAGE-NO" offset="12" size="3" javaType="int"/>
+    <field name="WS-ST-MORE" offset="15" size="1" javaType="String"/>
+    <field name="WS-ST-LISTED" offset="16" size="1" javaType="String"/>
+    <field name="WS-ST-POP-CNT" offset="17" size="9" javaType="int"/>
+    <field name="WS-ST-POP-BAL" offset="26" size="17" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="WS-ST-POP-AVL" offset="43" size="17" javaType="BigDecimal" signed="true" scale="2"/>
+  </group>
+  <group name="WS-FILTER-WORK" offset="0" size="22">
+    <field name="WS-FILT-IN" offset="0" size="10" javaType="String" value="SPACES"/>
+    <field name="WS-FDESC" offset="10" size="12" javaType="String" value="SPACES"/>
+  </group>
+  <group name="WS-ROW-HOLD" offset="0" size="63">
+    <field name="WS-O-ID" offset="0" size="11" javaType="String" value="SPACES"/>
+    <field name="WS-O-ST" offset="11" size="1" javaType="String" value="SPACES"/>
+    <field name="WS-O-BAL" offset="12" size="15" javaType="String" value="SPACES"/>
+    <field name="WS-O-LIM" offset="27" size="15" javaType="String" value="SPACES"/>
+    <field name="WS-O-AVL" offset="42" size="15" javaType="String" value="SPACES"/>
+    <field name="WS-O-UTL" offset="57" size="6" javaType="String" value="SPACES"/>
+  </group>
+  <group name="WS-EDIT-FIELDS" offset="0" size="40">
+    <field name="WS-I" offset="0" size="2" javaType="int" value="ZEROS"/>
+    <field name="WS-CNT-ED" offset="2" size="2" javaType="int" editFormat="ZERO_SUPPRESS" editPicture="Z9" integerDigits="2" hasTrailingNine="true"/>
+    <field name="WS-ED-PG" offset="4" size="3" javaType="int" editFormat="ZERO_SUPPRESS" editPicture="ZZ9" integerDigits="3" hasTrailingNine="true"/>
+    <field name="WS-ED-RUN" offset="7" size="7" javaType="int" editFormat="ZERO_SUPPRESS" editPicture="Z(6)9" integerDigits="7" hasTrailingNine="true"/>
+    <field name="WS-ED-UTIL" offset="14" size="6" javaType="BigDecimal" scale="2" editFormat="ZERO_SUPPRESS" editPicture="ZZ9.99" integerDigits="3" hasTrailingNine="true"/>
+    <field name="WS-ED-TOT" offset="20" size="20" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" editPicture="-,---,---,---,--9.99" integerDigits="13" insertCommas="true" hasTrailingNine="true"/>
+  </group>
+  <group name="WS-PROGRAM-MSGS" offset="0" size="410">
+    <field name="WS-M-PROMPT" offset="0" size="50" javaType="String" value="Type a filter and press ENTER."/>
+    <field name="WS-M-BAD-FILTER" offset="50" size="50" javaType="String" value="Filter not recognised - see the list above."/>
+    <field name="WS-M-NONE-FOUND" offset="100" size="50" javaType="String" value="No accounts match that filter."/>
+    <field name="WS-M-END-FILE" offset="150" size="50" javaType="String" value="End of selection - no more accounts."/>
+    <field name="WS-M-LIST-FIRST" offset="200" size="50" javaType="String" value="Apply a filter first (press ENTER)."/>
+    <field name="WS-M-LINK-ERR" offset="250" size="50" javaType="String" value="Unable to reach the account browse engine."/>
+    <field name="WS-M-BROWSE-ERR" offset="300" size="50" javaType="String" value="Error browsing the account file."/>
+    <field name="WS-M-MORE" offset="350" size="30" javaType="String" value=" shown - PF8=more PF7=top"/>
+    <field name="WS-M-DONE" offset="380" size="30" javaType="String" value=" shown - end of selection"/>
+  </group>
+  <group name="WS-CICS-RESP" offset="0" size="8">
+    <field name="WS-RESP-CD" offset="0" size="4" javaType="int" signed="true" value="ZEROS" usage="BINARY"/>
+    <field name="WS-REAS-CD" offset="4" size="4" javaType="int" signed="true" value="ZEROS" usage="BINARY"/>
+  </group>
+  <group name="WS-SWITCHES" offset="0" size="3">
+    <field name="WS-ERR-FLG" offset="0" size="1" javaType="String" value="N"/>
+    <field name="WS-END-FLG" offset="1" size="1" javaType="String" value="N"/>
+    <field name="WS-FOUND-FLG" offset="2" size="1" javaType="String" value="N"/>
+  </group>
+  <group name="WS-FILE-NAMES" offset="0" size="96">
+    <field name="WS-ACCTFILE" offset="0" size="8" javaType="String" value="ACCTFILE"/>
+    <field name="WS-CARDFILE" offset="8" size="8" javaType="String" value="CARDFILE"/>
+    <field name="WS-CUSTFILE" offset="16" size="8" javaType="String" value="CUSTFILE"/>
+    <field name="WS-XREFFILE" offset="24" size="8" javaType="String" value="XREFFILE"/>
+    <field name="WS-TRANFILE" offset="32" size="8" javaType="String" value="TRANFILE"/>
+    <field name="WS-TTYPFILE" offset="40" size="8" javaType="String" value="TTYPFILE"/>
+    <field name="WS-TCATFILE" offset="48" size="8" javaType="String" value="TCATFILE"/>
+    <field name="WS-DGRPFILE" offset="56" size="8" javaType="String" value="DGRPFILE"/>
+    <field name="WS-USRSEC" offset="64" size="8" javaType="String" value="USRSEC  "/>
+    <field name="WS-BILLFILE" offset="72" size="8" javaType="String" value="BILLFILE"/>
+    <field name="WS-STMTFILE" offset="80" size="8" javaType="String" value="STMTFILE"/>
+    <field name="WS-CTRLFILE" offset="88" size="8" javaType="String" value="CTRLFILE"/>
+  </group>
+  <group name="WS-WORK" offset="0" size="26">
+    <field name="WS-CNT" offset="0" size="7" javaType="int" value="ZEROS"/>
+    <field name="WS-IDX" offset="7" size="4" javaType="int" value="ZEROS"/>
+    <field name="WS-AMT" offset="11" size="15" javaType="BigDecimal" signed="true" scale="2" value="ZEROS"/>
+  </group>
+  <group name="WS-EDIT" offset="0" size="43">
+    <field name="WS-ED-AMT" offset="0" size="16" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" editPicture="-,---,---,--9.99" integerDigits="10" insertCommas="true" hasTrailingNine="true"/>
+    <field name="WS-ED-BAL" offset="16" size="16" javaType="BigDecimal" signed="true" scale="2" editFormat="SIGN_SUPPRESS" editPicture="-,---,---,--9.99" integerDigits="10" insertCommas="true" hasTrailingNine="true"/>
+    <field name="WS-ED-ID" offset="32" size="11" javaType="long" editFormat="ZERO_SUPPRESS" editPicture="ZZZZZZZZZZ9" integerDigits="11" hasTrailingNine="true"/>
+  </group>
+  <group name="WS-MESSAGES" offset="0" size="246">
+    <field name="WS-MSG-CODE" offset="0" size="6" javaType="String" value="SPACES"/>
+    <field name="WS-MSG-TEXT" offset="6" size="80" javaType="String" value="SPACES"/>
+    <field name="WS-MSG-THANKYOU" offset="86" size="40" javaType="String" value="Thank you for using ORION-CCMS."/>
+    <field name="WS-MSG-INVALID-KEY" offset="126" size="40" javaType="String" value="Invalid key pressed. Please try again."/>
+    <field name="WS-MSG-NOTFND" offset="166" size="40" javaType="String" value="Record not found."/>
+    <field name="WS-MSG-REQUIRED" offset="206" size="40" javaType="String" value="Please enter all required fields."/>
+  </group>
+  <group name="WS-HEADER" offset="0" size="70">
+    <field name="WS-HDR-TITLE" offset="0" size="40" javaType="String" value="ORION CREDIT CARD MANAGEMENT SYSTEM"/>
+    <field name="WS-HDR-TRANID" offset="40" size="4" javaType="String" value="SPACES"/>
+    <field name="WS-HDR-PGMNAME" offset="44" size="8" javaType="String" value="SPACES"/>
+    <field name="WS-HDR-DATE" offset="52" size="10" javaType="String" value="SPACES"/>
+    <field name="WS-HDR-TIME" offset="62" size="8" javaType="String" value="SPACES"/>
+  </group>
+  <group name="WS-CURRENT-DATE-TIME" offset="0" size="14">
+    <group name="WS-CDT-DATE" offset="0" size="8">
+      <field name="WS-CDT-YYYY" offset="0" size="4" javaType="int"/>
+      <field name="WS-CDT-MM" offset="4" size="2" javaType="int"/>
+      <field name="WS-CDT-DD" offset="6" size="2" javaType="int"/>
+    </group>
+    <group name="WS-CDT-TIME" offset="8" size="6">
+      <field name="WS-CDT-HH" offset="8" size="2" javaType="int"/>
+      <field name="WS-CDT-MI" offset="10" size="2" javaType="int"/>
+      <field name="WS-CDT-SS" offset="12" size="2" javaType="int"/>
+    </group>
+  </group>
+  <group name="ORION-COMMAREA" offset="0" size="692">
+    <group name="CA-GENERAL" offset="0" size="47">
+      <field name="CA-FROM-PROGRAM" offset="0" size="8" javaType="String"/>
+      <field name="CA-TO-PROGRAM" offset="8" size="8" javaType="String"/>
+      <field name="CA-FROM-TRANID" offset="16" size="4" javaType="String"/>
+      <field name="CA-TO-TRANID" offset="20" size="4" javaType="String"/>
+      <field name="CA-USER-ID" offset="24" size="8" javaType="String"/>
+      <field name="CA-USER-TYPE" offset="32" size="1" javaType="String"/>
+      <field name="CA-PGM-CONTEXT" offset="33" size="1" javaType="int"/>
+      <field name="CA-LAST-MAP" offset="34" size="7" javaType="String"/>
+      <field name="CA-LAST-MAPSET" offset="41" size="6" javaType="String"/>
+    </group>
+    <group name="CA-SELECTED" offset="47" size="52">
+      <field name="CA-ACCT-ID" offset="47" size="11" javaType="long"/>
+      <field name="CA-CARD-NUM" offset="58" size="16" javaType="String"/>
+      <field name="CA-CUST-ID" offset="74" size="9" javaType="int"/>
+      <field name="CA-TRAN-ID" offset="83" size="16" javaType="String"/>
+    </group>
+    <group name="CA-ERROR" offset="99" size="81">
+      <field name="CA-ERR-FLG" offset="99" size="1" javaType="String"/>
+      <field name="CA-ERR-MSG" offset="100" size="80" javaType="String"/>
+    </group>
+    <field name="CA-WORK-AREA" offset="180" size="512" javaType="String"/>
+  </group>
+  <group name="KACTIN-AREA" offset="0" size="767">
+    <field name="KAI-FILTER" offset="0" size="1" javaType="String"/>
+    <field name="KAI-START-KEY" offset="1" size="11" javaType="long"/>
+    <field name="KAI-WANT-KPI" offset="12" size="1" javaType="String"/>
+    <field name="KAI-RETURN-CD" offset="13" size="1" javaType="String"/>
+    <field name="KAI-ROW-COUNT" offset="14" size="2" javaType="int"/>
+    <field name="KAI-MORE-SW" offset="16" size="1" javaType="String"/>
+    <field name="KAI-NEXT-KEY" offset="17" size="11" javaType="long"/>
+    <field name="KAI-SCAN-COUNT" offset="28" size="7" javaType="int"/>
+    <field name="KAI-POP-COUNT" offset="35" size="9" javaType="int"/>
+    <field name="KAI-POP-BAL-TOT" offset="44" size="17" javaType="BigDecimal" signed="true" scale="2"/>
+    <field name="KAI-POP-AVL-TOT" offset="61" size="17" javaType="BigDecimal" signed="true" scale="2"/>
+    <group name="KAI-ROW" offset="78" size="689" occurs="13" elementSize="53">
+      <field name="KAI-R-ID" offset="78" size="11" javaType="long"/>
+      <field name="KAI-R-STATUS" offset="89" size="1" javaType="String"/>
+      <field name="KAI-R-BAL" offset="90" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KAI-R-LIMIT" offset="102" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KAI-R-AVAIL" offset="114" size="12" javaType="BigDecimal" signed="true" scale="2"/>
+      <field name="KAI-R-UTIL" offset="126" size="5" javaType="BigDecimal" scale="2"/>
+    </group>
+  </group>
+  <group name="MACTINAI" offset="0" size="1321">
+    <field name="FILLER-0" offset="0" size="12" javaType="String"/>
+    <field name="TRNNAMEL" offset="12" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="TRNNAMEF" offset="14" size="1" javaType="String"/>
+    <field name="TRNNAMEA" offset="14" size="1" javaType="String" redefines="TRNNAMEF"/>
+    <field name="TRNNAMEI" offset="15" size="4" javaType="String"/>
+    <field name="TITLEL" offset="19" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="TITLEF" offset="21" size="1" javaType="String"/>
+    <field name="TITLEA" offset="21" size="1" javaType="String" redefines="TITLEF"/>
+    <field name="TITLEI" offset="22" size="40" javaType="String"/>
+    <field name="CURDATEL" offset="62" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="CURDATEF" offset="64" size="1" javaType="String"/>
+    <field name="CURDATEA" offset="64" size="1" javaType="String" redefines="CURDATEF"/>
+    <field name="CURDATEI" offset="65" size="10" javaType="String"/>
+    <field name="PGMNAMEL" offset="75" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="PGMNAMEF" offset="77" size="1" javaType="String"/>
+    <field name="PGMNAMEA" offset="77" size="1" javaType="String" redefines="PGMNAMEF"/>
+    <field name="PGMNAMEI" offset="78" size="8" javaType="String"/>
+    <field name="CURTIMEL" offset="86" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="CURTIMEF" offset="88" size="1" javaType="String"/>
+    <field name="CURTIMEA" offset="88" size="1" javaType="String" redefines="CURTIMEF"/>
+    <field name="CURTIMEI" offset="89" size="8" javaType="String"/>
+    <field name="FILTL" offset="97" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="FILTF" offset="99" size="1" javaType="String"/>
+    <field name="FILTA" offset="99" size="1" javaType="String" redefines="FILTF"/>
+    <field name="FILTI" offset="100" size="10" javaType="String"/>
+    <field name="FDESCL" offset="110" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="FDESCF" offset="112" size="1" javaType="String"/>
+    <field name="FDESCA" offset="112" size="1" javaType="String" redefines="FDESCF"/>
+    <field name="FDESCI" offset="113" size="12" javaType="String"/>
+    <field name="AID1L" offset="125" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AID1F" offset="127" size="1" javaType="String"/>
+    <field name="AID1A" offset="127" size="1" javaType="String" redefines="AID1F"/>
+    <field name="AID1I" offset="128" size="11" javaType="String"/>
+    <field name="AST1L" offset="139" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AST1F" offset="141" size="1" javaType="String"/>
+    <field name="AST1A" offset="141" size="1" javaType="String" redefines="AST1F"/>
+    <field name="AST1I" offset="142" size="1" javaType="String"/>
+    <field name="ABL1L" offset="143" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ABL1F" offset="145" size="1" javaType="String"/>
+    <field name="ABL1A" offset="145" size="1" javaType="String" redefines="ABL1F"/>
+    <field name="ABL1I" offset="146" size="15" javaType="String"/>
+    <field name="ALM1L" offset="161" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ALM1F" offset="163" size="1" javaType="String"/>
+    <field name="ALM1A" offset="163" size="1" javaType="String" redefines="ALM1F"/>
+    <field name="ALM1I" offset="164" size="15" javaType="String"/>
+    <field name="AAV1L" offset="179" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AAV1F" offset="181" size="1" javaType="String"/>
+    <field name="AAV1A" offset="181" size="1" javaType="String" redefines="AAV1F"/>
+    <field name="AAV1I" offset="182" size="15" javaType="String"/>
+    <field name="AUT1L" offset="197" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AUT1F" offset="199" size="1" javaType="String"/>
+    <field name="AUT1A" offset="199" size="1" javaType="String" redefines="AUT1F"/>
+    <field name="AUT1I" offset="200" size="6" javaType="String"/>
+    <field name="AID2L" offset="206" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AID2F" offset="208" size="1" javaType="String"/>
+    <field name="AID2A" offset="208" size="1" javaType="String" redefines="AID2F"/>
+    <field name="AID2I" offset="209" size="11" javaType="String"/>
+    <field name="AST2L" offset="220" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AST2F" offset="222" size="1" javaType="String"/>
+    <field name="AST2A" offset="222" size="1" javaType="String" redefines="AST2F"/>
+    <field name="AST2I" offset="223" size="1" javaType="String"/>
+    <field name="ABL2L" offset="224" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ABL2F" offset="226" size="1" javaType="String"/>
+    <field name="ABL2A" offset="226" size="1" javaType="String" redefines="ABL2F"/>
+    <field name="ABL2I" offset="227" size="15" javaType="String"/>
+    <field name="ALM2L" offset="242" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ALM2F" offset="244" size="1" javaType="String"/>
+    <field name="ALM2A" offset="244" size="1" javaType="String" redefines="ALM2F"/>
+    <field name="ALM2I" offset="245" size="15" javaType="String"/>
+    <field name="AAV2L" offset="260" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AAV2F" offset="262" size="1" javaType="String"/>
+    <field name="AAV2A" offset="262" size="1" javaType="String" redefines="AAV2F"/>
+    <field name="AAV2I" offset="263" size="15" javaType="String"/>
+    <field name="AUT2L" offset="278" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AUT2F" offset="280" size="1" javaType="String"/>
+    <field name="AUT2A" offset="280" size="1" javaType="String" redefines="AUT2F"/>
+    <field name="AUT2I" offset="281" size="6" javaType="String"/>
+    <field name="AID3L" offset="287" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AID3F" offset="289" size="1" javaType="String"/>
+    <field name="AID3A" offset="289" size="1" javaType="String" redefines="AID3F"/>
+    <field name="AID3I" offset="290" size="11" javaType="String"/>
+    <field name="AST3L" offset="301" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AST3F" offset="303" size="1" javaType="String"/>
+    <field name="AST3A" offset="303" size="1" javaType="String" redefines="AST3F"/>
+    <field name="AST3I" offset="304" size="1" javaType="String"/>
+    <field name="ABL3L" offset="305" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ABL3F" offset="307" size="1" javaType="String"/>
+    <field name="ABL3A" offset="307" size="1" javaType="String" redefines="ABL3F"/>
+    <field name="ABL3I" offset="308" size="15" javaType="String"/>
+    <field name="ALM3L" offset="323" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ALM3F" offset="325" size="1" javaType="String"/>
+    <field name="ALM3A" offset="325" size="1" javaType="String" redefines="ALM3F"/>
+    <field name="ALM3I" offset="326" size="15" javaType="String"/>
+    <field name="AAV3L" offset="341" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AAV3F" offset="343" size="1" javaType="String"/>
+    <field name="AAV3A" offset="343" size="1" javaType="String" redefines="AAV3F"/>
+    <field name="AAV3I" offset="344" size="15" javaType="String"/>
+    <field name="AUT3L" offset="359" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AUT3F" offset="361" size="1" javaType="String"/>
+    <field name="AUT3A" offset="361" size="1" javaType="String" redefines="AUT3F"/>
+    <field name="AUT3I" offset="362" size="6" javaType="String"/>
+    <field name="AID4L" offset="368" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AID4F" offset="370" size="1" javaType="String"/>
+    <field name="AID4A" offset="370" size="1" javaType="String" redefines="AID4F"/>
+    <field name="AID4I" offset="371" size="11" javaType="String"/>
+    <field name="AST4L" offset="382" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AST4F" offset="384" size="1" javaType="String"/>
+    <field name="AST4A" offset="384" size="1" javaType="String" redefines="AST4F"/>
+    <field name="AST4I" offset="385" size="1" javaType="String"/>
+    <field name="ABL4L" offset="386" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ABL4F" offset="388" size="1" javaType="String"/>
+    <field name="ABL4A" offset="388" size="1" javaType="String" redefines="ABL4F"/>
+    <field name="ABL4I" offset="389" size="15" javaType="String"/>
+    <field name="ALM4L" offset="404" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ALM4F" offset="406" size="1" javaType="String"/>
+    <field name="ALM4A" offset="406" size="1" javaType="String" redefines="ALM4F"/>
+    <field name="ALM4I" offset="407" size="15" javaType="String"/>
+    <field name="AAV4L" offset="422" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AAV4F" offset="424" size="1" javaType="String"/>
+    <field name="AAV4A" offset="424" size="1" javaType="String" redefines="AAV4F"/>
+    <field name="AAV4I" offset="425" size="15" javaType="String"/>
+    <field name="AUT4L" offset="440" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AUT4F" offset="442" size="1" javaType="String"/>
+    <field name="AUT4A" offset="442" size="1" javaType="String" redefines="AUT4F"/>
+    <field name="AUT4I" offset="443" size="6" javaType="String"/>
+    <field name="AID5L" offset="449" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AID5F" offset="451" size="1" javaType="String"/>
+    <field name="AID5A" offset="451" size="1" javaType="String" redefines="AID5F"/>
+    <field name="AID5I" offset="452" size="11" javaType="String"/>
+    <field name="AST5L" offset="463" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AST5F" offset="465" size="1" javaType="String"/>
+    <field name="AST5A" offset="465" size="1" javaType="String" redefines="AST5F"/>
+    <field name="AST5I" offset="466" size="1" javaType="String"/>
+    <field name="ABL5L" offset="467" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ABL5F" offset="469" size="1" javaType="String"/>
+    <field name="ABL5A" offset="469" size="1" javaType="String" redefines="ABL5F"/>
+    <field name="ABL5I" offset="470" size="15" javaType="String"/>
+    <field name="ALM5L" offset="485" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ALM5F" offset="487" size="1" javaType="String"/>
+    <field name="ALM5A" offset="487" size="1" javaType="String" redefines="ALM5F"/>
+    <field name="ALM5I" offset="488" size="15" javaType="String"/>
+    <field name="AAV5L" offset="503" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AAV5F" offset="505" size="1" javaType="String"/>
+    <field name="AAV5A" offset="505" size="1" javaType="String" redefines="AAV5F"/>
+    <field name="AAV5I" offset="506" size="15" javaType="String"/>
+    <field name="AUT5L" offset="521" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AUT5F" offset="523" size="1" javaType="String"/>
+    <field name="AUT5A" offset="523" size="1" javaType="String" redefines="AUT5F"/>
+    <field name="AUT5I" offset="524" size="6" javaType="String"/>
+    <field name="AID6L" offset="530" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AID6F" offset="532" size="1" javaType="String"/>
+    <field name="AID6A" offset="532" size="1" javaType="String" redefines="AID6F"/>
+    <field name="AID6I" offset="533" size="11" javaType="String"/>
+    <field name="AST6L" offset="544" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AST6F" offset="546" size="1" javaType="String"/>
+    <field name="AST6A" offset="546" size="1" javaType="String" redefines="AST6F"/>
+    <field name="AST6I" offset="547" size="1" javaType="String"/>
+    <field name="ABL6L" offset="548" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ABL6F" offset="550" size="1" javaType="String"/>
+    <field name="ABL6A" offset="550" size="1" javaType="String" redefines="ABL6F"/>
+    <field name="ABL6I" offset="551" size="15" javaType="String"/>
+    <field name="ALM6L" offset="566" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ALM6F" offset="568" size="1" javaType="String"/>
+    <field name="ALM6A" offset="568" size="1" javaType="String" redefines="ALM6F"/>
+    <field name="ALM6I" offset="569" size="15" javaType="String"/>
+    <field name="AAV6L" offset="584" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AAV6F" offset="586" size="1" javaType="String"/>
+    <field name="AAV6A" offset="586" size="1" javaType="String" redefines="AAV6F"/>
+    <field name="AAV6I" offset="587" size="15" javaType="String"/>
+    <field name="AUT6L" offset="602" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AUT6F" offset="604" size="1" javaType="String"/>
+    <field name="AUT6A" offset="604" size="1" javaType="String" redefines="AUT6F"/>
+    <field name="AUT6I" offset="605" size="6" javaType="String"/>
+    <field name="AID7L" offset="611" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AID7F" offset="613" size="1" javaType="String"/>
+    <field name="AID7A" offset="613" size="1" javaType="String" redefines="AID7F"/>
+    <field name="AID7I" offset="614" size="11" javaType="String"/>
+    <field name="AST7L" offset="625" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AST7F" offset="627" size="1" javaType="String"/>
+    <field name="AST7A" offset="627" size="1" javaType="String" redefines="AST7F"/>
+    <field name="AST7I" offset="628" size="1" javaType="String"/>
+    <field name="ABL7L" offset="629" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ABL7F" offset="631" size="1" javaType="String"/>
+    <field name="ABL7A" offset="631" size="1" javaType="String" redefines="ABL7F"/>
+    <field name="ABL7I" offset="632" size="15" javaType="String"/>
+    <field name="ALM7L" offset="647" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ALM7F" offset="649" size="1" javaType="String"/>
+    <field name="ALM7A" offset="649" size="1" javaType="String" redefines="ALM7F"/>
+    <field name="ALM7I" offset="650" size="15" javaType="String"/>
+    <field name="AAV7L" offset="665" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AAV7F" offset="667" size="1" javaType="String"/>
+    <field name="AAV7A" offset="667" size="1" javaType="String" redefines="AAV7F"/>
+    <field name="AAV7I" offset="668" size="15" javaType="String"/>
+    <field name="AUT7L" offset="683" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AUT7F" offset="685" size="1" javaType="String"/>
+    <field name="AUT7A" offset="685" size="1" javaType="String" redefines="AUT7F"/>
+    <field name="AUT7I" offset="686" size="6" javaType="String"/>
+    <field name="AID8L" offset="692" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AID8F" offset="694" size="1" javaType="String"/>
+    <field name="AID8A" offset="694" size="1" javaType="String" redefines="AID8F"/>
+    <field name="AID8I" offset="695" size="11" javaType="String"/>
+    <field name="AST8L" offset="706" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AST8F" offset="708" size="1" javaType="String"/>
+    <field name="AST8A" offset="708" size="1" javaType="String" redefines="AST8F"/>
+    <field name="AST8I" offset="709" size="1" javaType="String"/>
+    <field name="ABL8L" offset="710" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ABL8F" offset="712" size="1" javaType="String"/>
+    <field name="ABL8A" offset="712" size="1" javaType="String" redefines="ABL8F"/>
+    <field name="ABL8I" offset="713" size="15" javaType="String"/>
+    <field name="ALM8L" offset="728" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ALM8F" offset="730" size="1" javaType="String"/>
+    <field name="ALM8A" offset="730" size="1" javaType="String" redefines="ALM8F"/>
+    <field name="ALM8I" offset="731" size="15" javaType="String"/>
+    <field name="AAV8L" offset="746" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AAV8F" offset="748" size="1" javaType="String"/>
+    <field name="AAV8A" offset="748" size="1" javaType="String" redefines="AAV8F"/>
+    <field name="AAV8I" offset="749" size="15" javaType="String"/>
+    <field name="AUT8L" offset="764" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AUT8F" offset="766" size="1" javaType="String"/>
+    <field name="AUT8A" offset="766" size="1" javaType="String" redefines="AUT8F"/>
+    <field name="AUT8I" offset="767" size="6" javaType="String"/>
+    <field name="AID9L" offset="773" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AID9F" offset="775" size="1" javaType="String"/>
+    <field name="AID9A" offset="775" size="1" javaType="String" redefines="AID9F"/>
+    <field name="AID9I" offset="776" size="11" javaType="String"/>
+    <field name="AST9L" offset="787" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AST9F" offset="789" size="1" javaType="String"/>
+    <field name="AST9A" offset="789" size="1" javaType="String" redefines="AST9F"/>
+    <field name="AST9I" offset="790" size="1" javaType="String"/>
+    <field name="ABL9L" offset="791" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ABL9F" offset="793" size="1" javaType="String"/>
+    <field name="ABL9A" offset="793" size="1" javaType="String" redefines="ABL9F"/>
+    <field name="ABL9I" offset="794" size="15" javaType="String"/>
+    <field name="ALM9L" offset="809" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ALM9F" offset="811" size="1" javaType="String"/>
+    <field name="ALM9A" offset="811" size="1" javaType="String" redefines="ALM9F"/>
+    <field name="ALM9I" offset="812" size="15" javaType="String"/>
+    <field name="AAV9L" offset="827" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AAV9F" offset="829" size="1" javaType="String"/>
+    <field name="AAV9A" offset="829" size="1" javaType="String" redefines="AAV9F"/>
+    <field name="AAV9I" offset="830" size="15" javaType="String"/>
+    <field name="AUT9L" offset="845" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AUT9F" offset="847" size="1" javaType="String"/>
+    <field name="AUT9A" offset="847" size="1" javaType="String" redefines="AUT9F"/>
+    <field name="AUT9I" offset="848" size="6" javaType="String"/>
+    <field name="AID10L" offset="854" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AID10F" offset="856" size="1" javaType="String"/>
+    <field name="AID10A" offset="856" size="1" javaType="String" redefines="AID10F"/>
+    <field name="AID10I" offset="857" size="11" javaType="String"/>
+    <field name="AST10L" offset="868" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AST10F" offset="870" size="1" javaType="String"/>
+    <field name="AST10A" offset="870" size="1" javaType="String" redefines="AST10F"/>
+    <field name="AST10I" offset="871" size="1" javaType="String"/>
+    <field name="ABL10L" offset="872" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ABL10F" offset="874" size="1" javaType="String"/>
+    <field name="ABL10A" offset="874" size="1" javaType="String" redefines="ABL10F"/>
+    <field name="ABL10I" offset="875" size="15" javaType="String"/>
+    <field name="ALM10L" offset="890" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ALM10F" offset="892" size="1" javaType="String"/>
+    <field name="ALM10A" offset="892" size="1" javaType="String" redefines="ALM10F"/>
+    <field name="ALM10I" offset="893" size="15" javaType="String"/>
+    <field name="AAV10L" offset="908" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AAV10F" offset="910" size="1" javaType="String"/>
+    <field name="AAV10A" offset="910" size="1" javaType="String" redefines="AAV10F"/>
+    <field name="AAV10I" offset="911" size="15" javaType="String"/>
+    <field name="AUT10L" offset="926" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AUT10F" offset="928" size="1" javaType="String"/>
+    <field name="AUT10A" offset="928" size="1" javaType="String" redefines="AUT10F"/>
+    <field name="AUT10I" offset="929" size="6" javaType="String"/>
+    <field name="AID11L" offset="935" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AID11F" offset="937" size="1" javaType="String"/>
+    <field name="AID11A" offset="937" size="1" javaType="String" redefines="AID11F"/>
+    <field name="AID11I" offset="938" size="11" javaType="String"/>
+    <field name="AST11L" offset="949" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AST11F" offset="951" size="1" javaType="String"/>
+    <field name="AST11A" offset="951" size="1" javaType="String" redefines="AST11F"/>
+    <field name="AST11I" offset="952" size="1" javaType="String"/>
+    <field name="ABL11L" offset="953" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ABL11F" offset="955" size="1" javaType="String"/>
+    <field name="ABL11A" offset="955" size="1" javaType="String" redefines="ABL11F"/>
+    <field name="ABL11I" offset="956" size="15" javaType="String"/>
+    <field name="ALM11L" offset="971" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ALM11F" offset="973" size="1" javaType="String"/>
+    <field name="ALM11A" offset="973" size="1" javaType="String" redefines="ALM11F"/>
+    <field name="ALM11I" offset="974" size="15" javaType="String"/>
+    <field name="AAV11L" offset="989" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AAV11F" offset="991" size="1" javaType="String"/>
+    <field name="AAV11A" offset="991" size="1" javaType="String" redefines="AAV11F"/>
+    <field name="AAV11I" offset="992" size="15" javaType="String"/>
+    <field name="AUT11L" offset="1007" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AUT11F" offset="1009" size="1" javaType="String"/>
+    <field name="AUT11A" offset="1009" size="1" javaType="String" redefines="AUT11F"/>
+    <field name="AUT11I" offset="1010" size="6" javaType="String"/>
+    <field name="AID12L" offset="1016" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AID12F" offset="1018" size="1" javaType="String"/>
+    <field name="AID12A" offset="1018" size="1" javaType="String" redefines="AID12F"/>
+    <field name="AID12I" offset="1019" size="11" javaType="String"/>
+    <field name="AST12L" offset="1030" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AST12F" offset="1032" size="1" javaType="String"/>
+    <field name="AST12A" offset="1032" size="1" javaType="String" redefines="AST12F"/>
+    <field name="AST12I" offset="1033" size="1" javaType="String"/>
+    <field name="ABL12L" offset="1034" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ABL12F" offset="1036" size="1" javaType="String"/>
+    <field name="ABL12A" offset="1036" size="1" javaType="String" redefines="ABL12F"/>
+    <field name="ABL12I" offset="1037" size="15" javaType="String"/>
+    <field name="ALM12L" offset="1052" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ALM12F" offset="1054" size="1" javaType="String"/>
+    <field name="ALM12A" offset="1054" size="1" javaType="String" redefines="ALM12F"/>
+    <field name="ALM12I" offset="1055" size="15" javaType="String"/>
+    <field name="AAV12L" offset="1070" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AAV12F" offset="1072" size="1" javaType="String"/>
+    <field name="AAV12A" offset="1072" size="1" javaType="String" redefines="AAV12F"/>
+    <field name="AAV12I" offset="1073" size="15" javaType="String"/>
+    <field name="AUT12L" offset="1088" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AUT12F" offset="1090" size="1" javaType="String"/>
+    <field name="AUT12A" offset="1090" size="1" javaType="String" redefines="AUT12F"/>
+    <field name="AUT12I" offset="1091" size="6" javaType="String"/>
+    <field name="AID13L" offset="1097" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AID13F" offset="1099" size="1" javaType="String"/>
+    <field name="AID13A" offset="1099" size="1" javaType="String" redefines="AID13F"/>
+    <field name="AID13I" offset="1100" size="11" javaType="String"/>
+    <field name="AST13L" offset="1111" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AST13F" offset="1113" size="1" javaType="String"/>
+    <field name="AST13A" offset="1113" size="1" javaType="String" redefines="AST13F"/>
+    <field name="AST13I" offset="1114" size="1" javaType="String"/>
+    <field name="ABL13L" offset="1115" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ABL13F" offset="1117" size="1" javaType="String"/>
+    <field name="ABL13A" offset="1117" size="1" javaType="String" redefines="ABL13F"/>
+    <field name="ABL13I" offset="1118" size="15" javaType="String"/>
+    <field name="ALM13L" offset="1133" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ALM13F" offset="1135" size="1" javaType="String"/>
+    <field name="ALM13A" offset="1135" size="1" javaType="String" redefines="ALM13F"/>
+    <field name="ALM13I" offset="1136" size="15" javaType="String"/>
+    <field name="AAV13L" offset="1151" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AAV13F" offset="1153" size="1" javaType="String"/>
+    <field name="AAV13A" offset="1153" size="1" javaType="String" redefines="AAV13F"/>
+    <field name="AAV13I" offset="1154" size="15" javaType="String"/>
+    <field name="AUT13L" offset="1169" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="AUT13F" offset="1171" size="1" javaType="String"/>
+    <field name="AUT13A" offset="1171" size="1" javaType="String" redefines="AUT13F"/>
+    <field name="AUT13I" offset="1172" size="6" javaType="String"/>
+    <field name="PAGENOL" offset="1178" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="PAGENOF" offset="1180" size="1" javaType="String"/>
+    <field name="PAGENOA" offset="1180" size="1" javaType="String" redefines="PAGENOF"/>
+    <field name="PAGENOI" offset="1181" size="3" javaType="String"/>
+    <field name="RUNTOTL" offset="1184" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="RUNTOTF" offset="1186" size="1" javaType="String"/>
+    <field name="RUNTOTA" offset="1186" size="1" javaType="String" redefines="RUNTOTF"/>
+    <field name="RUNTOTI" offset="1187" size="7" javaType="String"/>
+    <field name="PGBALL" offset="1194" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="PGBALF" offset="1196" size="1" javaType="String"/>
+    <field name="PGBALA" offset="1196" size="1" javaType="String" redefines="PGBALF"/>
+    <field name="PGBALI" offset="1197" size="20" javaType="String"/>
+    <field name="PGAVLL" offset="1217" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="PGAVLF" offset="1219" size="1" javaType="String"/>
+    <field name="PGAVLA" offset="1219" size="1" javaType="String" redefines="PGAVLF"/>
+    <field name="PGAVLI" offset="1220" size="20" javaType="String"/>
+    <field name="ERRMSGL" offset="1240" size="2" javaType="short" signed="true" usage="BINARY"/>
+    <field name="ERRMSGF" offset="1242" size="1" javaType="String"/>
+    <field name="ERRMSGA" offset="1242" size="1" javaType="String" redefines="ERRMSGF"/>
+    <field name="ERRMSGI" offset="1243" size="78" javaType="String"/>
+  </group>
+  <group name="MACTINAO" offset="0" size="1321" redefines="MACTINAI">
+    <field name="FILLER-0" offset="0" size="12" javaType="String"/>
+    <field name="FILLER-12" offset="12" size="3" javaType="String"/>
+    <field name="TRNNAMEO" offset="15" size="4" javaType="String"/>
+    <field name="FILLER-19" offset="19" size="3" javaType="String"/>
+    <field name="TITLEO" offset="22" size="40" javaType="String"/>
+    <field name="FILLER-62" offset="62" size="3" javaType="String"/>
+    <field name="CURDATEO" offset="65" size="10" javaType="String"/>
+    <field name="FILLER-75" offset="75" size="3" javaType="String"/>
+    <field name="PGMNAMEO" offset="78" size="8" javaType="String"/>
+    <field name="FILLER-86" offset="86" size="3" javaType="String"/>
+    <field name="CURTIMEO" offset="89" size="8" javaType="String"/>
+    <field name="FILLER-97" offset="97" size="3" javaType="String"/>
+    <field name="FILTO" offset="100" size="10" javaType="String"/>
+    <field name="FILLER-110" offset="110" size="3" javaType="String"/>
+    <field name="FDESCO" offset="113" size="12" javaType="String"/>
+    <field name="FILLER-125" offset="125" size="3" javaType="String"/>
+    <field name="AID1O" offset="128" size="11" javaType="String"/>
+    <field name="FILLER-139" offset="139" size="3" javaType="String"/>
+    <field name="AST1O" offset="142" size="1" javaType="String"/>
+    <field name="FILLER-143" offset="143" size="3" javaType="String"/>
+    <field name="ABL1O" offset="146" size="15" javaType="String"/>
+    <field name="FILLER-161" offset="161" size="3" javaType="String"/>
+    <field name="ALM1O" offset="164" size="15" javaType="String"/>
+    <field name="FILLER-179" offset="179" size="3" javaType="String"/>
+    <field name="AAV1O" offset="182" size="15" javaType="String"/>
+    <field name="FILLER-197" offset="197" size="3" javaType="String"/>
+    <field name="AUT1O" offset="200" size="6" javaType="String"/>
+    <field name="FILLER-206" offset="206" size="3" javaType="String"/>
+    <field name="AID2O" offset="209" size="11" javaType="String"/>
+    <field name="FILLER-220" offset="220" size="3" javaType="String"/>
+    <field name="AST2O" offset="223" size="1" javaType="String"/>
+    <field name="FILLER-224" offset="224" size="3" javaType="String"/>
+    <field name="ABL2O" offset="227" size="15" javaType="String"/>
+    <field name="FILLER-242" offset="242" size="3" javaType="String"/>
+    <field name="ALM2O" offset="245" size="15" javaType="String"/>
+    <field name="FILLER-260" offset="260" size="3" javaType="String"/>
+    <field name="AAV2O" offset="263" size="15" javaType="String"/>
+    <field name="FILLER-278" offset="278" size="3" javaType="String"/>
+    <field name="AUT2O" offset="281" size="6" javaType="String"/>
+    <field name="FILLER-287" offset="287" size="3" javaType="String"/>
+    <field name="AID3O" offset="290" size="11" javaType="String"/>
+    <field name="FILLER-301" offset="301" size="3" javaType="String"/>
+    <field name="AST3O" offset="304" size="1" javaType="String"/>
+    <field name="FILLER-305" offset="305" size="3" javaType="String"/>
+    <field name="ABL3O" offset="308" size="15" javaType="String"/>
+    <field name="FILLER-323" offset="323" size="3" javaType="String"/>
+    <field name="ALM3O" offset="326" size="15" javaType="String"/>
+    <field name="FILLER-341" offset="341" size="3" javaType="String"/>
+    <field name="AAV3O" offset="344" size="15" javaType="String"/>
+    <field name="FILLER-359" offset="359" size="3" javaType="String"/>
+    <field name="AUT3O" offset="362" size="6" javaType="String"/>
+    <field name="FILLER-368" offset="368" size="3" javaType="String"/>
+    <field name="AID4O" offset="371" size="11" javaType="String"/>
+    <field name="FILLER-382" offset="382" size="3" javaType="String"/>
+    <field name="AST4O" offset="385" size="1" javaType="String"/>
+    <field name="FILLER-386" offset="386" size="3" javaType="String"/>
+    <field name="ABL4O" offset="389" size="15" javaType="String"/>
+    <field name="FILLER-404" offset="404" size="3" javaType="String"/>
+    <field name="ALM4O" offset="407" size="15" javaType="String"/>
+    <field name="FILLER-422" offset="422" size="3" javaType="String"/>
+    <field name="AAV4O" offset="425" size="15" javaType="String"/>
+    <field name="FILLER-440" offset="440" size="3" javaType="String"/>
+    <field name="AUT4O" offset="443" size="6" javaType="String"/>
+    <field name="FILLER-449" offset="449" size="3" javaType="String"/>
+    <field name="AID5O" offset="452" size="11" javaType="String"/>
+    <field name="FILLER-463" offset="463" size="3" javaType="String"/>
+    <field name="AST5O" offset="466" size="1" javaType="String"/>
+    <field name="FILLER-467" offset="467" size="3" javaType="String"/>
+    <field name="ABL5O" offset="470" size="15" javaType="String"/>
+    <field name="FILLER-485" offset="485" size="3" javaType="String"/>
+    <field name="ALM5O" offset="488" size="15" javaType="String"/>
+    <field name="FILLER-503" offset="503" size="3" javaType="String"/>
+    <field name="AAV5O" offset="506" size="15" javaType="String"/>
+    <field name="FILLER-521" offset="521" size="3" javaType="String"/>
+    <field name="AUT5O" offset="524" size="6" javaType="String"/>
+    <field name="FILLER-530" offset="530" size="3" javaType="String"/>
+    <field name="AID6O" offset="533" size="11" javaType="String"/>
+    <field name="FILLER-544" offset="544" size="3" javaType="String"/>
+    <field name="AST6O" offset="547" size="1" javaType="String"/>
+    <field name="FILLER-548" offset="548" size="3" javaType="String"/>
+    <field name="ABL6O" offset="551" size="15" javaType="String"/>
+    <field name="FILLER-566" offset="566" size="3" javaType="String"/>
+    <field name="ALM6O" offset="569" size="15" javaType="String"/>
+    <field name="FILLER-584" offset="584" size="3" javaType="String"/>
+    <field name="AAV6O" offset="587" size="15" javaType="String"/>
+    <field name="FILLER-602" offset="602" size="3" javaType="String"/>
+    <field name="AUT6O" offset="605" size="6" javaType="String"/>
+    <field name="FILLER-611" offset="611" size="3" javaType="String"/>
+    <field name="AID7O" offset="614" size="11" javaType="String"/>
+    <field name="FILLER-625" offset="625" size="3" javaType="String"/>
+    <field name="AST7O" offset="628" size="1" javaType="String"/>
+    <field name="FILLER-629" offset="629" size="3" javaType="String"/>
+    <field name="ABL7O" offset="632" size="15" javaType="String"/>
+    <field name="FILLER-647" offset="647" size="3" javaType="String"/>
+    <field name="ALM7O" offset="650" size="15" javaType="String"/>
+    <field name="FILLER-665" offset="665" size="3" javaType="String"/>
+    <field name="AAV7O" offset="668" size="15" javaType="String"/>
+    <field name="FILLER-683" offset="683" size="3" javaType="String"/>
+    <field name="AUT7O" offset="686" size="6" javaType="String"/>
+    <field name="FILLER-692" offset="692" size="3" javaType="String"/>
+    <field name="AID8O" offset="695" size="11" javaType="String"/>
+    <field name="FILLER-706" offset="706" size="3" javaType="String"/>
+    <field name="AST8O" offset="709" size="1" javaType="String"/>
+    <field name="FILLER-710" offset="710" size="3" javaType="String"/>
+    <field name="ABL8O" offset="713" size="15" javaType="String"/>
+    <field name="FILLER-728" offset="728" size="3" javaType="String"/>
+    <field name="ALM8O" offset="731" size="15" javaType="String"/>
+    <field name="FILLER-746" offset="746" size="3" javaType="String"/>
+    <field name="AAV8O" offset="749" size="15" javaType="String"/>
+    <field name="FILLER-764" offset="764" size="3" javaType="String"/>
+    <field name="AUT8O" offset="767" size="6" javaType="String"/>
+    <field name="FILLER-773" offset="773" size="3" javaType="String"/>
+    <field name="AID9O" offset="776" size="11" javaType="String"/>
+    <field name="FILLER-787" offset="787" size="3" javaType="String"/>
+    <field name="AST9O" offset="790" size="1" javaType="String"/>
+    <field name="FILLER-791" offset="791" size="3" javaType="String"/>
+    <field name="ABL9O" offset="794" size="15" javaType="String"/>
+    <field name="FILLER-809" offset="809" size="3" javaType="String"/>
+    <field name="ALM9O" offset="812" size="15" javaType="String"/>
+    <field name="FILLER-827" offset="827" size="3" javaType="String"/>
+    <field name="AAV9O" offset="830" size="15" javaType="String"/>
+    <field name="FILLER-845" offset="845" size="3" javaType="String"/>
+    <field name="AUT9O" offset="848" size="6" javaType="String"/>
+    <field name="FILLER-854" offset="854" size="3" javaType="String"/>
+    <field name="AID10O" offset="857" size="11" javaType="String"/>
+    <field name="FILLER-868" offset="868" size="3" javaType="String"/>
+    <field name="AST10O" offset="871" size="1" javaType="String"/>
+    <field name="FILLER-872" offset="872" size="3" javaType="String"/>
+    <field name="ABL10O" offset="875" size="15" javaType="String"/>
+    <field name="FILLER-890" offset="890" size="3" javaType="String"/>
+    <field name="ALM10O" offset="893" size="15" javaType="String"/>
+    <field name="FILLER-908" offset="908" size="3" javaType="String"/>
+    <field name="AAV10O" offset="911" size="15" javaType="String"/>
+    <field name="FILLER-926" offset="926" size="3" javaType="String"/>
+    <field name="AUT10O" offset="929" size="6" javaType="String"/>
+    <field name="FILLER-935" offset="935" size="3" javaType="String"/>
+    <field name="AID11O" offset="938" size="11" javaType="String"/>
+    <field name="FILLER-949" offset="949" size="3" javaType="String"/>
+    <field name="AST11O" offset="952" size="1" javaType="String"/>
+    <field name="FILLER-953" offset="953" size="3" javaType="String"/>
+    <field name="ABL11O" offset="956" size="15" javaType="String"/>
+    <field name="FILLER-971" offset="971" size="3" javaType="String"/>
+    <field name="ALM11O" offset="974" size="15" javaType="String"/>
+    <field name="FILLER-989" offset="989" size="3" javaType="String"/>
+    <field name="AAV11O" offset="992" size="15" javaType="String"/>
+    <field name="FILLER-1007" offset="1007" size="3" javaType="String"/>
+    <field name="AUT11O" offset="1010" size="6" javaType="String"/>
+    <field name="FILLER-1016" offset="1016" size="3" javaType="String"/>
+    <field name="AID12O" offset="1019" size="11" javaType="String"/>
+    <field name="FILLER-1030" offset="1030" size="3" javaType="String"/>
+    <field name="AST12O" offset="1033" size="1" javaType="String"/>
+    <field name="FILLER-1034" offset="1034" size="3" javaType="String"/>
+    <field name="ABL12O" offset="1037" size="15" javaType="String"/>
+    <field name="FILLER-1052" offset="1052" size="3" javaType="String"/>
+    <field name="ALM12O" offset="1055" size="15" javaType="String"/>
+    <field name="FILLER-1070" offset="1070" size="3" javaType="String"/>
+    <field name="AAV12O" offset="1073" size="15" javaType="String"/>
+    <field name="FILLER-1088" offset="1088" size="3" javaType="String"/>
+    <field name="AUT12O" offset="1091" size="6" javaType="String"/>
+    <field name="FILLER-1097" offset="1097" size="3" javaType="String"/>
+    <field name="AID13O" offset="1100" size="11" javaType="String"/>
+    <field name="FILLER-1111" offset="1111" size="3" javaType="String"/>
+    <field name="AST13O" offset="1114" size="1" javaType="String"/>
+    <field name="FILLER-1115" offset="1115" size="3" javaType="String"/>
+    <field name="ABL13O" offset="1118" size="15" javaType="String"/>
+    <field name="FILLER-1133" offset="1133" size="3" javaType="String"/>
+    <field name="ALM13O" offset="1136" size="15" javaType="String"/>
+    <field name="FILLER-1151" offset="1151" size="3" javaType="String"/>
+    <field name="AAV13O" offset="1154" size="15" javaType="String"/>
+    <field name="FILLER-1169" offset="1169" size="3" javaType="String"/>
+    <field name="AUT13O" offset="1172" size="6" javaType="String"/>
+    <field name="FILLER-1178" offset="1178" size="3" javaType="String"/>
+    <field name="PAGENOO" offset="1181" size="3" javaType="String"/>
+    <field name="FILLER-1184" offset="1184" size="3" javaType="String"/>
+    <field name="RUNTOTO" offset="1187" size="7" javaType="String"/>
+    <field name="FILLER-1194" offset="1194" size="3" javaType="String"/>
+    <field name="PGBALO" offset="1197" size="20" javaType="String"/>
+    <field name="FILLER-1217" offset="1217" size="3" javaType="String"/>
+    <field name="PGAVLO" offset="1220" size="20" javaType="String"/>
+    <field name="FILLER-1240" offset="1240" size="3" javaType="String"/>
+    <field name="ERRMSGO" offset="1243" size="78" javaType="String"/>
+  </group>
+</dataLayout>

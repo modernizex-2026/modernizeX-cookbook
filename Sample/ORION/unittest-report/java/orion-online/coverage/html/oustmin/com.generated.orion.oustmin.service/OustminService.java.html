@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OustminService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OUSTMIN Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.oustmin.service</a> &gt; <span class="el_source">OustminService.java</span></div><h1>OustminService.java</h1><pre class="source lang-java linenums">package com.generated.orion.oustmin.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.oustmin.accessor.OustminFields;
+import com.generated.orion.oustmin.metadata.OustminBmsMetadata;
+import com.generated.orion.oustmin.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program OUSTMIN. */
+@Service
+<span class="nc" id="L20">public class OustminService implements AppProgram {</span>
+<span class="nc" id="L21">    private static final Logger log = LoggerFactory.getLogger(OustminService.class);</span>
+
+    private static final String KSB_STATUS_ERROR = &quot;99&quot;;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L31">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc bnc" id="L32" title="All 4 branches missed.">        if (ctx.appService.getEibcalen() &gt; 0 &amp;&amp; ctx.appService.getCommarea() != null) {</span>
+<span class="nc" id="L33">            Object _commarea = ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">            if (_commarea instanceof Object[]) {</span>
+<span class="nc" id="L35">                Object[] _params = (Object[]) _commarea;</span>
+<span class="nc bnc" id="L36" title="All 4 branches missed.">                if (_params.length &gt; 0 &amp;&amp; _params[0] instanceof byte[]) {</span>
+<span class="nc" id="L37">                    ctx.f.writeBytes(&quot;KSTMB-PARM&quot;, (byte[]) _params[0]);</span>
+<span class="nc bnc" id="L38" title="All 4 branches missed.">                } else if (_params.length &gt; 0 &amp;&amp; _params[0] != null) {</span>
+<span class="nc" id="L39">                    ctx.f.setGroup(&quot;KSTMB-PARM&quot;, String.valueOf(_params[0]));</span>
+                }
+<span class="nc bnc" id="L41" title="All 2 branches missed.">            } else if (_commarea instanceof byte[]) {</span>
+<span class="nc" id="L42">                ctx.f.writeBytes(&quot;KSTMB-PARM&quot;, (byte[]) _commarea);</span>
+            } else {
+<span class="nc" id="L44">                ctx.f.setGroup(&quot;KSTMB-PARM&quot;, String.valueOf(_commarea));</span>
+            }
+        }
+        try {
+<span class="nc" id="L48">            runMainProgram(ctx);</span>
+        } finally {
+<span class="nc bnc" id="L50" title="All 2 branches missed.">            if (ctx.appService.getEibcalen() &gt; 0) {</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                if (ctx.appService.getCommarea() instanceof Object[]) {</span>
+<span class="nc" id="L52">                    Object[] _params = (Object[]) ctx.appService.getCommarea();</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                    if (_params.length &gt; 0) {</span>
+<span class="nc" id="L54">                        _params[0] =</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">                                _params[0] instanceof byte[]</span>
+<span class="nc" id="L56">                                        ? (Object) ctx.f.sliceBytes(&quot;KSTMB-PARM&quot;)</span>
+<span class="nc" id="L57">                                        : (Object) ctx.f.groupToString(&quot;KSTMB-PARM&quot;);</span>
+                    }
+<span class="nc" id="L59">                } else {</span>
+<span class="nc" id="L60">                    ctx.appService.setCommarea(ctx.f.sliceBytes(&quot;KSTMB-PARM&quot;));</span>
+                }
+            }
+        }
+<span class="nc" id="L64">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L68">        return &quot;OUSTMIN&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L73">        return OustminBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L78">        OustminBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L79">    }</span>
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainProgram(TaskContext ctx) {
+<span class="nc" id="L83">        initializeRequest(ctx);</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (!Utility.fieldEquals(ctx.f.getKsbStatus(), KSB_STATUS_ERROR)) {</span>
+<span class="nc" id="L85">            positionAccountBrowse(ctx);</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">            if (ctx.f.getWsBrowseSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L87">                readResultPage(ctx);</span>
+<span class="nc" id="L88">                peekNextStatementRow(ctx);</span>
+<span class="nc" id="L89">                endStatementBrowse(ctx);</span>
+            }
+        }
+<span class="nc" id="L92">        finalizeResponseStatus(ctx);</span>
+<span class="nc" id="L93">        return;</span>
+    }
+
+    /** COBOL paragraph: 1000-INIT */
+    private void initializeRequest(TaskContext ctx) {
+<span class="nc" id="L98">        ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L99">        ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L100">        ctx.f.setWsRowCnt(0);</span>
+<span class="nc" id="L101">        ctx.f.setKsbStatus(&quot;00&quot;);</span>
+<span class="nc" id="L102">        ctx.f.setKsbRowCnt(0);</span>
+<span class="nc" id="L103">        ctx.f.setKsbNextAcct(0);</span>
+<span class="nc" id="L104">        ctx.f.setKsbNextCycle(0);</span>
+<span class="nc" id="L105">        ctx.f.setKsbMore(&quot;N&quot;);</span>
+<span class="nc" id="L106">        clearResultRows(ctx);</span>
+<span class="nc" id="L107">        validateRequestMode(ctx);</span>
+<span class="nc" id="L108">    }</span>
+
+    /** COBOL paragraph: 1100-CLEAR-ROWS */
+    private void clearResultRows(TaskContext ctx) {
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        for (ctx.f.setWsIdx(1); ctx.f.getWsIdx() &lt;= 6; ctx.f.setWsIdx(ctx.f.getWsIdx() + 1)) {</span>
+<span class="nc" id="L113">            ctx.f.setKsbRAcct(ctx.f.getWsIdx(), 0);</span>
+<span class="nc" id="L114">            ctx.f.setKsbRCycle(ctx.f.getWsIdx(), 0);</span>
+<span class="nc" id="L115">            ctx.f.setKsbROpen(ctx.f.getWsIdx(), java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L116">            ctx.f.setKsbRClose(ctx.f.getWsIdx(), java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L117">            ctx.f.setKsbRCredit(ctx.f.getWsIdx(), java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L118">            ctx.f.setKsbRDebit(ctx.f.getWsIdx(), java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L119">            ctx.f.setKsbRMindue(ctx.f.getWsIdx(), java.math.BigDecimal.valueOf(0));</span>
+<span class="nc" id="L120">            ctx.f.setKsbRDuedt(ctx.f.getWsIdx(), &quot; &quot;);</span>
+        }
+<span class="nc" id="L122">    }</span>
+
+    /** COBOL paragraph: 1200-VALIDATE-REQ */
+    private void validateRequestMode(TaskContext ctx) {
+<span class="nc" id="L126">        ctx.f.setWsMaxRows(ctx.f.getKsbMaxRows());</span>
+<span class="nc bnc" id="L127" title="All 4 branches missed.">        if (ctx.f.getWsMaxRows() &lt; 1 || ctx.f.getWsMaxRows() &gt; 6) {</span>
+<span class="nc" id="L128">            ctx.f.setWsMaxRows(6);</span>
+        }
+<span class="nc bnc" id="L130" title="All 2 branches missed.">        if (!Utility.fieldEquals(ctx.f.getKsbMode(), &quot;ACCT&quot;)) {</span>
+<span class="nc" id="L131">            ctx.f.setKsbStatus(KSB_STATUS_ERROR);</span>
+<span class="nc" id="L132">            ctx.f.setWsDiagCtx(&quot;BAD REQUEST MODE&quot;);</span>
+<span class="nc" id="L133">            ctx.f.setWsDiagResp(0);</span>
+<span class="nc" id="L134">            writeDiagnosticQueue(ctx);</span>
+        }
+<span class="nc" id="L136">    }</span>
+
+    /** COBOL paragraph: 2000-POSITION */
+    private void positionAccountBrowse(TaskContext ctx) {
+<span class="nc" id="L140">        ctx.f.setStAcctId(ctx.f.getKsbStartAcct());</span>
+<span class="nc" id="L141">        ctx.f.setStCycle(ctx.f.getKsbStartCycle());</span>
+<span class="nc" id="L142">        ctx.appService.startBrowse(</span>
+<span class="nc" id="L143">                ctx.f.getWsStmtfile(),</span>
+<span class="nc" id="L144">                String.valueOf(ctx.f.getStAcctId()) + &quot;|&quot; + String.valueOf(ctx.f.getStCycle()),</span>
+                0);
+<span class="nc" id="L146">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L148">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 13) {</span>
+<span class="nc" id="L150">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L151">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L153">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L154">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L156">            ctx.f.setString(&quot;WS-BROWSE-SW&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L157">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L158">            reportStmtfileError(ctx, &quot;STARTBR STMTFILE&quot;);</span>
+        }
+<span class="nc" id="L160">    }</span>
+
+    /** COBOL paragraph: 3000-READ-PAGE */
+    private void readResultPage(TaskContext ctx) {
+<span class="nc bnc" id="L164" title="All 4 branches missed.">        while (!ctx.f.getWsEofSw().equals(&quot;Y&quot;) &amp;&amp; ctx.f.getWsRowCnt() &lt; ctx.f.getWsMaxRows()) {</span>
+<span class="nc" id="L165">            readNextStatementRow(ctx);</span>
+        }
+<span class="nc" id="L167">    }</span>
+
+    /** COBOL paragraph: 3100-READ-ONE */
+    private void readNextStatementRow(TaskContext ctx) {
+<span class="nc" id="L171">        ctx.appService.readNext(ctx.f.getWsStmtfile(), ctx.f);</span>
+<span class="nc" id="L172">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L174">            ctx.f.setWsRowCnt(ctx.f.getWsRowCnt() + 1);</span>
+<span class="nc" id="L175">            populateResultRow(ctx);</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L177">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+        } else {
+<span class="nc" id="L179">            ctx.f.setString(&quot;WS-EOF-SW&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L180">            reportStmtfileError(ctx, &quot;READNEXT STMTFILE&quot;);</span>
+        }
+<span class="nc" id="L182">    }</span>
+
+    /** COBOL paragraph: 3200-MOVE-ROW */
+    private void populateResultRow(TaskContext ctx) {
+<span class="nc" id="L186">        ctx.f.setKsbRAcct(ctx.f.getWsRowCnt(), ctx.f.getStAcctId());</span>
+<span class="nc" id="L187">        ctx.f.setKsbRCycle(ctx.f.getWsRowCnt(), ctx.f.getStCycle());</span>
+<span class="nc" id="L188">        ctx.f.setKsbROpen(ctx.f.getWsRowCnt(), ctx.f.getStOpenBal());</span>
+<span class="nc" id="L189">        ctx.f.setKsbRClose(ctx.f.getWsRowCnt(), ctx.f.getStCloseBal());</span>
+<span class="nc" id="L190">        ctx.f.setKsbRCredit(ctx.f.getWsRowCnt(), ctx.f.getStTotalCredit());</span>
+<span class="nc" id="L191">        ctx.f.setKsbRDebit(ctx.f.getWsRowCnt(), ctx.f.getStTotalDebit());</span>
+<span class="nc" id="L192">        ctx.f.setKsbRMindue(ctx.f.getWsRowCnt(), ctx.f.getStMinDue());</span>
+<span class="nc" id="L193">        ctx.f.setKsbRDuedt(ctx.f.getWsRowCnt(), ctx.f.getStDueDate());</span>
+<span class="nc" id="L194">    }</span>
+
+    /** COBOL paragraph: 4000-PEEK-NEXT */
+    private void peekNextStatementRow(TaskContext ctx) {
+<span class="nc bnc" id="L198" title="All 2 branches missed.">        if (ctx.f.getWsEofSw().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L199">            ctx.f.setKsbMore(&quot;N&quot;);</span>
+<span class="nc" id="L200">            return;</span>
+        }
+<span class="nc" id="L202">        ctx.appService.readNext(ctx.f.getWsStmtfile(), ctx.f);</span>
+<span class="nc" id="L203">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() == 0) {</span>
+<span class="nc" id="L205">            ctx.f.setKsbMore(&quot;Y&quot;);</span>
+<span class="nc" id="L206">            ctx.f.setKsbNextAcct(ctx.f.getStAcctId());</span>
+<span class="nc" id="L207">            ctx.f.setKsbNextCycle(ctx.f.getStCycle());</span>
+<span class="nc bnc" id="L208" title="All 2 branches missed.">        } else if (ctx.f.getWsRespCd() == 20) {</span>
+<span class="nc" id="L209">            ctx.f.setKsbMore(&quot;N&quot;);</span>
+        } else {
+<span class="nc" id="L211">            ctx.f.setKsbMore(&quot;N&quot;);</span>
+<span class="nc" id="L212">            reportStmtfileError(ctx, &quot;PEEK STMTFILE&quot;);</span>
+        }
+<span class="nc" id="L214">    }</span>
+
+    /** COBOL paragraph: 5000-END-BROWSE */
+    private void endStatementBrowse(TaskContext ctx) {
+<span class="nc" id="L218">        ctx.appService.endBrowse(ctx.f.getWsStmtfile());</span>
+<span class="nc" id="L219">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">        if (ctx.f.getWsRespCd() != 0) {</span>
+<span class="nc" id="L221">            ctx.f.setWsDiagCtx(&quot;ENDBR STMTFILE&quot;);</span>
+<span class="nc" id="L222">            ctx.f.setWsDiagResp(ctx.f.getWsRespCd());</span>
+<span class="nc" id="L223">            writeDiagnosticQueue(ctx);</span>
+        }
+<span class="nc" id="L225">    }</span>
+
+    /** COBOL paragraph: 6000-SET-STATUS */
+    private void finalizeResponseStatus(TaskContext ctx) {
+<span class="nc" id="L229">        ctx.f.setKsbRowCnt(ctx.f.getWsRowCnt());</span>
+<span class="nc bnc" id="L230" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.f.getKsbStatus(), KSB_STATUS_ERROR)) {</span>
+<span class="nc" id="L231">            return;</span>
+        }
+<span class="nc bnc" id="L233" title="All 2 branches missed.">        if (ctx.f.getWsRowCnt() == 0) {</span>
+<span class="nc" id="L234">            ctx.f.setKsbStatus(&quot;10&quot;);</span>
+        } else {
+<span class="nc" id="L236">            ctx.f.setKsbStatus(&quot;00&quot;);</span>
+        }
+<span class="nc" id="L238">    }</span>
+
+    /** COBOL paragraph: 9500-LOG-ERROR */
+    private void writeDiagnosticQueue(TaskContext ctx) {
+<span class="nc" id="L242">        ctx.f.setWdlCtx(ctx.f.getWsDiagCtx());</span>
+<span class="nc" id="L243">        ctx.f.setWdlResp(ctx.f.getWsDiagResp());</span>
+<span class="nc" id="L244">        ctx.f.setWsDiagMsg(ctx.f.getWsDiagLine());</span>
+<span class="nc" id="L245">        ctx.appService.writeQueueTd(ctx.f.getWsDiagQname(), ctx.f, 80);</span>
+<span class="nc" id="L246">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L247">    }</span>
+
+    /** Mark the request as failed and log the diagnostic context for a stmtfile I/O error. */
+    private void reportStmtfileError(TaskContext ctx, String diagCtx) {
+<span class="nc" id="L251">        ctx.f.setKsbStatus(KSB_STATUS_ERROR);</span>
+<span class="nc" id="L252">        ctx.f.setWsDiagCtx(diagCtx);</span>
+<span class="nc" id="L253">        ctx.f.setWsDiagResp(ctx.f.getWsRespCd());</span>
+<span class="nc" id="L254">        writeDiagnosticQueue(ctx);</span>
+<span class="nc" id="L255">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OustminFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L268">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L269">            this.appService = appService;</span>
+<span class="nc" id="L270">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L271">            this.f = new OustminFields(ws);</span>
+<span class="nc" id="L272">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OdcardvService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ODCARDV Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.odcardv.service</a> &gt; <span class="el_source">OdcardvService.java</span></div><h1>OdcardvService.java</h1><pre class="source lang-java linenums">package com.generated.orion.odcardv.service;
+
+import com.appruntime.AppProgram;
+import com.appruntime.AppRunner;
+import com.appruntime.AppService;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import com.generated.orion.common.infrastructure.Utility;
+import com.generated.orion.common.linkage.OdcardvLinkParm;
+import com.generated.orion.odcardv.accessor.OdcardvFields;
+import com.generated.orion.odcardv.dao.OdcardvDao;
+import com.generated.orion.odcardv.metadata.OdcardvBmsMetadata;
+import com.generated.orion.odcardv.model.WorkingStorage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/** CICS program implementation generated from COBOL program ODCARDV. */
+@Service
+<span class="nc" id="L24">public class OdcardvService implements AppProgram {</span>
+<span class="nc" id="L25">    private static final Logger log = LoggerFactory.getLogger(OdcardvService.class);</span>
+
+    private static final int COMMAREA_LENGTH = 692;
+
+    @Autowired private OdcardvDao dao;
+
+    /**
+     * Entry point: executes the CICS program main line. Called by AppRunner after transaction
+     * setup.
+     */
+    @Override
+    public void mainLine(AppService appService) {
+<span class="nc" id="L37">        TaskContext ctx = new TaskContext(appService);</span>
+<span class="nc" id="L38">        ctx.dao = this.dao;</span>
+<span class="nc" id="L39">        runMainLine(ctx);</span>
+<span class="nc" id="L40">    }</span>
+
+    @Override
+    public String getProgramName() {
+<span class="nc" id="L44">        return &quot;ODCARDV&quot;;</span>
+    }
+
+    @Override
+    public String getTransId() {
+<span class="nc" id="L49">        return &quot;OD03&quot;;</span>
+    }
+
+    @Override
+    public List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="nc" id="L54">        return OdcardvBmsMetadata.getButtonDefs();</span>
+    }
+
+    @Override
+    public void registerFsetFields(AppRunner runner) {
+<span class="nc" id="L59">        OdcardvBmsMetadata.registerFsetFields(runner);</span>
+<span class="nc" id="L60">    }</span>
+
+    @Override
+    public FieldMapping getFieldMapping(String mapName) {
+<span class="nc" id="L64">        return OdcardvBmsMetadata.getFieldMapping(mapName);</span>
+    }
+
+    /** COBOL paragraph: 0000-MAIN */
+    private void runMainLine(TaskContext ctx) {
+<span class="nc" id="L69">        ctx.f.setString(&quot;WS-ERR-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L70">        ctx.f.setCaErrMsg(&quot; &quot;);</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (ctx.appService.getEibcalen() == 0) {</span>
+<span class="nc" id="L72">            sendInitialScreen(ctx);</span>
+        } else {
+<span class="nc" id="L74">            ctx.f.setOrionCommarea(Utility.groupToString(ctx.appService.getSerializedCommarea()));</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">            if (ctx.f.getCaPgmContext() == 0) {</span>
+<span class="nc" id="L76">                sendInitialScreen(ctx);</span>
+            } else {
+<span class="nc" id="L78">                processUserInput(ctx);</span>
+            }
+        }
+<span class="nc" id="L81">        returnToCics(ctx);</span>
+<span class="nc" id="L82">    }</span>
+
+    /** COBOL paragraph: 1000-SEND-INITIAL */
+    private void sendInitialScreen(TaskContext ctx) {
+<span class="nc" id="L86">        ctx.f.fillLowValues(&quot;MCARDVAO&quot;);</span>
+<span class="nc" id="L87">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L88">        ctx.f.setErrmsgo(&quot;Enter card number and press ENTER.&quot;);</span>
+<span class="nc" id="L89">        ctx.appService.sendMap(</span>
+                &quot;MCARDVA&quot;, ctx.f, ctx.f, /* erase */ true, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L91">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L92">        ctx.f.setCaPgmContext(1);</span>
+<span class="nc" id="L93">    }</span>
+
+    /** COBOL paragraph: 2000-PROCESS-INPUT */
+    private void processUserInput(TaskContext ctx) {
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;3&quot;)) {</span>
+<span class="nc" id="L98">            transferToMenuProgram(ctx);</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;4&quot;)) {</span>
+<span class="nc" id="L100">            sendInitialScreen(ctx);</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        } else if (Utility.fieldEquals(ctx.appService.getEibaid(), &quot;'&quot;)) {</span>
+<span class="nc" id="L102">            readAndDisplayCard(ctx);</span>
+        } else {
+<span class="nc" id="L104">            sendInitialScreen(ctx);</span>
+<span class="nc" id="L105">            ctx.f.setErrmsgo(ctx.f.getWsMsgInvalidKey());</span>
+<span class="nc" id="L106">            sendDataOnlyScreen(ctx);</span>
+        }
+<span class="nc" id="L108">    }</span>
+
+    /** COBOL paragraph: 2100-READ-AND-SHOW */
+    private void readAndDisplayCard(TaskContext ctx) {
+<span class="nc" id="L112">        ctx.appService.receiveMap(&quot;MCARDVA&quot;, ctx.f);</span>
+<span class="nc" id="L113">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc bnc" id="L114" title="All 4 branches missed.">        if (Utility.fieldEquals(ctx.f.getCardnumi(), &quot; &quot;) || ctx.f.isAllLowValues(&quot;CARDNUMI&quot;)) {</span>
+<span class="nc" id="L115">            ctx.f.setErrmsgo(ctx.f.getWsMsgRequired());</span>
+<span class="nc" id="L116">            sendDataOnlyScreen(ctx);</span>
+        } else {
+<span class="nc" id="L118">            ctx.f.setCdNum(ctx.f.getCardnumi());</span>
+<span class="nc" id="L119">            ctx.f.setCaCardNum(ctx.f.getCdNum());</span>
+<span class="nc" id="L120">            readCardFromDatabase(ctx);</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">            if (ctx.f.getWsFoundFlg().equals(&quot;Y&quot;)) {</span>
+<span class="nc" id="L122">                populateCardDetailFields(ctx);</span>
+<span class="nc" id="L123">                ctx.f.setErrmsgo(&quot;Card displayed.&quot;);</span>
+<span class="nc" id="L124">                sendDataOnlyScreen(ctx);</span>
+            } else {
+<span class="nc" id="L126">                ctx.f.setErrmsgo(ctx.f.getWsMsgNotfnd());</span>
+<span class="nc" id="L127">                sendDataOnlyScreen(ctx);</span>
+            }
+        }
+<span class="nc" id="L130">    }</span>
+
+    /** COBOL paragraph: 3000-READ-CARD */
+    private void readCardFromDatabase(TaskContext ctx) {
+<span class="nc" id="L134">        ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+        // DB2 SELECT INTO — ORION.CARD
+        {
+<span class="nc" id="L137">            java.util.Map&lt;String, Object&gt; _sqlResult = dao.selectOrionCard(ctx.f.getCdNum());</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">            if (!_sqlResult.containsKey(&quot;SQLCODE&quot;)) {</span>
+<span class="nc" id="L139">                ctx.f.setCdAcctId(</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">                        (_sqlResult.get(&quot;CD_ACCT_ID&quot;) == null</span>
+<span class="nc" id="L141">                                ? 0L</span>
+<span class="nc" id="L142">                                : ((Number) _sqlResult.get(&quot;CD_ACCT_ID&quot;)).longValue()));</span>
+<span class="nc" id="L143">                ctx.f.setCdEmbossedName(</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">                        (_sqlResult.get(&quot;CD_EMBOSSED_NAME&quot;) == null</span>
+<span class="nc" id="L145">                                ? &quot;&quot;</span>
+<span class="nc" id="L146">                                : String.valueOf(_sqlResult.get(&quot;CD_EMBOSSED_NAME&quot;))));</span>
+<span class="nc" id="L147">                ctx.f.setCdExpiryDate(</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">                        (_sqlResult.get(&quot;CD_EXPIRY_DATE&quot;) == null</span>
+<span class="nc" id="L149">                                ? &quot;&quot;</span>
+<span class="nc" id="L150">                                : String.valueOf(_sqlResult.get(&quot;CD_EXPIRY_DATE&quot;))));</span>
+<span class="nc" id="L151">                ctx.f.setCdActiveStatus(</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">                        (_sqlResult.get(&quot;CD_ACTIVE_STATUS&quot;) == null</span>
+<span class="nc" id="L153">                                ? &quot;&quot;</span>
+<span class="nc" id="L154">                                : String.valueOf(_sqlResult.get(&quot;CD_ACTIVE_STATUS&quot;))));</span>
+<span class="nc" id="L155">                ctx.f.setSqlcode(0);</span>
+            } else {
+<span class="nc" id="L157">                ctx.f.setSqlcode(</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">                        _sqlResult.get(&quot;SQLCODE&quot;) != null</span>
+<span class="nc" id="L159">                                ? (Integer) _sqlResult.get(&quot;SQLCODE&quot;)</span>
+<span class="nc" id="L160">                                : 0);</span>
+            }
+        }
+<span class="nc bnc" id="L163" title="All 3 branches missed.">        switch (ctx.f.getSqlcode()) {</span>
+            case 0 -&gt; {
+<span class="nc" id="L165">                ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;Y&quot;);</span>
+<span class="nc" id="L166">            }</span>
+            case 100 -&gt; {
+<span class="nc" id="L168">                ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L169">            }</span>
+            default -&gt; {
+<span class="nc" id="L171">                ctx.f.setString(&quot;WS-FOUND-FLG&quot;, &quot;N&quot;);</span>
+<span class="nc" id="L172">                ctx.f.setErrmsgo(&quot;Error reading card table.&quot;);</span>
+            }
+        }
+<span class="nc" id="L175">    }</span>
+
+    /** COBOL paragraph: 4000-POPULATE-DETAIL */
+    private void populateCardDetailFields(TaskContext ctx) {
+<span class="nc" id="L179">        ctx.f.setCardnumo(ctx.f.getCdNum());</span>
+<span class="nc" id="L180">        ctx.f.setCdaccto(String.format(&quot;%011d&quot;, ctx.f.getCdAcctId()));</span>
+<span class="nc" id="L181">        ctx.f.setCdnameo(ctx.f.getCdEmbossedName());</span>
+<span class="nc" id="L182">        ctx.f.setCdexpo(ctx.f.getCdExpiryDate());</span>
+<span class="nc" id="L183">        ctx.f.setCdstato(ctx.f.getCdActiveStatus());</span>
+<span class="nc" id="L184">    }</span>
+
+    /** COBOL paragraph: 7000-XCTL-MENU */
+    private void transferToMenuProgram(TaskContext ctx) {
+<span class="nc" id="L188">        ctx.f.setCaFromProgram(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L189">        ctx.f.setCaFromTranid(ctx.f.getWsTranid());</span>
+<span class="nc" id="L190">        ctx.f.setCaPgmContext(0);</span>
+<span class="nc" id="L191">        ctx.appService.xctl(</span>
+<span class="nc" id="L192">                ctx.f.getWsMenuPgm(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L193">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L194">    }</span>
+
+    /** COBOL paragraph: 8000-POPULATE-HEADER */
+    private void populateScreenHeader(TaskContext ctx) {
+<span class="nc" id="L198">        ctx.f.setTrnnameo(ctx.f.getWsTranid());</span>
+<span class="nc" id="L199">        ctx.f.setPgmnameo(ctx.f.getWsPgmname());</span>
+<span class="nc" id="L200">        ctx.f.setTitleo(ctx.f.getWsHdrTitle());</span>
+<span class="nc" id="L201">        loadCurrentDateTime(ctx);</span>
+<span class="nc" id="L202">        ctx.f.setCurdateo(ctx.f.getWsHdrDate());</span>
+<span class="nc" id="L203">        ctx.f.setCurtimeo(ctx.f.getWsHdrTime());</span>
+<span class="nc" id="L204">    }</span>
+
+    /** COBOL paragraph: 8100-SEND-DATAONLY */
+    private void sendDataOnlyScreen(TaskContext ctx) {
+<span class="nc" id="L208">        populateScreenHeader(ctx);</span>
+<span class="nc" id="L209">        ctx.appService.sendMap(</span>
+                &quot;MCARDVA&quot;, ctx.f, ctx.f, /* erase */ false, /* freekb */ false, /* cursor */ false);
+<span class="nc" id="L211">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L212">    }</span>
+
+    /** COBOL paragraph: 8500-GET-DATE-TIME */
+    private void loadCurrentDateTime(TaskContext ctx) {
+<span class="nc" id="L216">        ctx.appService.askTime();</span>
+<span class="nc" id="L217">        com.appruntime.FormatTimeResult _ftResult =</span>
+<span class="nc" id="L218">                ctx.appService.formatTime(null, &quot;YYYYMMDD&quot;, &quot;-&quot;, &quot;:&quot;);</span>
+<span class="nc" id="L219">        ctx.f.setWsHdrDate(_ftResult.getDate());</span>
+<span class="nc" id="L220">        ctx.f.setWsHdrTime(_ftResult.getTime());</span>
+<span class="nc" id="L221">        ctx.f.setWsRespCd(ctx.appService.getEibresp());</span>
+<span class="nc" id="L222">    }</span>
+
+    /** COBOL paragraph: 9000-RETURN */
+    private void returnToCics(TaskContext ctx) {
+<span class="nc" id="L226">        ctx.appService.returnTransid(</span>
+<span class="nc" id="L227">                ctx.f.getWsTranid(), ctx.f.sliceBytes(&quot;ORION-COMMAREA&quot;), COMMAREA_LENGTH);</span>
+<span class="nc" id="L228">    }</span>
+
+    /**
+     * Per-request execution context — analogous to CICS Task Control Block. Each HTTP request
+     * creates a fresh TaskContext. Thread-safe by design.
+     */
+    static class TaskContext {
+        final WorkingStorage ws;
+
+        final OdcardvFields f;
+
+        final AppService appService;
+
+<span class="nc" id="L241">        final OdcardvLinkParm link = new OdcardvLinkParm();</span>
+
+        OdcardvDao dao;
+
+<span class="nc" id="L245">        TaskContext(AppService appService) {</span>
+<span class="nc" id="L246">            this.appService = appService;</span>
+<span class="nc" id="L247">            this.ws = new WorkingStorage();</span>
+<span class="nc" id="L248">            this.f = new OdcardvFields(ws);</span>
+<span class="nc" id="L249">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

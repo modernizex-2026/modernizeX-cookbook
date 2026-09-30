@@ -1,0 +1,1072 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OccusinFields.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCCUSIN Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.occusin.accessor</a> &gt; <span class="el_source">OccusinFields.java</span></div><h1>OccusinFields.java</h1><pre class="source lang-java linenums">package com.generated.orion.occusin.accessor;
+
+import com.generated.orion.common.infrastructure.layout.DynamicFieldAccessor;
+import com.generated.orion.occusin.model.WorkingStorage;
+import java.math.BigDecimal;
+
+/**
+ * Field accessor for OCCUSIN.
+ * Backend: DynamicFieldAccessor (raw RecordBuffer byte[]).
+ * Typed methods auto-generated from referenced fields — bodies delegate to the string-key API.
+ */
+public class OccusinFields extends DynamicFieldAccessor {
+
+<span class="fc" id="L14">    public OccusinFields(WorkingStorage ws) {</span>
+<span class="pc bpc" id="L15" title="1 of 2 branches missed.">        if (ws != null) {</span>
+<span class="fc" id="L16">            register(ws.buffer());</span>
+        }
+<span class="fc" id="L18">    }</span>
+
+    /* ── Typed wrappers (delegate → string-key) ─────────────── */
+<span class="nc" id="L21">    public long getCaAcctId() { return getLong(&quot;CA-ACCT-ID&quot;); }</span>
+<span class="nc" id="L22">    public void setCaAcctId(long value) { setLong(&quot;CA-ACCT-ID&quot;, value); }</span>
+<span class="nc" id="L23">    public String getCaCardNum() { return getString(&quot;CA-CARD-NUM&quot;); }</span>
+<span class="nc" id="L24">    public void setCaCardNum(String value) { setString(&quot;CA-CARD-NUM&quot;, value); }</span>
+<span class="nc" id="L25">    public int getCaCustId() { return getInt(&quot;CA-CUST-ID&quot;); }</span>
+<span class="nc" id="L26">    public void setCaCustId(int value) { setInt(&quot;CA-CUST-ID&quot;, value); }</span>
+<span class="nc" id="L27">    public String getCaErrFlg() { return getString(&quot;CA-ERR-FLG&quot;); }</span>
+<span class="nc" id="L28">    public void setCaErrFlg(String value) { setString(&quot;CA-ERR-FLG&quot;, value); }</span>
+<span class="fc" id="L29">    public String getCaErrMsg() { return getString(&quot;CA-ERR-MSG&quot;); }</span>
+<span class="fc" id="L30">    public void setCaErrMsg(String value) { setString(&quot;CA-ERR-MSG&quot;, value); }</span>
+<span class="nc" id="L31">    public String getCaError() { return groupToString(&quot;CA-ERROR&quot;); }</span>
+<span class="nc" id="L32">    public void setCaError(String value) { setGroup(&quot;CA-ERROR&quot;, value); }</span>
+<span class="nc" id="L33">    public String getCaFromProgram() { return getString(&quot;CA-FROM-PROGRAM&quot;); }</span>
+<span class="fc" id="L34">    public void setCaFromProgram(String value) { setString(&quot;CA-FROM-PROGRAM&quot;, value); }</span>
+<span class="nc" id="L35">    public String getCaFromTranid() { return getString(&quot;CA-FROM-TRANID&quot;); }</span>
+<span class="fc" id="L36">    public void setCaFromTranid(String value) { setString(&quot;CA-FROM-TRANID&quot;, value); }</span>
+<span class="nc" id="L37">    public String getCaGeneral() { return groupToString(&quot;CA-GENERAL&quot;); }</span>
+<span class="nc" id="L38">    public void setCaGeneral(String value) { setGroup(&quot;CA-GENERAL&quot;, value); }</span>
+<span class="nc" id="L39">    public String getCaLastMap() { return getString(&quot;CA-LAST-MAP&quot;); }</span>
+<span class="nc" id="L40">    public void setCaLastMap(String value) { setString(&quot;CA-LAST-MAP&quot;, value); }</span>
+<span class="nc" id="L41">    public String getCaLastMapset() { return getString(&quot;CA-LAST-MAPSET&quot;); }</span>
+<span class="nc" id="L42">    public void setCaLastMapset(String value) { setString(&quot;CA-LAST-MAPSET&quot;, value); }</span>
+<span class="fc" id="L43">    public int getCaPgmContext() { return getInt(&quot;CA-PGM-CONTEXT&quot;); }</span>
+<span class="fc" id="L44">    public void setCaPgmContext(int value) { setInt(&quot;CA-PGM-CONTEXT&quot;, value); }</span>
+<span class="nc" id="L45">    public String getCaSelected() { return groupToString(&quot;CA-SELECTED&quot;); }</span>
+<span class="nc" id="L46">    public void setCaSelected(String value) { setGroup(&quot;CA-SELECTED&quot;, value); }</span>
+<span class="nc" id="L47">    public String getCaToProgram() { return getString(&quot;CA-TO-PROGRAM&quot;); }</span>
+<span class="fc" id="L48">    public void setCaToProgram(String value) { setString(&quot;CA-TO-PROGRAM&quot;, value); }</span>
+<span class="nc" id="L49">    public String getCaToTranid() { return getString(&quot;CA-TO-TRANID&quot;); }</span>
+<span class="nc" id="L50">    public void setCaToTranid(String value) { setString(&quot;CA-TO-TRANID&quot;, value); }</span>
+<span class="nc" id="L51">    public String getCaTranId() { return getString(&quot;CA-TRAN-ID&quot;); }</span>
+<span class="nc" id="L52">    public void setCaTranId(String value) { setString(&quot;CA-TRAN-ID&quot;, value); }</span>
+<span class="nc" id="L53">    public String getCaUserId() { return getString(&quot;CA-USER-ID&quot;); }</span>
+<span class="nc" id="L54">    public void setCaUserId(String value) { setString(&quot;CA-USER-ID&quot;, value); }</span>
+<span class="nc" id="L55">    public String getCaUserType() { return getString(&quot;CA-USER-TYPE&quot;); }</span>
+<span class="nc" id="L56">    public void setCaUserType(String value) { setString(&quot;CA-USER-TYPE&quot;, value); }</span>
+<span class="fc" id="L57">    public String getCaWorkArea() { return getString(&quot;CA-WORK-AREA&quot;); }</span>
+<span class="fc" id="L58">    public void setCaWorkArea(String value) { setString(&quot;CA-WORK-AREA&quot;, value); }</span>
+<span class="nc" id="L59">    public String getCfi10a() { return getString(&quot;CFI10A&quot;); }</span>
+<span class="nc" id="L60">    public void setCfi10a(String value) { setString(&quot;CFI10A&quot;, value); }</span>
+<span class="nc" id="L61">    public String getCfi10f() { return getString(&quot;CFI10F&quot;); }</span>
+<span class="nc" id="L62">    public void setCfi10f(String value) { setString(&quot;CFI10F&quot;, value); }</span>
+<span class="nc" id="L63">    public String getCfi10i() { return getString(&quot;CFI10I&quot;); }</span>
+<span class="nc" id="L64">    public void setCfi10i(String value) { setString(&quot;CFI10I&quot;, value); }</span>
+<span class="nc" id="L65">    public int getCfi10l() { return getInt(&quot;CFI10L&quot;); }</span>
+<span class="nc" id="L66">    public void setCfi10l(int value) { setInt(&quot;CFI10L&quot;, value); }</span>
+<span class="nc" id="L67">    public String getCfi10o() { return getString(&quot;CFI10O&quot;); }</span>
+<span class="fc" id="L68">    public void setCfi10o(String value) { setString(&quot;CFI10O&quot;, value); }</span>
+<span class="nc" id="L69">    public String getCfi11a() { return getString(&quot;CFI11A&quot;); }</span>
+<span class="nc" id="L70">    public void setCfi11a(String value) { setString(&quot;CFI11A&quot;, value); }</span>
+<span class="nc" id="L71">    public String getCfi11f() { return getString(&quot;CFI11F&quot;); }</span>
+<span class="nc" id="L72">    public void setCfi11f(String value) { setString(&quot;CFI11F&quot;, value); }</span>
+<span class="nc" id="L73">    public String getCfi11i() { return getString(&quot;CFI11I&quot;); }</span>
+<span class="nc" id="L74">    public void setCfi11i(String value) { setString(&quot;CFI11I&quot;, value); }</span>
+<span class="nc" id="L75">    public int getCfi11l() { return getInt(&quot;CFI11L&quot;); }</span>
+<span class="nc" id="L76">    public void setCfi11l(int value) { setInt(&quot;CFI11L&quot;, value); }</span>
+<span class="nc" id="L77">    public String getCfi11o() { return getString(&quot;CFI11O&quot;); }</span>
+<span class="fc" id="L78">    public void setCfi11o(String value) { setString(&quot;CFI11O&quot;, value); }</span>
+<span class="nc" id="L79">    public String getCfi12a() { return getString(&quot;CFI12A&quot;); }</span>
+<span class="nc" id="L80">    public void setCfi12a(String value) { setString(&quot;CFI12A&quot;, value); }</span>
+<span class="nc" id="L81">    public String getCfi12f() { return getString(&quot;CFI12F&quot;); }</span>
+<span class="nc" id="L82">    public void setCfi12f(String value) { setString(&quot;CFI12F&quot;, value); }</span>
+<span class="nc" id="L83">    public String getCfi12i() { return getString(&quot;CFI12I&quot;); }</span>
+<span class="nc" id="L84">    public void setCfi12i(String value) { setString(&quot;CFI12I&quot;, value); }</span>
+<span class="nc" id="L85">    public int getCfi12l() { return getInt(&quot;CFI12L&quot;); }</span>
+<span class="nc" id="L86">    public void setCfi12l(int value) { setInt(&quot;CFI12L&quot;, value); }</span>
+<span class="nc" id="L87">    public String getCfi12o() { return getString(&quot;CFI12O&quot;); }</span>
+<span class="fc" id="L88">    public void setCfi12o(String value) { setString(&quot;CFI12O&quot;, value); }</span>
+<span class="nc" id="L89">    public String getCfi13a() { return getString(&quot;CFI13A&quot;); }</span>
+<span class="nc" id="L90">    public void setCfi13a(String value) { setString(&quot;CFI13A&quot;, value); }</span>
+<span class="nc" id="L91">    public String getCfi13f() { return getString(&quot;CFI13F&quot;); }</span>
+<span class="nc" id="L92">    public void setCfi13f(String value) { setString(&quot;CFI13F&quot;, value); }</span>
+<span class="nc" id="L93">    public String getCfi13i() { return getString(&quot;CFI13I&quot;); }</span>
+<span class="nc" id="L94">    public void setCfi13i(String value) { setString(&quot;CFI13I&quot;, value); }</span>
+<span class="nc" id="L95">    public int getCfi13l() { return getInt(&quot;CFI13L&quot;); }</span>
+<span class="nc" id="L96">    public void setCfi13l(int value) { setInt(&quot;CFI13L&quot;, value); }</span>
+<span class="nc" id="L97">    public String getCfi13o() { return getString(&quot;CFI13O&quot;); }</span>
+<span class="fc" id="L98">    public void setCfi13o(String value) { setString(&quot;CFI13O&quot;, value); }</span>
+<span class="nc" id="L99">    public String getCfi1a() { return getString(&quot;CFI1A&quot;); }</span>
+<span class="nc" id="L100">    public void setCfi1a(String value) { setString(&quot;CFI1A&quot;, value); }</span>
+<span class="nc" id="L101">    public String getCfi1f() { return getString(&quot;CFI1F&quot;); }</span>
+<span class="nc" id="L102">    public void setCfi1f(String value) { setString(&quot;CFI1F&quot;, value); }</span>
+<span class="nc" id="L103">    public String getCfi1i() { return getString(&quot;CFI1I&quot;); }</span>
+<span class="nc" id="L104">    public void setCfi1i(String value) { setString(&quot;CFI1I&quot;, value); }</span>
+<span class="nc" id="L105">    public int getCfi1l() { return getInt(&quot;CFI1L&quot;); }</span>
+<span class="nc" id="L106">    public void setCfi1l(int value) { setInt(&quot;CFI1L&quot;, value); }</span>
+<span class="fc" id="L107">    public String getCfi1o() { return getString(&quot;CFI1O&quot;); }</span>
+<span class="fc" id="L108">    public void setCfi1o(String value) { setString(&quot;CFI1O&quot;, value); }</span>
+<span class="nc" id="L109">    public String getCfi2a() { return getString(&quot;CFI2A&quot;); }</span>
+<span class="nc" id="L110">    public void setCfi2a(String value) { setString(&quot;CFI2A&quot;, value); }</span>
+<span class="nc" id="L111">    public String getCfi2f() { return getString(&quot;CFI2F&quot;); }</span>
+<span class="nc" id="L112">    public void setCfi2f(String value) { setString(&quot;CFI2F&quot;, value); }</span>
+<span class="nc" id="L113">    public String getCfi2i() { return getString(&quot;CFI2I&quot;); }</span>
+<span class="nc" id="L114">    public void setCfi2i(String value) { setString(&quot;CFI2I&quot;, value); }</span>
+<span class="nc" id="L115">    public int getCfi2l() { return getInt(&quot;CFI2L&quot;); }</span>
+<span class="nc" id="L116">    public void setCfi2l(int value) { setInt(&quot;CFI2L&quot;, value); }</span>
+<span class="nc" id="L117">    public String getCfi2o() { return getString(&quot;CFI2O&quot;); }</span>
+<span class="fc" id="L118">    public void setCfi2o(String value) { setString(&quot;CFI2O&quot;, value); }</span>
+<span class="nc" id="L119">    public String getCfi3a() { return getString(&quot;CFI3A&quot;); }</span>
+<span class="nc" id="L120">    public void setCfi3a(String value) { setString(&quot;CFI3A&quot;, value); }</span>
+<span class="nc" id="L121">    public String getCfi3f() { return getString(&quot;CFI3F&quot;); }</span>
+<span class="nc" id="L122">    public void setCfi3f(String value) { setString(&quot;CFI3F&quot;, value); }</span>
+<span class="nc" id="L123">    public String getCfi3i() { return getString(&quot;CFI3I&quot;); }</span>
+<span class="nc" id="L124">    public void setCfi3i(String value) { setString(&quot;CFI3I&quot;, value); }</span>
+<span class="nc" id="L125">    public int getCfi3l() { return getInt(&quot;CFI3L&quot;); }</span>
+<span class="nc" id="L126">    public void setCfi3l(int value) { setInt(&quot;CFI3L&quot;, value); }</span>
+<span class="nc" id="L127">    public String getCfi3o() { return getString(&quot;CFI3O&quot;); }</span>
+<span class="fc" id="L128">    public void setCfi3o(String value) { setString(&quot;CFI3O&quot;, value); }</span>
+<span class="nc" id="L129">    public String getCfi4a() { return getString(&quot;CFI4A&quot;); }</span>
+<span class="nc" id="L130">    public void setCfi4a(String value) { setString(&quot;CFI4A&quot;, value); }</span>
+<span class="nc" id="L131">    public String getCfi4f() { return getString(&quot;CFI4F&quot;); }</span>
+<span class="nc" id="L132">    public void setCfi4f(String value) { setString(&quot;CFI4F&quot;, value); }</span>
+<span class="nc" id="L133">    public String getCfi4i() { return getString(&quot;CFI4I&quot;); }</span>
+<span class="nc" id="L134">    public void setCfi4i(String value) { setString(&quot;CFI4I&quot;, value); }</span>
+<span class="nc" id="L135">    public int getCfi4l() { return getInt(&quot;CFI4L&quot;); }</span>
+<span class="nc" id="L136">    public void setCfi4l(int value) { setInt(&quot;CFI4L&quot;, value); }</span>
+<span class="nc" id="L137">    public String getCfi4o() { return getString(&quot;CFI4O&quot;); }</span>
+<span class="fc" id="L138">    public void setCfi4o(String value) { setString(&quot;CFI4O&quot;, value); }</span>
+<span class="nc" id="L139">    public String getCfi5a() { return getString(&quot;CFI5A&quot;); }</span>
+<span class="nc" id="L140">    public void setCfi5a(String value) { setString(&quot;CFI5A&quot;, value); }</span>
+<span class="nc" id="L141">    public String getCfi5f() { return getString(&quot;CFI5F&quot;); }</span>
+<span class="nc" id="L142">    public void setCfi5f(String value) { setString(&quot;CFI5F&quot;, value); }</span>
+<span class="nc" id="L143">    public String getCfi5i() { return getString(&quot;CFI5I&quot;); }</span>
+<span class="nc" id="L144">    public void setCfi5i(String value) { setString(&quot;CFI5I&quot;, value); }</span>
+<span class="nc" id="L145">    public int getCfi5l() { return getInt(&quot;CFI5L&quot;); }</span>
+<span class="nc" id="L146">    public void setCfi5l(int value) { setInt(&quot;CFI5L&quot;, value); }</span>
+<span class="nc" id="L147">    public String getCfi5o() { return getString(&quot;CFI5O&quot;); }</span>
+<span class="fc" id="L148">    public void setCfi5o(String value) { setString(&quot;CFI5O&quot;, value); }</span>
+<span class="nc" id="L149">    public String getCfi6a() { return getString(&quot;CFI6A&quot;); }</span>
+<span class="nc" id="L150">    public void setCfi6a(String value) { setString(&quot;CFI6A&quot;, value); }</span>
+<span class="nc" id="L151">    public String getCfi6f() { return getString(&quot;CFI6F&quot;); }</span>
+<span class="nc" id="L152">    public void setCfi6f(String value) { setString(&quot;CFI6F&quot;, value); }</span>
+<span class="nc" id="L153">    public String getCfi6i() { return getString(&quot;CFI6I&quot;); }</span>
+<span class="nc" id="L154">    public void setCfi6i(String value) { setString(&quot;CFI6I&quot;, value); }</span>
+<span class="nc" id="L155">    public int getCfi6l() { return getInt(&quot;CFI6L&quot;); }</span>
+<span class="nc" id="L156">    public void setCfi6l(int value) { setInt(&quot;CFI6L&quot;, value); }</span>
+<span class="nc" id="L157">    public String getCfi6o() { return getString(&quot;CFI6O&quot;); }</span>
+<span class="fc" id="L158">    public void setCfi6o(String value) { setString(&quot;CFI6O&quot;, value); }</span>
+<span class="nc" id="L159">    public String getCfi7a() { return getString(&quot;CFI7A&quot;); }</span>
+<span class="nc" id="L160">    public void setCfi7a(String value) { setString(&quot;CFI7A&quot;, value); }</span>
+<span class="nc" id="L161">    public String getCfi7f() { return getString(&quot;CFI7F&quot;); }</span>
+<span class="nc" id="L162">    public void setCfi7f(String value) { setString(&quot;CFI7F&quot;, value); }</span>
+<span class="nc" id="L163">    public String getCfi7i() { return getString(&quot;CFI7I&quot;); }</span>
+<span class="nc" id="L164">    public void setCfi7i(String value) { setString(&quot;CFI7I&quot;, value); }</span>
+<span class="nc" id="L165">    public int getCfi7l() { return getInt(&quot;CFI7L&quot;); }</span>
+<span class="nc" id="L166">    public void setCfi7l(int value) { setInt(&quot;CFI7L&quot;, value); }</span>
+<span class="nc" id="L167">    public String getCfi7o() { return getString(&quot;CFI7O&quot;); }</span>
+<span class="fc" id="L168">    public void setCfi7o(String value) { setString(&quot;CFI7O&quot;, value); }</span>
+<span class="nc" id="L169">    public String getCfi8a() { return getString(&quot;CFI8A&quot;); }</span>
+<span class="nc" id="L170">    public void setCfi8a(String value) { setString(&quot;CFI8A&quot;, value); }</span>
+<span class="nc" id="L171">    public String getCfi8f() { return getString(&quot;CFI8F&quot;); }</span>
+<span class="nc" id="L172">    public void setCfi8f(String value) { setString(&quot;CFI8F&quot;, value); }</span>
+<span class="nc" id="L173">    public String getCfi8i() { return getString(&quot;CFI8I&quot;); }</span>
+<span class="nc" id="L174">    public void setCfi8i(String value) { setString(&quot;CFI8I&quot;, value); }</span>
+<span class="nc" id="L175">    public int getCfi8l() { return getInt(&quot;CFI8L&quot;); }</span>
+<span class="nc" id="L176">    public void setCfi8l(int value) { setInt(&quot;CFI8L&quot;, value); }</span>
+<span class="nc" id="L177">    public String getCfi8o() { return getString(&quot;CFI8O&quot;); }</span>
+<span class="fc" id="L178">    public void setCfi8o(String value) { setString(&quot;CFI8O&quot;, value); }</span>
+<span class="nc" id="L179">    public String getCfi9a() { return getString(&quot;CFI9A&quot;); }</span>
+<span class="nc" id="L180">    public void setCfi9a(String value) { setString(&quot;CFI9A&quot;, value); }</span>
+<span class="nc" id="L181">    public String getCfi9f() { return getString(&quot;CFI9F&quot;); }</span>
+<span class="nc" id="L182">    public void setCfi9f(String value) { setString(&quot;CFI9F&quot;, value); }</span>
+<span class="nc" id="L183">    public String getCfi9i() { return getString(&quot;CFI9I&quot;); }</span>
+<span class="nc" id="L184">    public void setCfi9i(String value) { setString(&quot;CFI9I&quot;, value); }</span>
+<span class="nc" id="L185">    public int getCfi9l() { return getInt(&quot;CFI9L&quot;); }</span>
+<span class="nc" id="L186">    public void setCfi9l(int value) { setInt(&quot;CFI9L&quot;, value); }</span>
+<span class="nc" id="L187">    public String getCfi9o() { return getString(&quot;CFI9O&quot;); }</span>
+<span class="fc" id="L188">    public void setCfi9o(String value) { setString(&quot;CFI9O&quot;, value); }</span>
+<span class="nc" id="L189">    public int getCompletionCode() { return getInt(&quot;COMPLETION-CODE&quot;); }</span>
+<span class="nc" id="L190">    public void setCompletionCode(int value) { setInt(&quot;COMPLETION-CODE&quot;, value); }</span>
+<span class="nc" id="L191">    public String getCst10a() { return getString(&quot;CST10A&quot;); }</span>
+<span class="nc" id="L192">    public void setCst10a(String value) { setString(&quot;CST10A&quot;, value); }</span>
+<span class="nc" id="L193">    public String getCst10f() { return getString(&quot;CST10F&quot;); }</span>
+<span class="nc" id="L194">    public void setCst10f(String value) { setString(&quot;CST10F&quot;, value); }</span>
+<span class="nc" id="L195">    public String getCst10i() { return getString(&quot;CST10I&quot;); }</span>
+<span class="nc" id="L196">    public void setCst10i(String value) { setString(&quot;CST10I&quot;, value); }</span>
+<span class="nc" id="L197">    public int getCst10l() { return getInt(&quot;CST10L&quot;); }</span>
+<span class="nc" id="L198">    public void setCst10l(int value) { setInt(&quot;CST10L&quot;, value); }</span>
+<span class="nc" id="L199">    public String getCst10o() { return getString(&quot;CST10O&quot;); }</span>
+<span class="fc" id="L200">    public void setCst10o(String value) { setString(&quot;CST10O&quot;, value); }</span>
+<span class="nc" id="L201">    public String getCst11a() { return getString(&quot;CST11A&quot;); }</span>
+<span class="nc" id="L202">    public void setCst11a(String value) { setString(&quot;CST11A&quot;, value); }</span>
+<span class="nc" id="L203">    public String getCst11f() { return getString(&quot;CST11F&quot;); }</span>
+<span class="nc" id="L204">    public void setCst11f(String value) { setString(&quot;CST11F&quot;, value); }</span>
+<span class="nc" id="L205">    public String getCst11i() { return getString(&quot;CST11I&quot;); }</span>
+<span class="nc" id="L206">    public void setCst11i(String value) { setString(&quot;CST11I&quot;, value); }</span>
+<span class="nc" id="L207">    public int getCst11l() { return getInt(&quot;CST11L&quot;); }</span>
+<span class="nc" id="L208">    public void setCst11l(int value) { setInt(&quot;CST11L&quot;, value); }</span>
+<span class="nc" id="L209">    public String getCst11o() { return getString(&quot;CST11O&quot;); }</span>
+<span class="fc" id="L210">    public void setCst11o(String value) { setString(&quot;CST11O&quot;, value); }</span>
+<span class="nc" id="L211">    public String getCst12a() { return getString(&quot;CST12A&quot;); }</span>
+<span class="nc" id="L212">    public void setCst12a(String value) { setString(&quot;CST12A&quot;, value); }</span>
+<span class="nc" id="L213">    public String getCst12f() { return getString(&quot;CST12F&quot;); }</span>
+<span class="nc" id="L214">    public void setCst12f(String value) { setString(&quot;CST12F&quot;, value); }</span>
+<span class="nc" id="L215">    public String getCst12i() { return getString(&quot;CST12I&quot;); }</span>
+<span class="nc" id="L216">    public void setCst12i(String value) { setString(&quot;CST12I&quot;, value); }</span>
+<span class="nc" id="L217">    public int getCst12l() { return getInt(&quot;CST12L&quot;); }</span>
+<span class="nc" id="L218">    public void setCst12l(int value) { setInt(&quot;CST12L&quot;, value); }</span>
+<span class="nc" id="L219">    public String getCst12o() { return getString(&quot;CST12O&quot;); }</span>
+<span class="fc" id="L220">    public void setCst12o(String value) { setString(&quot;CST12O&quot;, value); }</span>
+<span class="nc" id="L221">    public String getCst13a() { return getString(&quot;CST13A&quot;); }</span>
+<span class="nc" id="L222">    public void setCst13a(String value) { setString(&quot;CST13A&quot;, value); }</span>
+<span class="nc" id="L223">    public String getCst13f() { return getString(&quot;CST13F&quot;); }</span>
+<span class="nc" id="L224">    public void setCst13f(String value) { setString(&quot;CST13F&quot;, value); }</span>
+<span class="nc" id="L225">    public String getCst13i() { return getString(&quot;CST13I&quot;); }</span>
+<span class="nc" id="L226">    public void setCst13i(String value) { setString(&quot;CST13I&quot;, value); }</span>
+<span class="nc" id="L227">    public int getCst13l() { return getInt(&quot;CST13L&quot;); }</span>
+<span class="nc" id="L228">    public void setCst13l(int value) { setInt(&quot;CST13L&quot;, value); }</span>
+<span class="nc" id="L229">    public String getCst13o() { return getString(&quot;CST13O&quot;); }</span>
+<span class="fc" id="L230">    public void setCst13o(String value) { setString(&quot;CST13O&quot;, value); }</span>
+<span class="nc" id="L231">    public String getCst1a() { return getString(&quot;CST1A&quot;); }</span>
+<span class="nc" id="L232">    public void setCst1a(String value) { setString(&quot;CST1A&quot;, value); }</span>
+<span class="nc" id="L233">    public String getCst1f() { return getString(&quot;CST1F&quot;); }</span>
+<span class="nc" id="L234">    public void setCst1f(String value) { setString(&quot;CST1F&quot;, value); }</span>
+<span class="nc" id="L235">    public String getCst1i() { return getString(&quot;CST1I&quot;); }</span>
+<span class="nc" id="L236">    public void setCst1i(String value) { setString(&quot;CST1I&quot;, value); }</span>
+<span class="nc" id="L237">    public int getCst1l() { return getInt(&quot;CST1L&quot;); }</span>
+<span class="nc" id="L238">    public void setCst1l(int value) { setInt(&quot;CST1L&quot;, value); }</span>
+<span class="fc" id="L239">    public String getCst1o() { return getString(&quot;CST1O&quot;); }</span>
+<span class="fc" id="L240">    public void setCst1o(String value) { setString(&quot;CST1O&quot;, value); }</span>
+<span class="nc" id="L241">    public String getCst2a() { return getString(&quot;CST2A&quot;); }</span>
+<span class="nc" id="L242">    public void setCst2a(String value) { setString(&quot;CST2A&quot;, value); }</span>
+<span class="nc" id="L243">    public String getCst2f() { return getString(&quot;CST2F&quot;); }</span>
+<span class="nc" id="L244">    public void setCst2f(String value) { setString(&quot;CST2F&quot;, value); }</span>
+<span class="nc" id="L245">    public String getCst2i() { return getString(&quot;CST2I&quot;); }</span>
+<span class="nc" id="L246">    public void setCst2i(String value) { setString(&quot;CST2I&quot;, value); }</span>
+<span class="nc" id="L247">    public int getCst2l() { return getInt(&quot;CST2L&quot;); }</span>
+<span class="nc" id="L248">    public void setCst2l(int value) { setInt(&quot;CST2L&quot;, value); }</span>
+<span class="fc" id="L249">    public String getCst2o() { return getString(&quot;CST2O&quot;); }</span>
+<span class="fc" id="L250">    public void setCst2o(String value) { setString(&quot;CST2O&quot;, value); }</span>
+<span class="nc" id="L251">    public String getCst3a() { return getString(&quot;CST3A&quot;); }</span>
+<span class="nc" id="L252">    public void setCst3a(String value) { setString(&quot;CST3A&quot;, value); }</span>
+<span class="nc" id="L253">    public String getCst3f() { return getString(&quot;CST3F&quot;); }</span>
+<span class="nc" id="L254">    public void setCst3f(String value) { setString(&quot;CST3F&quot;, value); }</span>
+<span class="nc" id="L255">    public String getCst3i() { return getString(&quot;CST3I&quot;); }</span>
+<span class="nc" id="L256">    public void setCst3i(String value) { setString(&quot;CST3I&quot;, value); }</span>
+<span class="nc" id="L257">    public int getCst3l() { return getInt(&quot;CST3L&quot;); }</span>
+<span class="nc" id="L258">    public void setCst3l(int value) { setInt(&quot;CST3L&quot;, value); }</span>
+<span class="nc" id="L259">    public String getCst3o() { return getString(&quot;CST3O&quot;); }</span>
+<span class="fc" id="L260">    public void setCst3o(String value) { setString(&quot;CST3O&quot;, value); }</span>
+<span class="nc" id="L261">    public String getCst4a() { return getString(&quot;CST4A&quot;); }</span>
+<span class="nc" id="L262">    public void setCst4a(String value) { setString(&quot;CST4A&quot;, value); }</span>
+<span class="nc" id="L263">    public String getCst4f() { return getString(&quot;CST4F&quot;); }</span>
+<span class="nc" id="L264">    public void setCst4f(String value) { setString(&quot;CST4F&quot;, value); }</span>
+<span class="nc" id="L265">    public String getCst4i() { return getString(&quot;CST4I&quot;); }</span>
+<span class="nc" id="L266">    public void setCst4i(String value) { setString(&quot;CST4I&quot;, value); }</span>
+<span class="nc" id="L267">    public int getCst4l() { return getInt(&quot;CST4L&quot;); }</span>
+<span class="nc" id="L268">    public void setCst4l(int value) { setInt(&quot;CST4L&quot;, value); }</span>
+<span class="nc" id="L269">    public String getCst4o() { return getString(&quot;CST4O&quot;); }</span>
+<span class="fc" id="L270">    public void setCst4o(String value) { setString(&quot;CST4O&quot;, value); }</span>
+<span class="nc" id="L271">    public String getCst5a() { return getString(&quot;CST5A&quot;); }</span>
+<span class="nc" id="L272">    public void setCst5a(String value) { setString(&quot;CST5A&quot;, value); }</span>
+<span class="nc" id="L273">    public String getCst5f() { return getString(&quot;CST5F&quot;); }</span>
+<span class="nc" id="L274">    public void setCst5f(String value) { setString(&quot;CST5F&quot;, value); }</span>
+<span class="nc" id="L275">    public String getCst5i() { return getString(&quot;CST5I&quot;); }</span>
+<span class="nc" id="L276">    public void setCst5i(String value) { setString(&quot;CST5I&quot;, value); }</span>
+<span class="nc" id="L277">    public int getCst5l() { return getInt(&quot;CST5L&quot;); }</span>
+<span class="nc" id="L278">    public void setCst5l(int value) { setInt(&quot;CST5L&quot;, value); }</span>
+<span class="nc" id="L279">    public String getCst5o() { return getString(&quot;CST5O&quot;); }</span>
+<span class="fc" id="L280">    public void setCst5o(String value) { setString(&quot;CST5O&quot;, value); }</span>
+<span class="nc" id="L281">    public String getCst6a() { return getString(&quot;CST6A&quot;); }</span>
+<span class="nc" id="L282">    public void setCst6a(String value) { setString(&quot;CST6A&quot;, value); }</span>
+<span class="nc" id="L283">    public String getCst6f() { return getString(&quot;CST6F&quot;); }</span>
+<span class="nc" id="L284">    public void setCst6f(String value) { setString(&quot;CST6F&quot;, value); }</span>
+<span class="nc" id="L285">    public String getCst6i() { return getString(&quot;CST6I&quot;); }</span>
+<span class="nc" id="L286">    public void setCst6i(String value) { setString(&quot;CST6I&quot;, value); }</span>
+<span class="nc" id="L287">    public int getCst6l() { return getInt(&quot;CST6L&quot;); }</span>
+<span class="nc" id="L288">    public void setCst6l(int value) { setInt(&quot;CST6L&quot;, value); }</span>
+<span class="nc" id="L289">    public String getCst6o() { return getString(&quot;CST6O&quot;); }</span>
+<span class="fc" id="L290">    public void setCst6o(String value) { setString(&quot;CST6O&quot;, value); }</span>
+<span class="nc" id="L291">    public String getCst7a() { return getString(&quot;CST7A&quot;); }</span>
+<span class="nc" id="L292">    public void setCst7a(String value) { setString(&quot;CST7A&quot;, value); }</span>
+<span class="nc" id="L293">    public String getCst7f() { return getString(&quot;CST7F&quot;); }</span>
+<span class="nc" id="L294">    public void setCst7f(String value) { setString(&quot;CST7F&quot;, value); }</span>
+<span class="nc" id="L295">    public String getCst7i() { return getString(&quot;CST7I&quot;); }</span>
+<span class="nc" id="L296">    public void setCst7i(String value) { setString(&quot;CST7I&quot;, value); }</span>
+<span class="nc" id="L297">    public int getCst7l() { return getInt(&quot;CST7L&quot;); }</span>
+<span class="nc" id="L298">    public void setCst7l(int value) { setInt(&quot;CST7L&quot;, value); }</span>
+<span class="nc" id="L299">    public String getCst7o() { return getString(&quot;CST7O&quot;); }</span>
+<span class="fc" id="L300">    public void setCst7o(String value) { setString(&quot;CST7O&quot;, value); }</span>
+<span class="nc" id="L301">    public String getCst8a() { return getString(&quot;CST8A&quot;); }</span>
+<span class="nc" id="L302">    public void setCst8a(String value) { setString(&quot;CST8A&quot;, value); }</span>
+<span class="nc" id="L303">    public String getCst8f() { return getString(&quot;CST8F&quot;); }</span>
+<span class="nc" id="L304">    public void setCst8f(String value) { setString(&quot;CST8F&quot;, value); }</span>
+<span class="nc" id="L305">    public String getCst8i() { return getString(&quot;CST8I&quot;); }</span>
+<span class="nc" id="L306">    public void setCst8i(String value) { setString(&quot;CST8I&quot;, value); }</span>
+<span class="nc" id="L307">    public int getCst8l() { return getInt(&quot;CST8L&quot;); }</span>
+<span class="nc" id="L308">    public void setCst8l(int value) { setInt(&quot;CST8L&quot;, value); }</span>
+<span class="nc" id="L309">    public String getCst8o() { return getString(&quot;CST8O&quot;); }</span>
+<span class="fc" id="L310">    public void setCst8o(String value) { setString(&quot;CST8O&quot;, value); }</span>
+<span class="nc" id="L311">    public String getCst9a() { return getString(&quot;CST9A&quot;); }</span>
+<span class="nc" id="L312">    public void setCst9a(String value) { setString(&quot;CST9A&quot;, value); }</span>
+<span class="nc" id="L313">    public String getCst9f() { return getString(&quot;CST9F&quot;); }</span>
+<span class="nc" id="L314">    public void setCst9f(String value) { setString(&quot;CST9F&quot;, value); }</span>
+<span class="nc" id="L315">    public String getCst9i() { return getString(&quot;CST9I&quot;); }</span>
+<span class="nc" id="L316">    public void setCst9i(String value) { setString(&quot;CST9I&quot;, value); }</span>
+<span class="nc" id="L317">    public int getCst9l() { return getInt(&quot;CST9L&quot;); }</span>
+<span class="nc" id="L318">    public void setCst9l(int value) { setInt(&quot;CST9L&quot;, value); }</span>
+<span class="nc" id="L319">    public String getCst9o() { return getString(&quot;CST9O&quot;); }</span>
+<span class="fc" id="L320">    public void setCst9o(String value) { setString(&quot;CST9O&quot;, value); }</span>
+<span class="nc" id="L321">    public String getCul10a() { return getString(&quot;CUL10A&quot;); }</span>
+<span class="nc" id="L322">    public void setCul10a(String value) { setString(&quot;CUL10A&quot;, value); }</span>
+<span class="nc" id="L323">    public String getCul10f() { return getString(&quot;CUL10F&quot;); }</span>
+<span class="nc" id="L324">    public void setCul10f(String value) { setString(&quot;CUL10F&quot;, value); }</span>
+<span class="nc" id="L325">    public String getCul10i() { return getString(&quot;CUL10I&quot;); }</span>
+<span class="nc" id="L326">    public void setCul10i(String value) { setString(&quot;CUL10I&quot;, value); }</span>
+<span class="nc" id="L327">    public int getCul10l() { return getInt(&quot;CUL10L&quot;); }</span>
+<span class="nc" id="L328">    public void setCul10l(int value) { setInt(&quot;CUL10L&quot;, value); }</span>
+<span class="nc" id="L329">    public String getCul10o() { return getString(&quot;CUL10O&quot;); }</span>
+<span class="fc" id="L330">    public void setCul10o(String value) { setString(&quot;CUL10O&quot;, value); }</span>
+<span class="nc" id="L331">    public String getCul11a() { return getString(&quot;CUL11A&quot;); }</span>
+<span class="nc" id="L332">    public void setCul11a(String value) { setString(&quot;CUL11A&quot;, value); }</span>
+<span class="nc" id="L333">    public String getCul11f() { return getString(&quot;CUL11F&quot;); }</span>
+<span class="nc" id="L334">    public void setCul11f(String value) { setString(&quot;CUL11F&quot;, value); }</span>
+<span class="nc" id="L335">    public String getCul11i() { return getString(&quot;CUL11I&quot;); }</span>
+<span class="nc" id="L336">    public void setCul11i(String value) { setString(&quot;CUL11I&quot;, value); }</span>
+<span class="nc" id="L337">    public int getCul11l() { return getInt(&quot;CUL11L&quot;); }</span>
+<span class="nc" id="L338">    public void setCul11l(int value) { setInt(&quot;CUL11L&quot;, value); }</span>
+<span class="nc" id="L339">    public String getCul11o() { return getString(&quot;CUL11O&quot;); }</span>
+<span class="fc" id="L340">    public void setCul11o(String value) { setString(&quot;CUL11O&quot;, value); }</span>
+<span class="nc" id="L341">    public String getCul12a() { return getString(&quot;CUL12A&quot;); }</span>
+<span class="nc" id="L342">    public void setCul12a(String value) { setString(&quot;CUL12A&quot;, value); }</span>
+<span class="nc" id="L343">    public String getCul12f() { return getString(&quot;CUL12F&quot;); }</span>
+<span class="nc" id="L344">    public void setCul12f(String value) { setString(&quot;CUL12F&quot;, value); }</span>
+<span class="nc" id="L345">    public String getCul12i() { return getString(&quot;CUL12I&quot;); }</span>
+<span class="nc" id="L346">    public void setCul12i(String value) { setString(&quot;CUL12I&quot;, value); }</span>
+<span class="nc" id="L347">    public int getCul12l() { return getInt(&quot;CUL12L&quot;); }</span>
+<span class="nc" id="L348">    public void setCul12l(int value) { setInt(&quot;CUL12L&quot;, value); }</span>
+<span class="nc" id="L349">    public String getCul12o() { return getString(&quot;CUL12O&quot;); }</span>
+<span class="fc" id="L350">    public void setCul12o(String value) { setString(&quot;CUL12O&quot;, value); }</span>
+<span class="nc" id="L351">    public String getCul13a() { return getString(&quot;CUL13A&quot;); }</span>
+<span class="nc" id="L352">    public void setCul13a(String value) { setString(&quot;CUL13A&quot;, value); }</span>
+<span class="nc" id="L353">    public String getCul13f() { return getString(&quot;CUL13F&quot;); }</span>
+<span class="nc" id="L354">    public void setCul13f(String value) { setString(&quot;CUL13F&quot;, value); }</span>
+<span class="nc" id="L355">    public String getCul13i() { return getString(&quot;CUL13I&quot;); }</span>
+<span class="nc" id="L356">    public void setCul13i(String value) { setString(&quot;CUL13I&quot;, value); }</span>
+<span class="nc" id="L357">    public int getCul13l() { return getInt(&quot;CUL13L&quot;); }</span>
+<span class="nc" id="L358">    public void setCul13l(int value) { setInt(&quot;CUL13L&quot;, value); }</span>
+<span class="nc" id="L359">    public String getCul13o() { return getString(&quot;CUL13O&quot;); }</span>
+<span class="fc" id="L360">    public void setCul13o(String value) { setString(&quot;CUL13O&quot;, value); }</span>
+<span class="nc" id="L361">    public String getCul1a() { return getString(&quot;CUL1A&quot;); }</span>
+<span class="nc" id="L362">    public void setCul1a(String value) { setString(&quot;CUL1A&quot;, value); }</span>
+<span class="nc" id="L363">    public String getCul1f() { return getString(&quot;CUL1F&quot;); }</span>
+<span class="nc" id="L364">    public void setCul1f(String value) { setString(&quot;CUL1F&quot;, value); }</span>
+<span class="nc" id="L365">    public String getCul1i() { return getString(&quot;CUL1I&quot;); }</span>
+<span class="nc" id="L366">    public void setCul1i(String value) { setString(&quot;CUL1I&quot;, value); }</span>
+<span class="nc" id="L367">    public int getCul1l() { return getInt(&quot;CUL1L&quot;); }</span>
+<span class="nc" id="L368">    public void setCul1l(int value) { setInt(&quot;CUL1L&quot;, value); }</span>
+<span class="fc" id="L369">    public String getCul1o() { return getString(&quot;CUL1O&quot;); }</span>
+<span class="fc" id="L370">    public void setCul1o(String value) { setString(&quot;CUL1O&quot;, value); }</span>
+<span class="nc" id="L371">    public String getCul2a() { return getString(&quot;CUL2A&quot;); }</span>
+<span class="nc" id="L372">    public void setCul2a(String value) { setString(&quot;CUL2A&quot;, value); }</span>
+<span class="nc" id="L373">    public String getCul2f() { return getString(&quot;CUL2F&quot;); }</span>
+<span class="nc" id="L374">    public void setCul2f(String value) { setString(&quot;CUL2F&quot;, value); }</span>
+<span class="nc" id="L375">    public String getCul2i() { return getString(&quot;CUL2I&quot;); }</span>
+<span class="nc" id="L376">    public void setCul2i(String value) { setString(&quot;CUL2I&quot;, value); }</span>
+<span class="nc" id="L377">    public int getCul2l() { return getInt(&quot;CUL2L&quot;); }</span>
+<span class="nc" id="L378">    public void setCul2l(int value) { setInt(&quot;CUL2L&quot;, value); }</span>
+<span class="nc" id="L379">    public String getCul2o() { return getString(&quot;CUL2O&quot;); }</span>
+<span class="fc" id="L380">    public void setCul2o(String value) { setString(&quot;CUL2O&quot;, value); }</span>
+<span class="nc" id="L381">    public String getCul3a() { return getString(&quot;CUL3A&quot;); }</span>
+<span class="nc" id="L382">    public void setCul3a(String value) { setString(&quot;CUL3A&quot;, value); }</span>
+<span class="nc" id="L383">    public String getCul3f() { return getString(&quot;CUL3F&quot;); }</span>
+<span class="nc" id="L384">    public void setCul3f(String value) { setString(&quot;CUL3F&quot;, value); }</span>
+<span class="nc" id="L385">    public String getCul3i() { return getString(&quot;CUL3I&quot;); }</span>
+<span class="nc" id="L386">    public void setCul3i(String value) { setString(&quot;CUL3I&quot;, value); }</span>
+<span class="nc" id="L387">    public int getCul3l() { return getInt(&quot;CUL3L&quot;); }</span>
+<span class="nc" id="L388">    public void setCul3l(int value) { setInt(&quot;CUL3L&quot;, value); }</span>
+<span class="nc" id="L389">    public String getCul3o() { return getString(&quot;CUL3O&quot;); }</span>
+<span class="fc" id="L390">    public void setCul3o(String value) { setString(&quot;CUL3O&quot;, value); }</span>
+<span class="nc" id="L391">    public String getCul4a() { return getString(&quot;CUL4A&quot;); }</span>
+<span class="nc" id="L392">    public void setCul4a(String value) { setString(&quot;CUL4A&quot;, value); }</span>
+<span class="nc" id="L393">    public String getCul4f() { return getString(&quot;CUL4F&quot;); }</span>
+<span class="nc" id="L394">    public void setCul4f(String value) { setString(&quot;CUL4F&quot;, value); }</span>
+<span class="nc" id="L395">    public String getCul4i() { return getString(&quot;CUL4I&quot;); }</span>
+<span class="nc" id="L396">    public void setCul4i(String value) { setString(&quot;CUL4I&quot;, value); }</span>
+<span class="nc" id="L397">    public int getCul4l() { return getInt(&quot;CUL4L&quot;); }</span>
+<span class="nc" id="L398">    public void setCul4l(int value) { setInt(&quot;CUL4L&quot;, value); }</span>
+<span class="nc" id="L399">    public String getCul4o() { return getString(&quot;CUL4O&quot;); }</span>
+<span class="fc" id="L400">    public void setCul4o(String value) { setString(&quot;CUL4O&quot;, value); }</span>
+<span class="nc" id="L401">    public String getCul5a() { return getString(&quot;CUL5A&quot;); }</span>
+<span class="nc" id="L402">    public void setCul5a(String value) { setString(&quot;CUL5A&quot;, value); }</span>
+<span class="nc" id="L403">    public String getCul5f() { return getString(&quot;CUL5F&quot;); }</span>
+<span class="nc" id="L404">    public void setCul5f(String value) { setString(&quot;CUL5F&quot;, value); }</span>
+<span class="nc" id="L405">    public String getCul5i() { return getString(&quot;CUL5I&quot;); }</span>
+<span class="nc" id="L406">    public void setCul5i(String value) { setString(&quot;CUL5I&quot;, value); }</span>
+<span class="nc" id="L407">    public int getCul5l() { return getInt(&quot;CUL5L&quot;); }</span>
+<span class="nc" id="L408">    public void setCul5l(int value) { setInt(&quot;CUL5L&quot;, value); }</span>
+<span class="nc" id="L409">    public String getCul5o() { return getString(&quot;CUL5O&quot;); }</span>
+<span class="fc" id="L410">    public void setCul5o(String value) { setString(&quot;CUL5O&quot;, value); }</span>
+<span class="nc" id="L411">    public String getCul6a() { return getString(&quot;CUL6A&quot;); }</span>
+<span class="nc" id="L412">    public void setCul6a(String value) { setString(&quot;CUL6A&quot;, value); }</span>
+<span class="nc" id="L413">    public String getCul6f() { return getString(&quot;CUL6F&quot;); }</span>
+<span class="nc" id="L414">    public void setCul6f(String value) { setString(&quot;CUL6F&quot;, value); }</span>
+<span class="nc" id="L415">    public String getCul6i() { return getString(&quot;CUL6I&quot;); }</span>
+<span class="nc" id="L416">    public void setCul6i(String value) { setString(&quot;CUL6I&quot;, value); }</span>
+<span class="nc" id="L417">    public int getCul6l() { return getInt(&quot;CUL6L&quot;); }</span>
+<span class="nc" id="L418">    public void setCul6l(int value) { setInt(&quot;CUL6L&quot;, value); }</span>
+<span class="nc" id="L419">    public String getCul6o() { return getString(&quot;CUL6O&quot;); }</span>
+<span class="fc" id="L420">    public void setCul6o(String value) { setString(&quot;CUL6O&quot;, value); }</span>
+<span class="nc" id="L421">    public String getCul7a() { return getString(&quot;CUL7A&quot;); }</span>
+<span class="nc" id="L422">    public void setCul7a(String value) { setString(&quot;CUL7A&quot;, value); }</span>
+<span class="nc" id="L423">    public String getCul7f() { return getString(&quot;CUL7F&quot;); }</span>
+<span class="nc" id="L424">    public void setCul7f(String value) { setString(&quot;CUL7F&quot;, value); }</span>
+<span class="nc" id="L425">    public String getCul7i() { return getString(&quot;CUL7I&quot;); }</span>
+<span class="nc" id="L426">    public void setCul7i(String value) { setString(&quot;CUL7I&quot;, value); }</span>
+<span class="nc" id="L427">    public int getCul7l() { return getInt(&quot;CUL7L&quot;); }</span>
+<span class="nc" id="L428">    public void setCul7l(int value) { setInt(&quot;CUL7L&quot;, value); }</span>
+<span class="nc" id="L429">    public String getCul7o() { return getString(&quot;CUL7O&quot;); }</span>
+<span class="fc" id="L430">    public void setCul7o(String value) { setString(&quot;CUL7O&quot;, value); }</span>
+<span class="nc" id="L431">    public String getCul8a() { return getString(&quot;CUL8A&quot;); }</span>
+<span class="nc" id="L432">    public void setCul8a(String value) { setString(&quot;CUL8A&quot;, value); }</span>
+<span class="nc" id="L433">    public String getCul8f() { return getString(&quot;CUL8F&quot;); }</span>
+<span class="nc" id="L434">    public void setCul8f(String value) { setString(&quot;CUL8F&quot;, value); }</span>
+<span class="nc" id="L435">    public String getCul8i() { return getString(&quot;CUL8I&quot;); }</span>
+<span class="nc" id="L436">    public void setCul8i(String value) { setString(&quot;CUL8I&quot;, value); }</span>
+<span class="nc" id="L437">    public int getCul8l() { return getInt(&quot;CUL8L&quot;); }</span>
+<span class="nc" id="L438">    public void setCul8l(int value) { setInt(&quot;CUL8L&quot;, value); }</span>
+<span class="nc" id="L439">    public String getCul8o() { return getString(&quot;CUL8O&quot;); }</span>
+<span class="fc" id="L440">    public void setCul8o(String value) { setString(&quot;CUL8O&quot;, value); }</span>
+<span class="nc" id="L441">    public String getCul9a() { return getString(&quot;CUL9A&quot;); }</span>
+<span class="nc" id="L442">    public void setCul9a(String value) { setString(&quot;CUL9A&quot;, value); }</span>
+<span class="nc" id="L443">    public String getCul9f() { return getString(&quot;CUL9F&quot;); }</span>
+<span class="nc" id="L444">    public void setCul9f(String value) { setString(&quot;CUL9F&quot;, value); }</span>
+<span class="nc" id="L445">    public String getCul9i() { return getString(&quot;CUL9I&quot;); }</span>
+<span class="nc" id="L446">    public void setCul9i(String value) { setString(&quot;CUL9I&quot;, value); }</span>
+<span class="nc" id="L447">    public int getCul9l() { return getInt(&quot;CUL9L&quot;); }</span>
+<span class="nc" id="L448">    public void setCul9l(int value) { setInt(&quot;CUL9L&quot;, value); }</span>
+<span class="nc" id="L449">    public String getCul9o() { return getString(&quot;CUL9O&quot;); }</span>
+<span class="fc" id="L450">    public void setCul9o(String value) { setString(&quot;CUL9O&quot;, value); }</span>
+<span class="nc" id="L451">    public String getCun10a() { return getString(&quot;CUN10A&quot;); }</span>
+<span class="nc" id="L452">    public void setCun10a(String value) { setString(&quot;CUN10A&quot;, value); }</span>
+<span class="nc" id="L453">    public String getCun10f() { return getString(&quot;CUN10F&quot;); }</span>
+<span class="nc" id="L454">    public void setCun10f(String value) { setString(&quot;CUN10F&quot;, value); }</span>
+<span class="nc" id="L455">    public String getCun10i() { return getString(&quot;CUN10I&quot;); }</span>
+<span class="nc" id="L456">    public void setCun10i(String value) { setString(&quot;CUN10I&quot;, value); }</span>
+<span class="nc" id="L457">    public int getCun10l() { return getInt(&quot;CUN10L&quot;); }</span>
+<span class="nc" id="L458">    public void setCun10l(int value) { setInt(&quot;CUN10L&quot;, value); }</span>
+<span class="nc" id="L459">    public String getCun10o() { return getString(&quot;CUN10O&quot;); }</span>
+<span class="fc" id="L460">    public void setCun10o(String value) { setString(&quot;CUN10O&quot;, value); }</span>
+<span class="nc" id="L461">    public String getCun11a() { return getString(&quot;CUN11A&quot;); }</span>
+<span class="nc" id="L462">    public void setCun11a(String value) { setString(&quot;CUN11A&quot;, value); }</span>
+<span class="nc" id="L463">    public String getCun11f() { return getString(&quot;CUN11F&quot;); }</span>
+<span class="nc" id="L464">    public void setCun11f(String value) { setString(&quot;CUN11F&quot;, value); }</span>
+<span class="nc" id="L465">    public String getCun11i() { return getString(&quot;CUN11I&quot;); }</span>
+<span class="nc" id="L466">    public void setCun11i(String value) { setString(&quot;CUN11I&quot;, value); }</span>
+<span class="nc" id="L467">    public int getCun11l() { return getInt(&quot;CUN11L&quot;); }</span>
+<span class="nc" id="L468">    public void setCun11l(int value) { setInt(&quot;CUN11L&quot;, value); }</span>
+<span class="nc" id="L469">    public String getCun11o() { return getString(&quot;CUN11O&quot;); }</span>
+<span class="fc" id="L470">    public void setCun11o(String value) { setString(&quot;CUN11O&quot;, value); }</span>
+<span class="nc" id="L471">    public String getCun12a() { return getString(&quot;CUN12A&quot;); }</span>
+<span class="nc" id="L472">    public void setCun12a(String value) { setString(&quot;CUN12A&quot;, value); }</span>
+<span class="nc" id="L473">    public String getCun12f() { return getString(&quot;CUN12F&quot;); }</span>
+<span class="nc" id="L474">    public void setCun12f(String value) { setString(&quot;CUN12F&quot;, value); }</span>
+<span class="nc" id="L475">    public String getCun12i() { return getString(&quot;CUN12I&quot;); }</span>
+<span class="nc" id="L476">    public void setCun12i(String value) { setString(&quot;CUN12I&quot;, value); }</span>
+<span class="nc" id="L477">    public int getCun12l() { return getInt(&quot;CUN12L&quot;); }</span>
+<span class="nc" id="L478">    public void setCun12l(int value) { setInt(&quot;CUN12L&quot;, value); }</span>
+<span class="nc" id="L479">    public String getCun12o() { return getString(&quot;CUN12O&quot;); }</span>
+<span class="fc" id="L480">    public void setCun12o(String value) { setString(&quot;CUN12O&quot;, value); }</span>
+<span class="nc" id="L481">    public String getCun13a() { return getString(&quot;CUN13A&quot;); }</span>
+<span class="nc" id="L482">    public void setCun13a(String value) { setString(&quot;CUN13A&quot;, value); }</span>
+<span class="nc" id="L483">    public String getCun13f() { return getString(&quot;CUN13F&quot;); }</span>
+<span class="nc" id="L484">    public void setCun13f(String value) { setString(&quot;CUN13F&quot;, value); }</span>
+<span class="nc" id="L485">    public String getCun13i() { return getString(&quot;CUN13I&quot;); }</span>
+<span class="nc" id="L486">    public void setCun13i(String value) { setString(&quot;CUN13I&quot;, value); }</span>
+<span class="nc" id="L487">    public int getCun13l() { return getInt(&quot;CUN13L&quot;); }</span>
+<span class="nc" id="L488">    public void setCun13l(int value) { setInt(&quot;CUN13L&quot;, value); }</span>
+<span class="fc" id="L489">    public String getCun13o() { return getString(&quot;CUN13O&quot;); }</span>
+<span class="fc" id="L490">    public void setCun13o(String value) { setString(&quot;CUN13O&quot;, value); }</span>
+<span class="nc" id="L491">    public String getCun1a() { return getString(&quot;CUN1A&quot;); }</span>
+<span class="nc" id="L492">    public void setCun1a(String value) { setString(&quot;CUN1A&quot;, value); }</span>
+<span class="nc" id="L493">    public String getCun1f() { return getString(&quot;CUN1F&quot;); }</span>
+<span class="nc" id="L494">    public void setCun1f(String value) { setString(&quot;CUN1F&quot;, value); }</span>
+<span class="nc" id="L495">    public String getCun1i() { return getString(&quot;CUN1I&quot;); }</span>
+<span class="nc" id="L496">    public void setCun1i(String value) { setString(&quot;CUN1I&quot;, value); }</span>
+<span class="nc" id="L497">    public int getCun1l() { return getInt(&quot;CUN1L&quot;); }</span>
+<span class="nc" id="L498">    public void setCun1l(int value) { setInt(&quot;CUN1L&quot;, value); }</span>
+<span class="fc" id="L499">    public String getCun1o() { return getString(&quot;CUN1O&quot;); }</span>
+<span class="fc" id="L500">    public void setCun1o(String value) { setString(&quot;CUN1O&quot;, value); }</span>
+<span class="nc" id="L501">    public String getCun2a() { return getString(&quot;CUN2A&quot;); }</span>
+<span class="nc" id="L502">    public void setCun2a(String value) { setString(&quot;CUN2A&quot;, value); }</span>
+<span class="nc" id="L503">    public String getCun2f() { return getString(&quot;CUN2F&quot;); }</span>
+<span class="nc" id="L504">    public void setCun2f(String value) { setString(&quot;CUN2F&quot;, value); }</span>
+<span class="nc" id="L505">    public String getCun2i() { return getString(&quot;CUN2I&quot;); }</span>
+<span class="nc" id="L506">    public void setCun2i(String value) { setString(&quot;CUN2I&quot;, value); }</span>
+<span class="nc" id="L507">    public int getCun2l() { return getInt(&quot;CUN2L&quot;); }</span>
+<span class="nc" id="L508">    public void setCun2l(int value) { setInt(&quot;CUN2L&quot;, value); }</span>
+<span class="nc" id="L509">    public String getCun2o() { return getString(&quot;CUN2O&quot;); }</span>
+<span class="fc" id="L510">    public void setCun2o(String value) { setString(&quot;CUN2O&quot;, value); }</span>
+<span class="nc" id="L511">    public String getCun3a() { return getString(&quot;CUN3A&quot;); }</span>
+<span class="nc" id="L512">    public void setCun3a(String value) { setString(&quot;CUN3A&quot;, value); }</span>
+<span class="nc" id="L513">    public String getCun3f() { return getString(&quot;CUN3F&quot;); }</span>
+<span class="nc" id="L514">    public void setCun3f(String value) { setString(&quot;CUN3F&quot;, value); }</span>
+<span class="nc" id="L515">    public String getCun3i() { return getString(&quot;CUN3I&quot;); }</span>
+<span class="nc" id="L516">    public void setCun3i(String value) { setString(&quot;CUN3I&quot;, value); }</span>
+<span class="nc" id="L517">    public int getCun3l() { return getInt(&quot;CUN3L&quot;); }</span>
+<span class="nc" id="L518">    public void setCun3l(int value) { setInt(&quot;CUN3L&quot;, value); }</span>
+<span class="nc" id="L519">    public String getCun3o() { return getString(&quot;CUN3O&quot;); }</span>
+<span class="fc" id="L520">    public void setCun3o(String value) { setString(&quot;CUN3O&quot;, value); }</span>
+<span class="nc" id="L521">    public String getCun4a() { return getString(&quot;CUN4A&quot;); }</span>
+<span class="nc" id="L522">    public void setCun4a(String value) { setString(&quot;CUN4A&quot;, value); }</span>
+<span class="nc" id="L523">    public String getCun4f() { return getString(&quot;CUN4F&quot;); }</span>
+<span class="nc" id="L524">    public void setCun4f(String value) { setString(&quot;CUN4F&quot;, value); }</span>
+<span class="nc" id="L525">    public String getCun4i() { return getString(&quot;CUN4I&quot;); }</span>
+<span class="nc" id="L526">    public void setCun4i(String value) { setString(&quot;CUN4I&quot;, value); }</span>
+<span class="nc" id="L527">    public int getCun4l() { return getInt(&quot;CUN4L&quot;); }</span>
+<span class="nc" id="L528">    public void setCun4l(int value) { setInt(&quot;CUN4L&quot;, value); }</span>
+<span class="nc" id="L529">    public String getCun4o() { return getString(&quot;CUN4O&quot;); }</span>
+<span class="fc" id="L530">    public void setCun4o(String value) { setString(&quot;CUN4O&quot;, value); }</span>
+<span class="nc" id="L531">    public String getCun5a() { return getString(&quot;CUN5A&quot;); }</span>
+<span class="nc" id="L532">    public void setCun5a(String value) { setString(&quot;CUN5A&quot;, value); }</span>
+<span class="nc" id="L533">    public String getCun5f() { return getString(&quot;CUN5F&quot;); }</span>
+<span class="nc" id="L534">    public void setCun5f(String value) { setString(&quot;CUN5F&quot;, value); }</span>
+<span class="nc" id="L535">    public String getCun5i() { return getString(&quot;CUN5I&quot;); }</span>
+<span class="nc" id="L536">    public void setCun5i(String value) { setString(&quot;CUN5I&quot;, value); }</span>
+<span class="nc" id="L537">    public int getCun5l() { return getInt(&quot;CUN5L&quot;); }</span>
+<span class="nc" id="L538">    public void setCun5l(int value) { setInt(&quot;CUN5L&quot;, value); }</span>
+<span class="nc" id="L539">    public String getCun5o() { return getString(&quot;CUN5O&quot;); }</span>
+<span class="fc" id="L540">    public void setCun5o(String value) { setString(&quot;CUN5O&quot;, value); }</span>
+<span class="nc" id="L541">    public String getCun6a() { return getString(&quot;CUN6A&quot;); }</span>
+<span class="nc" id="L542">    public void setCun6a(String value) { setString(&quot;CUN6A&quot;, value); }</span>
+<span class="nc" id="L543">    public String getCun6f() { return getString(&quot;CUN6F&quot;); }</span>
+<span class="nc" id="L544">    public void setCun6f(String value) { setString(&quot;CUN6F&quot;, value); }</span>
+<span class="nc" id="L545">    public String getCun6i() { return getString(&quot;CUN6I&quot;); }</span>
+<span class="nc" id="L546">    public void setCun6i(String value) { setString(&quot;CUN6I&quot;, value); }</span>
+<span class="nc" id="L547">    public int getCun6l() { return getInt(&quot;CUN6L&quot;); }</span>
+<span class="nc" id="L548">    public void setCun6l(int value) { setInt(&quot;CUN6L&quot;, value); }</span>
+<span class="nc" id="L549">    public String getCun6o() { return getString(&quot;CUN6O&quot;); }</span>
+<span class="fc" id="L550">    public void setCun6o(String value) { setString(&quot;CUN6O&quot;, value); }</span>
+<span class="nc" id="L551">    public String getCun7a() { return getString(&quot;CUN7A&quot;); }</span>
+<span class="nc" id="L552">    public void setCun7a(String value) { setString(&quot;CUN7A&quot;, value); }</span>
+<span class="nc" id="L553">    public String getCun7f() { return getString(&quot;CUN7F&quot;); }</span>
+<span class="nc" id="L554">    public void setCun7f(String value) { setString(&quot;CUN7F&quot;, value); }</span>
+<span class="nc" id="L555">    public String getCun7i() { return getString(&quot;CUN7I&quot;); }</span>
+<span class="nc" id="L556">    public void setCun7i(String value) { setString(&quot;CUN7I&quot;, value); }</span>
+<span class="nc" id="L557">    public int getCun7l() { return getInt(&quot;CUN7L&quot;); }</span>
+<span class="nc" id="L558">    public void setCun7l(int value) { setInt(&quot;CUN7L&quot;, value); }</span>
+<span class="nc" id="L559">    public String getCun7o() { return getString(&quot;CUN7O&quot;); }</span>
+<span class="fc" id="L560">    public void setCun7o(String value) { setString(&quot;CUN7O&quot;, value); }</span>
+<span class="nc" id="L561">    public String getCun8a() { return getString(&quot;CUN8A&quot;); }</span>
+<span class="nc" id="L562">    public void setCun8a(String value) { setString(&quot;CUN8A&quot;, value); }</span>
+<span class="nc" id="L563">    public String getCun8f() { return getString(&quot;CUN8F&quot;); }</span>
+<span class="nc" id="L564">    public void setCun8f(String value) { setString(&quot;CUN8F&quot;, value); }</span>
+<span class="nc" id="L565">    public String getCun8i() { return getString(&quot;CUN8I&quot;); }</span>
+<span class="nc" id="L566">    public void setCun8i(String value) { setString(&quot;CUN8I&quot;, value); }</span>
+<span class="nc" id="L567">    public int getCun8l() { return getInt(&quot;CUN8L&quot;); }</span>
+<span class="nc" id="L568">    public void setCun8l(int value) { setInt(&quot;CUN8L&quot;, value); }</span>
+<span class="nc" id="L569">    public String getCun8o() { return getString(&quot;CUN8O&quot;); }</span>
+<span class="fc" id="L570">    public void setCun8o(String value) { setString(&quot;CUN8O&quot;, value); }</span>
+<span class="nc" id="L571">    public String getCun9a() { return getString(&quot;CUN9A&quot;); }</span>
+<span class="nc" id="L572">    public void setCun9a(String value) { setString(&quot;CUN9A&quot;, value); }</span>
+<span class="nc" id="L573">    public String getCun9f() { return getString(&quot;CUN9F&quot;); }</span>
+<span class="nc" id="L574">    public void setCun9f(String value) { setString(&quot;CUN9F&quot;, value); }</span>
+<span class="nc" id="L575">    public String getCun9i() { return getString(&quot;CUN9I&quot;); }</span>
+<span class="nc" id="L576">    public void setCun9i(String value) { setString(&quot;CUN9I&quot;, value); }</span>
+<span class="nc" id="L577">    public int getCun9l() { return getInt(&quot;CUN9L&quot;); }</span>
+<span class="nc" id="L578">    public void setCun9l(int value) { setInt(&quot;CUN9L&quot;, value); }</span>
+<span class="nc" id="L579">    public String getCun9o() { return getString(&quot;CUN9O&quot;); }</span>
+<span class="fc" id="L580">    public void setCun9o(String value) { setString(&quot;CUN9O&quot;, value); }</span>
+<span class="nc" id="L581">    public String getCurdatea() { return getString(&quot;CURDATEA&quot;); }</span>
+<span class="nc" id="L582">    public void setCurdatea(String value) { setString(&quot;CURDATEA&quot;, value); }</span>
+<span class="nc" id="L583">    public String getCurdatef() { return getString(&quot;CURDATEF&quot;); }</span>
+<span class="nc" id="L584">    public void setCurdatef(String value) { setString(&quot;CURDATEF&quot;, value); }</span>
+<span class="nc" id="L585">    public String getCurdatei() { return getString(&quot;CURDATEI&quot;); }</span>
+<span class="nc" id="L586">    public void setCurdatei(String value) { setString(&quot;CURDATEI&quot;, value); }</span>
+<span class="nc" id="L587">    public int getCurdatel() { return getInt(&quot;CURDATEL&quot;); }</span>
+<span class="nc" id="L588">    public void setCurdatel(int value) { setInt(&quot;CURDATEL&quot;, value); }</span>
+<span class="nc" id="L589">    public String getCurdateo() { return getString(&quot;CURDATEO&quot;); }</span>
+<span class="fc" id="L590">    public void setCurdateo(String value) { setString(&quot;CURDATEO&quot;, value); }</span>
+<span class="nc" id="L591">    public String getCurtimea() { return getString(&quot;CURTIMEA&quot;); }</span>
+<span class="nc" id="L592">    public void setCurtimea(String value) { setString(&quot;CURTIMEA&quot;, value); }</span>
+<span class="nc" id="L593">    public String getCurtimef() { return getString(&quot;CURTIMEF&quot;); }</span>
+<span class="nc" id="L594">    public void setCurtimef(String value) { setString(&quot;CURTIMEF&quot;, value); }</span>
+<span class="nc" id="L595">    public String getCurtimei() { return getString(&quot;CURTIMEI&quot;); }</span>
+<span class="nc" id="L596">    public void setCurtimei(String value) { setString(&quot;CURTIMEI&quot;, value); }</span>
+<span class="nc" id="L597">    public int getCurtimel() { return getInt(&quot;CURTIMEL&quot;); }</span>
+<span class="nc" id="L598">    public void setCurtimel(int value) { setInt(&quot;CURTIMEL&quot;, value); }</span>
+<span class="nc" id="L599">    public String getCurtimeo() { return getString(&quot;CURTIMEO&quot;); }</span>
+<span class="fc" id="L600">    public void setCurtimeo(String value) { setString(&quot;CURTIMEO&quot;, value); }</span>
+<span class="nc" id="L601">    public String getCzp10a() { return getString(&quot;CZP10A&quot;); }</span>
+<span class="nc" id="L602">    public void setCzp10a(String value) { setString(&quot;CZP10A&quot;, value); }</span>
+<span class="nc" id="L603">    public String getCzp10f() { return getString(&quot;CZP10F&quot;); }</span>
+<span class="nc" id="L604">    public void setCzp10f(String value) { setString(&quot;CZP10F&quot;, value); }</span>
+<span class="nc" id="L605">    public String getCzp10i() { return getString(&quot;CZP10I&quot;); }</span>
+<span class="nc" id="L606">    public void setCzp10i(String value) { setString(&quot;CZP10I&quot;, value); }</span>
+<span class="nc" id="L607">    public int getCzp10l() { return getInt(&quot;CZP10L&quot;); }</span>
+<span class="nc" id="L608">    public void setCzp10l(int value) { setInt(&quot;CZP10L&quot;, value); }</span>
+<span class="nc" id="L609">    public String getCzp10o() { return getString(&quot;CZP10O&quot;); }</span>
+<span class="fc" id="L610">    public void setCzp10o(String value) { setString(&quot;CZP10O&quot;, value); }</span>
+<span class="nc" id="L611">    public String getCzp11a() { return getString(&quot;CZP11A&quot;); }</span>
+<span class="nc" id="L612">    public void setCzp11a(String value) { setString(&quot;CZP11A&quot;, value); }</span>
+<span class="nc" id="L613">    public String getCzp11f() { return getString(&quot;CZP11F&quot;); }</span>
+<span class="nc" id="L614">    public void setCzp11f(String value) { setString(&quot;CZP11F&quot;, value); }</span>
+<span class="nc" id="L615">    public String getCzp11i() { return getString(&quot;CZP11I&quot;); }</span>
+<span class="nc" id="L616">    public void setCzp11i(String value) { setString(&quot;CZP11I&quot;, value); }</span>
+<span class="nc" id="L617">    public int getCzp11l() { return getInt(&quot;CZP11L&quot;); }</span>
+<span class="nc" id="L618">    public void setCzp11l(int value) { setInt(&quot;CZP11L&quot;, value); }</span>
+<span class="nc" id="L619">    public String getCzp11o() { return getString(&quot;CZP11O&quot;); }</span>
+<span class="fc" id="L620">    public void setCzp11o(String value) { setString(&quot;CZP11O&quot;, value); }</span>
+<span class="nc" id="L621">    public String getCzp12a() { return getString(&quot;CZP12A&quot;); }</span>
+<span class="nc" id="L622">    public void setCzp12a(String value) { setString(&quot;CZP12A&quot;, value); }</span>
+<span class="nc" id="L623">    public String getCzp12f() { return getString(&quot;CZP12F&quot;); }</span>
+<span class="nc" id="L624">    public void setCzp12f(String value) { setString(&quot;CZP12F&quot;, value); }</span>
+<span class="nc" id="L625">    public String getCzp12i() { return getString(&quot;CZP12I&quot;); }</span>
+<span class="nc" id="L626">    public void setCzp12i(String value) { setString(&quot;CZP12I&quot;, value); }</span>
+<span class="nc" id="L627">    public int getCzp12l() { return getInt(&quot;CZP12L&quot;); }</span>
+<span class="nc" id="L628">    public void setCzp12l(int value) { setInt(&quot;CZP12L&quot;, value); }</span>
+<span class="nc" id="L629">    public String getCzp12o() { return getString(&quot;CZP12O&quot;); }</span>
+<span class="fc" id="L630">    public void setCzp12o(String value) { setString(&quot;CZP12O&quot;, value); }</span>
+<span class="nc" id="L631">    public String getCzp13a() { return getString(&quot;CZP13A&quot;); }</span>
+<span class="nc" id="L632">    public void setCzp13a(String value) { setString(&quot;CZP13A&quot;, value); }</span>
+<span class="nc" id="L633">    public String getCzp13f() { return getString(&quot;CZP13F&quot;); }</span>
+<span class="nc" id="L634">    public void setCzp13f(String value) { setString(&quot;CZP13F&quot;, value); }</span>
+<span class="nc" id="L635">    public String getCzp13i() { return getString(&quot;CZP13I&quot;); }</span>
+<span class="nc" id="L636">    public void setCzp13i(String value) { setString(&quot;CZP13I&quot;, value); }</span>
+<span class="nc" id="L637">    public int getCzp13l() { return getInt(&quot;CZP13L&quot;); }</span>
+<span class="nc" id="L638">    public void setCzp13l(int value) { setInt(&quot;CZP13L&quot;, value); }</span>
+<span class="nc" id="L639">    public String getCzp13o() { return getString(&quot;CZP13O&quot;); }</span>
+<span class="fc" id="L640">    public void setCzp13o(String value) { setString(&quot;CZP13O&quot;, value); }</span>
+<span class="nc" id="L641">    public String getCzp1a() { return getString(&quot;CZP1A&quot;); }</span>
+<span class="nc" id="L642">    public void setCzp1a(String value) { setString(&quot;CZP1A&quot;, value); }</span>
+<span class="nc" id="L643">    public String getCzp1f() { return getString(&quot;CZP1F&quot;); }</span>
+<span class="nc" id="L644">    public void setCzp1f(String value) { setString(&quot;CZP1F&quot;, value); }</span>
+<span class="nc" id="L645">    public String getCzp1i() { return getString(&quot;CZP1I&quot;); }</span>
+<span class="nc" id="L646">    public void setCzp1i(String value) { setString(&quot;CZP1I&quot;, value); }</span>
+<span class="nc" id="L647">    public int getCzp1l() { return getInt(&quot;CZP1L&quot;); }</span>
+<span class="nc" id="L648">    public void setCzp1l(int value) { setInt(&quot;CZP1L&quot;, value); }</span>
+<span class="fc" id="L649">    public String getCzp1o() { return getString(&quot;CZP1O&quot;); }</span>
+<span class="fc" id="L650">    public void setCzp1o(String value) { setString(&quot;CZP1O&quot;, value); }</span>
+<span class="nc" id="L651">    public String getCzp2a() { return getString(&quot;CZP2A&quot;); }</span>
+<span class="nc" id="L652">    public void setCzp2a(String value) { setString(&quot;CZP2A&quot;, value); }</span>
+<span class="nc" id="L653">    public String getCzp2f() { return getString(&quot;CZP2F&quot;); }</span>
+<span class="nc" id="L654">    public void setCzp2f(String value) { setString(&quot;CZP2F&quot;, value); }</span>
+<span class="nc" id="L655">    public String getCzp2i() { return getString(&quot;CZP2I&quot;); }</span>
+<span class="nc" id="L656">    public void setCzp2i(String value) { setString(&quot;CZP2I&quot;, value); }</span>
+<span class="nc" id="L657">    public int getCzp2l() { return getInt(&quot;CZP2L&quot;); }</span>
+<span class="nc" id="L658">    public void setCzp2l(int value) { setInt(&quot;CZP2L&quot;, value); }</span>
+<span class="fc" id="L659">    public String getCzp2o() { return getString(&quot;CZP2O&quot;); }</span>
+<span class="fc" id="L660">    public void setCzp2o(String value) { setString(&quot;CZP2O&quot;, value); }</span>
+<span class="nc" id="L661">    public String getCzp3a() { return getString(&quot;CZP3A&quot;); }</span>
+<span class="nc" id="L662">    public void setCzp3a(String value) { setString(&quot;CZP3A&quot;, value); }</span>
+<span class="nc" id="L663">    public String getCzp3f() { return getString(&quot;CZP3F&quot;); }</span>
+<span class="nc" id="L664">    public void setCzp3f(String value) { setString(&quot;CZP3F&quot;, value); }</span>
+<span class="nc" id="L665">    public String getCzp3i() { return getString(&quot;CZP3I&quot;); }</span>
+<span class="nc" id="L666">    public void setCzp3i(String value) { setString(&quot;CZP3I&quot;, value); }</span>
+<span class="nc" id="L667">    public int getCzp3l() { return getInt(&quot;CZP3L&quot;); }</span>
+<span class="nc" id="L668">    public void setCzp3l(int value) { setInt(&quot;CZP3L&quot;, value); }</span>
+<span class="nc" id="L669">    public String getCzp3o() { return getString(&quot;CZP3O&quot;); }</span>
+<span class="fc" id="L670">    public void setCzp3o(String value) { setString(&quot;CZP3O&quot;, value); }</span>
+<span class="nc" id="L671">    public String getCzp4a() { return getString(&quot;CZP4A&quot;); }</span>
+<span class="nc" id="L672">    public void setCzp4a(String value) { setString(&quot;CZP4A&quot;, value); }</span>
+<span class="nc" id="L673">    public String getCzp4f() { return getString(&quot;CZP4F&quot;); }</span>
+<span class="nc" id="L674">    public void setCzp4f(String value) { setString(&quot;CZP4F&quot;, value); }</span>
+<span class="nc" id="L675">    public String getCzp4i() { return getString(&quot;CZP4I&quot;); }</span>
+<span class="nc" id="L676">    public void setCzp4i(String value) { setString(&quot;CZP4I&quot;, value); }</span>
+<span class="nc" id="L677">    public int getCzp4l() { return getInt(&quot;CZP4L&quot;); }</span>
+<span class="nc" id="L678">    public void setCzp4l(int value) { setInt(&quot;CZP4L&quot;, value); }</span>
+<span class="nc" id="L679">    public String getCzp4o() { return getString(&quot;CZP4O&quot;); }</span>
+<span class="fc" id="L680">    public void setCzp4o(String value) { setString(&quot;CZP4O&quot;, value); }</span>
+<span class="nc" id="L681">    public String getCzp5a() { return getString(&quot;CZP5A&quot;); }</span>
+<span class="nc" id="L682">    public void setCzp5a(String value) { setString(&quot;CZP5A&quot;, value); }</span>
+<span class="nc" id="L683">    public String getCzp5f() { return getString(&quot;CZP5F&quot;); }</span>
+<span class="nc" id="L684">    public void setCzp5f(String value) { setString(&quot;CZP5F&quot;, value); }</span>
+<span class="nc" id="L685">    public String getCzp5i() { return getString(&quot;CZP5I&quot;); }</span>
+<span class="nc" id="L686">    public void setCzp5i(String value) { setString(&quot;CZP5I&quot;, value); }</span>
+<span class="nc" id="L687">    public int getCzp5l() { return getInt(&quot;CZP5L&quot;); }</span>
+<span class="nc" id="L688">    public void setCzp5l(int value) { setInt(&quot;CZP5L&quot;, value); }</span>
+<span class="nc" id="L689">    public String getCzp5o() { return getString(&quot;CZP5O&quot;); }</span>
+<span class="fc" id="L690">    public void setCzp5o(String value) { setString(&quot;CZP5O&quot;, value); }</span>
+<span class="nc" id="L691">    public String getCzp6a() { return getString(&quot;CZP6A&quot;); }</span>
+<span class="nc" id="L692">    public void setCzp6a(String value) { setString(&quot;CZP6A&quot;, value); }</span>
+<span class="nc" id="L693">    public String getCzp6f() { return getString(&quot;CZP6F&quot;); }</span>
+<span class="nc" id="L694">    public void setCzp6f(String value) { setString(&quot;CZP6F&quot;, value); }</span>
+<span class="nc" id="L695">    public String getCzp6i() { return getString(&quot;CZP6I&quot;); }</span>
+<span class="nc" id="L696">    public void setCzp6i(String value) { setString(&quot;CZP6I&quot;, value); }</span>
+<span class="nc" id="L697">    public int getCzp6l() { return getInt(&quot;CZP6L&quot;); }</span>
+<span class="nc" id="L698">    public void setCzp6l(int value) { setInt(&quot;CZP6L&quot;, value); }</span>
+<span class="nc" id="L699">    public String getCzp6o() { return getString(&quot;CZP6O&quot;); }</span>
+<span class="fc" id="L700">    public void setCzp6o(String value) { setString(&quot;CZP6O&quot;, value); }</span>
+<span class="nc" id="L701">    public String getCzp7a() { return getString(&quot;CZP7A&quot;); }</span>
+<span class="nc" id="L702">    public void setCzp7a(String value) { setString(&quot;CZP7A&quot;, value); }</span>
+<span class="nc" id="L703">    public String getCzp7f() { return getString(&quot;CZP7F&quot;); }</span>
+<span class="nc" id="L704">    public void setCzp7f(String value) { setString(&quot;CZP7F&quot;, value); }</span>
+<span class="nc" id="L705">    public String getCzp7i() { return getString(&quot;CZP7I&quot;); }</span>
+<span class="nc" id="L706">    public void setCzp7i(String value) { setString(&quot;CZP7I&quot;, value); }</span>
+<span class="nc" id="L707">    public int getCzp7l() { return getInt(&quot;CZP7L&quot;); }</span>
+<span class="nc" id="L708">    public void setCzp7l(int value) { setInt(&quot;CZP7L&quot;, value); }</span>
+<span class="nc" id="L709">    public String getCzp7o() { return getString(&quot;CZP7O&quot;); }</span>
+<span class="fc" id="L710">    public void setCzp7o(String value) { setString(&quot;CZP7O&quot;, value); }</span>
+<span class="nc" id="L711">    public String getCzp8a() { return getString(&quot;CZP8A&quot;); }</span>
+<span class="nc" id="L712">    public void setCzp8a(String value) { setString(&quot;CZP8A&quot;, value); }</span>
+<span class="nc" id="L713">    public String getCzp8f() { return getString(&quot;CZP8F&quot;); }</span>
+<span class="nc" id="L714">    public void setCzp8f(String value) { setString(&quot;CZP8F&quot;, value); }</span>
+<span class="nc" id="L715">    public String getCzp8i() { return getString(&quot;CZP8I&quot;); }</span>
+<span class="nc" id="L716">    public void setCzp8i(String value) { setString(&quot;CZP8I&quot;, value); }</span>
+<span class="nc" id="L717">    public int getCzp8l() { return getInt(&quot;CZP8L&quot;); }</span>
+<span class="nc" id="L718">    public void setCzp8l(int value) { setInt(&quot;CZP8L&quot;, value); }</span>
+<span class="nc" id="L719">    public String getCzp8o() { return getString(&quot;CZP8O&quot;); }</span>
+<span class="fc" id="L720">    public void setCzp8o(String value) { setString(&quot;CZP8O&quot;, value); }</span>
+<span class="nc" id="L721">    public String getCzp9a() { return getString(&quot;CZP9A&quot;); }</span>
+<span class="nc" id="L722">    public void setCzp9a(String value) { setString(&quot;CZP9A&quot;, value); }</span>
+<span class="nc" id="L723">    public String getCzp9f() { return getString(&quot;CZP9F&quot;); }</span>
+<span class="nc" id="L724">    public void setCzp9f(String value) { setString(&quot;CZP9F&quot;, value); }</span>
+<span class="nc" id="L725">    public String getCzp9i() { return getString(&quot;CZP9I&quot;); }</span>
+<span class="nc" id="L726">    public void setCzp9i(String value) { setString(&quot;CZP9I&quot;, value); }</span>
+<span class="nc" id="L727">    public int getCzp9l() { return getInt(&quot;CZP9L&quot;); }</span>
+<span class="nc" id="L728">    public void setCzp9l(int value) { setInt(&quot;CZP9L&quot;, value); }</span>
+<span class="nc" id="L729">    public String getCzp9o() { return getString(&quot;CZP9O&quot;); }</span>
+<span class="fc" id="L730">    public void setCzp9o(String value) { setString(&quot;CZP9O&quot;, value); }</span>
+<span class="nc" id="L731">    public String getErrmsga() { return getString(&quot;ERRMSGA&quot;); }</span>
+<span class="nc" id="L732">    public void setErrmsga(String value) { setString(&quot;ERRMSGA&quot;, value); }</span>
+<span class="nc" id="L733">    public String getErrmsgf() { return getString(&quot;ERRMSGF&quot;); }</span>
+<span class="nc" id="L734">    public void setErrmsgf(String value) { setString(&quot;ERRMSGF&quot;, value); }</span>
+<span class="nc" id="L735">    public String getErrmsgi() { return getString(&quot;ERRMSGI&quot;); }</span>
+<span class="nc" id="L736">    public void setErrmsgi(String value) { setString(&quot;ERRMSGI&quot;, value); }</span>
+<span class="nc" id="L737">    public int getErrmsgl() { return getInt(&quot;ERRMSGL&quot;); }</span>
+<span class="nc" id="L738">    public void setErrmsgl(int value) { setInt(&quot;ERRMSGL&quot;, value); }</span>
+<span class="fc" id="L739">    public String getErrmsgo() { return getString(&quot;ERRMSGO&quot;); }</span>
+<span class="fc" id="L740">    public void setErrmsgo(String value) { setString(&quot;ERRMSGO&quot;, value); }</span>
+<span class="nc" id="L741">    public String getFiller() { return getString(&quot;FILLER&quot;); }</span>
+<span class="nc" id="L742">    public void setFiller(String value) { setString(&quot;FILLER&quot;, value); }</span>
+<span class="nc" id="L743">    public String getFmodea() { return getString(&quot;FMODEA&quot;); }</span>
+<span class="nc" id="L744">    public void setFmodea(String value) { setString(&quot;FMODEA&quot;, value); }</span>
+<span class="nc" id="L745">    public String getFmodef() { return getString(&quot;FMODEF&quot;); }</span>
+<span class="nc" id="L746">    public void setFmodef(String value) { setString(&quot;FMODEF&quot;, value); }</span>
+<span class="fc" id="L747">    public String getFmodei() { return getString(&quot;FMODEI&quot;); }</span>
+<span class="fc" id="L748">    public void setFmodei(String value) { setString(&quot;FMODEI&quot;, value); }</span>
+<span class="nc" id="L749">    public int getFmodel() { return getInt(&quot;FMODEL&quot;); }</span>
+<span class="fc" id="L750">    public void setFmodel(int value) { setInt(&quot;FMODEL&quot;, value); }</span>
+<span class="fc" id="L751">    public String getFmodeo() { return getString(&quot;FMODEO&quot;); }</span>
+<span class="fc" id="L752">    public void setFmodeo(String value) { setString(&quot;FMODEO&quot;, value); }</span>
+<span class="nc" id="L753">    public String getFrficoa() { return getString(&quot;FRFICOA&quot;); }</span>
+<span class="nc" id="L754">    public void setFrficoa(String value) { setString(&quot;FRFICOA&quot;, value); }</span>
+<span class="nc" id="L755">    public String getFrficof() { return getString(&quot;FRFICOF&quot;); }</span>
+<span class="nc" id="L756">    public void setFrficof(String value) { setString(&quot;FRFICOF&quot;, value); }</span>
+<span class="fc" id="L757">    public String getFrficoi() { return getString(&quot;FRFICOI&quot;); }</span>
+<span class="fc" id="L758">    public void setFrficoi(String value) { setString(&quot;FRFICOI&quot;, value); }</span>
+<span class="nc" id="L759">    public int getFrficol() { return getInt(&quot;FRFICOL&quot;); }</span>
+<span class="nc" id="L760">    public void setFrficol(int value) { setInt(&quot;FRFICOL&quot;, value); }</span>
+<span class="nc" id="L761">    public String getFrficoo() { return getString(&quot;FRFICOO&quot;); }</span>
+<span class="nc" id="L762">    public void setFrficoo(String value) { setString(&quot;FRFICOO&quot;, value); }</span>
+<span class="nc" id="L763">    public String getFrida() { return getString(&quot;FRIDA&quot;); }</span>
+<span class="nc" id="L764">    public void setFrida(String value) { setString(&quot;FRIDA&quot;, value); }</span>
+<span class="nc" id="L765">    public String getFridf() { return getString(&quot;FRIDF&quot;); }</span>
+<span class="nc" id="L766">    public void setFridf(String value) { setString(&quot;FRIDF&quot;, value); }</span>
+<span class="fc" id="L767">    public String getFridi() { return getString(&quot;FRIDI&quot;); }</span>
+<span class="fc" id="L768">    public void setFridi(String value) { setString(&quot;FRIDI&quot;, value); }</span>
+<span class="nc" id="L769">    public int getFridl() { return getInt(&quot;FRIDL&quot;); }</span>
+<span class="nc" id="L770">    public void setFridl(int value) { setInt(&quot;FRIDL&quot;, value); }</span>
+<span class="nc" id="L771">    public String getFrido() { return getString(&quot;FRIDO&quot;); }</span>
+<span class="nc" id="L772">    public void setFrido(String value) { setString(&quot;FRIDO&quot;, value); }</span>
+<span class="nc" id="L773">    public String getFstatea() { return getString(&quot;FSTATEA&quot;); }</span>
+<span class="nc" id="L774">    public void setFstatea(String value) { setString(&quot;FSTATEA&quot;, value); }</span>
+<span class="nc" id="L775">    public String getFstatef() { return getString(&quot;FSTATEF&quot;); }</span>
+<span class="nc" id="L776">    public void setFstatef(String value) { setString(&quot;FSTATEF&quot;, value); }</span>
+<span class="fc" id="L777">    public String getFstatei() { return getString(&quot;FSTATEI&quot;); }</span>
+<span class="fc" id="L778">    public void setFstatei(String value) { setString(&quot;FSTATEI&quot;, value); }</span>
+<span class="nc" id="L779">    public int getFstatel() { return getInt(&quot;FSTATEL&quot;); }</span>
+<span class="nc" id="L780">    public void setFstatel(int value) { setInt(&quot;FSTATEL&quot;, value); }</span>
+<span class="nc" id="L781">    public String getFstateo() { return getString(&quot;FSTATEO&quot;); }</span>
+<span class="nc" id="L782">    public void setFstateo(String value) { setString(&quot;FSTATEO&quot;, value); }</span>
+<span class="nc" id="L783">    public String getFzipa() { return getString(&quot;FZIPA&quot;); }</span>
+<span class="nc" id="L784">    public void setFzipa(String value) { setString(&quot;FZIPA&quot;, value); }</span>
+<span class="nc" id="L785">    public String getFzipf() { return getString(&quot;FZIPF&quot;); }</span>
+<span class="nc" id="L786">    public void setFzipf(String value) { setString(&quot;FZIPF&quot;, value); }</span>
+<span class="fc" id="L787">    public String getFzipi() { return getString(&quot;FZIPI&quot;); }</span>
+<span class="fc" id="L788">    public void setFzipi(String value) { setString(&quot;FZIPI&quot;, value); }</span>
+<span class="nc" id="L789">    public int getFzipl() { return getInt(&quot;FZIPL&quot;); }</span>
+<span class="nc" id="L790">    public void setFzipl(int value) { setInt(&quot;FZIPL&quot;, value); }</span>
+<span class="nc" id="L791">    public String getFzipo() { return getString(&quot;FZIPO&quot;); }</span>
+<span class="nc" id="L792">    public void setFzipo(String value) { setString(&quot;FZIPO&quot;, value); }</span>
+<span class="nc" id="L793">    public String getKcusinArea() { return groupToString(&quot;KCUSIN-AREA&quot;); }</span>
+<span class="fc" id="L794">    public void setKcusinArea(String value) { setGroup(&quot;KCUSIN-AREA&quot;, value); }</span>
+<span class="fc" id="L795">    public int getKuiFicoAvg() { return getInt(&quot;KUI-FICO-AVG&quot;); }</span>
+<span class="fc" id="L796">    public void setKuiFicoAvg(int value) { setInt(&quot;KUI-FICO-AVG&quot;, value); }</span>
+<span class="nc" id="L797">    public int getKuiFicoFrom() { return getInt(&quot;KUI-FICO-FROM&quot;); }</span>
+<span class="fc" id="L798">    public void setKuiFicoFrom(int value) { setInt(&quot;KUI-FICO-FROM&quot;, value); }</span>
+<span class="fc" id="L799">    public int getKuiFicoMax() { return getInt(&quot;KUI-FICO-MAX&quot;); }</span>
+<span class="fc" id="L800">    public void setKuiFicoMax(int value) { setInt(&quot;KUI-FICO-MAX&quot;, value); }</span>
+<span class="fc" id="L801">    public int getKuiFicoMin() { return getInt(&quot;KUI-FICO-MIN&quot;); }</span>
+<span class="fc" id="L802">    public void setKuiFicoMin(int value) { setInt(&quot;KUI-FICO-MIN&quot;, value); }</span>
+<span class="nc" id="L803">    public int getKuiFicoTo() { return getInt(&quot;KUI-FICO-TO&quot;); }</span>
+<span class="fc" id="L804">    public void setKuiFicoTo(int value) { setInt(&quot;KUI-FICO-TO&quot;, value); }</span>
+<span class="nc" id="L805">    public long getKuiFicoTot() { return getLong(&quot;KUI-FICO-TOT&quot;); }</span>
+<span class="nc" id="L806">    public void setKuiFicoTot(long value) { setLong(&quot;KUI-FICO-TOT&quot;, value); }</span>
+<span class="nc" id="L807">    public String getKuiFilter() { return getString(&quot;KUI-FILTER&quot;); }</span>
+<span class="fc" id="L808">    public void setKuiFilter(String value) { setString(&quot;KUI-FILTER&quot;, value); }</span>
+<span class="nc" id="L809">    public int getKuiIdFrom() { return getInt(&quot;KUI-ID-FROM&quot;); }</span>
+<span class="fc" id="L810">    public void setKuiIdFrom(int value) { setInt(&quot;KUI-ID-FROM&quot;, value); }</span>
+<span class="nc" id="L811">    public int getKuiIdTo() { return getInt(&quot;KUI-ID-TO&quot;); }</span>
+<span class="fc" id="L812">    public void setKuiIdTo(int value) { setInt(&quot;KUI-ID-TO&quot;, value); }</span>
+<span class="fc" id="L813">    public int getKuiMatchCount() { return getInt(&quot;KUI-MATCH-COUNT&quot;); }</span>
+<span class="fc" id="L814">    public void setKuiMatchCount(int value) { setInt(&quot;KUI-MATCH-COUNT&quot;, value); }</span>
+<span class="fc" id="L815">    public String getKuiMoreSw() { return getString(&quot;KUI-MORE-SW&quot;); }</span>
+<span class="fc" id="L816">    public void setKuiMoreSw(String value) { setString(&quot;KUI-MORE-SW&quot;, value); }</span>
+<span class="fc" id="L817">    public int getKuiNextKey() { return getInt(&quot;KUI-NEXT-KEY&quot;); }</span>
+<span class="fc" id="L818">    public void setKuiNextKey(int value) { setInt(&quot;KUI-NEXT-KEY&quot;, value); }</span>
+<span class="fc" id="L819">    public String getKuiRequest() { return groupToString(&quot;KUI-REQUEST&quot;); }</span>
+<span class="fc" id="L820">    public void setKuiRequest(String value) { setGroup(&quot;KUI-REQUEST&quot;, value); }</span>
+<span class="nc" id="L821">    public String getKuiResponse() { return groupToString(&quot;KUI-RESPONSE&quot;); }</span>
+<span class="nc" id="L822">    public void setKuiResponse(String value) { setGroup(&quot;KUI-RESPONSE&quot;, value); }</span>
+<span class="fc" id="L823">    public String getKuiReturnCd() { return getString(&quot;KUI-RETURN-CD&quot;); }</span>
+<span class="nc" id="L824">    public void setKuiReturnCd(String value) { setString(&quot;KUI-RETURN-CD&quot;, value); }</span>
+<span class="nc" id="L825">    public String getKuiRow(int index) { return groupToString(&quot;KUI-ROW&quot;, index); }</span>
+<span class="nc" id="L826">    public void setKuiRow(int index, String value) { setGroup(&quot;KUI-ROW&quot;, value, index); }</span>
+<span class="nc" id="L827">    public String getKuiRow() { return groupToString(&quot;KUI-ROW&quot;); }</span>
+<span class="nc" id="L828">    public void setKuiRow(String value) { setGroup(&quot;KUI-ROW&quot;, value); }</span>
+<span class="fc" id="L829">    public int getKuiRowCount() { return getInt(&quot;KUI-ROW-COUNT&quot;); }</span>
+<span class="fc" id="L830">    public void setKuiRowCount(int value) { setInt(&quot;KUI-ROW-COUNT&quot;, value); }</span>
+<span class="nc" id="L831">    public String getKuiRows() { return groupToString(&quot;KUI-ROWS&quot;); }</span>
+<span class="nc" id="L832">    public void setKuiRows(String value) { setGroup(&quot;KUI-ROWS&quot;, value); }</span>
+<span class="nc" id="L833">    public int getKuiScanCount() { return getInt(&quot;KUI-SCAN-COUNT&quot;); }</span>
+<span class="nc" id="L834">    public void setKuiScanCount(int value) { setInt(&quot;KUI-SCAN-COUNT&quot;, value); }</span>
+<span class="nc" id="L835">    public int getKuiStartKey() { return getInt(&quot;KUI-START-KEY&quot;); }</span>
+<span class="fc" id="L836">    public void setKuiStartKey(int value) { setInt(&quot;KUI-START-KEY&quot;, value); }</span>
+<span class="fc" id="L837">    public String getKuiState() { return getString(&quot;KUI-STATE&quot;); }</span>
+<span class="fc" id="L838">    public void setKuiState(String value) { setString(&quot;KUI-STATE&quot;, value); }</span>
+<span class="fc" id="L839">    public String getKuiZip() { return getString(&quot;KUI-ZIP&quot;); }</span>
+<span class="fc" id="L840">    public void setKuiZip(String value) { setString(&quot;KUI-ZIP&quot;, value); }</span>
+<span class="fc" id="L841">    public int getKurFico(int index) { return getInt(&quot;KUR-FICO&quot;, index); }</span>
+<span class="fc" id="L842">    public void setKurFico(int index, int value) { setInt(&quot;KUR-FICO&quot;, value, index); }</span>
+<span class="fc" id="L843">    public int getKurId(int index) { return getInt(&quot;KUR-ID&quot;, index); }</span>
+<span class="fc" id="L844">    public void setKurId(int index, int value) { setInt(&quot;KUR-ID&quot;, value, index); }</span>
+<span class="fc" id="L845">    public String getKurName(int index) { return getString(&quot;KUR-NAME&quot;, index); }</span>
+<span class="fc" id="L846">    public void setKurName(int index, String value) { setString(&quot;KUR-NAME&quot;, value, index); }</span>
+<span class="fc" id="L847">    public String getKurState(int index) { return getString(&quot;KUR-STATE&quot;, index); }</span>
+<span class="fc" id="L848">    public void setKurState(int index, String value) { setString(&quot;KUR-STATE&quot;, value, index); }</span>
+<span class="fc" id="L849">    public String getKurZip(int index) { return getString(&quot;KUR-ZIP&quot;, index); }</span>
+<span class="fc" id="L850">    public void setKurZip(int index, String value) { setString(&quot;KUR-ZIP&quot;, value, index); }</span>
+<span class="nc" id="L851">    public String getMcusinai() { return groupToString(&quot;MCUSINAI&quot;); }</span>
+<span class="nc" id="L852">    public void setMcusinai(String value) { setGroup(&quot;MCUSINAI&quot;, value); }</span>
+<span class="nc" id="L853">    public String getMcusinao() { return groupToString(&quot;MCUSINAO&quot;); }</span>
+<span class="nc" id="L854">    public void setMcusinao(String value) { setGroup(&quot;MCUSINAO&quot;, value); }</span>
+<span class="fc" id="L855">    public String getOrionCommarea() { return groupToString(&quot;ORION-COMMAREA&quot;); }</span>
+<span class="fc" id="L856">    public void setOrionCommarea(String value) { setGroup(&quot;ORION-COMMAREA&quot;, value); }</span>
+<span class="nc" id="L857">    public String getPgmnamea() { return getString(&quot;PGMNAMEA&quot;); }</span>
+<span class="nc" id="L858">    public void setPgmnamea(String value) { setString(&quot;PGMNAMEA&quot;, value); }</span>
+<span class="nc" id="L859">    public String getPgmnamef() { return getString(&quot;PGMNAMEF&quot;); }</span>
+<span class="nc" id="L860">    public void setPgmnamef(String value) { setString(&quot;PGMNAMEF&quot;, value); }</span>
+<span class="nc" id="L861">    public String getPgmnamei() { return getString(&quot;PGMNAMEI&quot;); }</span>
+<span class="nc" id="L862">    public void setPgmnamei(String value) { setString(&quot;PGMNAMEI&quot;, value); }</span>
+<span class="nc" id="L863">    public int getPgmnamel() { return getInt(&quot;PGMNAMEL&quot;); }</span>
+<span class="nc" id="L864">    public void setPgmnamel(int value) { setInt(&quot;PGMNAMEL&quot;, value); }</span>
+<span class="fc" id="L865">    public String getPgmnameo() { return getString(&quot;PGMNAMEO&quot;); }</span>
+<span class="fc" id="L866">    public void setPgmnameo(String value) { setString(&quot;PGMNAMEO&quot;, value); }</span>
+<span class="nc" id="L867">    public int getSqlcode() { return getInt(&quot;SQLCODE&quot;); }</span>
+<span class="nc" id="L868">    public void setSqlcode(int value) { setInt(&quot;SQLCODE&quot;, value); }</span>
+<span class="nc" id="L869">    public String getTitlea() { return getString(&quot;TITLEA&quot;); }</span>
+<span class="nc" id="L870">    public void setTitlea(String value) { setString(&quot;TITLEA&quot;, value); }</span>
+<span class="nc" id="L871">    public String getTitlef() { return getString(&quot;TITLEF&quot;); }</span>
+<span class="nc" id="L872">    public void setTitlef(String value) { setString(&quot;TITLEF&quot;, value); }</span>
+<span class="nc" id="L873">    public String getTitlei() { return getString(&quot;TITLEI&quot;); }</span>
+<span class="nc" id="L874">    public void setTitlei(String value) { setString(&quot;TITLEI&quot;, value); }</span>
+<span class="nc" id="L875">    public int getTitlel() { return getInt(&quot;TITLEL&quot;); }</span>
+<span class="nc" id="L876">    public void setTitlel(int value) { setInt(&quot;TITLEL&quot;, value); }</span>
+<span class="nc" id="L877">    public String getTitleo() { return getString(&quot;TITLEO&quot;); }</span>
+<span class="fc" id="L878">    public void setTitleo(String value) { setString(&quot;TITLEO&quot;, value); }</span>
+<span class="nc" id="L879">    public String getToficoa() { return getString(&quot;TOFICOA&quot;); }</span>
+<span class="nc" id="L880">    public void setToficoa(String value) { setString(&quot;TOFICOA&quot;, value); }</span>
+<span class="nc" id="L881">    public String getToficof() { return getString(&quot;TOFICOF&quot;); }</span>
+<span class="nc" id="L882">    public void setToficof(String value) { setString(&quot;TOFICOF&quot;, value); }</span>
+<span class="fc" id="L883">    public String getToficoi() { return getString(&quot;TOFICOI&quot;); }</span>
+<span class="fc" id="L884">    public void setToficoi(String value) { setString(&quot;TOFICOI&quot;, value); }</span>
+<span class="nc" id="L885">    public int getToficol() { return getInt(&quot;TOFICOL&quot;); }</span>
+<span class="nc" id="L886">    public void setToficol(int value) { setInt(&quot;TOFICOL&quot;, value); }</span>
+<span class="nc" id="L887">    public String getToficoo() { return getString(&quot;TOFICOO&quot;); }</span>
+<span class="nc" id="L888">    public void setToficoo(String value) { setString(&quot;TOFICOO&quot;, value); }</span>
+<span class="nc" id="L889">    public String getToida() { return getString(&quot;TOIDA&quot;); }</span>
+<span class="nc" id="L890">    public void setToida(String value) { setString(&quot;TOIDA&quot;, value); }</span>
+<span class="nc" id="L891">    public String getToidf() { return getString(&quot;TOIDF&quot;); }</span>
+<span class="nc" id="L892">    public void setToidf(String value) { setString(&quot;TOIDF&quot;, value); }</span>
+<span class="fc" id="L893">    public String getToidi() { return getString(&quot;TOIDI&quot;); }</span>
+<span class="fc" id="L894">    public void setToidi(String value) { setString(&quot;TOIDI&quot;, value); }</span>
+<span class="nc" id="L895">    public int getToidl() { return getInt(&quot;TOIDL&quot;); }</span>
+<span class="nc" id="L896">    public void setToidl(int value) { setInt(&quot;TOIDL&quot;, value); }</span>
+<span class="nc" id="L897">    public String getToido() { return getString(&quot;TOIDO&quot;); }</span>
+<span class="nc" id="L898">    public void setToido(String value) { setString(&quot;TOIDO&quot;, value); }</span>
+<span class="nc" id="L899">    public String getTrnnamea() { return getString(&quot;TRNNAMEA&quot;); }</span>
+<span class="nc" id="L900">    public void setTrnnamea(String value) { setString(&quot;TRNNAMEA&quot;, value); }</span>
+<span class="nc" id="L901">    public String getTrnnamef() { return getString(&quot;TRNNAMEF&quot;); }</span>
+<span class="nc" id="L902">    public void setTrnnamef(String value) { setString(&quot;TRNNAMEF&quot;, value); }</span>
+<span class="nc" id="L903">    public String getTrnnamei() { return getString(&quot;TRNNAMEI&quot;); }</span>
+<span class="nc" id="L904">    public void setTrnnamei(String value) { setString(&quot;TRNNAMEI&quot;, value); }</span>
+<span class="nc" id="L905">    public int getTrnnamel() { return getInt(&quot;TRNNAMEL&quot;); }</span>
+<span class="nc" id="L906">    public void setTrnnamel(int value) { setInt(&quot;TRNNAMEL&quot;, value); }</span>
+<span class="fc" id="L907">    public String getTrnnameo() { return getString(&quot;TRNNAMEO&quot;); }</span>
+<span class="fc" id="L908">    public void setTrnnameo(String value) { setString(&quot;TRNNAMEO&quot;, value); }</span>
+<span class="nc" id="L909">    public String getWsAcctfile() { return getString(&quot;WS-ACCTFILE&quot;); }</span>
+<span class="nc" id="L910">    public void setWsAcctfile(String value) { setString(&quot;WS-ACCTFILE&quot;, value); }</span>
+<span class="nc" id="L911">    public BigDecimal getWsAmt() { return getDecimal(&quot;WS-AMT&quot;); }</span>
+<span class="nc" id="L912">    public void setWsAmt(BigDecimal value) { setDecimal(&quot;WS-AMT&quot;, value); }</span>
+<span class="nc" id="L913">    public String getWsBillfile() { return getString(&quot;WS-BILLFILE&quot;); }</span>
+<span class="nc" id="L914">    public void setWsBillfile(String value) { setString(&quot;WS-BILLFILE&quot;, value); }</span>
+<span class="nc" id="L915">    public String getWsCardfile() { return getString(&quot;WS-CARDFILE&quot;); }</span>
+<span class="nc" id="L916">    public void setWsCardfile(String value) { setString(&quot;WS-CARDFILE&quot;, value); }</span>
+<span class="nc" id="L917">    public String getWsCdtDate() { return groupToString(&quot;WS-CDT-DATE&quot;); }</span>
+<span class="nc" id="L918">    public void setWsCdtDate(String value) { setGroup(&quot;WS-CDT-DATE&quot;, value); }</span>
+<span class="nc" id="L919">    public int getWsCdtDd() { return getInt(&quot;WS-CDT-DD&quot;); }</span>
+<span class="nc" id="L920">    public void setWsCdtDd(int value) { setInt(&quot;WS-CDT-DD&quot;, value); }</span>
+<span class="nc" id="L921">    public int getWsCdtHh() { return getInt(&quot;WS-CDT-HH&quot;); }</span>
+<span class="nc" id="L922">    public void setWsCdtHh(int value) { setInt(&quot;WS-CDT-HH&quot;, value); }</span>
+<span class="nc" id="L923">    public int getWsCdtMi() { return getInt(&quot;WS-CDT-MI&quot;); }</span>
+<span class="nc" id="L924">    public void setWsCdtMi(int value) { setInt(&quot;WS-CDT-MI&quot;, value); }</span>
+<span class="nc" id="L925">    public int getWsCdtMm() { return getInt(&quot;WS-CDT-MM&quot;); }</span>
+<span class="nc" id="L926">    public void setWsCdtMm(int value) { setInt(&quot;WS-CDT-MM&quot;, value); }</span>
+<span class="nc" id="L927">    public int getWsCdtSs() { return getInt(&quot;WS-CDT-SS&quot;); }</span>
+<span class="nc" id="L928">    public void setWsCdtSs(int value) { setInt(&quot;WS-CDT-SS&quot;, value); }</span>
+<span class="nc" id="L929">    public String getWsCdtTime() { return groupToString(&quot;WS-CDT-TIME&quot;); }</span>
+<span class="nc" id="L930">    public void setWsCdtTime(String value) { setGroup(&quot;WS-CDT-TIME&quot;, value); }</span>
+<span class="nc" id="L931">    public int getWsCdtYyyy() { return getInt(&quot;WS-CDT-YYYY&quot;); }</span>
+<span class="nc" id="L932">    public void setWsCdtYyyy(int value) { setInt(&quot;WS-CDT-YYYY&quot;, value); }</span>
+<span class="nc" id="L933">    public String getWsCicsResp() { return groupToString(&quot;WS-CICS-RESP&quot;); }</span>
+<span class="nc" id="L934">    public void setWsCicsResp(String value) { setGroup(&quot;WS-CICS-RESP&quot;, value); }</span>
+<span class="nc" id="L935">    public int getWsCnt() { return getInt(&quot;WS-CNT&quot;); }</span>
+<span class="nc" id="L936">    public void setWsCnt(int value) { setInt(&quot;WS-CNT&quot;, value); }</span>
+<span class="nc" id="L937">    public int getWsCntEd() { return getInt(&quot;WS-CNT-ED&quot;); }</span>
+<span class="fc" id="L938">    public void setWsCntEd(int value) { setInt(&quot;WS-CNT-ED&quot;, value); }</span>
+<span class="nc" id="L939">    public String getWsCtrlfile() { return getString(&quot;WS-CTRLFILE&quot;); }</span>
+<span class="nc" id="L940">    public void setWsCtrlfile(String value) { setString(&quot;WS-CTRLFILE&quot;, value); }</span>
+<span class="nc" id="L941">    public String getWsCurrentDateTime() { return groupToString(&quot;WS-CURRENT-DATE-TIME&quot;); }</span>
+<span class="nc" id="L942">    public void setWsCurrentDateTime(String value) { setGroup(&quot;WS-CURRENT-DATE-TIME&quot;, value); }</span>
+<span class="nc" id="L943">    public String getWsCustfile() { return getString(&quot;WS-CUSTFILE&quot;); }</span>
+<span class="nc" id="L944">    public void setWsCustfile(String value) { setString(&quot;WS-CUSTFILE&quot;, value); }</span>
+<span class="nc" id="L945">    public String getWsDgrpfile() { return getString(&quot;WS-DGRPFILE&quot;); }</span>
+<span class="nc" id="L946">    public void setWsDgrpfile(String value) { setString(&quot;WS-DGRPFILE&quot;, value); }</span>
+<span class="nc" id="L947">    public BigDecimal getWsEdAmt() { return getDecimal(&quot;WS-ED-AMT&quot;); }</span>
+<span class="nc" id="L948">    public void setWsEdAmt(BigDecimal value) { setDecimal(&quot;WS-ED-AMT&quot;, value); }</span>
+<span class="nc" id="L949">    public BigDecimal getWsEdBal() { return getDecimal(&quot;WS-ED-BAL&quot;); }</span>
+<span class="nc" id="L950">    public void setWsEdBal(BigDecimal value) { setDecimal(&quot;WS-ED-BAL&quot;, value); }</span>
+<span class="nc" id="L951">    public long getWsEdId() { return getLong(&quot;WS-ED-ID&quot;); }</span>
+<span class="nc" id="L952">    public void setWsEdId(long value) { setLong(&quot;WS-ED-ID&quot;, value); }</span>
+<span class="nc" id="L953">    public String getWsEdit() { return groupToString(&quot;WS-EDIT&quot;); }</span>
+<span class="nc" id="L954">    public void setWsEdit(String value) { setGroup(&quot;WS-EDIT&quot;, value); }</span>
+<span class="nc" id="L955">    public String getWsEndFlg() { return getString(&quot;WS-END-FLG&quot;); }</span>
+<span class="nc" id="L956">    public void setWsEndFlg(String value) { setString(&quot;WS-END-FLG&quot;, value); }</span>
+<span class="nc" id="L957">    public String getWsErrFlg() { return getString(&quot;WS-ERR-FLG&quot;); }</span>
+<span class="nc" id="L958">    public void setWsErrFlg(String value) { setString(&quot;WS-ERR-FLG&quot;, value); }</span>
+<span class="nc" id="L959">    public int getWsFicoEd() { return getInt(&quot;WS-FICO-ED&quot;); }</span>
+<span class="fc" id="L960">    public void setWsFicoEd(int value) { setInt(&quot;WS-FICO-ED&quot;, value); }</span>
+<span class="nc" id="L961">    public int getWsFicoMaxEd() { return getInt(&quot;WS-FICO-MAX-ED&quot;); }</span>
+<span class="fc" id="L962">    public void setWsFicoMaxEd(int value) { setInt(&quot;WS-FICO-MAX-ED&quot;, value); }</span>
+<span class="nc" id="L963">    public int getWsFicoMinEd() { return getInt(&quot;WS-FICO-MIN-ED&quot;); }</span>
+<span class="fc" id="L964">    public void setWsFicoMinEd(int value) { setInt(&quot;WS-FICO-MIN-ED&quot;, value); }</span>
+<span class="nc" id="L965">    public String getWsFileNames() { return groupToString(&quot;WS-FILE-NAMES&quot;); }</span>
+<span class="nc" id="L966">    public void setWsFileNames(String value) { setGroup(&quot;WS-FILE-NAMES&quot;, value); }</span>
+<span class="nc" id="L967">    public String getWsFoundFlg() { return getString(&quot;WS-FOUND-FLG&quot;); }</span>
+<span class="nc" id="L968">    public void setWsFoundFlg(String value) { setString(&quot;WS-FOUND-FLG&quot;, value); }</span>
+<span class="fc" id="L969">    public String getWsHdrDate() { return getString(&quot;WS-HDR-DATE&quot;); }</span>
+<span class="fc" id="L970">    public void setWsHdrDate(String value) { setString(&quot;WS-HDR-DATE&quot;, value); }</span>
+<span class="nc" id="L971">    public String getWsHdrPgmname() { return getString(&quot;WS-HDR-PGMNAME&quot;); }</span>
+<span class="nc" id="L972">    public void setWsHdrPgmname(String value) { setString(&quot;WS-HDR-PGMNAME&quot;, value); }</span>
+<span class="fc" id="L973">    public String getWsHdrTime() { return getString(&quot;WS-HDR-TIME&quot;); }</span>
+<span class="fc" id="L974">    public void setWsHdrTime(String value) { setString(&quot;WS-HDR-TIME&quot;, value); }</span>
+<span class="fc" id="L975">    public String getWsHdrTitle() { return getString(&quot;WS-HDR-TITLE&quot;); }</span>
+<span class="nc" id="L976">    public void setWsHdrTitle(String value) { setString(&quot;WS-HDR-TITLE&quot;, value); }</span>
+<span class="nc" id="L977">    public String getWsHdrTranid() { return getString(&quot;WS-HDR-TRANID&quot;); }</span>
+<span class="nc" id="L978">    public void setWsHdrTranid(String value) { setString(&quot;WS-HDR-TRANID&quot;, value); }</span>
+<span class="nc" id="L979">    public String getWsHeader() { return groupToString(&quot;WS-HEADER&quot;); }</span>
+<span class="nc" id="L980">    public void setWsHeader(String value) { setGroup(&quot;WS-HEADER&quot;, value); }</span>
+<span class="nc" id="L981">    public int getWsIdx() { return getInt(&quot;WS-IDX&quot;); }</span>
+<span class="nc" id="L982">    public void setWsIdx(int value) { setInt(&quot;WS-IDX&quot;, value); }</span>
+<span class="fc" id="L983">    public String getWsMBadMode() { return getString(&quot;WS-M-BAD-MODE&quot;); }</span>
+<span class="nc" id="L984">    public void setWsMBadMode(String value) { setString(&quot;WS-M-BAD-MODE&quot;, value); }</span>
+<span class="fc" id="L985">    public String getWsMBadNum() { return getString(&quot;WS-M-BAD-NUM&quot;); }</span>
+<span class="nc" id="L986">    public void setWsMBadNum(String value) { setString(&quot;WS-M-BAD-NUM&quot;, value); }</span>
+<span class="fc" id="L987">    public String getWsMEndList() { return getString(&quot;WS-M-END-LIST&quot;); }</span>
+<span class="nc" id="L988">    public void setWsMEndList(String value) { setString(&quot;WS-M-END-LIST&quot;, value); }</span>
+<span class="fc" id="L989">    public String getWsMLinkErr() { return getString(&quot;WS-M-LINK-ERR&quot;); }</span>
+<span class="nc" id="L990">    public void setWsMLinkErr(String value) { setString(&quot;WS-M-LINK-ERR&quot;, value); }</span>
+<span class="fc" id="L991">    public String getWsMNoneFound() { return getString(&quot;WS-M-NONE-FOUND&quot;); }</span>
+<span class="nc" id="L992">    public void setWsMNoneFound(String value) { setString(&quot;WS-M-NONE-FOUND&quot;, value); }</span>
+<span class="fc" id="L993">    public String getWsMPrompt() { return getString(&quot;WS-M-PROMPT&quot;); }</span>
+<span class="nc" id="L994">    public void setWsMPrompt(String value) { setString(&quot;WS-M-PROMPT&quot;, value); }</span>
+<span class="fc" id="L995">    public String getWsMStateReq() { return getString(&quot;WS-M-STATE-REQ&quot;); }</span>
+<span class="nc" id="L996">    public void setWsMStateReq(String value) { setString(&quot;WS-M-STATE-REQ&quot;, value); }</span>
+<span class="fc" id="L997">    public String getWsMenuPgm() { return getString(&quot;WS-MENU-PGM&quot;); }</span>
+<span class="nc" id="L998">    public void setWsMenuPgm(String value) { setString(&quot;WS-MENU-PGM&quot;, value); }</span>
+<span class="nc" id="L999">    public String getWsMessages() { return groupToString(&quot;WS-MESSAGES&quot;); }</span>
+<span class="nc" id="L1000">    public void setWsMessages(String value) { setGroup(&quot;WS-MESSAGES&quot;, value); }</span>
+<span class="fc" id="L1001">    public String getWsMode() { return getString(&quot;WS-MODE&quot;); }</span>
+<span class="fc" id="L1002">    public void setWsMode(String value) { setString(&quot;WS-MODE&quot;, value); }</span>
+<span class="nc" id="L1003">    public String getWsMsgCode() { return getString(&quot;WS-MSG-CODE&quot;); }</span>
+<span class="nc" id="L1004">    public void setWsMsgCode(String value) { setString(&quot;WS-MSG-CODE&quot;, value); }</span>
+<span class="fc" id="L1005">    public String getWsMsgInvalidKey() { return getString(&quot;WS-MSG-INVALID-KEY&quot;); }</span>
+<span class="nc" id="L1006">    public void setWsMsgInvalidKey(String value) { setString(&quot;WS-MSG-INVALID-KEY&quot;, value); }</span>
+<span class="fc" id="L1007">    public String getWsMsgLine() { return getString(&quot;WS-MSG-LINE&quot;); }</span>
+<span class="fc" id="L1008">    public void setWsMsgLine(String value) { setString(&quot;WS-MSG-LINE&quot;, value); }</span>
+<span class="nc" id="L1009">    public String getWsMsgNotfnd() { return getString(&quot;WS-MSG-NOTFND&quot;); }</span>
+<span class="nc" id="L1010">    public void setWsMsgNotfnd(String value) { setString(&quot;WS-MSG-NOTFND&quot;, value); }</span>
+<span class="nc" id="L1011">    public String getWsMsgRequired() { return getString(&quot;WS-MSG-REQUIRED&quot;); }</span>
+<span class="nc" id="L1012">    public void setWsMsgRequired(String value) { setString(&quot;WS-MSG-REQUIRED&quot;, value); }</span>
+<span class="nc" id="L1013">    public String getWsMsgText() { return getString(&quot;WS-MSG-TEXT&quot;); }</span>
+<span class="nc" id="L1014">    public void setWsMsgText(String value) { setString(&quot;WS-MSG-TEXT&quot;, value); }</span>
+<span class="nc" id="L1015">    public String getWsMsgThankyou() { return getString(&quot;WS-MSG-THANKYOU&quot;); }</span>
+<span class="nc" id="L1016">    public void setWsMsgThankyou(String value) { setString(&quot;WS-MSG-THANKYOU&quot;, value); }</span>
+<span class="fc" id="L1017">    public String getWsNcChar() { return getString(&quot;WS-NC-CHAR&quot;); }</span>
+<span class="fc" id="L1018">    public void setWsNcChar(String value) { setString(&quot;WS-NC-CHAR&quot;, value); }</span>
+<span class="fc" id="L1019">    public int getWsNcDigit() { return getInt(&quot;WS-NC-DIGIT&quot;); }</span>
+<span class="fc" id="L1020">    public void setWsNcDigit(int value) { setInt(&quot;WS-NC-DIGIT&quot;, value); }</span>
+<span class="fc" id="L1021">    public int getWsNcDigits() { return getInt(&quot;WS-NC-DIGITS&quot;); }</span>
+<span class="fc" id="L1022">    public void setWsNcDigits(int value) { setInt(&quot;WS-NC-DIGITS&quot;, value); }</span>
+<span class="fc" id="L1023">    public String getWsNcIn() { return getString(&quot;WS-NC-IN&quot;); }</span>
+<span class="fc" id="L1024">    public void setWsNcIn(String value) { setString(&quot;WS-NC-IN&quot;, value); }</span>
+<span class="fc" id="L1025">    public int getWsNcLen() { return getInt(&quot;WS-NC-LEN&quot;); }</span>
+<span class="fc" id="L1026">    public void setWsNcLen(int value) { setInt(&quot;WS-NC-LEN&quot;, value); }</span>
+<span class="fc" id="L1027">    public int getWsNcPos() { return getInt(&quot;WS-NC-POS&quot;); }</span>
+<span class="fc" id="L1028">    public void setWsNcPos(int value) { setInt(&quot;WS-NC-POS&quot;, value); }</span>
+<span class="fc" id="L1029">    public int getWsNcValue() { return getInt(&quot;WS-NC-VALUE&quot;); }</span>
+<span class="fc" id="L1030">    public void setWsNcValue(int value) { setInt(&quot;WS-NC-VALUE&quot;, value); }</span>
+<span class="nc" id="L1031">    public String getWsNumchk() { return groupToString(&quot;WS-NUMCHK&quot;); }</span>
+<span class="nc" id="L1032">    public void setWsNumchk(String value) { setGroup(&quot;WS-NUMCHK&quot;, value); }</span>
+<span class="fc" id="L1033">    public String getWsPgmname() { return getString(&quot;WS-PGMNAME&quot;); }</span>
+<span class="nc" id="L1034">    public void setWsPgmname(String value) { setString(&quot;WS-PGMNAME&quot;, value); }</span>
+<span class="nc" id="L1035">    public String getWsProgramMsgs() { return groupToString(&quot;WS-PROGRAM-MSGS&quot;); }</span>
+<span class="nc" id="L1036">    public void setWsProgramMsgs(String value) { setGroup(&quot;WS-PROGRAM-MSGS&quot;, value); }</span>
+<span class="nc" id="L1037">    public String getWsProgramVars() { return groupToString(&quot;WS-PROGRAM-VARS&quot;); }</span>
+<span class="nc" id="L1038">    public void setWsProgramVars(String value) { setGroup(&quot;WS-PROGRAM-VARS&quot;, value); }</span>
+<span class="nc" id="L1039">    public int getWsReasCd() { return getInt(&quot;WS-REAS-CD&quot;); }</span>
+<span class="nc" id="L1040">    public void setWsReasCd(int value) { setInt(&quot;WS-REAS-CD&quot;, value); }</span>
+<span class="fc" id="L1041">    public int getWsRespCd() { return getInt(&quot;WS-RESP-CD&quot;); }</span>
+<span class="fc" id="L1042">    public void setWsRespCd(int value) { setInt(&quot;WS-RESP-CD&quot;, value); }</span>
+<span class="fc" id="L1043">    public int getWsRowIdx() { return getInt(&quot;WS-ROW-IDX&quot;); }</span>
+<span class="fc" id="L1044">    public void setWsRowIdx(int value) { setInt(&quot;WS-ROW-IDX&quot;, value); }</span>
+<span class="nc" id="L1045">    public String getWsStmtfile() { return getString(&quot;WS-STMTFILE&quot;); }</span>
+<span class="nc" id="L1046">    public void setWsStmtfile(String value) { setString(&quot;WS-STMTFILE&quot;, value); }</span>
+<span class="fc" id="L1047">    public String getWsSubPgm() { return getString(&quot;WS-SUB-PGM&quot;); }</span>
+<span class="nc" id="L1048">    public void setWsSubPgm(String value) { setString(&quot;WS-SUB-PGM&quot;, value); }</span>
+<span class="nc" id="L1049">    public String getWsSwitches() { return groupToString(&quot;WS-SWITCHES&quot;); }</span>
+<span class="nc" id="L1050">    public void setWsSwitches(String value) { setGroup(&quot;WS-SWITCHES&quot;, value); }</span>
+<span class="nc" id="L1051">    public String getWsTcatfile() { return getString(&quot;WS-TCATFILE&quot;); }</span>
+<span class="nc" id="L1052">    public void setWsTcatfile(String value) { setString(&quot;WS-TCATFILE&quot;, value); }</span>
+<span class="nc" id="L1053">    public String getWsTranfile() { return getString(&quot;WS-TRANFILE&quot;); }</span>
+<span class="nc" id="L1054">    public void setWsTranfile(String value) { setString(&quot;WS-TRANFILE&quot;, value); }</span>
+<span class="fc" id="L1055">    public String getWsTranid() { return getString(&quot;WS-TRANID&quot;); }</span>
+<span class="nc" id="L1056">    public void setWsTranid(String value) { setString(&quot;WS-TRANID&quot;, value); }</span>
+<span class="nc" id="L1057">    public String getWsTtypfile() { return getString(&quot;WS-TTYPFILE&quot;); }</span>
+<span class="nc" id="L1058">    public void setWsTtypfile(String value) { setString(&quot;WS-TTYPFILE&quot;, value); }</span>
+<span class="nc" id="L1059">    public String getWsUsrsec() { return getString(&quot;WS-USRSEC&quot;); }</span>
+<span class="nc" id="L1060">    public void setWsUsrsec(String value) { setString(&quot;WS-USRSEC&quot;, value); }</span>
+<span class="fc" id="L1061">    public String getWsValidSw() { return getString(&quot;WS-VALID-SW&quot;); }</span>
+<span class="nc" id="L1062">    public void setWsValidSw(String value) { setString(&quot;WS-VALID-SW&quot;, value); }</span>
+<span class="nc" id="L1063">    public String getWsWork() { return groupToString(&quot;WS-WORK&quot;); }</span>
+<span class="nc" id="L1064">    public void setWsWork(String value) { setGroup(&quot;WS-WORK&quot;, value); }</span>
+<span class="nc" id="L1065">    public String getWsWorkFields() { return groupToString(&quot;WS-WORK-FIELDS&quot;); }</span>
+<span class="nc" id="L1066">    public void setWsWorkFields(String value) { setGroup(&quot;WS-WORK-FIELDS&quot;, value); }</span>
+<span class="nc" id="L1067">    public String getWsWorkFlags() { return groupToString(&quot;WS-WORK-FLAGS&quot;); }</span>
+<span class="nc" id="L1068">    public void setWsWorkFlags(String value) { setGroup(&quot;WS-WORK-FLAGS&quot;, value); }</span>
+<span class="nc" id="L1069">    public String getWsXreffile() { return getString(&quot;WS-XREFFILE&quot;); }</span>
+<span class="nc" id="L1070">    public void setWsXreffile(String value) { setString(&quot;WS-XREFFILE&quot;, value); }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

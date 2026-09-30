@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OcstminBmsMetadata.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OCSTMIN Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.ocstmin.metadata</a> &gt; <span class="el_source">OcstminBmsMetadata.java</span></div><h1>OcstminBmsMetadata.java</h1><pre class="source lang-java linenums">package com.generated.orion.ocstmin.metadata;
+
+import com.appruntime.AppRunner;
+import com.appruntime.FieldMapping;
+import com.appruntime.ScreenResponse;
+import java.util.*;
+
+/**
+ * BMS screen metadata for OCSTMIN.
+ * Contains button definitions, FSET fields, and field mappings.
+ */
+<span class="nc" id="L12">public class OcstminBmsMetadata {</span>
+
+    public static List&lt;ScreenResponse.ButtonDef&gt; getButtonDefs() {
+<span class="fc" id="L15">        return List.of(</span>
+            new ScreenResponse.ButtonDef(&quot;ENTER&quot;, &quot;ENTER=PROCESS&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF3&quot;, &quot;PF3=BACK&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF4&quot;, &quot;PF4=CLEAR&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF7&quot;, &quot;PF7&quot;, &quot;&quot;),
+            new ScreenResponse.ButtonDef(&quot;PF8&quot;, &quot;PF8&quot;, &quot;&quot;)
+        );
+    }
+
+    public static void registerFsetFields(AppRunner runner) {
+<span class="fc" id="L25">        runner.registerFsetFields(&quot;MSTMINA&quot;, Set.of(&quot;FRACCT&quot;, &quot;FRCYC&quot;));</span>
+<span class="fc" id="L26">    }</span>
+
+    /** Danh sách BMS map của program (cho smoke test / tooling). */
+    public static List&lt;String&gt; getMapNames() {
+<span class="nc" id="L30">        return List.of(&quot;MSTMINA&quot;);</span>
+    }
+
+    /** Classpath resource của WORKING-STORAGE layout (FieldStore đọc lúc runtime). */
+    public static String getLayoutResource() {
+<span class="nc" id="L35">        return &quot;layout/OCSTMIN_WS.xml&quot;;</span>
+    }
+
+    public static FieldMapping getFieldMapping(String mapName) {
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (&quot;MSTMINA&quot;.equalsIgnoreCase(mapName)) {</span>
+<span class="fc" id="L40">            return FieldMapping.builder()</span>
+<span class="fc" id="L41">                .addDataIn(&quot;SD2&quot;, &quot;sd2i&quot;)</span>
+<span class="fc" id="L42">                .addDataIn(&quot;FRCYC&quot;, &quot;frcyci&quot;)</span>
+<span class="fc" id="L43">                .addDataIn(&quot;SD1&quot;, &quot;sd1i&quot;)</span>
+<span class="fc" id="L44">                .addDataIn(&quot;SD4&quot;, &quot;sd4i&quot;)</span>
+<span class="fc" id="L45">                .addDataIn(&quot;SD3&quot;, &quot;sd3i&quot;)</span>
+<span class="fc" id="L46">                .addDataIn(&quot;SD6&quot;, &quot;sd6i&quot;)</span>
+<span class="fc" id="L47">                .addDataIn(&quot;SD5&quot;, &quot;sd5i&quot;)</span>
+<span class="fc" id="L48">                .addDataIn(&quot;FRACCT&quot;, &quot;fraccti&quot;)</span>
+<span class="fc" id="L49">                .addDataIn(&quot;SO1&quot;, &quot;so1i&quot;)</span>
+<span class="fc" id="L50">                .addDataIn(&quot;ERRMSG&quot;, &quot;errmsgi&quot;)</span>
+<span class="fc" id="L51">                .addDataIn(&quot;CURTIME&quot;, &quot;curtimei&quot;)</span>
+<span class="fc" id="L52">                .addDataIn(&quot;SM1&quot;, &quot;sm1i&quot;)</span>
+<span class="fc" id="L53">                .addDataIn(&quot;SO3&quot;, &quot;so3i&quot;)</span>
+<span class="fc" id="L54">                .addDataIn(&quot;SO2&quot;, &quot;so2i&quot;)</span>
+<span class="fc" id="L55">                .addDataIn(&quot;SM3&quot;, &quot;sm3i&quot;)</span>
+<span class="fc" id="L56">                .addDataIn(&quot;SO5&quot;, &quot;so5i&quot;)</span>
+<span class="fc" id="L57">                .addDataIn(&quot;SM2&quot;, &quot;sm2i&quot;)</span>
+<span class="fc" id="L58">                .addDataIn(&quot;SO4&quot;, &quot;so4i&quot;)</span>
+<span class="fc" id="L59">                .addDataIn(&quot;SM5&quot;, &quot;sm5i&quot;)</span>
+<span class="fc" id="L60">                .addDataIn(&quot;SM4&quot;, &quot;sm4i&quot;)</span>
+<span class="fc" id="L61">                .addDataIn(&quot;SO6&quot;, &quot;so6i&quot;)</span>
+<span class="fc" id="L62">                .addDataIn(&quot;SM6&quot;, &quot;sm6i&quot;)</span>
+<span class="fc" id="L63">                .addDataIn(&quot;SC1&quot;, &quot;sc1i&quot;)</span>
+<span class="fc" id="L64">                .addDataIn(&quot;SA1&quot;, &quot;sa1i&quot;)</span>
+<span class="fc" id="L65">                .addDataIn(&quot;SC3&quot;, &quot;sc3i&quot;)</span>
+<span class="fc" id="L66">                .addDataIn(&quot;SC2&quot;, &quot;sc2i&quot;)</span>
+<span class="fc" id="L67">                .addDataIn(&quot;SA3&quot;, &quot;sa3i&quot;)</span>
+<span class="fc" id="L68">                .addDataIn(&quot;SC5&quot;, &quot;sc5i&quot;)</span>
+<span class="fc" id="L69">                .addDataIn(&quot;SA2&quot;, &quot;sa2i&quot;)</span>
+<span class="fc" id="L70">                .addDataIn(&quot;SC4&quot;, &quot;sc4i&quot;)</span>
+<span class="fc" id="L71">                .addDataIn(&quot;SA5&quot;, &quot;sa5i&quot;)</span>
+<span class="fc" id="L72">                .addDataIn(&quot;SA4&quot;, &quot;sa4i&quot;)</span>
+<span class="fc" id="L73">                .addDataIn(&quot;SC6&quot;, &quot;sc6i&quot;)</span>
+<span class="fc" id="L74">                .addDataIn(&quot;SA6&quot;, &quot;sa6i&quot;)</span>
+<span class="fc" id="L75">                .addDataIn(&quot;TRNNAME&quot;, &quot;trnnamei&quot;)</span>
+<span class="fc" id="L76">                .addDataIn(&quot;SL2&quot;, &quot;sl2i&quot;)</span>
+<span class="fc" id="L77">                .addDataIn(&quot;SL1&quot;, &quot;sl1i&quot;)</span>
+<span class="fc" id="L78">                .addDataIn(&quot;TITLE&quot;, &quot;titlei&quot;)</span>
+<span class="fc" id="L79">                .addDataIn(&quot;SL4&quot;, &quot;sl4i&quot;)</span>
+<span class="fc" id="L80">                .addDataIn(&quot;SL3&quot;, &quot;sl3i&quot;)</span>
+<span class="fc" id="L81">                .addDataIn(&quot;SL6&quot;, &quot;sl6i&quot;)</span>
+<span class="fc" id="L82">                .addDataIn(&quot;PGMNAME&quot;, &quot;pgmnamei&quot;)</span>
+<span class="fc" id="L83">                .addDataIn(&quot;SL5&quot;, &quot;sl5i&quot;)</span>
+<span class="fc" id="L84">                .addDataIn(&quot;CURDATE&quot;, &quot;curdatei&quot;)</span>
+<span class="fc" id="L85">                .addDataOut(&quot;SD2&quot;, &quot;sd2o&quot;)</span>
+<span class="fc" id="L86">                .addDataOut(&quot;FRCYC&quot;, &quot;frcyco&quot;)</span>
+<span class="fc" id="L87">                .addDataOut(&quot;SD1&quot;, &quot;sd1o&quot;)</span>
+<span class="fc" id="L88">                .addDataOut(&quot;SD4&quot;, &quot;sd4o&quot;)</span>
+<span class="fc" id="L89">                .addDataOut(&quot;SD3&quot;, &quot;sd3o&quot;)</span>
+<span class="fc" id="L90">                .addDataOut(&quot;SD6&quot;, &quot;sd6o&quot;)</span>
+<span class="fc" id="L91">                .addDataOut(&quot;SD5&quot;, &quot;sd5o&quot;)</span>
+<span class="fc" id="L92">                .addDataOut(&quot;FRACCT&quot;, &quot;fraccto&quot;)</span>
+<span class="fc" id="L93">                .addDataOut(&quot;SO1&quot;, &quot;so1o&quot;)</span>
+<span class="fc" id="L94">                .addDataOut(&quot;ERRMSG&quot;, &quot;errmsgo&quot;)</span>
+<span class="fc" id="L95">                .addDataOut(&quot;CURTIME&quot;, &quot;curtimeo&quot;)</span>
+<span class="fc" id="L96">                .addDataOut(&quot;SM1&quot;, &quot;sm1o&quot;)</span>
+<span class="fc" id="L97">                .addDataOut(&quot;SO3&quot;, &quot;so3o&quot;)</span>
+<span class="fc" id="L98">                .addDataOut(&quot;SO2&quot;, &quot;so2o&quot;)</span>
+<span class="fc" id="L99">                .addDataOut(&quot;SM3&quot;, &quot;sm3o&quot;)</span>
+<span class="fc" id="L100">                .addDataOut(&quot;SO5&quot;, &quot;so5o&quot;)</span>
+<span class="fc" id="L101">                .addDataOut(&quot;SM2&quot;, &quot;sm2o&quot;)</span>
+<span class="fc" id="L102">                .addDataOut(&quot;SO4&quot;, &quot;so4o&quot;)</span>
+<span class="fc" id="L103">                .addDataOut(&quot;SM5&quot;, &quot;sm5o&quot;)</span>
+<span class="fc" id="L104">                .addDataOut(&quot;SM4&quot;, &quot;sm4o&quot;)</span>
+<span class="fc" id="L105">                .addDataOut(&quot;SO6&quot;, &quot;so6o&quot;)</span>
+<span class="fc" id="L106">                .addDataOut(&quot;SM6&quot;, &quot;sm6o&quot;)</span>
+<span class="fc" id="L107">                .addDataOut(&quot;SC1&quot;, &quot;sc1o&quot;)</span>
+<span class="fc" id="L108">                .addDataOut(&quot;SA1&quot;, &quot;sa1o&quot;)</span>
+<span class="fc" id="L109">                .addDataOut(&quot;SC3&quot;, &quot;sc3o&quot;)</span>
+<span class="fc" id="L110">                .addDataOut(&quot;SC2&quot;, &quot;sc2o&quot;)</span>
+<span class="fc" id="L111">                .addDataOut(&quot;SA3&quot;, &quot;sa3o&quot;)</span>
+<span class="fc" id="L112">                .addDataOut(&quot;SC5&quot;, &quot;sc5o&quot;)</span>
+<span class="fc" id="L113">                .addDataOut(&quot;SA2&quot;, &quot;sa2o&quot;)</span>
+<span class="fc" id="L114">                .addDataOut(&quot;SC4&quot;, &quot;sc4o&quot;)</span>
+<span class="fc" id="L115">                .addDataOut(&quot;SA5&quot;, &quot;sa5o&quot;)</span>
+<span class="fc" id="L116">                .addDataOut(&quot;SA4&quot;, &quot;sa4o&quot;)</span>
+<span class="fc" id="L117">                .addDataOut(&quot;SC6&quot;, &quot;sc6o&quot;)</span>
+<span class="fc" id="L118">                .addDataOut(&quot;SA6&quot;, &quot;sa6o&quot;)</span>
+<span class="fc" id="L119">                .addDataOut(&quot;TRNNAME&quot;, &quot;trnnameo&quot;)</span>
+<span class="fc" id="L120">                .addDataOut(&quot;SL2&quot;, &quot;sl2o&quot;)</span>
+<span class="fc" id="L121">                .addDataOut(&quot;SL1&quot;, &quot;sl1o&quot;)</span>
+<span class="fc" id="L122">                .addDataOut(&quot;TITLE&quot;, &quot;titleo&quot;)</span>
+<span class="fc" id="L123">                .addDataOut(&quot;SL4&quot;, &quot;sl4o&quot;)</span>
+<span class="fc" id="L124">                .addDataOut(&quot;SL3&quot;, &quot;sl3o&quot;)</span>
+<span class="fc" id="L125">                .addDataOut(&quot;SL6&quot;, &quot;sl6o&quot;)</span>
+<span class="fc" id="L126">                .addDataOut(&quot;PGMNAME&quot;, &quot;pgmnameo&quot;)</span>
+<span class="fc" id="L127">                .addDataOut(&quot;SL5&quot;, &quot;sl5o&quot;)</span>
+<span class="fc" id="L128">                .addDataOut(&quot;CURDATE&quot;, &quot;curdateo&quot;)</span>
+<span class="fc" id="L129">                .addAttr(&quot;SD2&quot;, &quot;sd2a&quot;)</span>
+<span class="fc" id="L130">                .addAttr(&quot;FRCYC&quot;, &quot;frcyca&quot;)</span>
+<span class="fc" id="L131">                .addAttr(&quot;SD1&quot;, &quot;sd1a&quot;)</span>
+<span class="fc" id="L132">                .addAttr(&quot;SD4&quot;, &quot;sd4a&quot;)</span>
+<span class="fc" id="L133">                .addAttr(&quot;SD3&quot;, &quot;sd3a&quot;)</span>
+<span class="fc" id="L134">                .addAttr(&quot;SD6&quot;, &quot;sd6a&quot;)</span>
+<span class="fc" id="L135">                .addAttr(&quot;SD5&quot;, &quot;sd5a&quot;)</span>
+<span class="fc" id="L136">                .addAttr(&quot;FRACCT&quot;, &quot;fraccta&quot;)</span>
+<span class="fc" id="L137">                .addAttr(&quot;SO1&quot;, &quot;so1a&quot;)</span>
+<span class="fc" id="L138">                .addAttr(&quot;ERRMSG&quot;, &quot;errmsga&quot;)</span>
+<span class="fc" id="L139">                .addAttr(&quot;CURTIME&quot;, &quot;curtimea&quot;)</span>
+<span class="fc" id="L140">                .addAttr(&quot;SM1&quot;, &quot;sm1a&quot;)</span>
+<span class="fc" id="L141">                .addAttr(&quot;SO3&quot;, &quot;so3a&quot;)</span>
+<span class="fc" id="L142">                .addAttr(&quot;SO2&quot;, &quot;so2a&quot;)</span>
+<span class="fc" id="L143">                .addAttr(&quot;SM3&quot;, &quot;sm3a&quot;)</span>
+<span class="fc" id="L144">                .addAttr(&quot;SO5&quot;, &quot;so5a&quot;)</span>
+<span class="fc" id="L145">                .addAttr(&quot;SM2&quot;, &quot;sm2a&quot;)</span>
+<span class="fc" id="L146">                .addAttr(&quot;SO4&quot;, &quot;so4a&quot;)</span>
+<span class="fc" id="L147">                .addAttr(&quot;SM5&quot;, &quot;sm5a&quot;)</span>
+<span class="fc" id="L148">                .addAttr(&quot;SM4&quot;, &quot;sm4a&quot;)</span>
+<span class="fc" id="L149">                .addAttr(&quot;SO6&quot;, &quot;so6a&quot;)</span>
+<span class="fc" id="L150">                .addAttr(&quot;SM6&quot;, &quot;sm6a&quot;)</span>
+<span class="fc" id="L151">                .addAttr(&quot;SC1&quot;, &quot;sc1a&quot;)</span>
+<span class="fc" id="L152">                .addAttr(&quot;SA1&quot;, &quot;sa1a&quot;)</span>
+<span class="fc" id="L153">                .addAttr(&quot;SC3&quot;, &quot;sc3a&quot;)</span>
+<span class="fc" id="L154">                .addAttr(&quot;SC2&quot;, &quot;sc2a&quot;)</span>
+<span class="fc" id="L155">                .addAttr(&quot;SA3&quot;, &quot;sa3a&quot;)</span>
+<span class="fc" id="L156">                .addAttr(&quot;SC5&quot;, &quot;sc5a&quot;)</span>
+<span class="fc" id="L157">                .addAttr(&quot;SA2&quot;, &quot;sa2a&quot;)</span>
+<span class="fc" id="L158">                .addAttr(&quot;SC4&quot;, &quot;sc4a&quot;)</span>
+<span class="fc" id="L159">                .addAttr(&quot;SA5&quot;, &quot;sa5a&quot;)</span>
+<span class="fc" id="L160">                .addAttr(&quot;SA4&quot;, &quot;sa4a&quot;)</span>
+<span class="fc" id="L161">                .addAttr(&quot;SC6&quot;, &quot;sc6a&quot;)</span>
+<span class="fc" id="L162">                .addAttr(&quot;SA6&quot;, &quot;sa6a&quot;)</span>
+<span class="fc" id="L163">                .addAttr(&quot;TRNNAME&quot;, &quot;trnnamea&quot;)</span>
+<span class="fc" id="L164">                .addAttr(&quot;SL2&quot;, &quot;sl2a&quot;)</span>
+<span class="fc" id="L165">                .addAttr(&quot;SL1&quot;, &quot;sl1a&quot;)</span>
+<span class="fc" id="L166">                .addAttr(&quot;TITLE&quot;, &quot;titlea&quot;)</span>
+<span class="fc" id="L167">                .addAttr(&quot;SL4&quot;, &quot;sl4a&quot;)</span>
+<span class="fc" id="L168">                .addAttr(&quot;SL3&quot;, &quot;sl3a&quot;)</span>
+<span class="fc" id="L169">                .addAttr(&quot;SL6&quot;, &quot;sl6a&quot;)</span>
+<span class="fc" id="L170">                .addAttr(&quot;PGMNAME&quot;, &quot;pgmnamea&quot;)</span>
+<span class="fc" id="L171">                .addAttr(&quot;SL5&quot;, &quot;sl5a&quot;)</span>
+<span class="fc" id="L172">                .addAttr(&quot;CURDATE&quot;, &quot;curdatea&quot;)</span>
+<span class="fc" id="L173">                .addLength(&quot;SD2&quot;, &quot;sd2l&quot;)</span>
+<span class="fc" id="L174">                .addLength(&quot;FRCYC&quot;, &quot;frcycl&quot;)</span>
+<span class="fc" id="L175">                .addLength(&quot;SD1&quot;, &quot;sd1l&quot;)</span>
+<span class="fc" id="L176">                .addLength(&quot;SD4&quot;, &quot;sd4l&quot;)</span>
+<span class="fc" id="L177">                .addLength(&quot;SD3&quot;, &quot;sd3l&quot;)</span>
+<span class="fc" id="L178">                .addLength(&quot;SD6&quot;, &quot;sd6l&quot;)</span>
+<span class="fc" id="L179">                .addLength(&quot;SD5&quot;, &quot;sd5l&quot;)</span>
+<span class="fc" id="L180">                .addLength(&quot;FRACCT&quot;, &quot;fracctl&quot;)</span>
+<span class="fc" id="L181">                .addLength(&quot;SO1&quot;, &quot;so1l&quot;)</span>
+<span class="fc" id="L182">                .addLength(&quot;ERRMSG&quot;, &quot;errmsgl&quot;)</span>
+<span class="fc" id="L183">                .addLength(&quot;CURTIME&quot;, &quot;curtimel&quot;)</span>
+<span class="fc" id="L184">                .addLength(&quot;SM1&quot;, &quot;sm1l&quot;)</span>
+<span class="fc" id="L185">                .addLength(&quot;SO3&quot;, &quot;so3l&quot;)</span>
+<span class="fc" id="L186">                .addLength(&quot;SO2&quot;, &quot;so2l&quot;)</span>
+<span class="fc" id="L187">                .addLength(&quot;SM3&quot;, &quot;sm3l&quot;)</span>
+<span class="fc" id="L188">                .addLength(&quot;SO5&quot;, &quot;so5l&quot;)</span>
+<span class="fc" id="L189">                .addLength(&quot;SM2&quot;, &quot;sm2l&quot;)</span>
+<span class="fc" id="L190">                .addLength(&quot;SO4&quot;, &quot;so4l&quot;)</span>
+<span class="fc" id="L191">                .addLength(&quot;SM5&quot;, &quot;sm5l&quot;)</span>
+<span class="fc" id="L192">                .addLength(&quot;SM4&quot;, &quot;sm4l&quot;)</span>
+<span class="fc" id="L193">                .addLength(&quot;SO6&quot;, &quot;so6l&quot;)</span>
+<span class="fc" id="L194">                .addLength(&quot;SM6&quot;, &quot;sm6l&quot;)</span>
+<span class="fc" id="L195">                .addLength(&quot;SC1&quot;, &quot;sc1l&quot;)</span>
+<span class="fc" id="L196">                .addLength(&quot;SA1&quot;, &quot;sa1l&quot;)</span>
+<span class="fc" id="L197">                .addLength(&quot;SC3&quot;, &quot;sc3l&quot;)</span>
+<span class="fc" id="L198">                .addLength(&quot;SC2&quot;, &quot;sc2l&quot;)</span>
+<span class="fc" id="L199">                .addLength(&quot;SA3&quot;, &quot;sa3l&quot;)</span>
+<span class="fc" id="L200">                .addLength(&quot;SC5&quot;, &quot;sc5l&quot;)</span>
+<span class="fc" id="L201">                .addLength(&quot;SA2&quot;, &quot;sa2l&quot;)</span>
+<span class="fc" id="L202">                .addLength(&quot;SC4&quot;, &quot;sc4l&quot;)</span>
+<span class="fc" id="L203">                .addLength(&quot;SA5&quot;, &quot;sa5l&quot;)</span>
+<span class="fc" id="L204">                .addLength(&quot;SA4&quot;, &quot;sa4l&quot;)</span>
+<span class="fc" id="L205">                .addLength(&quot;SC6&quot;, &quot;sc6l&quot;)</span>
+<span class="fc" id="L206">                .addLength(&quot;SA6&quot;, &quot;sa6l&quot;)</span>
+<span class="fc" id="L207">                .addLength(&quot;TRNNAME&quot;, &quot;trnnamel&quot;)</span>
+<span class="fc" id="L208">                .addLength(&quot;SL2&quot;, &quot;sl2l&quot;)</span>
+<span class="fc" id="L209">                .addLength(&quot;SL1&quot;, &quot;sl1l&quot;)</span>
+<span class="fc" id="L210">                .addLength(&quot;TITLE&quot;, &quot;titlel&quot;)</span>
+<span class="fc" id="L211">                .addLength(&quot;SL4&quot;, &quot;sl4l&quot;)</span>
+<span class="fc" id="L212">                .addLength(&quot;SL3&quot;, &quot;sl3l&quot;)</span>
+<span class="fc" id="L213">                .addLength(&quot;SL6&quot;, &quot;sl6l&quot;)</span>
+<span class="fc" id="L214">                .addLength(&quot;PGMNAME&quot;, &quot;pgmnamel&quot;)</span>
+<span class="fc" id="L215">                .addLength(&quot;SL5&quot;, &quot;sl5l&quot;)</span>
+<span class="fc" id="L216">                .addLength(&quot;CURDATE&quot;, &quot;curdatel&quot;)</span>
+<span class="fc" id="L217">                .build();</span>
+        }
+<span class="nc" id="L219">        return FieldMapping.empty();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

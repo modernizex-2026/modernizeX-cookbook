@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OdcustvDaoImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ODCUSTV Program Module</a> &gt; <a href="index.source.html" class="el_package">com.generated.orion.odcustv.dao.impl</a> &gt; <span class="el_source">OdcustvDaoImpl.java</span></div><h1>OdcustvDaoImpl.java</h1><pre class="source lang-java linenums">package com.generated.orion.odcustv.dao.impl;
+
+import com.generated.orion.odcustv.dao.OdcustvDao;
+import com.generated.orion.odcustv.support.SqlStatements;
+import java.lang.Object;
+import java.lang.Override;
+import java.lang.String;
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+/**
+ * JdbcTemplate implementation for ODCUSTV DAO.
+ * ← EXEC SQL — uses JdbcTemplate with SqlStatements constants.
+ */
+@Repository
+<span class="nc" id="L20">public class OdcustvDaoImpl implements OdcustvDao {</span>
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    /**
+     * ← SQL_001: SELECT CU_FIRST_NAME, CU_MIDDLE_NAME, CU_LAST_NAME, CU_ADDR_LINE_1, CU_ADDR_CITY...
+     */
+    @Override
+    public Map&lt;String, Object&gt; selectOrionCust(Object... params) {
+        try {
+<span class="nc" id="L30">            return jdbcTemplate.queryForMap(SqlStatements.SQL_001, params);</span>
+<span class="nc" id="L31">        } catch (EmptyResultDataAccessException ex) {</span>
+<span class="nc" id="L32">            Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L33">            result.put(&quot;SQLCODE&quot;, 100);</span>
+<span class="nc" id="L34">            return result;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

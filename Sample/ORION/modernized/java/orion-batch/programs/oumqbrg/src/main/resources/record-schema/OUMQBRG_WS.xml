@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data layout.
+  Layout name : OUMQBRG_WS
+-->
+<dataLayout name="OUMQBRG_WS" scope="workingStorage" charset="MS932">
+  <group name="WS-SYS" offset="0" size="12">
+    <field name="COMPLETION-CODE" offset="0" size="4" javaType="int"/>
+    <field name="WS-MQ-OP" offset="4" size="8" javaType="String" value="SPACES"/>
+  </group>
+  <group name="WS-CONSTANTS" offset="0" size="104">
+    <field name="WS-PROGRAM-ID" offset="0" size="8" javaType="String" value="OUMQBRG"/>
+    <field name="WS-QMGR-NAME" offset="8" size="48" javaType="String" value="ORIONQM1"/>
+    <field name="WS-OUT-QUEUE" offset="56" size="48" javaType="String" value="ORION.TRAN.OUTBOUND.QUEUE"/>
+  </group>
+  <group name="WS-FILE-STATUS" offset="0" size="2">
+    <field name="WS-TRAN-FS" offset="0" size="2" javaType="String" value="00"/>
+  </group>
+  <group name="WS-FLAGS" offset="0" size="5">
+    <field name="WS-EOF-FLG" offset="0" size="1" javaType="String" value="N"/>
+    <field name="WS-TRAN-OPEN-FLG" offset="1" size="1" javaType="String" value="N"/>
+    <field name="WS-MQ-DOWN-FLG" offset="2" size="1" javaType="String" value="N"/>
+    <field name="WS-MQ-CONN-FLG" offset="3" size="1" javaType="String" value="N"/>
+    <field name="WS-MQ-OPEN-FLG" offset="4" size="1" javaType="String" value="N"/>
+  </group>
+  <group name="WS-COUNTERS" offset="0" size="36">
+    <field name="WS-READ-CNT" offset="0" size="9" javaType="int" value="ZEROS"/>
+    <field name="WS-PUT-CNT" offset="9" size="9" javaType="int" value="ZEROS"/>
+    <field name="WS-PUTERR-CNT" offset="18" size="9" javaType="int" value="ZEROS"/>
+    <field name="WS-SKIP-CNT" offset="27" size="9" javaType="int" value="ZEROS"/>
+  </group>
+  <group name="WS-OUT-MSG" offset="0" size="362">
+    <field name="OM-REC-TYPE" offset="0" size="4" javaType="String" value="TRAN"/>
+    <field name="OM-SRC-SYSTEM" offset="4" size="8" javaType="String" value="ORION   "/>
+    <field name="OM-TRAN-DATA" offset="12" size="350" javaType="String" value="SPACES"/>
+  </group>
+  <group name="MQ-HANDLES">
+    <field name="MQ-HCONN" size="9" javaType="int" signed="true" value="ZERO" usage="BINARY"/>
+    <field name="MQ-HOBJ-REQ" size="9" javaType="int" signed="true" value="ZERO" usage="BINARY"/>
+    <field name="MQ-HOBJ-RPY" size="9" javaType="int" signed="true" value="ZERO" usage="BINARY"/>
+    <field name="MQ-HOBJ-OUT" size="9" javaType="int" signed="true" value="ZERO" usage="BINARY"/>
+  </group>
+  <group name="MQ-CALL-ARGS">
+    <field name="MQ-OPEN-OPTIONS" size="9" javaType="int" signed="true" value="ZERO" usage="BINARY"/>
+    <field name="MQ-CLOSE-OPTIONS" size="9" javaType="int" signed="true" value="ZERO" usage="BINARY"/>
+    <field name="MQ-BUFFER-LEN" size="9" javaType="int" signed="true" value="ZERO" usage="BINARY"/>
+    <field name="MQ-DATA-LEN" size="9" javaType="int" signed="true" value="ZERO" usage="BINARY"/>
+  </group>
+  <group name="MQ-RESULT">
+    <field name="MQ-CC" size="9" javaType="int" signed="true" value="ZERO" usage="BINARY"/>
+    <field name="MQ-RC" size="9" javaType="int" signed="true" value="ZERO" usage="BINARY"/>
+  </group>
+  <group name="MQ-OD">
+    <field name="MQ-OD-STRUC-ID" size="4" javaType="String" value="ODOR"/>
+    <field name="MQ-OD-VERSION" size="9" javaType="int" signed="true" value="1" usage="BINARY"/>
+    <field name="MQ-OD-OBJECT-TYPE" size="9" javaType="int" signed="true" value="1" usage="BINARY"/>
+    <field name="MQ-OD-OBJECT-NAME" size="48" javaType="String" value="SPACES"/>
+    <field name="MQ-OD-OBJECT-QMGR" size="48" javaType="String" value="SPACES"/>
+    <field name="MQ-OD-DYNAMIC-NAME" size="48" javaType="String" value="SPACES"/>
+    <field name="MQ-OD-RESOLVED-NAME" size="48" javaType="String" value="SPACES"/>
+  </group>
+  <group name="MQ-MD">
+    <field name="MQ-MD-STRUC-ID" size="4" javaType="String" value="MDOR"/>
+    <field name="MQ-MD-VERSION" size="9" javaType="int" signed="true" value="1" usage="BINARY"/>
+    <field name="MQ-MD-REPORT" size="9" javaType="int" signed="true" value="0" usage="BINARY"/>
+    <field name="MQ-MD-MSG-TYPE" size="9" javaType="int" signed="true" value="8" usage="BINARY"/>
+    <field name="MQ-MD-EXPIRY" size="9" javaType="int" signed="true" value="-1" usage="BINARY"/>
+    <field name="MQ-MD-FEEDBACK" size="9" javaType="int" signed="true" value="0" usage="BINARY"/>
+    <field name="MQ-MD-ENCODING" size="9" javaType="int" signed="true" value="546" usage="BINARY"/>
+    <field name="MQ-MD-CCSID" size="9" javaType="int" signed="true" value="500" usage="BINARY"/>
+    <field name="MQ-MD-FORMAT" size="8" javaType="String" value="SPACES"/>
+    <field name="MQ-MD-PRIORITY" size="9" javaType="int" signed="true" value="-1" usage="BINARY"/>
+    <field name="MQ-MD-PERSISTENCE" size="9" javaType="int" signed="true" value="2" usage="BINARY"/>
+    <field name="MQ-MD-MSG-ID" size="24" javaType="String" value="LOW-VALUES"/>
+    <field name="MQ-MD-CORREL-ID" size="24" javaType="String" value="LOW-VALUES"/>
+    <field name="MQ-MD-REPLY-Q" size="48" javaType="String" value="SPACES"/>
+    <field name="MQ-MD-REPLY-QMGR" size="48" javaType="String" value="SPACES"/>
+    <field name="MQ-MD-PUT-DATE" size="8" javaType="String" value="SPACES"/>
+    <field name="MQ-MD-PUT-TIME" size="8" javaType="String" value="SPACES"/>
+  </group>
+  <group name="MQ-PMO">
+    <field name="MQ-PMO-STRUC-ID" size="4" javaType="String" value="PMOR"/>
+    <field name="MQ-PMO-VERSION" size="9" javaType="int" signed="true" value="1" usage="BINARY"/>
+    <field name="MQ-PMO-OPTIONS" size="9" javaType="int" signed="true" value="0" usage="BINARY"/>
+    <field name="MQ-PMO-TIMEOUT" size="9" javaType="int" signed="true" value="-1" usage="BINARY"/>
+    <field name="MQ-PMO-CONTEXT" size="9" javaType="int" signed="true" value="0" usage="BINARY"/>
+    <field name="MQ-PMO-RESOLVED-Q" size="48" javaType="String" value="SPACES"/>
+    <field name="MQ-PMO-RESLV-QMGR" size="48" javaType="String" value="SPACES"/>
+  </group>
+  <group name="MQ-GMO">
+    <field name="MQ-GMO-STRUC-ID" size="4" javaType="String" value="GMOR"/>
+    <field name="MQ-GMO-VERSION" size="9" javaType="int" signed="true" value="1" usage="BINARY"/>
+    <field name="MQ-GMO-OPTIONS" size="9" javaType="int" signed="true" value="0" usage="BINARY"/>
+    <field name="MQ-GMO-WAIT-INTVL" size="9" javaType="int" signed="true" value="5000" usage="BINARY"/>
+    <field name="MQ-GMO-SIGNAL" size="9" javaType="int" signed="true" value="0" usage="BINARY"/>
+    <field name="MQ-GMO-RESOLVED-Q" size="48" javaType="String" value="SPACES"/>
+  </group>
+  <group name="MQ-CONSTANTS">
+    <field name="MQ-HC-DEF-HCONN" size="9" javaType="int" signed="true" value="0" usage="BINARY"/>
+    <field name="MQ-OO-OUTPUT" size="9" javaType="int" signed="true" value="16" usage="BINARY"/>
+    <field name="MQ-OO-INPUT-SHARED" size="9" javaType="int" signed="true" value="2" usage="BINARY"/>
+    <field name="MQ-OO-INPUT-EXCL" size="9" javaType="int" signed="true" value="1" usage="BINARY"/>
+    <field name="MQ-OO-FAIL-IF-QSG" size="9" javaType="int" signed="true" value="8192" usage="BINARY"/>
+    <field name="MQ-CO-NONE" size="9" javaType="int" signed="true" value="0" usage="BINARY"/>
+    <field name="MQ-PM-NO-SYNCPOINT" size="9" javaType="int" signed="true" value="4" usage="BINARY"/>
+    <field name="MQ-PM-SYNCPOINT" size="9" javaType="int" signed="true" value="2" usage="BINARY"/>
+    <field name="MQ-PM-NEW-MSG-ID" size="9" javaType="int" signed="true" value="64" usage="BINARY"/>
+    <field name="MQ-GM-NO-SYNCPOINT" size="9" javaType="int" signed="true" value="4" usage="BINARY"/>
+    <field name="MQ-GM-WAIT" size="9" javaType="int" signed="true" value="1" usage="BINARY"/>
+    <field name="MQ-GM-ACCEPT-TRUNC" size="9" javaType="int" signed="true" value="64" usage="BINARY"/>
+    <field name="MQ-CL-NONE" size="9" javaType="int" signed="true" value="0" usage="BINARY"/>
+    <field name="MQ-MT-REQUEST" size="9" javaType="int" signed="true" value="1" usage="BINARY"/>
+    <field name="MQ-MT-REPLY" size="9" javaType="int" signed="true" value="2" usage="BINARY"/>
+    <field name="MQ-MT-DATAGRAM" size="9" javaType="int" signed="true" value="8" usage="BINARY"/>
+  </group>
+</dataLayout>

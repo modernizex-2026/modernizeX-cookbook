@@ -1,0 +1,74 @@
+// Auto-generated from BMS mapset MTRNIN (program OCTRNIN). Do not edit.
+// Field-name → value contract for the SPA. Values are display strings.
+
+export interface MTRNINAFields {
+  TRNNAME: string;
+  TITLE: string;
+  CURDATE: string;
+  PGMNAME: string;
+  CURTIME: string;
+  TMODE: string;
+  FCARD: string;
+  FMERCH: string;
+  FRDATE: string;
+  FTDATE: string;
+  FTYPE: string;
+  FCAT: string;
+  FAMT: string;
+  TID1: string;
+  TCD1: string;
+  TTC1: string;
+  TDS1: string;
+  TMC1: string;
+  TAM1: string;
+  TDT1: string;
+  TID2: string;
+  TCD2: string;
+  TTC2: string;
+  TDS2: string;
+  TMC2: string;
+  TAM2: string;
+  TDT2: string;
+  TID3: string;
+  TCD3: string;
+  TTC3: string;
+  TDS3: string;
+  TMC3: string;
+  TAM3: string;
+  TDT3: string;
+  TID4: string;
+  TCD4: string;
+  TTC4: string;
+  TDS4: string;
+  TMC4: string;
+  TAM4: string;
+  TDT4: string;
+  TID5: string;
+  TCD5: string;
+  TTC5: string;
+  TDS5: string;
+  TMC5: string;
+  TAM5: string;
+  TDT5: string;
+  TID6: string;
+  TCD6: string;
+  TTC6: string;
+  TDS6: string;
+  TMC6: string;
+  TAM6: string;
+  TDT6: string;
+  MCNT: string;
+  MTOT: string;
+  PCNT: string;
+  PSUM: string;
+  YCNT: string;
+  YSUM: string;
+  FCNT: string;
+  FSUM: string;
+  ICNT: string;
+  ISUM: string;
+  XID: string;
+  XAMT: string;
+  ERRMSG: string;
+}
+
